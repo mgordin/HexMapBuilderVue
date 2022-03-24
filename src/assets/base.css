@@ -91,9 +91,12 @@ body{
 
 /* Consolidated pointy-top and flat-top image hex stuff */
 .image-row{
-  display: flex; /*step 1: changed from inline-flex to flex - now long rows are screwy instead but short rows stack correctly */
-  /* overflow: hidden; */ /* step 3: scrolly scroll scroll*/
-  transform: translateY(50%);
+  display: block;
+  top: 60px;
+}
+
+.flat-row {
+  margin-top: -5.25px;
 }
 
 .pointy-row{
@@ -101,13 +104,8 @@ body{
   margin-top: -26px;
 }
 
-.flat-row{
-  margin-left: 50px;
-  margin-top: -48px;
-}
-
 .flat-row:nth-child(even){
-  margin-left: -32.5px;
+  margin-left: 82.5px;
 }
 .pointy-row:nth-child(even){
   margin-left: 1px;
@@ -117,6 +115,8 @@ body{
 .image-hex{
   flex-shrink: 0; /* step 2: now the hexagons won't shrink but the horizontal scroll bar doesn't activate */
   position: relative;
+  overflow: hidden;
+  display: inline-block;
 }
 
 .pointy-hex{
@@ -128,13 +128,18 @@ body{
 .flat-hex{
   height: 96px;
   width: 110px;
-  /*margin-left: 55px;*/
+  clip-path: polygon(0 50%, 25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%);
+  overflow: hidden;
+  display: inline-block;
+  margin-left: 56px;
+  margin-top: -47px;
 }
 
 .hex-terrain{
   position: absolute;
   left: 0px;
   top: 0px;
+  overflow: hidden;
 }
 
 .hex-overlay {

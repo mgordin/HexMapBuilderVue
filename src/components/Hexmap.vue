@@ -9,7 +9,7 @@
 <template>
     <div class="container">
         <div class="image-row flat-row" v-for="row in hs.hexes">
-            <div class="image-hex flat-hex" v-for="hex in row" v-bind:style="{left: hex.column*55 + 'px'}" :key="hex.id">
+            <div class="image-hex flat-hex" v-for="hex in row" :key="hex.id" >
                 <img class="hex-terrain" v-bind="{ src: es.terrainToImage[hex.terrain].file }" @click="es.selectHex(hex)">
                 <div class="hex-overlay"></div>
                 <svg class="hex-border" viewbox="-4 0 110 96" v-bind:class="{'is-hidden': es.activeHexID != hex.id}">
