@@ -13,5 +13,6 @@
         "Lake": { "file": "./terrain_tiles/flat/10-greenlands_lake.png", "selected": false },
         "Village": { "file": "./terrain_tiles/flat/11-greenlands_village.png", "selected": false },
         "City": { "file": "./terrain_tiles/flat/12-greenlands_city.png", "selected": false }
-    }
+    },
+    "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"}
 }

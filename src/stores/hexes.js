@@ -18,8 +18,7 @@ export const useHexesStore = defineStore({
         terrain: "Default",
         icons: null,
         selected: false
-    },
-    testVal: 'asjfklasd'
+    }
   }),
   getters: {
     countRows: (state) => state.hexes.length,
@@ -117,6 +116,7 @@ export const useHexesStore = defineStore({
         this.hexes[hexToRemove.row - 1].splice(hexToRemove.column - 1)
     },
     setHexTerrain(hexID, terrain) {
+        console.log(hexID, terrain)
         const hex = this.activeHex
         hex(hexID).terrain = terrain;
     },

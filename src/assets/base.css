@@ -91,7 +91,7 @@ body{
 
 /* Consolidated pointy-top and flat-top image hex stuff */
 .image-row{
-  display: block;
+  display: flex;/* block;*/
   top: 60px;
 }
 
@@ -110,7 +110,6 @@ body{
 .pointy-row:nth-child(even){
   margin-left: 1px;
 }
-
 
 .image-hex{
   flex-shrink: 0; /* step 2: now the hexagons won't shrink but the horizontal scroll bar doesn't activate */
@@ -132,7 +131,7 @@ body{
   overflow: hidden;
   display: inline-block;
   margin-left: 57.5px;
-  margin-top: -47px;
+  margin-top: -42px; /*-47px;*/
 }
 
 .hex-terrain{

@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       editor: null,
+      editable: true
     }
   },
 
@@ -38,6 +39,9 @@ export default {
 
       this.editor.commands.setContent(value, false)
     },
+    editable() {
+      this.editor.setEditable(this.editable)
+    }
   },
 
   mounted() {
@@ -45,6 +49,7 @@ export default {
       extensions: [
         StarterKit,
       ],
+      editable: this.editable,
       content: this.modelValue,
       onUpdate: () => {
         // HTML

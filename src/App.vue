@@ -5,6 +5,9 @@ import { useHexesStore } from '@/stores/hexes'
 import Sidebar from '@/components/Sidebar.vue'
 import Hexmap from '@/components/Hexmap.vue'
 
+const es = useEditorStore();
+const hs = useHexesStore()
+
 </script>
 
 <template>
