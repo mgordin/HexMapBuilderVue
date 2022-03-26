@@ -12,7 +12,8 @@ export const useHexesStore = defineStore({
             column: 1,
             terrain: 'Default',
             icons: null,
-            content: "Fill in the contents of the hex..."
+            content: "Fill in the contents of the hex...",
+            tags: []
         }]
     ],
     defaultHexProperties: {

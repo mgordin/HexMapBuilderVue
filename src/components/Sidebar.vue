@@ -34,7 +34,7 @@ const activeHex = hs.activeHex;
             </header>
             <div class="card-content">
                 <Multiselect
-                    v-model="hs.selectedSampleLocations"
+                    v-model="activeHex(es.activeHexes[0]).tags"
                     mode="tags"
                     :close-on-select="false"
                     :searchable="true"
