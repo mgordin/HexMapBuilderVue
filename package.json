@@ -7,9 +7,12 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
+    "@tiptap/extension-mention": "^2.0.0-beta.95",
     "@tiptap/starter-kit": "^2.0.0-beta.183",
     "@tiptap/vue-3": "^2.0.0-beta.90",
+    "@vueform/multiselect": "^2.3.3",
     "pinia": "^2.0.11",
+    "tippy.js": "^6.3.7",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"
   },

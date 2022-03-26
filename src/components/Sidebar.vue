@@ -2,6 +2,7 @@
 import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
 import TextEditor from "@/components/TextEditor.vue";
+import Multiselect from '@vueform/multiselect'
 
 const es = useEditorStore();
 const hs = useHexesStore();
@@ -16,6 +17,7 @@ const activeHex = hs.activeHex;
     Set up 8x8 blank hexes
   </button>
   <button class="button" @click="es.deselectAllHexes">Deselect all</button>
+  <button class="button" @click="hs.test1">Test1</button>
   <div class="card">
     <header class="card-header">
       <div class="media-left">
@@ -26,6 +28,22 @@ const activeHex = hs.activeHex;
       <p class="modal-card-title">{{ es.title }}</p>
     </header>
     <div class="card-content">
+        <div class="card" v-if="es.selectedHexCount==1">
+            <header class="card-header has-background-primary">
+                <p class="card-header-title">Hex Tags</p>
+            </header>
+            <div class="card-content">
+                <Multiselect
+                    v-model="hs.selectedSampleLocationss"
+                    mode="tags"
+                    :close-on-select="false"
+                    :searchable="true"
+                    :create-option="false"
+                    placeholder="Select location tags..."
+                    :options="hs.sampleLocations"
+                    />
+            </div>
+        </div>
       <div class="card" v-if="es.selectedHexCount==1">
         <header class="card-header has-background-primary">
           <p class="card-header-title">Hex Details</p>
@@ -61,3 +79,5 @@ const activeHex = hs.activeHex;
     </div>
   </div>
 </template>
+
+<style src="@vueform/multiselect/themes/default.css"></style>

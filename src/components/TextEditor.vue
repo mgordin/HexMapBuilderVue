@@ -5,6 +5,8 @@
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import Mention from '@tiptap/extension-mention'
+import suggestion from '@/suggestion'
 
 export default {
   components: {
@@ -21,7 +23,6 @@ export default {
   data() {
     return {
       editor: null,
-      editable: true
     }
   },
 
@@ -38,9 +39,6 @@ export default {
       }
 
       this.editor.commands.setContent(value, false)
-    },
-    editable() {
-      this.editor.setEditable(this.editable)
     }
   },
 
@@ -48,8 +46,13 @@ export default {
     this.editor = new Editor({
       extensions: [
         StarterKit,
+        Mention.configure({
+          HTMLAttributes: {
+            class: 'mention',
+          },
+          suggestion
+        }),
       ],
-      editable: this.editable,
       content: this.modelValue,
       onUpdate: () => {
         // HTML
@@ -66,3 +69,12 @@ export default {
   },
 }
 </script>
+
+<style>
+.mention {
+  border: 1px solid #000;
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.3rem;
+  box-decoration-break: clone;
+}
+</style>

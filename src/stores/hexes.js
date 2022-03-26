@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useEditorStore } from '@/stores/editor'
+import { useMentionsStore } from '@/stores/mentions'
 
 export const useHexesStore = defineStore({
   id: 'hexes',
@@ -11,14 +12,16 @@ export const useHexesStore = defineStore({
             column: 1,
             terrain: 'Default',
             icons: null,
-            content: null
+            content: "Fill in the contents of the hex..."
         }]
     ],
     defaultHexProperties: {
         terrain: "Default",
         icons: null,
         selected: false
-    }
+    },
+    sampleLocations: ['Ruin','Town','Village'],
+    selectedSampleLocations: []
   }),
   getters: {
     countRows: (state) => state.hexes.length,
@@ -60,7 +63,7 @@ export const useHexesStore = defineStore({
             column: column,
             terrain: hexProperties["terrain"],
             icons: hexProperties["icons"],
-            content: null,
+            content: "Fill in the contents of the hex...",
             selected: false
         };
     
@@ -127,6 +130,10 @@ export const useHexesStore = defineStore({
                 hex.hexID = row.toString().concat("-", column.toString());
             })
         })
+    },
+    test1() {
+        const ms = useMentionsStore()
+        console.log(ms.people)
     }
   }
 })
