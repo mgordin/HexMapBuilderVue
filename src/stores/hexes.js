@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useEditorStore } from '@/stores/editor'
-import { useMentionsStore } from '@/stores/mentions'
+import { useMentionStore } from '@/stores/mentions'
 
 export const useHexesStore = defineStore({
   id: 'hexes',
@@ -133,7 +133,7 @@ export const useHexesStore = defineStore({
         })
     },
     test1() {
-        const ms = useMentionsStore()
+        const ms = useMentionStore()
         console.log(ms.people)
     }
   }

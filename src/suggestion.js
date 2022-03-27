@@ -1,6 +1,7 @@
 import { VueRenderer } from '@tiptap/vue-3'
 import tippy from 'tippy.js'
 import MentionList from '@/components/MentionList.vue'
+import { useMentionStore } from "@/stores/mentions";
 
 const peopleTest = [
     'Lea Thompson', 'Cyndi Lauper', 'Tom Cruise', 'Madonna', 'Jerry Hall', 'Joan Collins', 'Winona Ryder', 'Christina Applegate', 'Alyssa Milano', 'Molly Ringwald', 'Ally Sheedy', 'Debbie Harry', 'Olivia Newton-John', 'Elton John', 'Michael J. Fox', 'Axl Rose', 'Emilio Estevez', 'Ralph Macchio', 'Rob Lowe', 'Jennifer Grey', 'Mickey Rourke', 'John Cusack', 'Matthew Broderick', 'Justine Bateman', 'Lisa Bonet',
@@ -8,7 +9,7 @@ const peopleTest = [
 
 export default {
   items: ({ query }) => {
-    return peopleTest.filter(item => item.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
+    return ms.people.filter(item => item.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
   },
 
   render: () => {

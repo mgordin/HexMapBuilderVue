@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const useMentionsStore = defineStore({
+export const useMentionStore = defineStore({
   id: 'mentions',
   state: () => ({
     people: ['Elder', 'King', 'Juggler'],
