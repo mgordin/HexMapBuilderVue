@@ -7,6 +7,7 @@ export const useHexesStore = defineStore({
   state: () => ({
     hexes: [
         [{
+            uuid: 1,
             id: "1-1",
             row: 1,
             column: 1,
@@ -22,7 +23,8 @@ export const useHexesStore = defineStore({
         selected: false
     },
     sampleLocations: ['Ruin','Town','Village'],
-    selectedSampleLocations: []
+    selectedSampleLocations: [],
+    uuid: 1
   }),
   getters: {
     countRows: (state) => state.hexes.length,
@@ -37,6 +39,9 @@ export const useHexesStore = defineStore({
     },
     activeHex: (state) => {
         return (hexID) => state.hexes.flat().find(element => element.id == hexID);
+    },
+    hexByUUID: (state) => {
+        return (uuid) => state.hexes.flat().find(element => element.uuid == uuid);
     }
   },
   actions: {
@@ -59,12 +64,13 @@ export const useHexesStore = defineStore({
         const hexID = row.toString().concat("-", column.toString());
     
         var hex = {
+            uuid: this.setUUID(),
             id: hexID,
             row: row,
             column: column,
             terrain: hexProperties["terrain"],
             icons: hexProperties["icons"],
-            content: "Fill in the contents of the hex...",
+            content: '<p>Fill in the contents of the hex...</p>',
             selected: false
         };
     
@@ -132,9 +138,15 @@ export const useHexesStore = defineStore({
             })
         })
     },
-    test1() {
-        const ms = useMentionStore()
-        console.log(ms.people)
+    setUUID() {
+        this.uuid++;
+        return this.uuid;
+    },
+    logHexes() {
+        console.log(this.hexes)
+    },
+    changeHex11Name() {
+        this.hexes[0][0].id = "new ID"
     }
   }
 })

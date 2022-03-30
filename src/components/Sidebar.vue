@@ -17,7 +17,8 @@ const activeHex = hs.activeHex;
     Set up 8x8 blank hexes
   </button>
   <button class="button" @click="es.deselectAllHexes">Deselect all</button>
-  <button class="button" @click="hs.test1">Test1</button>
+  <button class="button" @click="hs.logHexes">Useful console log button</button>
+  <button class="button" @click="hs.changeHex11Name">Change hex 1-1 id</button>
   <div class="card">
     <header class="card-header">
       <div class="media-left">
