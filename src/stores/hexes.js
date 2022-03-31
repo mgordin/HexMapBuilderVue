@@ -13,7 +13,20 @@ export const useHexesStore = defineStore({
             column: 1,
             terrain: 'Default',
             icons: null,
-            content: "Fill in the contents of the hex...",
+            content: {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Fill in the contents of the hex..."
+                            }
+                        ]
+                    }
+                ]
+            },
             tags: []
         }]
     ],
@@ -28,7 +41,7 @@ export const useHexesStore = defineStore({
   }),
   getters: {
     countRows: (state) => state.hexes.length,
-    countColumns(state) {
+    countColumns: (state) => {
         var maxLength = 0;
         state.hexes.forEach((element) => {
             if (element.length > maxLength) {
@@ -58,6 +71,7 @@ export const useHexesStore = defineStore({
         if (position == 'left') {
             column = 1;
         } else if (position == 'right') {
+            console.log(position, row, this.hexes)
             column = this.hexes[row - 1].length + 1;
         }
     
@@ -70,7 +84,20 @@ export const useHexesStore = defineStore({
             column: column,
             terrain: hexProperties["terrain"],
             icons: hexProperties["icons"],
-            content: '<p>Fill in the contents of the hex...</p>',
+            content: {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Fill in the contents of the hex..."
+                            }
+                        ]
+                    }
+                ]
+            },
             selected: false
         };
     
@@ -105,6 +132,19 @@ export const useHexesStore = defineStore({
             this.shiftHexIDs('rowIncrease')
         }
     },
+    addColumn(position, defaultHexProperties) {
+        if (position == 'right') {
+            this.hexes.forEach((element, index) => {
+                console.log(index, 'right', defaultHexProperties, this.hexes)
+                this.addHex(index+1,'right', defaultHexProperties)
+            })
+        } else {
+            this.hexes.forEach((element, index) => {
+                console.log(index, 'left', defaultHexProperties, this.hexes)
+                this.addHex(index+1,'left', defaultHexProperties)
+            })
+        }
+    },
     fillRow(row, columns, defaultHexProperties) {
         const newHexes = columns - this.hexes[row - 1].length
         for (let i = 0; i < columns - 1; i++) {
@@ -128,7 +168,11 @@ export const useHexesStore = defineStore({
     setHexTerrain(hexID, terrain) {
         console.log(hexID, terrain)
         const hex = this.activeHex
-        hex(hexID).terrain = terrain;
+        const thisHex = hex(hexID);
+        thisHex.terrain = terrain;
+        if (terrain != 'Default') {
+            this.maintainEmptyMapEdge(thisHex.row, thisHex.column)
+        }
     },
     setHexIcon(hexID, icon) {},
     shiftHexIDs() {
@@ -147,6 +191,20 @@ export const useHexesStore = defineStore({
     },
     changeHex11Name() {
         this.hexes[0][0].id = "new ID"
+    },
+    maintainEmptyMapEdge(row, column) {
+        if (row == this.countRows) {
+            this.addRow('bottom', this.countColumns, this.defaultHexProperties)
+        }
+        if (row == 0) {
+            this.addRow('top', this.countColumns, this.defaultHexProperties)
+        }
+        if (column == this.countColumns) {
+            this.addColumn('right', this.defaultHexProperties)
+        }
+        if (column == 0) {
+            this.addColumn('left', this.defaultHexProperties)
+        }
     }
   }
 })

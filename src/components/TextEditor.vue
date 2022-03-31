@@ -23,7 +23,7 @@ const hexByUUID = hs.hexByUUID;
 
 const props = defineProps({
   modelValue: {
-      type: String,
+      type: Object, // String for HTML 
       default: '',
     }
 })
@@ -99,10 +99,10 @@ const editor = new Editor({
       content: props.modelValue,
       onUpdate: () => {
         // HTML
-        emits('update:modelValue', editor.getHTML())
+        // emits('update:modelValue', editor.getHTML())
 
         // JSON
-        // this.$emit('update:modelValue', this.editor.getJSON())
+        emits('update:modelValue', editor.getJSON())
       },
     })
 
@@ -112,10 +112,10 @@ onBeforeUnmount(() => {
 
 watch(() => props.modelValue, (currentValue, oldValue) => {
   // HTML
-  const isSame = editor.getHTML() === currentValue
+  // const isSame = editor.getHTML() === currentValue
 
   // JSON
-  // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
+  const isSame = JSON.stringify(editor.getJSON()) === JSON.stringify(currentValue)
 
   if (isSame) {
     return
