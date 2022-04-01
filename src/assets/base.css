@@ -71,22 +71,37 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 body{
   background: rgb(243, 237, 237);
   min-height: 100vh;
 }
-.container{
+
+.scroll-column {
+  overflow: hidden;
+  height: 100%;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-column::-webkit-scrollbar {
+  display: none;
+}
+
+
+.hex-container{
   position: relative;
   overflow: scroll;
-  height: 100vh;
+  height: 100%;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 /* Consolidated pointy-top and flat-top image hex stuff */
@@ -104,9 +119,6 @@ body{
   margin-top: -26px;
 }
 
-.flat-row:nth-child(even){
-  margin-left: 83.5px;
-}
 .pointy-row:nth-child(even){
   margin-left: 1px;
 }

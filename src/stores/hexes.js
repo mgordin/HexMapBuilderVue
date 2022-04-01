@@ -37,10 +37,29 @@ export const useHexesStore = defineStore({
     },
     sampleLocations: ['Ruin','Town','Village'],
     selectedSampleLocations: [],
-    uuid: 1
+    uuid: 1,
+    columnsAddedRight: 0,
+    columnsAddedLeft: 0,
+    rowsAddedTop: 0,
+    rowsAddedBottom: 0,
+    nthChildShift: 83.5
   }),
   getters: {
     countRows: (state) => state.hexes.length,
+    allRowsEqual: (state) => {
+        var shortestRow = state.hexes[0].length;
+        var longestRow = state.hexes[0].length;
+        state.hexes.forEach((rowOfHexes) => {
+            if (rowOfHexes.length < shortestRow) {
+                console.log('shortest row', rowOfHexes.length, rowOfHexes)
+                shortestRow = rowOfHexes.length;
+            } else if (rowOfHexes.length > longestRow) {
+                console.log('longest row', rowOfHexes.length, rowOfHexes)
+                longestRow = rowOfHexes.length;
+            }
+        })
+        return shortestRow == longestRow
+    },
     countColumns: (state) => {
         var maxLength = 0;
         state.hexes.forEach((element) => {
@@ -55,6 +74,9 @@ export const useHexesStore = defineStore({
     },
     hexByUUID: (state) => {
         return (uuid) => state.hexes.flat().find(element => element.uuid == uuid);
+    },
+    getShiftPixels: (state) => {
+        return state.nthChildShift.toString().concat('px');
     }
   },
   actions: {
@@ -71,7 +93,6 @@ export const useHexesStore = defineStore({
         if (position == 'left') {
             column = 1;
         } else if (position == 'right') {
-            console.log(position, row, this.hexes)
             column = this.hexes[row - 1].length + 1;
         }
     
@@ -110,6 +131,9 @@ export const useHexesStore = defineStore({
     makeHexForTesting(row) {
         this.addHex(row, 'right', this.defaultHexProperties);
     },
+    makeHexForTestingLeft(row) {
+        this.addHex(row, 'left', this.defaultHexProperties);
+    },
     addRow(position, columns, defaultHexProperties) {
         if (columns == undefined) {
             columns = this.countColumns;
@@ -119,9 +143,11 @@ export const useHexesStore = defineStore({
         if (position == 'bottom') {
             var row = this.countRows + 1;
             this.hexes.push([]);
+            this.rowsAddedBottom++
         } else {
             var row = 1;
-            this.hexes.upshift([]);
+            this.hexes.unshift([]);
+            this.rowsAddedTop++
         }
     
         for (let i = 0; i < columns; i++) {
@@ -134,15 +160,42 @@ export const useHexesStore = defineStore({
     },
     addColumn(position, defaultHexProperties) {
         if (position == 'right') {
-            this.hexes.forEach((element, index) => {
-                console.log(index, 'right', defaultHexProperties, this.hexes)
-                this.addHex(index+1,'right', defaultHexProperties)
-            })
+            if (this.columnsAddedRight % 2 == 0) {
+                this.hexes.forEach((element, index) => {
+                    if (!(index % 2 == 0)) {
+                        console.log('adding to odd')
+                        this.addHex(index + 1, position, defaultHexProperties)
+                    }
+                })
+            } else {
+                this.hexes.forEach((element, index) => {
+                    if (index % 2 == 0) {
+                        console.log('adding to odd')
+                        this.addHex(index + 1, position, defaultHexProperties)
+                    }
+                })
+            }
+            this.columnsAddedRight++
         } else {
             this.hexes.forEach((element, index) => {
-                console.log(index, 'left', defaultHexProperties, this.hexes)
-                this.addHex(index+1,'left', defaultHexProperties)
+                if (this.nthChildShift > 0) {
+                    if (!(index % 2 == 0)) {
+                        this.addHex(index + 1, position, defaultHexProperties)
+                    }
+                } else {
+                    if (index % 2 == 0) {
+                        this.addHex(index + 1, position, defaultHexProperties)
+                    }
+                }
             })
+            this.nthChildShift = -1 * this.nthChildShift
+        }
+    },
+    oddToNegative(number) {
+        if (number % 2 == 0) {
+            return 1;
+        } else {
+            return -1;
         }
     },
     fillRow(row, columns, defaultHexProperties) {
@@ -156,6 +209,8 @@ export const useHexesStore = defineStore({
         for (let i = 1; i < rows; i++) {
             this.addRow("bottom", columns, defaultHexProperties);
         }
+        this.columnsAddedRight = columns * 2 - 1;
+        this.rowsAddedBottom = rows / 2 - 1;
     },
     initializeMapForTesting() {
         this.initializeHexGrid(16, 4, this.defaultHexProperties);
@@ -165,20 +220,22 @@ export const useHexesStore = defineStore({
         const hexToRemove = hex(hexID);
         this.hexes[hexToRemove.row - 1].splice(hexToRemove.column - 1)
     },
-    setHexTerrain(hexID, terrain) {
-        console.log(hexID, terrain)
-        const hex = this.activeHex
-        const thisHex = hex(hexID);
+    setHexTerrain(hexUUID, terrain) {
+        console.log(hexUUID, terrain)
+        const hex = this.hexByUUID
+        const thisHex = hex(hexUUID);
         thisHex.terrain = terrain;
         if (terrain != 'Default') {
             this.maintainEmptyMapEdge(thisHex.row, thisHex.column)
         }
     },
     setHexIcon(hexID, icon) {},
-    shiftHexIDs() {
-        this.hexes.forEach((rowHexes, row) => {
-            row.forEach((hex, column) => {
-                hex.hexID = row.toString().concat("-", column.toString());
+    shiftHexNumbers() {
+        this.hexes.forEach((rowOfHexes, row) => {
+            rowOfHexes.forEach((hex, column) => {
+                hex.id = (row + 1).toString().concat("-", (column + 1).toString());
+                hex.row = row + 1;
+                hex.column = column + 1;
             })
         })
     },
@@ -193,18 +250,24 @@ export const useHexesStore = defineStore({
         this.hexes[0][0].id = "new ID"
     },
     maintainEmptyMapEdge(row, column) {
-        if (row == this.countRows) {
-            this.addRow('bottom', this.countColumns, this.defaultHexProperties)
+        if (row == 1) {
+            this.addRow('top', this.countColumns, this.defaultHexProperties);
+        } else if (row == this.countRows) {
+            this.addRow('bottom', this.countColumns, this.defaultHexProperties);
         }
-        if (row == 0) {
-            this.addRow('top', this.countColumns, this.defaultHexProperties)
+        if (column == 1) {
+            console.log('adding column left')
+            this.addColumn('left', this.defaultHexProperties);
+        } else if (column == this.countColumns) {
+            console.log('adding column right')
+            this.addColumn('right', this.defaultHexProperties);
         }
-        if (column == this.countColumns) {
-            this.addColumn('right', this.defaultHexProperties)
-        }
-        if (column == 0) {
-            this.addColumn('left', this.defaultHexProperties)
-        }
+        this.shiftHexNumbers();
+    },
+    logTracking() {
+        console.log('rows added bottom', this.rowsAddedBottom, 'rows added top', this.rowsAddedTop, 
+        'columns added right', this.columnsAddedRight, 'columns added left', this.columnsAddedLeft)
+        console.log('shift', this.nthChildShift)
     }
   }
 })

@@ -14,12 +14,12 @@ const hs = useHexesStore()
 <template>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <div class="columns">
-            <div class="column is-one-quarter has-background-white">
-              <Sidebar />
-            </div>
-            <div class="column">
-              <Hexmap />
-            </div>
+      <div class="column is-one-quarter has-background-white">
+        <Sidebar />
+      </div>
+      <div class="column scroll-column">
+        <Hexmap />
+      </div>
   </div>
 </template>
 

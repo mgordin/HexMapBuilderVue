@@ -23,7 +23,7 @@ const hexByUUID = hs.hexByUUID;
 
 const props = defineProps({
   modelValue: {
-      type: Object, // String for HTML 
+      type: Object, // String for HTML - but HTML seems to break mentions
       default: '',
     }
 })

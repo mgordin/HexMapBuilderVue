@@ -5,7 +5,7 @@ import json from '@/assets/hexConfig.json';
 export const useEditorStore = defineStore({
     id: 'editor',
     state: () => ({
-        activeHexes: ["1-1"],
+        activeHexes: [1],
         activeRow: 1,
         selectedTerrain: null,
         seletedIcons: null,
@@ -20,7 +20,7 @@ export const useEditorStore = defineStore({
         activeHexImage(state) {
             const hs = useHexesStore();
             if (this.activeHexes.length == 1) {
-                return state.terrainToImage[hs.activeHex(state.activeHexes[0]).terrain].file
+                return state.terrainToImage[hs.hexByUUID(state.activeHexes[0]).terrain].file
             } else {
                 return state.multipleHexesImage.file
             }
@@ -34,11 +34,11 @@ export const useEditorStore = defineStore({
         selectHex(hex, event) {
             // Set used hex to clicked hex and set its properties
             if (event.shiftKey) {
-                if (!this.activeHexes.includes(hex.id)) {
-                    this.activeHexes.push(hex.id);
+                if (!this.activeHexes.includes(hex.uuid)) {
+                    this.activeHexes.push(hex.uuid);
                 }
             } else {
-                this.activeHexes = [hex.id];
+                this.activeHexes = [hex.uuid];
             }
 
             if (this.activeHexes.length > 1) {
