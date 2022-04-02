@@ -32,7 +32,7 @@ export const useEditorStore = defineStore({
             const hs = useHexesStore();
             const hexByUUID = hs.hexByUUID
             if (state.activeHexes.length > 1) {
-                return "Editing multiple hexes";
+                return "Editing " + state.activeHexes.length + " hexes";
             } else {
                 return "Editing Hex ".concat(hexByUUID(state.activeHexes).id);
             }
@@ -55,7 +55,6 @@ export const useEditorStore = defineStore({
             }
 
             if (this.activeHexes.length > 1) {
-                this.title = "Editing Hex ".concat(this.activeHexes)
                 this.selectedTerrain = null
 
                 // Select active hex's terrain in the terrain picker            

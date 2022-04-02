@@ -40,13 +40,12 @@ export const useHexesStore = defineStore({
     uuid: 1,
     columnsAddedRight: 0,
     columnsAddedLeft: 0,
-    rowsAddedTop: 0,
     rowsAddedBottom: 0,
     nthChildShift: 83.5,
     leftmostColumn: 'odd'
   }),
   getters: {
-    countRows: (state) => state.hexes.length,
+    countLines: (state) => state.hexes.length,
     allRowsEqual: (state) => {
         var shortestRow = state.hexes[0].length;
         var longestRow = state.hexes[0].length;
@@ -62,7 +61,6 @@ export const useHexesStore = defineStore({
         return shortestRow == longestRow
     },
     countColumns: (state) => {
-        console.log('counting columns')
         var maxColumn = 0;
         state.hexes.forEach((element) => {
             if (element[element.length - 1].column > maxColumn) {
@@ -70,7 +68,6 @@ export const useHexesStore = defineStore({
                 maxColumn = element[element.length - 1].column;
             }
         });
-        console.log('max column', maxColumn)
         return maxColumn;
     },
     activeHex: (state) => {
@@ -85,11 +82,11 @@ export const useHexesStore = defineStore({
   },
   actions: {
     addHex(line, position, hexProperties) {
-        if (line > this.countRows + 1) {
-            line = this.countRows + 1;
+        if (line > this.countLines + 1) {
+            line = this.countLines + 1;
         }
     
-        if (line > this.countRows) {
+        if (line > this.countLines) {
             this.hexes.push([]);
         }
     
@@ -127,6 +124,8 @@ export const useHexesStore = defineStore({
             },
             selected: false
         };
+
+        console.log('now actually adding the hex - line is ', line, 'row is', fixedRow, 'column is', fixedColumn, 'hex is', hex)
     
         if (position == 'right') {
             this.hexes[line - 1].push(hex);
@@ -147,27 +146,35 @@ export const useHexesStore = defineStore({
         }
     
         if (position == 'bottom') {
-            var line = this.countRows + 1;
+            var line = this.countLines + 1;
             this.hexes.push([]);
             this.rowsAddedBottom++
         } else {
-            var line = 1;
+            if (this.leftmostColumn == 'odd') {
+                var line = 1;
+            } else {
+                var line = 2;
+            }
+            
             this.hexes.unshift([]);
             this.hexes.unshift([]);
             this.shiftHexNumbers()
-            this.rowsAddedTop++
         }
 
-        var whichLine = 'odd';
-        for (let i = 0; i < columns; i++) {            
+        var whichLine = this.leftmostColumn;
+        
+        for (let i = 0; i < columns; i++) {   
+            console.log("adding hex at line", line, "on the right")         
             this.addHex(line, 'right', defaultHexProperties)
 
             if (whichLine == 'odd') {
                 whichLine = 'even'
                 line++
+                console.log('next line will be', line)
             } else {
                 whichLine = 'odd'
                 line = line - 1
+                console.log('next line will be', line)
             }
         
         }
@@ -284,7 +291,7 @@ export const useHexesStore = defineStore({
         if (row == 1) {
             console.log('adding row to top')
             this.addRow('top', this.countColumns, this.defaultHexProperties);
-        } else if (row == this.countRows / 2) {
+        } else if (row == this.countLines / 2) {
             this.addRow('bottom', this.countColumns, this.defaultHexProperties);
         }
         if (column == 1) {
@@ -296,11 +303,6 @@ export const useHexesStore = defineStore({
             this.addColumn('right', this.defaultHexProperties);
         }
         this.shiftHexNumbers();
-    },
-    logTracking() {
-        console.log('rows added bottom', this.rowsAddedBottom, 'rows added top', this.rowsAddedTop, 
-        'columns added right', this.columnsAddedRight, 'columns added left', this.columnsAddedLeft)
-        console.log('shift', this.nthChildShift)
     },
     toggleLeftmostColumn() {
         if (this.leftmostColumn == 'odd') {
