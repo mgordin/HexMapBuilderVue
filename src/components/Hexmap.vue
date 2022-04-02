@@ -20,6 +20,7 @@
             <div class="image-hex flat-hex" v-for="hex in row" :key="hex.uuid" v-bind:class="{'hex-selected': es.activeHexes.includes(hex.uuid)}" v-bind:uuid="hex.uuid">
                 <img class="hex-terrain" v-bind="{ src: es.terrainToImage[hex.terrain].file }" @click="es.selectHex(hex, $event)">
                 <div class="hex-overlay"></div>
+                <div class="hex-label">{{hex.id}}</div>
             </div>
         </div>
     </div>
@@ -29,6 +30,11 @@
 
 .flat-row:nth-child(even){
   margin-left: v-bind(shift());
+}
+
+.hex-label {
+    top: 5px;
+    left: 45px;
 }
 
 </style>

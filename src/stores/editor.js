@@ -9,7 +9,6 @@ export const useEditorStore = defineStore({
         activeRow: 1,
         selectedTerrain: null,
         seletedIcons: null,
-        title: "Placeholder",
         textSectionHidden: false,
         terrainSectionHidden: false,
         iconsSectionHidden: false,
@@ -28,6 +27,15 @@ export const useEditorStore = defineStore({
         selectedHexCount(state) {
             console.log(state.activeHexes.length)
             return state.activeHexes.length;
+        },
+        title(state) {
+            const hs = useHexesStore();
+            const hexByUUID = hs.hexByUUID
+            if (state.activeHexes.length > 1) {
+                return "Editing multiple hexes";
+            } else {
+                return "Editing Hex ".concat(hexByUUID(state.activeHexes).id);
+            }
         }
     },
     actions: {
@@ -36,6 +44,11 @@ export const useEditorStore = defineStore({
             if (event.shiftKey) {
                 if (!this.activeHexes.includes(hex.uuid)) {
                     this.activeHexes.push(hex.uuid);
+                } else if (this.activeHexes.includes(hex.uuid) && this.activeHexes.length > 1) {
+                    const matchingIndex = this.activeHexes.indexOf(hex.uuid)
+                    if (matchingIndex > -1) {
+                        this.activeHexes.splice(matchingIndex, 1); // 2nd parameter means remove one item only
+                      }
                 }
             } else {
                 this.activeHexes = [hex.uuid];
@@ -51,8 +64,9 @@ export const useEditorStore = defineStore({
                 })
 
                 this.selectedIcons = null;
+
             } else {
-                this.title = "Editing Hex ".concat(hex.id)
+               
                 this.selectedTerrain = hex.terrain;
 
                 // Select active hex's terrain in the terrain picker            

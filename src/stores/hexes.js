@@ -42,7 +42,8 @@ export const useHexesStore = defineStore({
     columnsAddedLeft: 0,
     rowsAddedTop: 0,
     rowsAddedBottom: 0,
-    nthChildShift: 83.5
+    nthChildShift: 83.5,
+    leftmostColumn: 'odd'
   }),
   getters: {
     countRows: (state) => state.hexes.length,
@@ -61,13 +62,16 @@ export const useHexesStore = defineStore({
         return shortestRow == longestRow
     },
     countColumns: (state) => {
-        var maxLength = 0;
+        console.log('counting columns')
+        var maxColumn = 0;
         state.hexes.forEach((element) => {
-            if (element.length > maxLength) {
-                maxLength = element.length;
+            if (element[element.length - 1].column > maxColumn) {
+                console.log('count columns', element, element[element.length - 1].column)
+                maxColumn = element[element.length - 1].column;
             }
         });
-        return maxLength;
+        console.log('max column', maxColumn)
+        return maxColumn;
     },
     activeHex: (state) => {
         return (hexID) => state.hexes.flat().find(element => element.id == hexID);
@@ -80,12 +84,12 @@ export const useHexesStore = defineStore({
     }
   },
   actions: {
-    addHex(row, position, hexProperties) {
-        if (row > this.countRows + 1) {
-            row = this.countRows + 1;
+    addHex(line, position, hexProperties) {
+        if (line > this.countRows + 1) {
+            line = this.countRows + 1;
         }
     
-        if (row > this.countRows) {
+        if (line > this.countRows) {
             this.hexes.push([]);
         }
     
@@ -93,16 +97,18 @@ export const useHexesStore = defineStore({
         if (position == 'left') {
             column = 1;
         } else if (position == 'right') {
-            column = this.hexes[row - 1].length + 1;
+            column = this.hexes[line - 1].length + 1;
         }
     
-        const hexID = row.toString().concat("-", column.toString());
-    
+        const fixedRow = Math.ceil((line)/2);
+        const fixedColumn = (column)*2 - (line) % 2
+        const hexID = (fixedRow).toString().concat("-", (fixedColumn).toString());
+
         var hex = {
             uuid: this.setUUID(),
             id: hexID,
-            row: row,
-            column: column,
+            row: fixedRow,
+            column: fixedColumn,
             terrain: hexProperties["terrain"],
             icons: hexProperties["icons"],
             content: {
@@ -123,9 +129,9 @@ export const useHexesStore = defineStore({
         };
     
         if (position == 'right') {
-            this.hexes[row - 1].push(hex);
+            this.hexes[line - 1].push(hex);
         } else if (position == 'left') {
-            this.hexes[row - 1].unshift(hex);
+            this.hexes[line - 1].unshift(hex);
         }
     },
     makeHexForTesting(row) {
@@ -135,31 +141,41 @@ export const useHexesStore = defineStore({
         this.addHex(row, 'left', this.defaultHexProperties);
     },
     addRow(position, columns, defaultHexProperties) {
+
         if (columns == undefined) {
             columns = this.countColumns;
         }
     
-        var row = null;
         if (position == 'bottom') {
-            var row = this.countRows + 1;
+            var line = this.countRows + 1;
             this.hexes.push([]);
             this.rowsAddedBottom++
         } else {
-            var row = 1;
+            var line = 1;
             this.hexes.unshift([]);
+            this.hexes.unshift([]);
+            this.shiftHexNumbers()
             this.rowsAddedTop++
         }
-    
-        for (let i = 0; i < columns; i++) {
-            this.addHex(row, 'right', defaultHexProperties)
+
+        var whichLine = 'odd';
+        for (let i = 0; i < columns; i++) {            
+            this.addHex(line, 'right', defaultHexProperties)
+
+            if (whichLine == 'odd') {
+                whichLine = 'even'
+                line++
+            } else {
+                whichLine = 'odd'
+                line = line - 1
+            }
+        
         }
-    
-        if (row == 0) {
-            this.shiftHexIDs('rowIncrease')
-        }
+        
     },
     addColumn(position, defaultHexProperties) {
         if (position == 'right') {
+            console.log('adding column - right side')
             if (this.columnsAddedRight % 2 == 0) {
                 this.hexes.forEach((element, index) => {
                     if (!(index % 2 == 0)) {
@@ -177,6 +193,7 @@ export const useHexesStore = defineStore({
             }
             this.columnsAddedRight++
         } else {
+            console.log('adding column - left side')
             this.hexes.forEach((element, index) => {
                 if (this.nthChildShift > 0) {
                     if (!(index % 2 == 0)) {
@@ -198,14 +215,24 @@ export const useHexesStore = defineStore({
             return -1;
         }
     },
-    fillRow(row, columns, defaultHexProperties) {
-        const newHexes = columns - this.hexes[row - 1].length
-        for (let i = 0; i < columns - 1; i++) {
+    fillFirstRow(columns, defaultHexProperties) {
+        var row = 2;
+        var whichRow = 'even';
+        for (let i = 1; i < columns; i++) {            
             this.addHex(row, 'right', defaultHexProperties)
+
+            if (whichRow == 'odd') {
+                whichRow = 'even'
+                row++
+            } else {
+                whichRow = 'odd'
+                row--
+            }
+        
         }
     },
     initializeHexGrid(rows, columns, defaultHexProperties) {
-        this.fillRow(1, columns, defaultHexProperties)
+        this.fillFirstRow(columns, defaultHexProperties)
         for (let i = 1; i < rows; i++) {
             this.addRow("bottom", columns, defaultHexProperties);
         }
@@ -213,7 +240,7 @@ export const useHexesStore = defineStore({
         this.rowsAddedBottom = rows / 2 - 1;
     },
     initializeMapForTesting() {
-        this.initializeHexGrid(16, 4, this.defaultHexProperties);
+        this.initializeHexGrid(8, 8, this.defaultHexProperties);
     },
     removeHex(hexID) {
         const hex = this.activeHex;
@@ -233,9 +260,13 @@ export const useHexesStore = defineStore({
     shiftHexNumbers() {
         this.hexes.forEach((rowOfHexes, row) => {
             rowOfHexes.forEach((hex, column) => {
-                hex.id = (row + 1).toString().concat("-", (column + 1).toString());
-                hex.row = row + 1;
-                hex.column = column + 1;
+                hex.row = Math.ceil((row + 1)/2);
+                if (this.leftmostColumn == 'odd') {
+                    hex.column = (column + 1)*2 - (row + 1) % 2
+                } else {
+                    hex.column = (column + 1)*2 - (row % 2)
+                }
+                hex.id = (hex.row).toString().concat("-", (hex.column).toString());
             })
         })
     },
@@ -251,13 +282,15 @@ export const useHexesStore = defineStore({
     },
     maintainEmptyMapEdge(row, column) {
         if (row == 1) {
+            console.log('adding row to top')
             this.addRow('top', this.countColumns, this.defaultHexProperties);
-        } else if (row == this.countRows) {
+        } else if (row == this.countRows / 2) {
             this.addRow('bottom', this.countColumns, this.defaultHexProperties);
         }
         if (column == 1) {
             console.log('adding column left')
             this.addColumn('left', this.defaultHexProperties);
+            this.toggleLeftmostColumn();
         } else if (column == this.countColumns) {
             console.log('adding column right')
             this.addColumn('right', this.defaultHexProperties);
@@ -268,6 +301,13 @@ export const useHexesStore = defineStore({
         console.log('rows added bottom', this.rowsAddedBottom, 'rows added top', this.rowsAddedTop, 
         'columns added right', this.columnsAddedRight, 'columns added left', this.columnsAddedLeft)
         console.log('shift', this.nthChildShift)
+    },
+    toggleLeftmostColumn() {
+        if (this.leftmostColumn == 'odd') {
+            this.leftmostColumn = 'even'
+        } else {
+            this.leftmostColumn = 'odd'
+        }
     }
   }
 })
