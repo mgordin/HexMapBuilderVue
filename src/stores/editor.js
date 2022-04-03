@@ -9,9 +9,10 @@ export const useEditorStore = defineStore({
         activeRow: 1,
         selectedTerrain: null,
         seletedIcons: null,
-        textSectionHidden: false,
-        terrainSectionHidden: false,
-        iconsSectionHidden: false,
+        tagsSectionVisible: true,
+        textSectionVisible: true,
+        terrainSectionVisible: true,
+        iconsSectionVisible: true,
         terrainToImage: json.terrainToImage,
         multipleHexesImage: json.multiple_hexes,
         initializeMapModelShown: true,
@@ -99,7 +100,13 @@ export const useEditorStore = defineStore({
         },
         toggleSection(section) {
             if (section == 'terrain') {
-                this.terrainSectionHidden = !this.terrainSectionHidden;
+                this.terrainSectionVisible = !this.terrainSectionVisible;
+            } else if (section == 'icons') {
+                this.iconsSectionVisible = !this.iconsSectionVisible;
+            } else if (section == 'text') {
+                this.textSectionVisible = !this.textSectionVisible;
+            } else if (section == 'tags') {
+                this.tagsSectionVisible = !this.tagsSectionVisible;
             }
         },
         closeInitializeMapModal() {
