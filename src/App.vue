@@ -4,15 +4,17 @@ import { useEditorStore } from '@/stores/editor'
 import { useHexesStore } from '@/stores/hexes'
 import Sidebar from '@/components/Sidebar.vue'
 import Hexmap from '@/components/Hexmap.vue'
+import InitializeMapModal from './components/InitializeMapModal.vue';
 
 
 const es = useEditorStore();
-const hs = useHexesStore()
+const hs = useHexesStore();
 
 </script>
 
 <template>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <InitializeMapModal />
   <div class="columns">
       <div class="column is-one-quarter has-background-white">
         <Sidebar />

@@ -13,7 +13,10 @@ export const useEditorStore = defineStore({
         terrainSectionHidden: false,
         iconsSectionHidden: false,
         terrainToImage: json.terrainToImage,
-        multipleHexesImage: json.multiple_hexes
+        multipleHexesImage: json.multiple_hexes,
+        initializeMapModelShown: true,
+        initializeHexRows: 8,
+        initializeHexColumns: 8
     }),
     getters: {
         activeHexImage(state) {
@@ -99,6 +102,11 @@ export const useEditorStore = defineStore({
                 this.terrainSectionHidden = !this.terrainSectionHidden;
             }
         },
-        
+        closeInitializeMapModal() {
+            this.initializeMapModelShown = false;
+        },
+        logInitializeMapModelShown() {
+            console.log(this.initializeMapModelShown)
+        }
     }
 })

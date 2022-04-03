@@ -23,6 +23,7 @@ const hexByUUID = hs.hexByUUID;
     <button class="button" @click="hs.logHexes">Useful console log button (hexes)</button>
     <button class="button" @click="hs.logTracking">Useful console log button (tracking)</button>
     <button class="button" @click="hs.changeHex11Name">Change hex 1-1 id</button>
+    <button class="button" @click="es.logInitializeMapModelShown">Log show modal</button>
     <div class="card">
       <header class="card-header">
         <div class="media-left">

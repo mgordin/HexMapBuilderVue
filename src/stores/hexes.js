@@ -145,48 +145,67 @@ export const useHexesStore = defineStore({
             columns = this.countColumns;
         }
     
+        // Add row on the bottom
         if (position == 'bottom') {
-            var line = this.countLines + 1;
+            if (this.leftmostColumn == 'odd') {
+                var line = this.countLines + 1;
+            } else {
+                var line = this.countLines + 2;
+            }
+            this.hexes.push([]);
             this.hexes.push([]);
             this.rowsAddedBottom++
+        // Add row on the top
         } else {
             if (this.leftmostColumn == 'odd') {
                 var line = 1;
             } else {
                 var line = 2;
             }
-            
             this.hexes.unshift([]);
             this.hexes.unshift([]);
             this.shiftHexNumbers()
         }
 
         var whichLine = this.leftmostColumn;
+        var startOn = this.leftmostColumn;
         
         for (let i = 0; i < columns; i++) {   
             console.log("adding hex at line", line, "on the right")         
             this.addHex(line, 'right', defaultHexProperties)
 
-            if (whichLine == 'odd') {
-                whichLine = 'even'
-                line++
-                console.log('next line will be', line)
+            if (startOn == 'odd') {
+                if (whichLine == 'odd') {
+                    whichLine = 'even'
+                    line++
+                    console.log('next line will be', line)
+                } else {
+                    whichLine = 'odd'
+                    line = line - 1
+                    console.log('next line will be', line)
+                }
             } else {
-                whichLine = 'odd'
-                line = line - 1
-                console.log('next line will be', line)
+                if (whichLine == 'even') {
+                    whichLine = 'odd'
+                    line = line - 1
+                    console.log('next line will be', line)
+                } else {
+                    whichLine = 'even'
+                    line++
+                    console.log('next line will be', line)
+                }
             }
-        
         }
         
     },
     addColumn(position, defaultHexProperties) {
         if (position == 'right') {
             console.log('adding column - right side')
+            console.log('columns added right', this.columnsAddedRight)
             if (this.columnsAddedRight % 2 == 0) {
                 this.hexes.forEach((element, index) => {
                     if (!(index % 2 == 0)) {
-                        console.log('adding to odd')
+                        console.log('adding to even')
                         this.addHex(index + 1, position, defaultHexProperties)
                     }
                 })
@@ -238,16 +257,18 @@ export const useHexesStore = defineStore({
         
         }
     },
-    initializeHexGrid(rows, columns, defaultHexProperties) {
-        this.fillFirstRow(columns, defaultHexProperties)
+    initializeHexGrid(rows, columns) {
+        const es = useEditorStore()
+        this.fillFirstRow(columns, this.defaultHexProperties)
         for (let i = 1; i < rows; i++) {
-            this.addRow("bottom", columns, defaultHexProperties);
+            this.addRow("bottom", columns, this.defaultHexProperties);
         }
-        this.columnsAddedRight = columns * 2 - 1;
-        this.rowsAddedBottom = rows / 2 - 1;
+        this.columnsAddedRight = columns - 1;
+        this.rowsAddedBottom = rows - 1;
+        es.closeInitializeMapModal()
     },
     initializeMapForTesting() {
-        this.initializeHexGrid(8, 8, this.defaultHexProperties);
+        this.initializeHexGrid(8, 8);
     },
     removeHex(hexID) {
         const hex = this.activeHex;
@@ -292,6 +313,7 @@ export const useHexesStore = defineStore({
             console.log('adding row to top')
             this.addRow('top', this.countColumns, this.defaultHexProperties);
         } else if (row == this.countLines / 2) {
+            console.log('adding row to bottom')
             this.addRow('bottom', this.countColumns, this.defaultHexProperties);
         }
         if (column == 1) {
