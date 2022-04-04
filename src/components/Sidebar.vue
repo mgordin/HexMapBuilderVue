@@ -14,35 +14,25 @@ const hexByUUID = hs.hexByUUID;
 
 <template>
   <div class="sidebar-main has-shadow">
-    <!-- Buttons for dev stuff -->
-    <button class="button" @click="hs.makeHexForTesting(es.activeRow)">Make a hex - right</button>
-    <button class="button" @click="hs.makeHexForTestingLeft(es.activeRow)">Make a hex - left</button>
-    <input class="input" v-model="es.activeRow" />
-    <button class="button" @click="hs.initializeMapForTesting">
-      Set up 8x8 blank hexes
-    </button>
-    <button class="button" @click="es.deselectAllHexes">Deselect all</button>
-    <button class="button" @click="hs.logHexes">Useful console log button (hexes)</button>
-    <button class="button" @click="hs.logTracking">Useful console log button (tracking)</button>
-    <button class="button" @click="hs.changeHex11Name">Change hex 1-1 id</button>
-    <button class="button" @click="es.logInitializeMapModelShown">Log show modal</button>
-
     <!-- Real sidebar content -->
     <div class="card">
       <!-- Sidebar header -->
-      <header class="card-header">
-        <div class="media-left">
-          <figure class="image is-64x64">
-            <img v-bind="{ src: es.activeHexImage }" />
-          </figure>
+      <header class="card-header has-background-light">
+        <div class="sidebar-header">
+          <div class="media-left">
+            <figure class="image sidebar-hex-image">
+              <img v-bind="{ src: es.activeHexImage }" />
+            </figure>
+          </div>
+          <p class="modal-card-title">{{ es.title }}</p>
         </div>
-        <p class="modal-card-title">{{ es.title }}</p>
+
       </header>
       <!-- Sidebar section start here -->
       <div class="card-content">
         <!-- Tags section -->
-        <div class="block">
-          <div class="card" v-if="es.selectedHexCount==1">
+        <div class="block" v-if="es.selectedHexCount==1">
+          <div class="card">
             <header class="card-header has-background-primary" @click="es.toggleSection('tags')">
                 <p class="card-header-title">Hex Tags</p>
                 <span class="icon details">
@@ -64,8 +54,8 @@ const hexByUUID = hs.hexByUUID;
           </div>
         </div>
         <!-- Text section -->
-        <div class="block">
-          <div class="card" v-if="es.selectedHexCount==1">
+        <div class="block" v-if="es.selectedHexCount==1">
+          <div class="card">
             <header class="card-header has-background-primary" @click="es.toggleSection('text')">
               <p class="card-header-title">Hex Details</p>
               <span class="icon details">
@@ -132,5 +122,18 @@ const hexByUUID = hs.hexByUUID;
   left: -10px;
   top: 12px;
 }
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.sidebar-hex-image {
+  width: 50px;
+  margin-left: 10px;
+}
+
 
 </style>
