@@ -62,7 +62,6 @@
 body {
   min-height: 100vh;
   color: var(--color-text);
-  background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
@@ -72,13 +71,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
-}
-
-
-body{
   background: rgb(243, 237, 237);
-  min-height: 100vh;
+
 }
+
 
 .scroll-column {
   overflow: hidden;
@@ -93,91 +89,6 @@ body::-webkit-scrollbar {
 
 .scroll-column::-webkit-scrollbar {
   display: none;
-}
-
-
-.hex-container{
-  position: relative;
-  overflow: scroll;
-  height: 100vh;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-/* Consolidated pointy-top and flat-top image hex stuff */
-.image-row{
-  display: flex;/* block;*/
-  top: 60px;
-}
-
-.flat-row {
-  margin-top: -5.25px;
-}
-
-.pointy-row{
-  margin-left: 50px;
-  margin-top: -26px;
-}
-
-.pointy-row:nth-child(even){
-  margin-left: 1px;
-}
-
-.image-hex{
-  flex-shrink: 0; /* step 2: now the hexagons won't shrink but the horizontal scroll bar doesn't activate */
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-}
-
-.pointy-hex{
-  height: 110px;
-  width: 97px;
-  margin: 0px;
-}
-
-.flat-hex{
-  height: 96px;
-  width: 110px;
-  clip-path: polygon(0 50%, 25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%);
-  overflow: hidden;
-  display: inline-block;
-  margin-left: 57.5px;
-  margin-top: -42px; /*-47px;*/
-}
-
-.hex-terrain{
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  overflow: hidden;
-  opacity: 1;
-}
-
-.hex-overlay {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-  opacity: 0.3;
-}
-
-.hex-terrain:hover {
-  opacity: 0.6;
-}
-
-.hex-selected {
-  opacity: 0.3;
-}
-
-
-.terrain-picker-hex{
-  height: 38px;
-  width: 44px;
 }
 
 .hexEdit {

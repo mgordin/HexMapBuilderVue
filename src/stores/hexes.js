@@ -12,27 +12,14 @@ export const useHexesStore = defineStore({
             row: 1,
             column: 1,
             terrain: 'Default',
-            icons: null,
-            content: {
-                "type": "doc",
-                "content": [
-                    {
-                        "type": "paragraph",
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": "Fill in the contents of the hex..."
-                            }
-                        ]
-                    }
-                ]
-            },
+            icon: null,
+            content: null,
             tags: []
         }]
     ],
     defaultHexProperties: {
         terrain: "Default",
-        icons: null,
+        icon: null,
         selected: false
     },
     sampleLocations: ['Ruin','Town','Village'],
@@ -40,25 +27,24 @@ export const useHexesStore = defineStore({
     uuid: 1,
     columnsAddedRight: 0,
     columnsAddedLeft: 0,
-    rowsAddedBottom: 0,
     nthChildShift: 83.5,
     leftmostColumn: 'odd'
   }),
   getters: {
     countLines: (state) => state.hexes.length,
-    allRowsEqual: (state) => {
-        var shortestRow = state.hexes[0].length;
-        var longestRow = state.hexes[0].length;
-        state.hexes.forEach((rowOfHexes) => {
-            if (rowOfHexes.length < shortestRow) {
-                console.log('shortest row', rowOfHexes.length, rowOfHexes)
-                shortestRow = rowOfHexes.length;
-            } else if (rowOfHexes.length > longestRow) {
-                console.log('longest row', rowOfHexes.length, rowOfHexes)
-                longestRow = rowOfHexes.length;
+    allLinesEqual: (state) => {
+        var shortestLine = state.hexes[0].length;
+        var longestLine = state.hexes[0].length;
+        state.hexes.forEach((lineOfHexes) => {
+            if (lineOfHexes.length < shortestLine) {
+                console.log('shortest line', lineOfHexes.length, lineOfHexes)
+                shortestLine = lineOfHexes.length;
+            } else if (lineOfHexes.length > longestLine) {
+                console.log('longest line', lineOfHexes.length, lineOfHexes)
+                longestLine = lineOfHexes.length;
             }
         })
-        return shortestRow == longestRow
+        return shortestLine == longestLine
     },
     countColumns: (state) => {
         var maxColumn = 0;
@@ -107,21 +93,8 @@ export const useHexesStore = defineStore({
             row: fixedRow,
             column: fixedColumn,
             terrain: hexProperties["terrain"],
-            icons: hexProperties["icons"],
-            content: {
-                "type": "doc",
-                "content": [
-                    {
-                        "type": "paragraph",
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": "Fill in the contents of the hex..."
-                            }
-                        ]
-                    }
-                ]
-            },
+            icon: hexProperties["icon"],
+            content: null,
             selected: false
         };
 
@@ -154,7 +127,6 @@ export const useHexesStore = defineStore({
             }
             this.hexes.push([]);
             this.hexes.push([]);
-            this.rowsAddedBottom++
         // Add row on the top
         } else {
             if (this.leftmostColumn == 'odd') {
@@ -242,17 +214,17 @@ export const useHexesStore = defineStore({
         }
     },
     fillFirstRow(columns, defaultHexProperties) {
-        var row = 2;
+        var line = 2;
         var whichRow = 'even';
         for (let i = 1; i < columns; i++) {            
-            this.addHex(row, 'right', defaultHexProperties)
+            this.addHex(line, 'right', defaultHexProperties)
 
             if (whichRow == 'odd') {
                 whichRow = 'even'
-                row++
+                line++
             } else {
                 whichRow = 'odd'
-                row--
+                line--
             }
         
         }
@@ -264,7 +236,6 @@ export const useHexesStore = defineStore({
             this.addRow("bottom", columns, this.defaultHexProperties);
         }
         this.columnsAddedRight = columns - 1;
-        this.rowsAddedBottom = rows - 1;
         es.closeInitializeMapModal()
     },
     initializeMapForTesting() {
@@ -284,7 +255,12 @@ export const useHexesStore = defineStore({
             this.maintainEmptyMapEdge(thisHex.row, thisHex.column)
         }
     },
-    setHexIcon(hexID, icon) {},
+    setHexIcon(hexUUID, icon) {
+        console.log(hexUUID, icon)
+        const hex = this.hexByUUID
+        const thisHex = hex(hexUUID);
+        thisHex.icon = icon;
+    },
     shiftHexNumbers() {
         this.hexes.forEach((rowOfHexes, row) => {
             rowOfHexes.forEach((hex, column) => {

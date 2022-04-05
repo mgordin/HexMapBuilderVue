@@ -14,5 +14,13 @@
         "Village": { "file": "./terrain_tiles/flat/11-greenlands_village.png", "selected": false },
         "City": { "file": "./terrain_tiles/flat/12-greenlands_city.png", "selected": false }
     },
-    "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"}
+    "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"},
+    "icons": {
+        "castle": { "file": "./icons/castle.png", "tags": ["settlement", "castle"], "selected": false },
+        "fort": { "file": "./icons/fort.png", "tags": ["settlement", "fort"], "selected": false },
+        "monolith": { "file": "./icons/monolith.png", "tags": ["landmark", "monolith"], "selected": false },
+        "obelisk": { "file": "./icons/obelisk_2.png", "tags": ["landmark", "obelisk"], "selected": false },
+        "town": { "file": "./icons/town.png", "tags": ["settlement", "town"], "selected": false },
+        "village": { "file": "./icons/hut_3.png", "tags": ["settlement", "village"], "selected": false }
+    }
 }

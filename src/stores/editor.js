@@ -8,13 +8,14 @@ export const useEditorStore = defineStore({
         activeHexes: [1],
         activeRow: 1,
         selectedTerrain: null,
-        seletedIcons: null,
+        selectedIcon: null,
         tagsSectionVisible: true,
         textSectionVisible: true,
         terrainSectionVisible: true,
         iconsSectionVisible: true,
         terrainToImage: json.terrainToImage,
         multipleHexesImage: json.multiple_hexes,
+        iconProperties: json.icons,
         initializeMapModelShown: true,
         initializeHexRows: 8,
         initializeHexColumns: 8
@@ -61,16 +62,17 @@ export const useEditorStore = defineStore({
             if (this.activeHexes.length > 1) {
                 this.selectedTerrain = null
 
+                this.selectedIcon = null
+
                 // Select active hex's terrain in the terrain picker            
                 Object.values(this.terrainToImage).forEach((element) => {
                     element.selected = false;
                 })
 
-                this.selectedIcons = null;
-
             } else {
                
                 this.selectedTerrain = hex.terrain;
+
 
                 // Select active hex's terrain in the terrain picker            
                 Object.values(this.terrainToImage).forEach((element) => {
@@ -78,8 +80,13 @@ export const useEditorStore = defineStore({
                 })
                 this.terrainToImage[hex.terrain].selected = true;
 
+                Object.values(this.iconProperties).forEach((element) => {
+                    element.selected = false;
+                })
+                this.iconProperties[hex.icon].selected = true;
+
                 // Select active hex's icons (incomplete)
-                this.selectedIcons = hex.icons;
+                this.selectedIcon = hex.icon;
             }
         },
         deselectAllHexes() {
@@ -96,6 +103,17 @@ export const useEditorStore = defineStore({
             this.terrainToImage[terrain].selected = true;
             this.activeHexes.forEach((element) => {
                 hs.setHexTerrain(element, terrain)
+            })
+        },
+        selectIcon(icon) {
+            const hs = useHexesStore();
+            this.selectedIcon = icon;
+            Object.values(this.iconProperties).forEach((element) => {
+                element.selected = false;
+            })
+            this.iconProperties[icon].selected = true;
+            this.activeHexes.forEach((element) => {
+                hs.setHexIcon(element, icon)
             })
         },
         toggleSection(section) {

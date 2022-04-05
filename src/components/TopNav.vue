@@ -10,7 +10,7 @@ const hs = useHexesStore();
 
 
 <template>
-    <nav class="navbar is-dark has-shadow" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark has-shadow is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://bulma.io">
                 <img src="@/../public/HexMapMakerLogoLight.png" height="60">

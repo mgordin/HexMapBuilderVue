@@ -13,7 +13,7 @@ const hexByUUID = hs.hexByUUID;
 </script>
 
 <template>
-  <div class="sidebar-main has-shadow">
+  <div class="sidebar-main">
     <!-- Real sidebar content -->
     <div class="card">
       <!-- Sidebar header -->
@@ -98,6 +98,34 @@ const hexByUUID = hs.hexByUUID;
             </div>
           </div>
         </div>
+
+        <!-- Icon section -->
+        <div class="block">
+          <div class="card">
+            <header
+              class="card-header has-background-primary"
+              @click="es.toggleSection('icons')"
+            >
+              <p class="card-header-title">Point of Interest</p>
+              <span class="icon details">
+                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.iconsSectionVisible"></i>
+                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.iconsSectionVisible"></i>
+              </span>
+            </header>
+            <div class="card-content" v-if="es.iconsSectionVisible">
+              <div class="columns is-multiline">
+                <div
+                  class="box"
+                  v-for="(iconProperties, iconName) in es.iconProperties"
+                  v-bind:class="{ 'has-background-light': iconProperties.selected }"
+                  @click="es.selectIcon(iconName)"
+                >
+                  <img class="icon-picker" v-bind="{ src: iconProperties.file }" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -108,10 +136,12 @@ const hexByUUID = hs.hexByUUID;
 <style>
 
 .sidebar-main {
-  height: 100vh;
+  height: calc(100vh - 52px);
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  box-shadow: 2px 0 10px lightgray;
+  user-select: none;
 }
 
 .sidebar-main::-webkit-scrollbar {
@@ -135,5 +165,14 @@ const hexByUUID = hs.hexByUUID;
   margin-left: 10px;
 }
 
+.terrain-picker-hex{
+  height: 38px;
+  width: 44px;
+}
+
+.icon-picker {
+  height: 50px;
+  width: 50px;
+}
 
 </style>

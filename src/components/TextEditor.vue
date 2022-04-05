@@ -15,6 +15,7 @@ import { mergeAttributes } from "@tiptap/core";
 // import Mention from "@tiptap/extension-mention";
 import Mention from "@/MentionExport";
 import { useHexesStore } from "@/stores/hexes";
+import Placeholder from '@tiptap/extension-placeholder'
 
 
 const hs = useHexesStore();
@@ -34,6 +35,9 @@ const emits = defineEmits(['update:modelValue'])
 const editor = new Editor({
       extensions: [
         StarterKit,
+        Placeholder.configure({
+          placeholder: 'Fill in some info about the hex...'
+        }),
         Mention.configure({
           HTMLAttributes: {
             class: 'mention',
@@ -133,5 +137,13 @@ watch(() => props.modelValue, (currentValue, oldValue) => {
   border-radius: 0.4rem;
   padding: 0.1rem 0.3rem;
   box-decoration-break: clone;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
 }
 </style>

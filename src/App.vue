@@ -17,7 +17,7 @@ const hs = useHexesStore();
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <InitializeMapModal />
   <TopNav />
-  <div class="columns">
+  <div class="columns is-gapless">
       <div class="column is-one-quarter has-background-white">
         <Sidebar />
       </div>
