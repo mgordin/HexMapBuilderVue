@@ -45,7 +45,6 @@
                 "grassy hills": 0.5,
                 "forested hills": 1,
                 "grassland": 0.5,
-                "savannah": 0.5,
                 "mountains": 0.5,
                 "deciduous forested mountains": 0.5,
                 "evergreen forested mountains": 0.5
@@ -61,6 +60,68 @@
                 "grassland": 1
             },
             "seeds": {}
+        }
+    },
+    "terrainInfluencedBy": {
+        "deciduous forest": {
+            "primary": ["deciduous forest"],
+            "secondary": ["deciduous forested mountains", "forested hills", "mixed forest"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "evergreen forest": {
+            "primary": ["evergreen forest"],
+            "secondary": ["evergreen forested mountains", "forested hills", "mixed forest"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "mixed forest": {
+            "primary": ["mixed forest", "evergreen forest", "deciduous forest"],
+            "secondary": ["forested hills", "deciduous forested mountains", "evergreen forested mountains"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "grassy hills": {
+            "primary": ["grassy hills"],
+            "secondary": ["grassland", "mountains", "forested hills"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "forested hills": {
+            "primary": ["forested hills"],
+            "secondary": ["grassy hills", "deciduous forested mountains", "evergreen forested mountains", "deciduous forest", "evergreen forest", "mixed forest"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "grassland": {
+            "primary": ["grassland"],
+            "secondary": ["grassy hills", "savannah"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "savannah": {
+            "primary": ["savannah"],
+            "secondary": ["grassland", "grassy hills"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "mountains": {
+            "primary": ["mountains"],
+            "secondary": ["grassy hills", "forested hills", "deciduous forested mountains", "evergreen forested mountains"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "deciduous forested mountains": {
+            "primary": ["deciduous forested mountains"],
+            "secondary": ["deciduous forest", "forested hills", "mountains"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "evergreen forested mountains": {
+            "primary": ["evergreen forested mountains"],
+            "secondary": ["evergreen forest", "forested hills", "mountains"],
+            "tertiary": [],
+            "decrease": []
         }
     }
 }

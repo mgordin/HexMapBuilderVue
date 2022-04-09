@@ -30,7 +30,8 @@ export const useHexesStore = defineStore({
     columnsAddedLeft: 0,
     nthChildShift: 83.5,
     leftmostColumn: 'odd',
-    terrainProperties: json.terrainProperties
+    terrainProperties: json.terrainProperties,
+    terrainInfluencedBy: json.terrainInfluencedBy
   }),
   getters: {
     countLines: (state) => state.hexes.length,
@@ -443,15 +444,103 @@ export const useHexesStore = defineStore({
             6: 13
         }
 
+        const primaryMapOne = {
+            0: 0,
+            1: 7,
+            2: 10,
+            3: 13,
+            4: 15,
+            5: 17,
+            6: 19
+        }
+
+        const primaryMapTwo = {
+            0: 0,
+            1: 1,
+            2: 2.5,
+            3: 4,
+            4: 5,
+            5: 6,
+            6: 7,
+            7: 7.5,
+            8: 8,
+            9: 9,
+            10: 9.5,
+            11: 10,
+            12: 11
+        }
+
+        const secondaryMapOne = {
+            0: 0,
+            1: 2,
+            2: 4,
+            3: 6,
+            4: 7,
+            5: 8,
+            6: 9
+        }
+
+        const secondaryMapTwo = {
+            0: 0,
+            1: 0.5,
+            2: 1,
+            3: 2,
+            4: 2.5,
+            5: 3,
+            6: 4,
+            7: 4.5,
+            8: 5,
+            9: 6,
+            10: 6.5,
+            11: 7,
+            12: 7.5
+        }
+
+        const tertiaryMapOne = {
+            0: 0,
+            1: 1,
+            2: 2,
+            3: 3,
+            4: 3.5,
+            5: 4,
+            6: 4.5
+        }
+
+        const tertiaryMapTwo = {
+            0: 0,
+            1: 1/3,
+            2: 2/3,
+            3: 1,
+            4: 4/3,
+            5: 5/3,
+            6: 2,
+            7: 7/3,
+            8: 8/3,
+            9: 3,
+            10: 3,
+            11: 3.5,
+            12: 3.5
+        }
+
         console.log('starting odds', odds)
 
         var terrains = []
         var terrainWeights = []
+       
         Object.keys(odds).forEach((tag) => {
             var tempOdds = odds[tag];
-            if (Object.keys(tagsWithinTwoCount).includes(tag)) {
-                tempOdds = odds[tag] + withinOneMap[tagsWithinTwoCount[tag]['one-away']] + withinOneMap[Math.floor(tagsWithinTwoCount[tag]['two-away']/3)]
-            }
+            Object.keys(tagsWithinTwoCount).forEach((withinTwoTag) => {
+                if (this.terrainInfluencedBy[tag].primary.includes(withinTwoTag)) {
+                    tempOdds = tempOdds + primaryMapOne[tagsWithinTwoCount[withinTwoTag]['one-away']] + 
+                        primaryMapOne[tagsWithinTwoCount[withinTwoTag]['two-away']]
+                } else if (this.terrainInfluencedBy[tag].secondary.includes(withinTwoTag)) {
+                    tempOdds = tempOdds + secondaryMapOne[tagsWithinTwoCount[withinTwoTag]['one-away']] + 
+                        secondaryMapOne[tagsWithinTwoCount[withinTwoTag]['two-away']]
+                } else if (this.terrainInfluencedBy[tag].tertiary.includes(withinTwoTag)) {
+                    tempOdds = tempOdds + tertiaryMapOne[tagsWithinTwoCount[withinTwoTag]['one-away']] + 
+                        tertiaryMapOne[tagsWithinTwoCount[withinTwoTag]['two-away']]
+                }
+            })
             terrains.push(tag)
             terrainWeights.push(tempOdds)
         })
