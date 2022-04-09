@@ -425,6 +425,11 @@ export const useHexesStore = defineStore({
                 this.generateTerrain(hex.uuid, terrainSetup.odds);
             })
         })
+
+        this.addRow('top', this.countColumns, this.defaultHexProperties)
+        this.addRow('bottom', this.countColumns, this.defaultHexProperties)
+        this.addColumn('right', this.defaultHexProperties)
+        this.addColumn('left', this.defaultHexProperties)
     },
     seedTerrain(seeds, rows, columns) {
         return null
