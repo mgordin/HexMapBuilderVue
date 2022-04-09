@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useEditorStore } from '@/stores/editor'
-import { useMentionStore } from '@/stores/mentions'
+import json from '@/assets/hexConfig.json';
+
 
 export const useHexesStore = defineStore({
   id: 'hexes',
@@ -28,7 +29,8 @@ export const useHexesStore = defineStore({
     columnsAddedRight: 0,
     columnsAddedLeft: 0,
     nthChildShift: 83.5,
-    leftmostColumn: 'odd'
+    leftmostColumn: 'odd',
+    terrainProperties: json.terrainProperties
   }),
   getters: {
     countLines: (state) => state.hexes.length,
@@ -37,10 +39,8 @@ export const useHexesStore = defineStore({
         var longestLine = state.hexes[0].length;
         state.hexes.forEach((lineOfHexes) => {
             if (lineOfHexes.length < shortestLine) {
-                console.log('shortest line', lineOfHexes.length, lineOfHexes)
                 shortestLine = lineOfHexes.length;
             } else if (lineOfHexes.length > longestLine) {
-                console.log('longest line', lineOfHexes.length, lineOfHexes)
                 longestLine = lineOfHexes.length;
             }
         })
@@ -50,7 +50,6 @@ export const useHexesStore = defineStore({
         var maxColumn = 0;
         state.hexes.forEach((element) => {
             if (element[element.length - 1].column > maxColumn) {
-                console.log('count columns', element, element[element.length - 1].column)
                 maxColumn = element[element.length - 1].column;
             }
         });
@@ -62,9 +61,34 @@ export const useHexesStore = defineStore({
     hexByUUID: (state) => {
         return (uuid) => state.hexes.flat().find(element => element.uuid == uuid);
     },
+    hexByPosition: (state) => {
+        return (row, column) => {
+            var line = null;
+            var lineIndex = null;
+            if (column % 2 == 0) {
+                line = row * 2 - 1
+            } else {
+                line = row * 2 - 2
+            }
+            if (state.leftmostColumn == 'odd') {
+                if (column % 2 == 0) {
+                    lineIndex = column/2 - 1
+                } else {
+                    lineIndex = Math.floor(column/2)
+                }
+            } else {
+                if (column % 2 == 0) {
+                    lineIndex = column/2 - 1
+                } else {
+                    lineIndex = Math.floor(column/2)
+                }
+            }
+            return state.hexes[line][lineIndex]
+        }
+    },
     getShiftPixels: (state) => {
         return state.nthChildShift.toString().concat('px');
-    }
+    },
   },
   actions: {
     addHex(line, position, hexProperties) {
@@ -95,10 +119,10 @@ export const useHexesStore = defineStore({
             terrain: hexProperties["terrain"],
             icon: hexProperties["icon"],
             content: null,
-            selected: false
+            selected: false,
+            tags: []
         };
 
-        console.log('now actually adding the hex - line is ', line, 'row is', fixedRow, 'column is', fixedColumn, 'hex is', hex)
     
         if (position == 'right') {
             this.hexes[line - 1].push(hex);
@@ -143,28 +167,23 @@ export const useHexesStore = defineStore({
         var startOn = this.leftmostColumn;
         
         for (let i = 0; i < columns; i++) {   
-            console.log("adding hex at line", line, "on the right")         
             this.addHex(line, 'right', defaultHexProperties)
 
             if (startOn == 'odd') {
                 if (whichLine == 'odd') {
                     whichLine = 'even'
                     line++
-                    console.log('next line will be', line)
                 } else {
                     whichLine = 'odd'
                     line = line - 1
-                    console.log('next line will be', line)
                 }
             } else {
                 if (whichLine == 'even') {
                     whichLine = 'odd'
                     line = line - 1
-                    console.log('next line will be', line)
                 } else {
                     whichLine = 'even'
                     line++
-                    console.log('next line will be', line)
                 }
             }
         }
@@ -172,26 +191,21 @@ export const useHexesStore = defineStore({
     },
     addColumn(position, defaultHexProperties) {
         if (position == 'right') {
-            console.log('adding column - right side')
-            console.log('columns added right', this.columnsAddedRight)
             if (this.columnsAddedRight % 2 == 0) {
                 this.hexes.forEach((element, index) => {
                     if (!(index % 2 == 0)) {
-                        console.log('adding to even')
                         this.addHex(index + 1, position, defaultHexProperties)
                     }
                 })
             } else {
                 this.hexes.forEach((element, index) => {
                     if (index % 2 == 0) {
-                        console.log('adding to odd')
                         this.addHex(index + 1, position, defaultHexProperties)
                     }
                 })
             }
             this.columnsAddedRight++
         } else {
-            console.log('adding column - left side')
             this.hexes.forEach((element, index) => {
                 if (this.nthChildShift > 0) {
                     if (!(index % 2 == 0)) {
@@ -246,17 +260,16 @@ export const useHexesStore = defineStore({
         const hexToRemove = hex(hexID);
         this.hexes[hexToRemove.row - 1].splice(hexToRemove.column - 1)
     },
-    setHexTerrain(hexUUID, terrain) {
-        console.log(hexUUID, terrain)
+    setHexTerrain(hexUUID, terrain, maintainEdge) {
         const hex = this.hexByUUID
         const thisHex = hex(hexUUID);
         thisHex.terrain = terrain;
-        if (terrain != 'Default') {
+        thisHex.tags.push(terrain)
+        if (terrain != 'Default' && maintainEdge) {
             this.maintainEmptyMapEdge(thisHex.row, thisHex.column)
         }
     },
     setHexIcon(hexUUID, icon) {
-        console.log(hexUUID, icon)
         const hex = this.hexByUUID
         const thisHex = hex(hexUUID);
         thisHex.icon = icon;
@@ -286,18 +299,14 @@ export const useHexesStore = defineStore({
     },
     maintainEmptyMapEdge(row, column) {
         if (row == 1) {
-            console.log('adding row to top')
             this.addRow('top', this.countColumns, this.defaultHexProperties);
         } else if (row == this.countLines / 2) {
-            console.log('adding row to bottom')
             this.addRow('bottom', this.countColumns, this.defaultHexProperties);
         }
         if (column == 1) {
-            console.log('adding column left')
             this.addColumn('left', this.defaultHexProperties);
             this.toggleLeftmostColumn();
         } else if (column == this.countColumns) {
-            console.log('adding column right')
             this.addColumn('right', this.defaultHexProperties);
         }
         this.shiftHexNumbers();
@@ -307,6 +316,185 @@ export const useHexesStore = defineStore({
             this.leftmostColumn = 'even'
         } else {
             this.leftmostColumn = 'odd'
+        }
+    },
+    // Return as { tag: {one-away: count, two-away: count, three-away: count}, }
+    tagsWithinTwo(hexUUID) {
+        var tags = {};
+        
+        const hex = this.hexByUUID
+        const thisHex = hex(hexUUID);
+
+        var oneAwayHexes = null;
+        var twoAwayHexes = null;
+
+        // Even line
+        if (thisHex.row % 2 == 0) {
+            oneAwayHexes = [
+                {row: -1, column: 0},
+                {row: 1, column: 0},
+                {row: 0, column: 1},
+                {row: 1, column: 1},
+                {row: 0, column: -1},
+                {row: 1, column: -1}
+            ];
+            twoAwayHexes = [
+                {row: -2, column: 0},
+                {row: 2, column: 0},
+                {row: -1, column: 1},
+                {row: 2, column: 1},
+                {row: -1, column: 2},
+                {row: 0, column: 2},
+                {row: 1, column: 2},
+                {row: 2, column: -1},
+                {row: -1, column: -1},
+                {row: -1, column: -2},
+                {row: 0, column: -2},
+                {row: 1, column: -2}
+            ];
+        // Odd line
+        } else { 
+            oneAwayHexes = [
+                {row: -1, column: 0},
+                {row: 1, column: 0},
+                {row: -1, column: 1},
+                {row: 0, column: 1},
+                {row: -1, column: -1},
+                {row: 0, column: -1}
+            ];
+            twoAwayHexes = [
+                {row: -2, column: 0},
+                {row: 2, column: 0},
+                {row: -2, column: 1},
+                {row: 1, column: 1},
+                {row: -1, column: 2},
+                {row: 0, column: 2},
+                {row: 1, column: 2},
+                {row: -2, column: -1},
+                {row: 1, column: -1},
+                {row: -1, column: -2},
+                {row: 0, column: -2},
+                {row: 1, column: -2}
+            ];
+        }
+
+        const hexByPosition = this.hexByPosition;
+        var temp = []
+        oneAwayHexes.forEach((element) => {
+            console.log('tags within one: trying hex', thisHex.row + element.row, thisHex.column + element.column)
+            console.log('rows, columns', this.countRows, this.countColumns)
+            if ((thisHex.row + element.row) >= 1 && (thisHex.column + element.column) >= 1 && 
+                (thisHex.row + element.row) <= this.hexes.length/2 && (thisHex.column + element.column) <= this.countColumns) {
+                    console.log('do it')
+                    const hexTags = hexByPosition(thisHex.row + element.row, thisHex.column + element.column).tags
+                    hexTags.forEach((tag) => {
+                        if (Object.keys(tags).includes(tag)) {
+                            tags[tag]['one-away']++
+                        } else {
+                            tags[tag] = {'one-away': 1, 'two-away': 0}
+                        }
+                    })
+                }
+            
+        })
+        twoAwayHexes.forEach((element) => {
+            if ((thisHex.row + element.row) >= 1 && (thisHex.column + element.column) >= 1 && 
+                (thisHex.row + element.row) <= this.hexes.length/2 && (thisHex.column + element.column) <= this.countColumns) {
+                    const hexTags = hexByPosition(thisHex.row + element.row, thisHex.column + element.column).tags
+                    hexTags.forEach((tag) => {
+                        if (Object.keys(tags).includes(tag)) {
+                            tags[tag]['two-away']++
+                        } else {
+                            tags[tag] = {'one-away': 0, 'two-away': 1}
+                        }
+                    })
+                }
+            
+        })
+
+        return tags;
+    },
+    fillMapTerrain(type, rows, columns) {
+        const terrainSetup = this.terrainProperties[type];
+
+        this.seedTerrain(terrainSetup.seeds, rows, columns);
+
+        this.hexes.forEach((row) => {
+            row.forEach((hex) => {
+                this.generateTerrain(hex.uuid, terrainSetup.odds);
+            })
+        })
+    },
+    seedTerrain(seeds, rows, columns) {
+        return null
+    },
+    generateTerrain(hexUUID, odds) {
+        const tagsWithinTwoCount = this.tagsWithinTwo(hexUUID);
+
+        console.log('for hex ', hexUUID, 'tags within two is', tagsWithinTwoCount)
+
+        var withinOneMap = {
+            0: 0,
+            1: 4,
+            2: 7,
+            3: 9,
+            4: 11,
+            5: 12,
+            6: 13
+        }
+
+        console.log('starting odds', odds)
+
+        var terrains = []
+        var terrainWeights = []
+        Object.keys(odds).forEach((tag) => {
+            var tempOdds = odds[tag];
+            if (Object.keys(tagsWithinTwoCount).includes(tag)) {
+                tempOdds = odds[tag] + withinOneMap[tagsWithinTwoCount[tag]['one-away']] + withinOneMap[Math.floor(tagsWithinTwoCount[tag]['two-away']/3)]
+            }
+            terrains.push(tag)
+            terrainWeights.push(tempOdds)
+        })
+
+        console.log('odds', odds, 'terrains', terrains, 'weights', terrainWeights)
+
+        const thisTerrain = this.weightedRandom(terrains, terrainWeights)
+
+        // Just do a thing
+        this.setHexTerrain(hexUUID, thisTerrain, false)
+    },
+    weightedRandom(items, weights) {
+        if (items.length !== weights.length) {
+          throw new Error('Items and weights must be of the same size');
+        }
+      
+        if (!items.length) {
+          throw new Error('Items must not be empty');
+        }
+      
+        // Preparing the cumulative weights array.
+        // For example:
+        // - weights = [1, 4, 3]
+        // - cumulativeWeights = [1, 5, 8]
+        const cumulativeWeights = [];
+        for (let i = 0; i < weights.length; i += 1) {
+          cumulativeWeights[i] = weights[i] + (cumulativeWeights[i - 1] || 0);
+        }
+      
+        // Getting the random number in a range of [0...sum(weights)]
+        // For example:
+        // - weights = [1, 4, 3]
+        // - maxCumulativeWeight = 8
+        // - range for the random number is [0...8]
+        const maxCumulativeWeight = cumulativeWeights[cumulativeWeights.length - 1];
+        const randomNumber = maxCumulativeWeight * Math.random();
+      
+        // Picking the random item based on its weight.
+        // The items with higher weight will be picked more often.
+        for (let itemIndex = 0; itemIndex < items.length; itemIndex += 1) {
+          if (cumulativeWeights[itemIndex] >= randomNumber) {
+            return items[itemIndex]
+          }
         }
     }
   }

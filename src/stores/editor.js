@@ -24,13 +24,13 @@ export const useEditorStore = defineStore({
         activeHexImage(state) {
             const hs = useHexesStore();
             if (this.activeHexes.length == 1) {
+                console.log('trying to read terrain path for', hs.hexByUUID(state.activeHexes[0]).terrain)
                 return state.terrainToImage[hs.hexByUUID(state.activeHexes[0]).terrain].file
             } else {
                 return state.multipleHexesImage.file
             }
         },
         selectedHexCount(state) {
-            console.log(state.activeHexes.length)
             return state.activeHexes.length;
         },
         title(state) {
@@ -83,7 +83,10 @@ export const useEditorStore = defineStore({
                 Object.values(this.iconProperties).forEach((element) => {
                     element.selected = false;
                 })
-                this.iconProperties[hex.icon].selected = true;
+                if (hex.icon != null) {
+                    this.iconProperties[hex.icon].selected = true;
+                }
+                
 
                 // Select active hex's icons (incomplete)
                 this.selectedIcon = hex.icon;
@@ -102,7 +105,7 @@ export const useEditorStore = defineStore({
             })
             this.terrainToImage[terrain].selected = true;
             this.activeHexes.forEach((element) => {
-                hs.setHexTerrain(element, terrain)
+                hs.setHexTerrain(element, terrain, true)
             })
         },
         selectIcon(icon) {
