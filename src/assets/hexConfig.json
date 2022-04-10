@@ -14,7 +14,7 @@
         "Village": { "file": "./terrain_tiles/flat/11-greenlands_village.png", "selected": false },
         "City": { "file": "./terrain_tiles/flat/12-greenlands_city.png", "selected": false }
     },
-    "terrainToImage": {
+    "terrainToImageClassic": {
         "Default": { "file": "./terrain_tiles/flat/default-hex.png", "selected": false },
         "grassland": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/06-grassland/grassland.png", "selected": false },
         "grassy hills": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/06-grassland/grassland_hills.png", "selected": false },
@@ -26,7 +26,20 @@
         "mountains": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/11-mountains/mountain_range.png", "selected": false },
         "evergreen forest": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/03-evergreen_forest/evergreen_heavy.png", "selected": false },
         "evergreen forested mountains": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/03-evergreen_forest/evergreen_mountainrange.png", "selected": false }
-    }, 
+    },
+    "terrainToImage": {
+        "Default": { "file": "./terrain_tiles/flat/default-hex.png", "selected": false },
+        "grassland": {"file": "./terrain_tiles/Inkarnate/grassland.png", "selected": false },
+        "grassy hills": {"file": "./terrain_tiles/Inkarnate/grassy-hills.png", "selected": false },
+        "deciduous forest": {"file": "./terrain_tiles/Inkarnate/deciduous-forest.png", "selected": false },
+        "deciduous forested hills": {"file": "./terrain_tiles/Inkarnate/deciduous-forested-hills.png", "selected": false },
+        "deciduous forested mountains": {"file": "./terrain_tiles/Inkarnate/deciduous-forested-mountains.png", "selected": false },
+        "mountains": {"file": "./terrain_tiles/Inkarnate/mountains.png", "selected": false },
+        "evergreen forest": {"file": "./terrain_tiles/Inkarnate/evergreen-forest.png", "selected": false },
+        "evergreen forested hills": {"file": "./terrain_tiles/Inkarnate/evergreen-forested-hills.png", "selected": false },
+        "evergreen forested mountains": {"file": "./terrain_tiles/Inkarnate/evergreen-forested-mountains.png", "selected": false },
+        "mixed forest": {"file": "./terrain_tiles/Inkarnate/mixed-forest.png", "selected": false }
+    },
     "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"},
     "icons": {
         "castle": { "file": "./icons/castle.png", "tags": ["settlement", "castle"], "selected": false },
@@ -43,7 +56,8 @@
                 "evergreen forest": 1,
                 "mixed forest": 1,
                 "grassy hills": 0.5,
-                "forested hills": 1,
+                "deciduous forested hills": 1,
+                "evergreen forested hills": 1,
                 "grassland": 0.5,
                 "mountains": 0.5,
                 "deciduous forested mountains": 0.5,
@@ -65,19 +79,19 @@
     "terrainInfluencedBy": {
         "deciduous forest": {
             "primary": ["deciduous forest"],
-            "secondary": ["deciduous forested mountains", "forested hills", "mixed forest"],
+            "secondary": ["deciduous forested mountains", "deciduous forested hills", "mixed forest"],
             "tertiary": [],
             "decrease": []
         },
         "evergreen forest": {
             "primary": ["evergreen forest"],
-            "secondary": ["evergreen forested mountains", "forested hills", "mixed forest"],
+            "secondary": ["evergreen forested mountains", "evergreen forested hills", "mixed forest"],
             "tertiary": [],
             "decrease": []
         },
         "mixed forest": {
             "primary": ["mixed forest", "evergreen forest", "deciduous forest"],
-            "secondary": ["forested hills", "deciduous forested mountains", "evergreen forested mountains"],
+            "secondary": ["deciduous forested hills", "evergreen forested hills", "deciduous forested mountains", "evergreen forested mountains"],
             "tertiary": [],
             "decrease": []
         },
@@ -87,9 +101,15 @@
             "tertiary": [],
             "decrease": []
         },
-        "forested hills": {
-            "primary": ["forested hills"],
-            "secondary": ["grassy hills", "deciduous forested mountains", "evergreen forested mountains", "deciduous forest", "evergreen forest", "mixed forest"],
+        "deciduous forested hills": {
+            "primary": ["deciduous forested hills"],
+            "secondary": ["grassy hills", "deciduous forested mountains", "deciduous forest", "mixed forest"],
+            "tertiary": [],
+            "decrease": []
+        },
+        "evergreen forested hills": {
+            "primary": ["evergreen forested hills"],
+            "secondary": ["grassy hills", "evergreen forested mountains", "evergreen forest", "mixed forest"],
             "tertiary": [],
             "decrease": []
         },
@@ -107,19 +127,19 @@
         },
         "mountains": {
             "primary": ["mountains"],
-            "secondary": ["grassy hills", "forested hills", "deciduous forested mountains", "evergreen forested mountains"],
+            "secondary": ["grassy hills", "deciduous forested hills", "evergreen forested hills", "deciduous forested mountains", "evergreen forested mountains"],
             "tertiary": [],
             "decrease": []
         },
         "deciduous forested mountains": {
             "primary": ["deciduous forested mountains"],
-            "secondary": ["deciduous forest", "forested hills", "mountains"],
+            "secondary": ["deciduous forest", "deciduous forested hills", "mountains"],
             "tertiary": [],
             "decrease": []
         },
         "evergreen forested mountains": {
             "primary": ["evergreen forested mountains"],
-            "secondary": ["evergreen forest", "forested hills", "mountains"],
+            "secondary": ["evergreen forest", "evergreen forested hills", "mountains"],
             "tertiary": [],
             "decrease": []
         }

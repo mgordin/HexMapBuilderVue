@@ -428,11 +428,11 @@ export const useHexesStore = defineStore({
         })
 
         // Hex contents
-        this.hexes.forEach((row) => {
+        /* this.hexes.forEach((row) => {
             row.forEach((hex) => {
                 this.generateHexContents(hex.uuid);
             })
-        })
+        }) */
 
         // Maintain empty map edge
         this.addRow('top', this.countColumns, this.defaultHexProperties)
@@ -570,13 +570,13 @@ export const useHexesStore = defineStore({
     generateHexContents(hexUUID) {
         // Get hex to be filled
         const hexByUUID = this.hexByUUID;
-        thisHex = hexByUUID(hexUUID);
+        const thisHex = hexByUUID(hexUUID);
 
         // Refine and/or generate tags
         thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags)
 
         // Generate content from tags
-        thisHex.content = this.generateHexContent(hexUUID, thisHex.terrain, thisHex.tags)
+        thisHex.content = this.generateHexDescription(hexUUID, thisHex.terrain, thisHex.tags)
 
         // Set icon to match contents
         this.setHexIcon(hexUUID, icon);
@@ -593,7 +593,7 @@ export const useHexesStore = defineStore({
         tags = generateTags()
     },
     // Take hex terrain and tags and generate actual content tags / crosslinks
-    generateHexContent(hexUUID, terrain, tags) {
+    generateHexDescription(hexUUID, terrain, tags) {
         // Select content somehow??
 
         // Format it to work with tiptap
