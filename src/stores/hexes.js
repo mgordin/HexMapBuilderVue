@@ -415,8 +415,9 @@ export const useHexesStore = defineStore({
 
         return tags;
     },
-    fillMapTerrain(type, rows, columns) {
-        const terrainSetup = this.terrainProperties[type];
+    fillMap(terrainType, rows, columns) {
+        // Terrain
+        const terrainSetup = this.terrainProperties[terrainType];
 
         this.seedTerrain(terrainSetup.seeds, rows, columns);
 
@@ -426,11 +427,20 @@ export const useHexesStore = defineStore({
             })
         })
 
+        // Hex contents
+        this.hexes.forEach((row) => {
+            row.forEach((hex) => {
+                this.generateHexContents(hex.uuid);
+            })
+        })
+
+        // Maintain empty map edge
         this.addRow('top', this.countColumns, this.defaultHexProperties)
         this.addRow('bottom', this.countColumns, this.defaultHexProperties)
         this.addColumn('right', this.defaultHexProperties)
         this.addColumn('left', this.defaultHexProperties)
     },
+    // ***** Add this at some point ?? ***** //
     seedTerrain(seeds, rows, columns) {
         return null
     },
@@ -556,6 +566,42 @@ export const useHexesStore = defineStore({
 
         // Just do a thing
         this.setHexTerrain(hexUUID, thisTerrain, false)
+    },
+    generateHexContents(hexUUID) {
+        // Get hex to be filled
+        const hexByUUID = this.hexByUUID;
+        thisHex = hexByUUID(hexUUID);
+
+        // Refine and/or generate tags
+        thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags)
+
+        // Generate content from tags
+        thisHex.content = this.generateHexContent(hexUUID, thisHex.terrain, thisHex.tags)
+
+        // Set icon to match contents
+        this.setHexIcon(hexUUID, icon);
+    },
+    // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
+    // additional tags as needed
+    generateHexTags(hexUUID, terrain, startingTags) {
+        var tags = startingTags
+        startingTags.forEach((tag) => {
+            if (this.tagNeedingRefinement.includes(tag)) {
+                tags = refineTag(tag, tags)
+            }
+        })
+        tags = generateTags()
+    },
+    // Take hex terrain and tags and generate actual content tags / crosslinks
+    generateHexContent(hexUUID, terrain, tags) {
+        // Select content somehow??
+
+        // Format it to work with tiptap
+        return this.formatContent(content)
+    },
+    // Take shorthand from content store and convert to Tiptap-compatible format
+    formatContent(content) {
+
     },
     weightedRandom(items, weights) {
         if (items.length !== weights.length) {
