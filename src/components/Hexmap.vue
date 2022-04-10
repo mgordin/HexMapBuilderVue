@@ -146,6 +146,8 @@ function logPaddingShift() {
 
 .hex-icon {
   position: absolute;
-  width: 150px;
+  width: 60px;
+  left: 25px;
+  top: 15px;
 }
 </style>

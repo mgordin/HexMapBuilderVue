@@ -219,6 +219,7 @@ export const useHexesStore = defineStore({
                 }
             })
             this.nthChildShift = -1 * this.nthChildShift
+            this.shiftHexNumbers()
         }
     },
     oddToNegative(number) {
@@ -439,6 +440,8 @@ export const useHexesStore = defineStore({
         this.addRow('bottom', this.countColumns, this.defaultHexProperties)
         this.addColumn('right', this.defaultHexProperties)
         this.addColumn('left', this.defaultHexProperties)
+        this.toggleLeftmostColumn();
+        this.shiftHexNumbers();
     },
     // ***** Add this at some point ?? ***** //
     seedTerrain(seeds, rows, columns) {

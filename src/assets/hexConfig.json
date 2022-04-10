@@ -43,6 +43,7 @@
     "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"},
     "icons": {
         "castle": { "file": "./icons/castle.png", "tags": ["settlement", "castle"], "selected": false },
+        "castle-glow": { "file": "./icons/castle-glow.png", "tags": ["settlement", "castle"], "selected": false },
         "fort": { "file": "./icons/fort.png", "tags": ["settlement", "fort"], "selected": false },
         "monolith": { "file": "./icons/monolith.png", "tags": ["landmark", "monolith"], "selected": false },
         "obelisk": { "file": "./icons/obelisk_2.png", "tags": ["landmark", "obelisk"], "selected": false },
