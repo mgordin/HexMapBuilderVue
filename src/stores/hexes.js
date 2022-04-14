@@ -15,7 +15,8 @@ export const useHexesStore = defineStore({
             terrain: 'Default',
             icon: null,
             content: null,
-            tags: []
+            tags: [],
+            referenceMirrors: []
         }]
     ],
     defaultHexProperties: {
@@ -31,7 +32,88 @@ export const useHexesStore = defineStore({
     nthChildShift: 83.5,
     leftmostColumn: 'odd',
     terrainProperties: json.terrainProperties,
-    terrainInfluencedBy: json.terrainInfluencedBy
+    terrainInfluencedBy: json.terrainInfluencedBy,
+    primaryMapOne: {
+        0: 0,
+        1: 7,
+        2: 10,
+        3: 13,
+        4: 15,
+        5: 17,
+        6: 19
+    },
+    primaryMapTwo: {
+        0: 0,
+        1: 1,
+        2: 2.5,
+        3: 4,
+        4: 5,
+        5: 6,
+        6: 7,
+        7: 7.5,
+        8: 8,
+        9: 9,
+        10: 9.5,
+        11: 10,
+        12: 11
+    },
+    secondaryMapOne: {
+        0: 0,
+        1: 2,
+        2: 4,
+        3: 6,
+        4: 7,
+        5: 8,
+        6: 9
+    },
+    secondaryMapTwo: {
+        0: 0,
+        1: 0.5,
+        2: 1,
+        3: 2,
+        4: 2.5,
+        5: 3,
+        6: 4,
+        7: 4.5,
+        8: 5,
+        9: 6,
+        10: 6.5,
+        11: 7,
+        12: 7.5
+    },
+    tertiaryMapOne: {
+        0: 0,
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 3.5,
+        5: 4,
+        6: 4.5
+    },
+    tertiaryMapTwo: {
+        0: 0,
+        1: 1/3,
+        2: 2/3,
+        3: 1,
+        4: 4/3,
+        5: 5/3,
+        6: 2,
+        7: 7/3,
+        8: 8/3,
+        9: 3,
+        10: 3,
+        11: 3.5,
+        12: 3.5
+    },
+    contentTags: {
+        "settlement": json.contentTags.settlement,
+        "ruin": json.contentTags.ruin,
+        "wilderness": json.contentTags.wilderness
+    },
+    pointOfInterest: {
+        type: ["settlement", "ruin", "wilderness"],
+        odds: [1,1,1]
+    }
   }),
   getters: {
     countLines: (state) => state.hexes.length,
@@ -90,6 +172,9 @@ export const useHexesStore = defineStore({
     getShiftPixels: (state) => {
         return state.nthChildShift.toString().concat('px');
     },
+    tagList: (state) => {
+        return Object.keys(state.terrainInfluencedBy);
+    }
   },
   actions: {
     addHex(line, position, hexProperties) {
@@ -121,7 +206,11 @@ export const useHexesStore = defineStore({
             icon: hexProperties["icon"],
             content: null,
             selected: false,
-            tags: []
+            tags: [],
+            // Stores inbound references from other hexes, to be used in content generation
+            // { hexUUID: ###, mirrorText: "Text", readyTags: [], refineTags: [] }
+            // mirrorText may contain references to the ready / needs-refinement tags to fill in details
+            referenceMirrors: []
         };
 
     
@@ -266,7 +355,6 @@ export const useHexesStore = defineStore({
         const hex = this.hexByUUID
         const thisHex = hex(hexUUID);
         thisHex.terrain = terrain;
-        thisHex.tags.push(terrain)
         if (terrain != 'Default' && maintainEdge) {
             this.maintainEmptyMapEdge(thisHex.row, thisHex.column)
         }
@@ -321,8 +409,8 @@ export const useHexesStore = defineStore({
         }
     },
     // Return as { tag: {one-away: count, two-away: count, three-away: count}, }
-    tagsWithinTwo(hexUUID) {
-        var tags = {};
+    terrainWithinTwo(hexUUID) {
+        var terrains = {};
         
         const hex = this.hexByUUID
         const thisHex = hex(hexUUID);
@@ -383,38 +471,31 @@ export const useHexesStore = defineStore({
         const hexByPosition = this.hexByPosition;
         var temp = []
         oneAwayHexes.forEach((element) => {
-            console.log('tags within one: trying hex', thisHex.row + element.row, thisHex.column + element.column)
-            console.log('rows, columns', this.countRows, this.countColumns)
             if ((thisHex.row + element.row) >= 1 && (thisHex.column + element.column) >= 1 && 
                 (thisHex.row + element.row) <= this.hexes.length/2 && (thisHex.column + element.column) <= this.countColumns) {
-                    console.log('do it')
-                    const hexTags = hexByPosition(thisHex.row + element.row, thisHex.column + element.column).tags
-                    hexTags.forEach((tag) => {
-                        if (Object.keys(tags).includes(tag)) {
-                            tags[tag]['one-away']++
-                        } else {
-                            tags[tag] = {'one-away': 1, 'two-away': 0}
-                        }
-                    })
+                    const hexTerrain = hexByPosition(thisHex.row + element.row, thisHex.column + element.column).tags
+                    if (Object.keys(terrains).includes(hexTerrain)) {
+                        terrains[hexTerrain]['one-away']++
+                    } else {
+                        terrains[hexTerrain] = {'one-away': 1, 'two-away': 0}
+                    }
                 }
             
         })
         twoAwayHexes.forEach((element) => {
             if ((thisHex.row + element.row) >= 1 && (thisHex.column + element.column) >= 1 && 
                 (thisHex.row + element.row) <= this.hexes.length/2 && (thisHex.column + element.column) <= this.countColumns) {
-                    const hexTags = hexByPosition(thisHex.row + element.row, thisHex.column + element.column).tags
-                    hexTags.forEach((tag) => {
-                        if (Object.keys(tags).includes(tag)) {
-                            tags[tag]['two-away']++
-                        } else {
-                            tags[tag] = {'one-away': 0, 'two-away': 1}
-                        }
-                    })
+                    const hexTerrain = hexByPosition(thisHex.row + element.row, thisHex.column + element.column).terrain
+                    if (Object.keys(terrains).includes(hexTerrain)) {
+                        terrains[hexTerrain]['two-away']++
+                    } else {
+                        terrains[hexTerrain] = {'one-away': 0, 'two-away': 1}
+                    }
                 }
             
         })
 
-        return tags;
+        return terrains;
     },
     fillMap(terrainType, rows, columns) {
         // Terrain
@@ -429,11 +510,11 @@ export const useHexesStore = defineStore({
         })
 
         // Hex contents
-        /* this.hexes.forEach((row) => {
+        this.hexes.forEach((row) => {
             row.forEach((hex) => {
                 this.generateHexContents(hex.uuid);
             })
-        }) */
+        })
 
         // Maintain empty map edge
         this.addRow('top', this.countColumns, this.defaultHexProperties)
@@ -448,122 +529,27 @@ export const useHexesStore = defineStore({
         return null
     },
     generateTerrain(hexUUID, odds) {
-        const tagsWithinTwoCount = this.tagsWithinTwo(hexUUID);
-
-        console.log('for hex ', hexUUID, 'tags within two is', tagsWithinTwoCount)
-
-        var withinOneMap = {
-            0: 0,
-            1: 4,
-            2: 7,
-            3: 9,
-            4: 11,
-            5: 12,
-            6: 13
-        }
-
-        const primaryMapOne = {
-            0: 0,
-            1: 7,
-            2: 10,
-            3: 13,
-            4: 15,
-            5: 17,
-            6: 19
-        }
-
-        const primaryMapTwo = {
-            0: 0,
-            1: 1,
-            2: 2.5,
-            3: 4,
-            4: 5,
-            5: 6,
-            6: 7,
-            7: 7.5,
-            8: 8,
-            9: 9,
-            10: 9.5,
-            11: 10,
-            12: 11
-        }
-
-        const secondaryMapOne = {
-            0: 0,
-            1: 2,
-            2: 4,
-            3: 6,
-            4: 7,
-            5: 8,
-            6: 9
-        }
-
-        const secondaryMapTwo = {
-            0: 0,
-            1: 0.5,
-            2: 1,
-            3: 2,
-            4: 2.5,
-            5: 3,
-            6: 4,
-            7: 4.5,
-            8: 5,
-            9: 6,
-            10: 6.5,
-            11: 7,
-            12: 7.5
-        }
-
-        const tertiaryMapOne = {
-            0: 0,
-            1: 1,
-            2: 2,
-            3: 3,
-            4: 3.5,
-            5: 4,
-            6: 4.5
-        }
-
-        const tertiaryMapTwo = {
-            0: 0,
-            1: 1/3,
-            2: 2/3,
-            3: 1,
-            4: 4/3,
-            5: 5/3,
-            6: 2,
-            7: 7/3,
-            8: 8/3,
-            9: 3,
-            10: 3,
-            11: 3.5,
-            12: 3.5
-        }
-
-        console.log('starting odds', odds)
-
+        const terrainWithinTwoCount = this.terrainWithinTwo(hexUUID);
         var terrains = []
         var terrainWeights = []
        
         Object.keys(odds).forEach((tag) => {
             var tempOdds = odds[tag];
-            Object.keys(tagsWithinTwoCount).forEach((withinTwoTag) => {
-                if (this.terrainInfluencedBy[tag].primary.includes(withinTwoTag)) {
-                    tempOdds = tempOdds + primaryMapOne[tagsWithinTwoCount[withinTwoTag]['one-away']] + 
-                        primaryMapOne[tagsWithinTwoCount[withinTwoTag]['two-away']]
-                } else if (this.terrainInfluencedBy[tag].secondary.includes(withinTwoTag)) {
-                    tempOdds = tempOdds + secondaryMapOne[tagsWithinTwoCount[withinTwoTag]['one-away']] + 
-                        secondaryMapOne[tagsWithinTwoCount[withinTwoTag]['two-away']]
-                } else if (this.terrainInfluencedBy[tag].tertiary.includes(withinTwoTag)) {
-                    tempOdds = tempOdds + tertiaryMapOne[tagsWithinTwoCount[withinTwoTag]['one-away']] + 
-                        tertiaryMapOne[tagsWithinTwoCount[withinTwoTag]['two-away']]
+            Object.keys(terrainWithinTwoCount).forEach((withinTwoTerrain) => {
+                if (this.terrainInfluencedBy[tag].primary.includes(withinTwoTerrain)) {
+                    tempOdds = tempOdds + this.primaryMapOne[terrainWithinTwoCount[withinTwoTerrain]['one-away']] + 
+                        this.primaryMapOne[terrainWithinTwoCount[withinTwoTerrain]['two-away']]
+                } else if (this.terrainInfluencedBy[tag].secondary.includes(withinTwoTerrain)) {
+                    tempOdds = tempOdds + this.secondaryMapOne[terrainWithinTwoCount[withinTwoTerrain]['one-away']] + 
+                        this.secondaryMapOne[terrainWithinTwoCount[withinTwoTerrain]['two-away']]
+                } else if (this.terrainInfluencedBy[tag].tertiary.includes(withinTwoTerrain)) {
+                    tempOdds = tempOdds + this.tertiaryMapOne[terrainWithinTwoCount[withinTwoTerrain]['one-away']] + 
+                        this.tertiaryMapOne[terrainWithinTwoCount[withinTwoTerrain]['two-away']]
                 }
             })
             terrains.push(tag)
             terrainWeights.push(tempOdds)
         })
-
-        console.log('odds', odds, 'terrains', terrains, 'weights', terrainWeights)
 
         const thisTerrain = this.weightedRandom(terrains, terrainWeights)
 
@@ -575,36 +561,139 @@ export const useHexesStore = defineStore({
         const hexByUUID = this.hexByUUID;
         const thisHex = hexByUUID(hexUUID);
 
-        // Refine and/or generate tags
-        thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags)
+        // Refine and/or generate tags that indicate the type of content, if any
+        thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags, 1)
+        console.log('tags generated are', thisHex.tags)
 
-        // Generate content from tags
-        thisHex.content = this.generateHexDescription(hexUUID, thisHex.terrain, thisHex.tags)
+        // Generate content from tags, selecting and filling a matching content template
+        //from the tag(s) list(s)
+        thisHex.content = this.generateHexDescription(hexUUID, thisHex.tags, this.hexOptions)
 
         // Set icon to match contents
-        this.setHexIcon(hexUUID, icon);
+        //this.setHexIcon(hexUUID, icon);
     },
     // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
     // additional tags as needed
-    generateHexTags(hexUUID, terrain, startingTags) {
-        var tags = startingTags
-        startingTags.forEach((tag) => {
-            if (this.tagNeedingRefinement.includes(tag)) {
-                tags = refineTag(tag, tags)
+    // pointOfInterestChance as a decimal
+    generateHexTags(hexUUID, terrain, startingTags, pointOfInterestChance) {
+        // If no starting tags, check chance of having a point of interest and generate
+        // tags if it meets that chance
+        console.log('starting tags', startingTags)
+        if (startingTags.length == 0) {
+            console.log("starting tags empty")
+            if (Math.random() > pointOfInterestChance) {
+                console.log("do not make any tags")
+                return startingTags;
+            } else {
+                console.log('make tags')
+                const newTags = this.generateHexTag(terrain);
+                return newTags;
             }
+        // If there are already things in startingTags, refine those as needed
+        } else {
+            console.log('starting tags not empty')
+            var tags = startingTags
+            startingTags.forEach((tag) => {
+                if (Object.keys(this.contentTags).includes(tag)) {
+                    tags = this.refineTag(tag, tags)
+                }
+            })
+            return tags;
+        }
+    },
+    // Generate a new tag (or an empty hex) based on input probabilities and the current terrain
+    generateHexTag(terrain) {
+        const typeTag = this.weightedRandom(this.pointOfInterest.type, this.pointOfInterest.odds)
+        
+        console.log('type tag', typeTag)
+        return this.refineTag(typeTag, [typeTag])
+    },
+    refineTag(typeTag, tags) {
+        console.log('regining - type tag', typeTag, 'tags', tags)
+        var options = Object.keys(this.contentTags[typeTag])
+        console.log('options', options)
+        var optionWeights = []
+        options.forEach((option) => {
+            optionWeights.push(this.contentTags[typeTag][option].odds)
         })
-        tags = generateTags()
+        console.log('weights', optionWeights)
+
+        tags.push(this.weightedRandom(options, optionWeights))
+        console.log('full tags set is', tags)
+
+        return tags;
     },
     // Take hex terrain and tags and generate actual content tags / crosslinks
-    generateHexDescription(hexUUID, terrain, tags) {
-        // Select content somehow??
+    generateHexDescription(hexUUID, tags, hexOptions) {
+        var descriptionElements = [];
 
+        tags.forEach((tag) => {
+            console.log('working on tag', tag)
+            if (!Object.keys(this.contentTags).includes(tag)) {
+                console.log('not a type tag', tag)
+                const parentTypeTag = this.parentTypeTag(tag)
+                console.log('parent tag', parentTypeTag)
+                if (parentTypeTag != null) {
+                    console.log('parent is not null - is', parentTypeTag, 'tag is', tag)
+                    var options = []
+                    var weights = []
+
+                    this.contentTags[parentTypeTag][tag].description.forEach((option) => {
+                        console.log('working on option', option)
+                        options.push(option.text);
+                        weights.push(option.odds)
+                    })
+
+                    console.log('set options', options, 'and weights', weights)
+                    descriptionElements.push(this.weightedRandom(options, weights))
+                }
+            }
+        })
+
+        console.log('description elements', descriptionElements)
         // Format it to work with tiptap
-        return this.formatContent(content)
+        return this.formatDescriptionForTiptap(descriptionElements)
+    },
+    parentTypeTag(tag) {
+        console.log('finding parent tag for ', tag)
+        var parentTag = null;
+        Object.keys(this.contentTags).forEach((typeTag) => {
+            console.log('is it', typeTag)
+            if (Object.keys(this.contentTags[typeTag]).includes(tag)) {
+                console.log('it is')
+                parentTag = typeTag;
+            }
+        })
+        return parentTag;
     },
     // Take shorthand from content store and convert to Tiptap-compatible format
-    formatContent(content) {
+    formatDescriptionForTiptap(descriptionElements) {
+        var description = {
+            type: "doc", 
+            content: []
+        }
 
+        // Just doing simplest case right now - need to put together a parser for mentions and such
+        for (let i = 0; i < descriptionElements.length; i++) {
+            description.content.push(
+                {
+                    type: "paragraph",
+                    content: [
+                        {
+                            type: "text",
+                            text: descriptionElements[i]
+                        }
+                    ]
+                }
+            )
+            if (i < descriptionElements.length - 1) {
+                description.content.push(
+                    {type: "paragraph"}
+                )
+            }
+        }
+
+        return description;
     },
     weightedRandom(items, weights) {
         if (items.length !== weights.length) {

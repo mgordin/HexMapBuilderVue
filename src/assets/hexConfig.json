@@ -144,5 +144,68 @@
             "tertiary": [],
             "decrease": []
         }
+    },
+    "contentTags": {
+        "settlement": {
+            "village": {
+                "odds": 10,
+                "ruler": ["headman", "council of elders"],
+                "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
+                "description": [
+                    {"text": "test A", "odds": 1},
+                    {"text": "test B", "odds": 1}
+                ]
+            },
+            "town": {
+                "odds": 2,
+                "ruler": ["mayor", "ealdorman", "town council"],
+                "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
+                "description": [
+                    {"text": "test C", "odds": 1},
+                    {"text": "test D", "odds": 1}
+                ]
+            },
+            "castle": {
+                "odds": 1,
+                "ruler": ["lord", "commander"],
+                "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "sage", "merchant"],
+                "description": [
+                    {"text": "test E", "odds": 1},
+                    {"text": "test F", "odds": 1}
+                ]
+            }
+        },
+        "ruin": {
+            "ruined castle": {
+                "odds": 1,
+                "description": [
+                    {"text": "test G", "odds": 1},
+                    {"text": "test H", "odds": 1}
+                ]
+            },
+            "abandoned village": {
+                "odds": 1,
+                "description": [
+                    {"text": "test I", "odds": 1},
+                    {"text": "test J", "odds": 1}
+                ]
+            }
+        },
+        "wilderness": {
+            "standing stones": {
+                "odds": 1,
+                "description": [
+                    {"text": "test K", "odds": 1},
+                    {"text": "test L", "odds": 1}
+                ]
+            },
+            "magic spring": {
+                "odds": 1,
+                "description": [
+                    {"text": "test M", "odds": 1},
+                    {"text": "test N", "odds": 1}
+                ]
+            }
+        }
     }
 }

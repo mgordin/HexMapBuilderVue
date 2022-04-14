@@ -13,7 +13,7 @@ const es = useEditorStore();
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Modal title</p>
+            <p class="modal-card-title">Initialize map</p>
         </header>
         <section class="modal-card-body">
             <label class="label">Rows</label>

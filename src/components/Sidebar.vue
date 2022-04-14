@@ -48,7 +48,7 @@ const hexByUUID = hs.hexByUUID;
                     :searchable="true"
                     :create-option="false"
                     placeholder="Select location tags..."
-                    :options="hs.sampleLocations"
+                    :options="hs.tagList"
                     />
             </div>
           </div>
