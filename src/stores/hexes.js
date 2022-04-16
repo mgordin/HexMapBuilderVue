@@ -16,6 +16,7 @@ export const useHexesStore = defineStore({
             icon: null,
             content: null,
             tags: [],
+            startingTags: [],
             referenceMirrors: []
         }]
     ],
@@ -207,10 +208,7 @@ export const useHexesStore = defineStore({
             content: null,
             selected: false,
             tags: [],
-            // Stores inbound references from other hexes, to be used in content generation
-            // { hexUUID: ###, mirrorText: "Text", readyTags: [], refineTags: [] }
-            // mirrorText may contain references to the ready / needs-refinement tags to fill in details
-            referenceMirrors: []
+            startingTags: []
         };
 
     
@@ -513,7 +511,7 @@ export const useHexesStore = defineStore({
         // Hex contents
         this.hexes.forEach((row) => {
             row.forEach((hex) => {
-                this.generateHexContents(hex.uuid);
+                this.generateHexContents(hex.uuid, false);
             })
         })
 
@@ -557,29 +555,42 @@ export const useHexesStore = defineStore({
         // Just do a thing
         this.setHexTerrain(hexUUID, thisTerrain, false)
     },
-    generateHexContents(hexUUID) {
+    generateHexContents(hexUUID, overwrite) {
+        console.log("!!!!!!!!!!!!! Contents for hex", hexUUID, "from generateHexContents")
+
         // Get hex to be filled
         const hexByUUID = this.hexByUUID;
         const thisHex = hexByUUID(hexUUID);
 
-        // Refine and/or generate tags that indicate the type of content, if any
-        thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags, 0.5)
-        console.log('tags generated are', thisHex.tags)
+        if (thisHex.tags.length == 0 || overwrite) {
+            // Refine and/or generate tags that indicate the type of content, if any
+            thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags, 0.5)
+            console.log('tags generated are', thisHex.tags)
 
-        // Generate content from tags, selecting and filling a matching content template
-        //from the tag(s) list(s)
-        const descriptionElements = this.generateHexDescription(hexUUID, thisHex.tags, {mention: 'any'})
-        thisHex.content = this.formatDescriptionForTiptap(descriptionElements)
-
-        // Set icon to match contents
-        var icon = null;
-        thisHex.tags.forEach((tag) => {
-            if (!Object.keys(this.contentTags).includes(tag)) {
-                icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
+            // Generate content from tags, selecting and filling a matching content template
+            //from the tag(s) list(s)
+            const descriptionElements = this.generateHexDescription(hexUUID, thisHex.tags, {mention: 'any'})
+            var resolveNewTags = []
+            const startingDescription = {
+                type: "doc", 
+                content: []
             }
-        })
-        console.log("setting icon for hex", thisHex.uuid, "which is", icon)
-        this.setHexIcon(thisHex.uuid, icon);
+            thisHex.content = this.formatDescriptionForTiptap(thisHex.uuid, startingDescription, descriptionElements, resolveNewTags)
+
+            // Set icon to match contents
+            var icon = null;
+            thisHex.tags.forEach((tag) => {
+                if (!Object.keys(this.contentTags).includes(tag)) {
+                    icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
+                }
+            })
+            console.log("setting icon for hex", thisHex.uuid, "which is", icon)
+            this.setHexIcon(thisHex.uuid, icon);
+
+            resolveNewTags.forEach((hexUpdate) => {
+                this.resolveHexTagUpdate(hexUpdate.uuid, hexUpdate.tag)
+            })
+        }
     },
     // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
     // additional tags as needed
@@ -603,9 +614,7 @@ export const useHexesStore = defineStore({
             console.log('starting tags not empty')
             var tags = startingTags
             startingTags.forEach((tag) => {
-                if (Object.keys(this.contentTags).includes(tag)) {
-                    tags = this.refineTag(tag, tags)
-                }
+                tags = this.refineTag(tag, tags)
             })
             return tags;
         }
@@ -618,24 +627,28 @@ export const useHexesStore = defineStore({
         return this.refineTag(typeTag, [typeTag])
     },
     refineTag(typeTag, tags) {
-        console.log('regining - type tag', typeTag, 'tags', tags)
-        var options = Object.keys(this.contentTags[typeTag])
-        console.log('options', options)
-        var optionWeights = []
-        options.forEach((option) => {
-            optionWeights.push(this.contentTags[typeTag][option].odds)
-        })
-        console.log('weights', optionWeights)
+        if (Object.keys(this.contentTags).includes(typeTag)) {
+            console.log('regining - type tag', typeTag, 'tags', tags)
+            var options = Object.keys(this.contentTags[typeTag])
+            console.log('options', options)
+            var optionWeights = []
+            options.forEach((option) => {
+                optionWeights.push(this.contentTags[typeTag][option].odds)
+            })
+            console.log('weights', optionWeights)
 
-        tags.push(this.weightedRandom(options, optionWeights))
-        console.log('full tags set is', tags)
+            tags.push(this.weightedRandom(options, optionWeights))
+            console.log('full tags set is', tags)
 
-        return tags;
+            return tags;
+        } else {
+            return tags;
+        }
     },
     // Take hex terrain and tags and generate actual content tags / crosslinks
     generateHexDescription(hexUUID, tags, hexOptions) {
         var descriptionElements = [];
-        const reMention = new RegExp('@[a-zA-Z0-9]+')
+        const reMention = new RegExp('@[a-zA-Z0-9]+', 'g')
 
         tags.forEach((tag) => {
             console.log('working on tag', tag)
@@ -649,11 +662,14 @@ export const useHexesStore = defineStore({
                     var weights = []
 
                     this.contentTags[parentTypeTag][tag].description.forEach((option) => {
-                        console.log('working on option', option)
-                        if (hexOptions.mention == 'any' || (hexOptions.mention == 'no' && !reMention.test(option))) {
+                        console.log('hexOptions.mention is', hexOptions.mention)
+                        if (hexOptions.mention == 'any') {
                             options.push(option.text);
-                            weights.push(option.odds)
-                        }  
+                            weights.push(option.odds);
+                        } else if (hexOptions.mention == 'no' && !reMention.test(option.text)) {
+                            options.push(option.text);
+                            weights.push(option.odds);
+                        }
                     })
 
                     console.log('set options', options, 'and weights', weights)
@@ -689,13 +705,10 @@ export const useHexesStore = defineStore({
         "#text" = select a random one from this tag's "text" property
         "@thing" = mention a hex with tag "thing"
     */
-    formatDescriptionForTiptap(descriptionElements) {
-        console.log('formatting description')
+    formatDescriptionForTiptap(activeHexUUID, startingDescription, descriptionElements, resolveNewTags) {
+        console.log('formatting description from starting', startingDescription, 'and elements', descriptionElements)
 
-        var description = {
-            type: "doc", 
-            content: []
-        }
+        var description = startingDescription;
 
         // Just doing simplest case right now - need to put together a parser for mentions and such
         const reChoice = new RegExp('#[a-zA-Z0-9]+', 'g')
@@ -753,9 +766,12 @@ export const useHexesStore = defineStore({
 
                 mentionMatches.forEach((match) => {
                     console.log('resolving mention match', match)
-                    const hexUUID = this.getMatchingHex(match.substring(1))
-                    console.log('with UUID', hexUUID)
-                    resolvedMentions.push(hexUUID);
+                    const matchingHex = this.getMatchingHex(match.substring(1), activeHexUUID)
+                    console.log('with UUID', matchingHex.uuid)
+                    resolvedMentions.push(matchingHex.uuid);
+                    if (matchingHex.type != 'existing') {
+                        resolveNewTags.push({tag: match.substring(1), uuid: matchingHex.uuid})
+                    }
                 })
 
                 var line = {
@@ -845,34 +861,72 @@ export const useHexesStore = defineStore({
 
         return description;
     },
-    getMatchingHex(tag) {
+    getMatchingHex(tag, hexUUID) {
         var validHexes = [];
         var emptyHexes = [];
         var hexCount = 0;
 
         this.hexes.flat().forEach((hex) => {
-            if (hex.tags.length == 0) {
+            if (hex.tags.length == 0 && hex.uuid != hexUUID) {
                 emptyHexes.push(hex.uuid);
-            } else if (hex.tags.includes(tag)) {
+            } else if (hex.tags.includes(tag) && hex.uuid != hexUUID) {
                 validHexes.push(hex.uuid);
             }
             hexCount++;
         })
 
+        var matchType = null;
         if (validHexes.length > 0) {
-            return this.randomChoice(validHexes);
+            return { uuid: this.randomChoice(validHexes), type: 'existing' };
         // Need to add a mechanism to apply the new tag
         } else if (emptyHexes.length > 0) {
             const hexByUUID = this.hexByUUID
             const thisHex = hexByUUID(this.randomChoice(emptyHexes))
-            thisHex.tags.push(tag)
-            return thisHex.uuid
+            thisHex.startingTags.push(tag)
+            return { uuid: thisHex.uuid, type: "empty" }
         // Need to add a mechanism to apply the new tag
         } else {
             const thisHex = this.randomChoice(this.hexes)
-            thisHex.tags.push(tag)
-            return thisHex.uuid
+            thisHex.startingTags.push(tag)
+            return { uuid: thisHex.uuid, type: "random" }
         }
+    },
+    resolveHexTagUpdate(hexUUID, tag) {
+        console.log("!!!!!!-------------!!!!!!! Contents for hex", hexUUID, "from resolveHexTagUpdate !!!!!!-------------!!!!!!!")
+
+        const hexByUUID = this.hexByUUID;
+        const thisHex = hexByUUID(hexUUID);
+
+        var tags = this.refineTag(tag, [tag])
+        tags.forEach((tag) => {
+            thisHex.tags.push(tag)
+        })
+
+        const descriptionElements = this.generateHexDescription(hexUUID, tags, {mention: 'no'})
+        var resolveNewTags = []
+        var startingDescription = {
+            type: "doc", 
+            content: []
+        }
+        if (thisHex.content != null) {
+            startingDescription = thisHex.content
+        }
+        thisHex.content = this.formatDescriptionForTiptap(hexUUID, startingDescription, descriptionElements, resolveNewTags)
+
+         // Set icon to match contents
+         var icon = null;
+         thisHex.tags.forEach((tag) => {
+             if (!Object.keys(this.contentTags).includes(tag)) {
+                 icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
+             }
+         })
+         console.log("setting icon for hex", thisHex.uuid, "which is", icon)
+         this.setHexIcon(thisHex.uuid, icon);
+
+         resolveNewTags.forEach((hexUpdate) => {
+             this.resolveHexTagUpdate(hexUpdate.uuid, hexUpdate.tag)
+         })
+
     },
     randomChoice(options) {
         console.log('choosing - options are', options)

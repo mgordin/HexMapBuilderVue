@@ -157,7 +157,8 @@
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
                 "description": [
                     {"text": "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement.", "odds": 1},
-                    {"text": "A #majorResident from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin.", "odds": 1}
+                    {"text": "A #majorResident from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin.", "odds": 1},
+                    {"text": "The #ruler of this village is having a secret affair with the #majorResident.", "odds": 1}
                 ]
             },
             "town": {
@@ -167,7 +168,8 @@
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
                 "description": [
                     {"text": "The #ruler of this town is organizing a festival, but people from @settlement are trying to sabotage it.", "odds": 1},
-                    {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement who paints ducks.", "odds": 1}
+                    {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement who paints ducks.", "odds": 1},
+                    {"text": "The #majorResident is secretly a vampire.", "odds": 1}
                 ]
             },
             "castle": {
@@ -205,7 +207,8 @@
                 "icon": "standing-stones",
                 "description": [
                     {"text": "A group of militant druids resides here and is plotting against @settlement.", "odds": 1},
-                    {"text": "Long ago, wizards from @ruin sealed a terrible evil below these stones.", "odds": 1}
+                    {"text": "Long ago, wizards from @ruin sealed a terrible evil below these stones.", "odds": 1},
+                    {"text": "On nights with a full moon, the stones speak prophecies.", "odds": 1}
                 ]
             },
             "magic spring": {
@@ -213,7 +216,8 @@
                 "icon": "waterfall",
                 "description": [
                     {"text": "The elite of @town believe the spring's waters prevent aging, but the reality is something sinister.", "odds": 1},
-                    {"text": "The spring turns local animals into dire beasts.", "odds": 1}
+                    {"text": "The spring turns local animals into dire beasts.", "odds": 1},
+                    {"text": "There is a hive of talking bees.", "odds": 1}
                 ]
             }
         }
