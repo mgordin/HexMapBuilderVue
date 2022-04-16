@@ -363,6 +363,7 @@ export const useHexesStore = defineStore({
         const hex = this.hexByUUID
         const thisHex = hex(hexUUID);
         thisHex.icon = icon;
+        console.log('hex', hexUUID,' now set with icon', thisHex.icon, 'from icon', icon)
     },
     shiftHexNumbers() {
         this.hexes.forEach((rowOfHexes, row) => {
@@ -562,7 +563,7 @@ export const useHexesStore = defineStore({
         const thisHex = hexByUUID(hexUUID);
 
         // Refine and/or generate tags that indicate the type of content, if any
-        thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags, 1)
+        thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags, 0.5)
         console.log('tags generated are', thisHex.tags)
 
         // Generate content from tags, selecting and filling a matching content template
@@ -571,7 +572,14 @@ export const useHexesStore = defineStore({
         thisHex.content = this.formatDescriptionForTiptap(descriptionElements)
 
         // Set icon to match contents
-        //this.setHexIcon(hexUUID, icon);
+        var icon = null;
+        thisHex.tags.forEach((tag) => {
+            if (!Object.keys(this.contentTags).includes(tag)) {
+                icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
+            }
+        })
+        console.log("setting icon for hex", thisHex.uuid, "which is", icon)
+        this.setHexIcon(thisHex.uuid, icon);
     },
     // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
     // additional tags as needed

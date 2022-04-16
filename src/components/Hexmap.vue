@@ -148,6 +148,6 @@ function logPaddingShift() {
   position: absolute;
   width: 60px;
   left: 25px;
-  top: 15px;
+  top: 25px;
 }
 </style>

@@ -42,13 +42,16 @@
     },
     "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"},
     "icons": {
-        "castle": { "file": "./icons/castle.png", "tags": ["settlement", "castle"], "selected": false },
-        "castle-glow": { "file": "./icons/castle-glow.png", "tags": ["settlement", "castle"], "selected": false },
+        "castle": { "file": "./icons/castle-glow.png", "tags": ["settlement", "castle"], "selected": false },
         "fort": { "file": "./icons/fort.png", "tags": ["settlement", "fort"], "selected": false },
+        "waterfall": {"file": "./icons/waterfall-glow.png", "selected": false},
         "monolith": { "file": "./icons/monolith.png", "tags": ["landmark", "monolith"], "selected": false },
         "obelisk": { "file": "./icons/obelisk_2.png", "tags": ["landmark", "obelisk"], "selected": false },
-        "town": { "file": "./icons/town.png", "tags": ["settlement", "town"], "selected": false },
-        "village": { "file": "./icons/hut_3.png", "tags": ["settlement", "village"], "selected": false }
+        "ruined-castle": { "file": "./icons/ruins_4-glow.png", "selected": false },
+        "ruined-town": { "file": "./icons/ruins_3-glow.png", "selected": false },
+        "standing-stones": {"file": "./icons/landmark-glow.png", "selected": false},
+        "town": { "file": "./icons/town-glow.png", "tags": ["settlement", "town"], "selected": false },
+        "village": { "file": "./icons/hut_3-glow.png", "tags": ["settlement", "village"], "selected": false }
     },
     "terrainProperties": {
         "temperate forest": {
@@ -149,61 +152,68 @@
         "settlement": {
             "village": {
                 "odds": 10,
+                "icon": "village",
                 "ruler": ["headman", "council of elders"],
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
                 "description": [
-                    {"text": "test A has a #ruler and a #majorResident", "odds": 1},
-                    {"text": "test B has a #ruler and a #majorResident", "odds": 1}
+                    {"text": "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement.", "odds": 1},
+                    {"text": "A #majorResident from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin.", "odds": 1}
                 ]
             },
             "town": {
                 "odds": 2,
+                "icon": "town",
                 "ruler": ["mayor", "ealdorman", "town council"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
                 "description": [
-                    {"text": "test C has a #ruler and a #majorResident", "odds": 1},
-                    {"text": "test D has a #ruler and a #majorResident", "odds": 1}
+                    {"text": "The #ruler of this town is organizing a festival, but people from @settlement are trying to sabotage it.", "odds": 1},
+                    {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement who paints ducks.", "odds": 1}
                 ]
             },
             "castle": {
                 "odds": 1,
+                "icon": "castle",
                 "ruler": ["lord", "commander"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "sage", "merchant"],
                 "description": [
-                    {"text": "test E has a #ruler and a #majorResident", "odds": 1},
-                    {"text": "test F has a #ruler and a #majorResident", "odds": 1}
+                    {"text": "The #majorResident of this castle is secretly a werewolf.", "odds": 1},
+                    {"text": "Humanoids living in the ruins in @ruin have been attacking the castle at night.", "odds": 1}
                 ]
             }
         },
         "ruin": {
             "ruined castle": {
                 "odds": 1,
+                "icon": "ruined-castle",
                 "description": [
-                    {"text": "test G is in @ruin", "odds": 1},
-                    {"text": "test H is in @settlement", "odds": 1}
+                    {"text": "It is said that the magically-infused bones of a powerful, ancient wizard can be found here.", "odds": 1},
+                    {"text": "Humanoids living here are friendly to outsiders, but persecuted by the people of @settlement.", "odds": 1}
                 ]
             },
             "abandoned village": {
                 "odds": 1,
+                "icon": "ruined-town",
                 "description": [
-                    {"text": "test I is in @ruin", "odds": 1},
-                    {"text": "test J is in @settlement", "odds": 1}
+                    {"text": "Many people living in @settlement used to live here, before disaster struck.", "odds": 1},
+                    {"text": "It is said that a great treasure is buried somewhere under this village, but the village is now the lair of a powerful monster.", "odds": 1}
                 ]
             }
         },
         "wilderness": {
             "standing stones": {
                 "odds": 1,
+                "icon": "standing-stones",
                 "description": [
-                    {"text": "test K is in @settlement", "odds": 1},
-                    {"text": "test L is in @wilderness", "odds": 1}
+                    {"text": "A group of militant druids resides here and is plotting against @settlement.", "odds": 1},
+                    {"text": "Long ago, wizards from @ruin sealed a terrible evil below these stones.", "odds": 1}
                 ]
             },
             "magic spring": {
                 "odds": 1,
+                "icon": "waterfall",
                 "description": [
-                    {"text": "test M is in @ruin", "odds": 1},
-                    {"text": "test N is in @wilderness", "odds": 1}
+                    {"text": "The elite of @town believe the spring's waters prevent aging, but the reality is something sinister.", "odds": 1},
+                    {"text": "The spring turns local animals into dire beasts.", "odds": 1}
                 ]
             }
         }
