@@ -876,7 +876,18 @@ export const useHexesStore = defineStore({
         })
 
         var matchType = null;
-        if (validHexes.length > 0) {
+        if (validHexes.length > 2) {
+            return { uuid: this.randomChoice(validHexes), type: 'existing' };
+        } else if (validHexes.length > 0 && emptyHexes.length > 4) {
+            if (this.randomChoice(['empty', 'existing']) == 'existing') {
+                return { uuid: this.randomChoice(validHexes), type: 'existing' };
+            } else {
+                const hexByUUID = this.hexByUUID
+                const thisHex = hexByUUID(this.randomChoice(emptyHexes))
+                thisHex.startingTags.push(tag)
+                return { uuid: thisHex.uuid, type: "empty" }
+            }
+        } else if (validHexes.length > 0) {
             return { uuid: this.randomChoice(validHexes), type: 'existing' };
         // Need to add a mechanism to apply the new tag
         } else if (emptyHexes.length > 0) {
