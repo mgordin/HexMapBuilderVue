@@ -567,7 +567,8 @@ export const useHexesStore = defineStore({
 
         // Generate content from tags, selecting and filling a matching content template
         //from the tag(s) list(s)
-        thisHex.content = this.generateHexDescription(hexUUID, thisHex.tags, this.hexOptions)
+        const descriptionElements = this.generateHexDescription(hexUUID, thisHex.tags, {mention: 'any'})
+        thisHex.content = this.formatDescriptionForTiptap(descriptionElements)
 
         // Set icon to match contents
         //this.setHexIcon(hexUUID, icon);
@@ -626,6 +627,7 @@ export const useHexesStore = defineStore({
     // Take hex terrain and tags and generate actual content tags / crosslinks
     generateHexDescription(hexUUID, tags, hexOptions) {
         var descriptionElements = [];
+        const reMention = new RegExp('@[a-zA-Z0-9]+')
 
         tags.forEach((tag) => {
             console.log('working on tag', tag)
@@ -640,19 +642,27 @@ export const useHexesStore = defineStore({
 
                     this.contentTags[parentTypeTag][tag].description.forEach((option) => {
                         console.log('working on option', option)
-                        options.push(option.text);
-                        weights.push(option.odds)
+                        if (hexOptions.mention == 'any' || (hexOptions.mention == 'no' && !reMention.test(option))) {
+                            options.push(option.text);
+                            weights.push(option.odds)
+                        }  
                     })
 
                     console.log('set options', options, 'and weights', weights)
-                    descriptionElements.push(this.weightedRandom(options, weights))
+                    descriptionElements.push(
+                        {
+                            tag: tag,
+                            type: parentTypeTag,
+                            text: this.weightedRandom(options, weights)
+                        }
+                    )
                 }
             }
         })
 
         console.log('description elements', descriptionElements)
         // Format it to work with tiptap
-        return this.formatDescriptionForTiptap(descriptionElements)
+        return descriptionElements;
     },
     parentTypeTag(tag) {
         console.log('finding parent tag for ', tag)
@@ -666,26 +676,158 @@ export const useHexesStore = defineStore({
         })
         return parentTag;
     },
-    // Take shorthand from content store and convert to Tiptap-compatible format
+    /* Take shorthand from content store and convert to Tiptap-compatible format
+    Parsing options: 
+        "#text" = select a random one from this tag's "text" property
+        "@thing" = mention a hex with tag "thing"
+    */
     formatDescriptionForTiptap(descriptionElements) {
+        console.log('formatting description')
+
         var description = {
             type: "doc", 
             content: []
         }
 
         // Just doing simplest case right now - need to put together a parser for mentions and such
+        const reChoice = new RegExp('#[a-zA-Z0-9]+', 'g')
+        const reMention = new RegExp('@[a-zA-Z0-9]+', 'g')
+
         for (let i = 0; i < descriptionElements.length; i++) {
-            description.content.push(
-                {
+
+            const element = descriptionElements[i]
+            var text = element.text;
+            console.log('element is', element, 'text is', text)
+            const choiceMatches = text.match(reChoice);
+            console.log('choice matches are', choiceMatches)
+
+            const mentionMatches = text.match(reMention);
+            console.log('mention matches are', mentionMatches)
+
+
+            if (choiceMatches != null) {
+                console.log('going to try and replace stuff from a list')
+                choiceMatches.forEach((match) => {
+                    const m = new RegExp(match)
+                    console.log('trying to replace', match)
+                    text = text.replace(m, this.randomChoice(this.contentTags[element.type][element.tag][match.substring(1)]))
+                })
+            }
+
+            if (mentionMatches != null) {
+                console.log('now try to handle mentions')
+                // Title
+                description.content.push(
+                    {
+                        type: "paragraph",
+                        content: [
+                            {
+                                type: "text",
+                                text: this.toTitleCase(element.tag),
+                                marks: [
+                                    {
+                                        type: "bold"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                )
+
+                description.content.push(
+                    {type: "paragraph"}
+                )
+
+                // Text with @mentions
+                var splitText = text.split(/@[a-zA-Z0-9]+/);
+                var resolvedMentions = [];
+                console.log('split is', splitText)
+
+                mentionMatches.forEach((match) => {
+                    console.log('resolving mention match', match)
+                    const hexUUID = this.getMatchingHex(match.substring(1))
+                    console.log('with UUID', hexUUID)
+                    resolvedMentions.push(hexUUID);
+                })
+
+                var line = {
                     type: "paragraph",
-                    content: [
-                        {
-                            type: "text",
-                            text: descriptionElements[i]
-                        }
-                    ]
+                    content: []
                 }
-            )
+
+                for (let j = 0; j < splitText.length; j++) {
+                    console.log('will now push text ', splitText[j], 'and mention of hex', resolvedMentions[j])
+                    if (j < splitText.length - 1) {
+                        if (splitText[j] != "") {
+                            line.content.push(
+                                {
+                                    type: "text",
+                                    text: splitText[j]
+                                }
+                            )
+                        }
+
+                        line.content.push(
+                            {
+                                type: "mention",
+                                attrs: {
+                                    uuid: resolvedMentions[j]
+                                }
+                            }
+                        )
+                    } else {
+                        if (splitText[j] != "") {
+                            line.content.push(
+                                {
+                                    type: "text",
+                                    text: splitText[j]
+                                }
+                            )
+                        }
+                    }
+                }
+
+                console.log('now actually pushing it')
+                console.log(description.content)
+                description.content.push(line)
+                
+            } else {
+                // Title
+                description.content.push(
+                    {
+                        type: "paragraph",
+                        content: [
+                            {
+                                type: "text",
+                                text: this.toTitleCase(element.tag),
+                                marks: [
+                                    {
+                                        type: "bold"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                )
+
+                description.content.push(
+                    {type: "paragraph"}
+                )
+
+                // Text
+                description.content.push(
+                    {
+                        type: "paragraph",
+                        content: [
+                            {
+                                type: "text",
+                                text: text
+                            }
+                        ]
+                    }
+                )
+            }
+
             if (i < descriptionElements.length - 1) {
                 description.content.push(
                     {type: "paragraph"}
@@ -694,6 +836,41 @@ export const useHexesStore = defineStore({
         }
 
         return description;
+    },
+    getMatchingHex(tag) {
+        var validHexes = [];
+        var emptyHexes = [];
+        var hexCount = 0;
+
+        this.hexes.flat().forEach((hex) => {
+            if (hex.tags.length == 0) {
+                emptyHexes.push(hex.uuid);
+            } else if (hex.tags.includes(tag)) {
+                validHexes.push(hex.uuid);
+            }
+            hexCount++;
+        })
+
+        if (validHexes.length > 0) {
+            return this.randomChoice(validHexes);
+        // Need to add a mechanism to apply the new tag
+        } else if (emptyHexes.length > 0) {
+            const hexByUUID = this.hexByUUID
+            const thisHex = hexByUUID(this.randomChoice(emptyHexes))
+            thisHex.tags.push(tag)
+            return thisHex.uuid
+        // Need to add a mechanism to apply the new tag
+        } else {
+            const thisHex = this.randomChoice(this.hexes)
+            thisHex.tags.push(tag)
+            return thisHex.uuid
+        }
+    },
+    randomChoice(options) {
+        console.log('choosing - options are', options)
+        const index = Math.floor(Math.random() * options.length);
+        console.log('index is', index)
+        return options[index];
     },
     weightedRandom(items, weights) {
         if (items.length !== weights.length) {
@@ -728,6 +905,14 @@ export const useHexesStore = defineStore({
             return items[itemIndex]
           }
         }
-    }
+    },
+    toTitleCase(str) {
+        return str.replace(
+          /\w\S*/g,
+          function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+          }
+        );
+      }
   }
 })

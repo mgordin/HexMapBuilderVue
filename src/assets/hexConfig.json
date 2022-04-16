@@ -152,8 +152,8 @@
                 "ruler": ["headman", "council of elders"],
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
                 "description": [
-                    {"text": "test A", "odds": 1},
-                    {"text": "test B", "odds": 1}
+                    {"text": "test A has a #ruler and a #majorResident", "odds": 1},
+                    {"text": "test B has a #ruler and a #majorResident", "odds": 1}
                 ]
             },
             "town": {
@@ -161,8 +161,8 @@
                 "ruler": ["mayor", "ealdorman", "town council"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
                 "description": [
-                    {"text": "test C", "odds": 1},
-                    {"text": "test D", "odds": 1}
+                    {"text": "test C has a #ruler and a #majorResident", "odds": 1},
+                    {"text": "test D has a #ruler and a #majorResident", "odds": 1}
                 ]
             },
             "castle": {
@@ -170,8 +170,8 @@
                 "ruler": ["lord", "commander"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "sage", "merchant"],
                 "description": [
-                    {"text": "test E", "odds": 1},
-                    {"text": "test F", "odds": 1}
+                    {"text": "test E has a #ruler and a #majorResident", "odds": 1},
+                    {"text": "test F has a #ruler and a #majorResident", "odds": 1}
                 ]
             }
         },
@@ -179,15 +179,15 @@
             "ruined castle": {
                 "odds": 1,
                 "description": [
-                    {"text": "test G", "odds": 1},
-                    {"text": "test H", "odds": 1}
+                    {"text": "test G is in @ruin", "odds": 1},
+                    {"text": "test H is in @settlement", "odds": 1}
                 ]
             },
             "abandoned village": {
                 "odds": 1,
                 "description": [
-                    {"text": "test I", "odds": 1},
-                    {"text": "test J", "odds": 1}
+                    {"text": "test I is in @ruin", "odds": 1},
+                    {"text": "test J is in @settlement", "odds": 1}
                 ]
             }
         },
@@ -195,15 +195,15 @@
             "standing stones": {
                 "odds": 1,
                 "description": [
-                    {"text": "test K", "odds": 1},
-                    {"text": "test L", "odds": 1}
+                    {"text": "test K is in @settlement", "odds": 1},
+                    {"text": "test L is in @wilderness", "odds": 1}
                 ]
             },
             "magic spring": {
                 "odds": 1,
                 "description": [
-                    {"text": "test M", "odds": 1},
-                    {"text": "test N", "odds": 1}
+                    {"text": "test M is in @ruin", "odds": 1},
+                    {"text": "test N is in @wilderness", "odds": 1}
                 ]
             }
         }
