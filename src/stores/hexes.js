@@ -716,24 +716,133 @@ export const useHexesStore = defineStore({
         return text
     },
     resolveLineBreaks(text) {
-        var blocks = [];
+        console.log('resolving breaks, text is', text)
+        const reBreak = new RegExp('\\n','g')
+        
+        if (!reBreak.test(text)) {
+            return [{type: "text", content: text}]
+        } else {
+            var blocks = [];
 
-        var splitText = text.split(/\\n/);
+            var splitText = text.split(/\\n/);
+            console.log('splittext is', splitText)
 
-        for (let i = 0; i < splitText.length; i++) {
-            console.log('will now push text ', splitText[i], 'and breaks');
-            if (i < splitText.length - 1) {
-                if (splitText[i] != "") {
-                    blocks.push(splitText[i]);
+            for (let i = 0; i < splitText.length; i++) {
+                console.log('will now push text ', splitText[i], 'and breaks');
+                if (i < splitText.length - 1) {
+                    if (splitText[i] != "") {
+                        blocks.push({type: "text", content: splitText[i]});
+                    }
+                    blocks.push({type: "break", content: "\n"});
                 }
-                blocks.push('\n');
             }
+            console.log('resolved breaks, blocks are', blocks)
+            return blocks;
+        }
+    },
+    resolveContentMentions(activeHexUUID, blocks, resolveNewTags) {
+        console.log('resolving mentions, blocks are', blocks)
+        var updatedBlocks = [];
+
+        const reMention = new RegExp('@[a-zA-Z0-9]+', 'g')
+
+        blocks.forEach((block) => {
+            const mentionMatches = block.content.match(reMention);
+            if (mentionMatches == null) {
+                updatedBlocks.push(block)
+            } else {
+                var splitText = block.content.split(/@[a-zA-Z0-9]+/);
+                var resolvedMentions = [];
+                console.log('split is', splitText)
+
+                mentionMatches.forEach((match) => {
+                    console.log('resolving mention match', match)
+                    const matchingHex = this.getMatchingHex(match.substring(1), activeHexUUID)
+                    console.log('with UUID', matchingHex.uuid)
+                    resolvedMentions.push(matchingHex.uuid);
+                    if (matchingHex.type != 'existing') {
+                        resolveNewTags.push({tag: match.substring(1), uuid: matchingHex.uuid})
+                    }
+                })
+
+                for (let i = 0; i < splitText.length; i++) {
+                    console.log('will now push text ', splitText[i], 'and mention of hex', resolvedMentions[i])
+                    if (i < splitText.length - 1) {
+                        if (splitText[i] != "") {
+                            updatedBlocks.push({type: "text", content: splitText[i]})
+                        }
+                        updatedBlocks.push({type: "mention", content: resolvedMentions[i]})
+                    }
+                }
+            }
+        })
+
+        console.log('mentions resolved, blocks are', updatedBlocks)
+        return updatedBlocks;
+    },
+    setTiptapNodes(description, blocks, tag) {
+        console.log("Setting up nodes, blocks are", blocks, "starting description is", description)
+
+        description.content.push({
+            type: "paragraph",
+            content: [{
+                type: "text",
+                text: this.toTitleCase(tag),
+                marks: [
+                    {
+                        type: "bold"
+                    }
+                ]
+            }]
+        });
+
+        var paragraph = {
+            type: "paragraph",
+            content: []
+        };
+
+        console.log('paragraph starting is', paragraph)
+
+        blocks.forEach((block) => {
+            console.log('paragraph?', paragraph)
+            if (block.type == "break") {
+                console.log('break! paragraph is now', paragraph, 'block is', block)
+                if (paragraph.content.length > 0) {
+                    description.content.push(paragraph)
+                    paragraph = {
+                        type: "paragraph",
+                        content: []
+                    };
+                }
+                description.content.push({type: "paragraph"})
+            } else if (block.type == "text") {
+                console.log('text! paragraph is now', paragraph, 'block is', block)
+                paragraph.content.push({
+                    type: "text",
+                    text: block.content
+                })
+            } else if (block.type == "mention") {
+                console.log('mention! paragraph is now', paragraph, 'block is', block)
+                paragraph.content.push({
+                    type: "mention",
+                    attrs: {
+                        uuid: block.content
+                    }
+                })
+            }
+        })
+        if (paragraph.content.length > 0) {
+            description.content.push(paragraph)
         }
 
-        return blocks;
+        return description;
     },
-    resolveContentMentions(blocks) {},
-    setTiptapNodes(startingDescription, blocks) {},
+    addLineBreak(startingDescription) {
+        description.content.push(
+            {type: "paragraph"}
+        )
+        return description;
+    },
     /* Take shorthand from content store and convert to Tiptap-compatible format
     Parsing options: 
         "#text" = select a random one from this tag's "text" property
@@ -748,9 +857,13 @@ export const useHexesStore = defineStore({
             var element = descriptionElements[i];
             var text = this.resolveContentChoices(element);
             var blocks = this.resolveLineBreaks(text);
-            blocks = this.resolveContentMentions(blocks);
+            blocks = this.resolveContentMentions(activeHexUUID, blocks, resolveNewTags);
+            description = this.setTiptapNodes(description, blocks, element.tag);
+            if (i < descriptionElements.length - 1) {
+                description = this.addLineBreak(description)
+            }
         }
-        description = this.setTiptapNodes(description, blocks);
+        console.log("Description finally is", description)
         return description;
 
 
