@@ -767,10 +767,11 @@ export const useHexesStore = defineStore({
 
                 for (let i = 0; i < splitText.length; i++) {
                     console.log('will now push text ', splitText[i], 'and mention of hex', resolvedMentions[i])
+                    
+                    if (splitText[i] != "") {
+                        updatedBlocks.push({type: "text", content: splitText[i]})
+                    }
                     if (i < splitText.length - 1) {
-                        if (splitText[i] != "") {
-                            updatedBlocks.push({type: "text", content: splitText[i]})
-                        }
                         updatedBlocks.push({type: "mention", content: resolvedMentions[i]})
                     }
                 }
