@@ -22,7 +22,7 @@ const hs = useHexesStore();
                 <div class="navbar-dropdown">
                     <a class="navbar-item" @click="hs.logHexes">Log hexes</a>
                     <a class="navbar-item" @click="hs.fillMap('temperate forest', 4, 4)">Generate terrain!</a>
-                    <a class="navbar-item" @click="hs.logHexDistances()">"Calculate distance between selected hexes"</a>
+                    <a class="navbar-item" @click="hs.logHexDistances()">Calculate distance between selected hexes</a>
                     
                 </div>
             </div>

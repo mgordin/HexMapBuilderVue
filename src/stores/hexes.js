@@ -383,9 +383,6 @@ export const useHexesStore = defineStore({
     logHexes() {
         console.log(this.hexes)
     },
-    changeHex11Name() {
-        this.hexes[0][0].id = "new ID"
-    },
     maintainEmptyMapEdge(row, column) {
         if (row == 1) {
             this.addRow('top', this.countColumns, this.defaultHexProperties);
@@ -407,7 +404,7 @@ export const useHexesStore = defineStore({
             this.leftmostColumn = 'odd'
         }
     },
-    // Return as { tag: {one-away: count, two-away: count, three-away: count}, }
+    // Return as { tag: {one-away: count, two-away: count}, }
     terrainWithinTwo(hexUUID) {
         var terrains = {};
         
@@ -700,6 +697,43 @@ export const useHexesStore = defineStore({
         })
         return parentTag;
     },
+    resolveContentChoices(element) {
+        const reChoice = new RegExp('#[a-zA-Z0-9]+', 'g')
+
+        var text = element.text;
+        console.log('element is', element, 'text is', text)
+        const choiceMatches = text.match(reChoice);
+
+        if (choiceMatches != null) {
+            console.log('going to try and replace stuff from a list')
+            choiceMatches.forEach((match) => {
+                const m = new RegExp(match)
+                console.log('trying to replace', match)
+                text = text.replace(m, this.randomChoice(this.contentTags[element.type][element.tag][match.substring(1)]))
+            })
+        }
+
+        return text
+    },
+    resolveLineBreaks(text) {
+        var blocks = [];
+
+        var splitText = text.split(/\\n/);
+
+        for (let i = 0; i < splitText.length; i++) {
+            console.log('will now push text ', splitText[i], 'and breaks');
+            if (i < splitText.length - 1) {
+                if (splitText[i] != "") {
+                    blocks.push(splitText[i]);
+                }
+                blocks.push('\n');
+            }
+        }
+
+        return blocks;
+    },
+    resolveContentMentions(blocks) {},
+    setTiptapNodes(startingDescription, blocks) {},
     /* Take shorthand from content store and convert to Tiptap-compatible format
     Parsing options: 
         "#text" = select a random one from this tag's "text" property
@@ -709,6 +743,17 @@ export const useHexesStore = defineStore({
         console.log('formatting description from starting', startingDescription, 'and elements', descriptionElements)
 
         var description = startingDescription;
+
+        for (let i = 0; i < descriptionElements.length; i++) {
+            var element = descriptionElements[i];
+            var text = this.resolveContentChoices(element);
+            var blocks = this.resolveLineBreaks(text);
+            blocks = this.resolveContentMentions(blocks);
+        }
+        description = this.setTiptapNodes(description, blocks);
+        return description;
+
+
 
         // Just doing simplest case right now - need to put together a parser for mentions and such
         const reChoice = new RegExp('#[a-zA-Z0-9]+', 'g')
@@ -1025,14 +1070,14 @@ export const useHexesStore = defineStore({
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
           }
         );
-      },
-      logHexDistances() {
+    },
+    logHexDistances() {
         const es = useEditorStore();
         const hexByUUID = this.hexByUUID;
         console.log("active hexes are", es.activeHexes)
         const hexA = hexByUUID(es.activeHexes[0])
         const hexB = hexByUUID(es.activeHexes[1])
         console.log("Distance between hexes", hexA.id, "and", hexB.id, "is", this.hexToHexDistance(hexA, hexB))
-     }
+    }
   }
 })
