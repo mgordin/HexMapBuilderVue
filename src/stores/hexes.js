@@ -908,12 +908,18 @@ export const useHexesStore = defineStore({
         const hexByUUID = this.hexByUUID;
         const thisHex = hexByUUID(hexUUID);
 
+        var useMentions = 'any'
+        if (thisHex.tags.length > 0) {
+            useMentions = 'no'
+        }
+
         var tags = this.refineTag(tag, [tag])
         tags.forEach((tag) => {
             thisHex.tags.push(tag)
         })
-
-        const descriptionElements = this.generateHexDescription(hexUUID, tags, {mention: 'no'})
+        
+        console.log(">>> Making description for hex ", hexUUID, "hex named", thisHex.id, "with tags", thisHex.tags, "and - mentions?", useMentions)
+        const descriptionElements = this.generateHexDescription(hexUUID, tags, {mention: useMentions})
         var resolveNewTags = []
         var startingDescription = {
             type: "doc", 
@@ -938,6 +944,39 @@ export const useHexesStore = defineStore({
              this.resolveHexTagUpdate(hexUpdate.uuid, hexUpdate.tag)
          })
 
+    },
+    cubeHex(q, r, s) {
+        if (Math.round(q + r + s) !== 0) throw "q + r + s must be 0";
+        return {q: q, r: r, s: s};
+    },
+    convertToCubeCoordinates(row, col) {
+        console.log('converting to cube coords from row', row, 'and col', col)
+        var offset = 1
+        if (this.leftmostColumn == 'odd') {
+            var offset = -1
+        }
+        var q = col-1;
+        var r = row-1 - (col-1 + offset * ((col-1) & 1)) / 2;
+        var s = -q - r;
+
+        console.log('coords are q =', q, 'r =', r, 's = ', s)
+
+        return this.cubeHex(q, r, s);
+    },
+    cubeHexSubtract(cubeHexA, cubeHexB) {
+        return this.cubeHex(cubeHexA.q - cubeHexB.q, cubeHexA.r - cubeHexB.r, cubeHexA.s - cubeHexB.s);
+    },
+    cubeHexLength(cubeHex) {
+        return (Math.abs(cubeHex.q) + Math.abs(cubeHex.r) + Math.abs(cubeHex.s)) / 2;
+    },
+    cubeHexDistance(cubeHexA, cubeHexB) {
+        return this.cubeHexLength(this.cubeHexSubtract(cubeHexA, cubeHexB));
+    },
+    hexToHexDistance(hexA, hexB) {
+        console.log("Get distance between", hexA, "and", hexB)
+        const cubeHexA = this.convertToCubeCoordinates(hexA.row, hexA.column);
+        const cubeHexB = this.convertToCubeCoordinates(hexB.row, hexB.column);
+        return this.cubeHexDistance(cubeHexA, cubeHexB);
     },
     randomChoice(options) {
         console.log('choosing - options are', options)
@@ -986,6 +1025,14 @@ export const useHexesStore = defineStore({
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
           }
         );
-      }
+      },
+      logHexDistances() {
+        const es = useEditorStore();
+        const hexByUUID = this.hexByUUID;
+        console.log("active hexes are", es.activeHexes)
+        const hexA = hexByUUID(es.activeHexes[0])
+        const hexB = hexByUUID(es.activeHexes[1])
+        console.log("Distance between hexes", hexA.id, "and", hexB.id, "is", this.hexToHexDistance(hexA, hexB))
+     }
   }
 })
