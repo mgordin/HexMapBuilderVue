@@ -720,22 +720,27 @@ export const useHexesStore = defineStore({
         const reBreak = new RegExp('\\n','g')
         
         if (!reBreak.test(text)) {
+            console.log('no breaks')
             return [{type: "text", content: text}]
         } else {
+            console.log('has breaks')
             var blocks = [];
 
-            var splitText = text.split(/\\n/);
+            var splitText = text.split(/\n/);
             console.log('splittext is', splitText)
 
             for (let i = 0; i < splitText.length; i++) {
                 console.log('will now push text ', splitText[i], 'and breaks');
+                
+                if (splitText[i] != "") {
+                    blocks.push({type: "text", content: splitText[i]})
+                }
                 if (i < splitText.length - 1) {
-                    if (splitText[i] != "") {
-                        blocks.push({type: "text", content: splitText[i]});
-                    }
-                    blocks.push({type: "break", content: "\n"});
+                    blocks.push({type: "break", content: "\n"})
                 }
             }
+
+
             console.log('resolved breaks, blocks are', blocks)
             return blocks;
         }

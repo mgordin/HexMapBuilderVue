@@ -156,9 +156,9 @@
                 "ruler": ["headman", "council of elders"],
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
                 "description": [
-                    {"text": "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement.", "odds": 1},
-                    {"text": "A #majorResident from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin.", "odds": 1},
-                    {"text": "The #ruler of this village is having a secret affair with the #majorResident.", "odds": 1}
+                    {"text": "This village is surprisingly prosperous.\nThe #ruler of this village is looking for adventurers to steal something from the ruler of @settlement.", "odds": 1},
+                    {"text": "This village is surprisingly prosperous.\nA #majorResident from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin.", "odds": 1},
+                    {"text": "This village is surprisingly prosperous.\nThe #ruler of this village is having a secret affair with the #majorResident.", "odds": 1}
                 ]
             },
             "town": {
