@@ -174,7 +174,12 @@ export const useHexesStore = defineStore({
         return state.nthChildShift.toString().concat('px');
     },
     tagList: (state) => {
-        return Object.keys(state.terrainInfluencedBy);
+        var tags = Object.keys(state.contentTags)
+        Object.keys(state.contentTags).forEach((tag) => {
+            console.log("TAGS!", tag, Object.keys(state.contentTags[tag]))
+            tags = tags.concat(Object.keys(state.contentTags[tag]))
+        })
+        return tags;
     }
   },
   actions: {
@@ -745,24 +750,36 @@ export const useHexesStore = defineStore({
             return blocks;
         }
     },
+    // Mention syntax example: @tagOptionA||tagOptionB:lt3s
     resolveContentMentions(activeHexUUID, blocks, resolveNewTags) {
         console.log('resolving mentions, blocks are', blocks)
         var updatedBlocks = [];
 
-        const reMention = new RegExp('@[a-zA-Z0-9]+', 'g')
+        // Regex to use instead for getting params above: const r = new RegExp('@[a-zA-Z0-9|:<=>]+', 'g')
+        const reMention = new RegExp('@[a-zA-Z0-9|:]+', 'g')
 
         blocks.forEach((block) => {
             const mentionMatches = block.content.match(reMention);
             if (mentionMatches == null) {
                 updatedBlocks.push(block)
             } else {
-                var splitText = block.content.split(/@[a-zA-Z0-9]+/);
+                var splitText = block.content.split(/@[a-zA-Z0-9|:]+/);
                 var resolvedMentions = [];
                 console.log('split is', splitText)
 
+                // Loop through mentions and resolve them
                 mentionMatches.forEach((match) => {
                     console.log('resolving mention match', match)
-                    const matchingHex = this.getMatchingHex(match.substring(1), activeHexUUID)
+
+                    const matchSplitParams = match.split(":")
+                    const matchSplitOptions = matchSplitParams[0].split("||")
+                    matchSplitOptions[0] = matchSplitOptions[0].substring(1)
+                    const matchParams = {
+                        tags: matchSplitOptions,
+                        params: matchSplitParams.slice(1)
+                    }
+
+                    const matchingHex = this.getMatchingHex(matchParams, activeHexUUID)
                     console.log('with UUID', matchingHex.uuid)
                     resolvedMentions.push(matchingHex.uuid);
                     if (matchingHex.type != 'existing') {
@@ -770,6 +787,8 @@ export const useHexesStore = defineStore({
                     }
                 })
 
+                // Make a blocks array where each thing that should end us as a node
+                // is its own block
                 for (let i = 0; i < splitText.length; i++) {
                     console.log('will now push text ', splitText[i], 'and mention of hex', resolvedMentions[i])
                     
@@ -811,6 +830,7 @@ export const useHexesStore = defineStore({
 
         blocks.forEach((block) => {
             console.log('paragraph?', paragraph)
+            // Node should be a paragraph break - end previous node and add that
             if (block.type == "break") {
                 console.log('break! paragraph is now', paragraph, 'block is', block)
                 if (paragraph.content.length > 0) {
@@ -821,12 +841,14 @@ export const useHexesStore = defineStore({
                     };
                 }
                 description.content.push({type: "paragraph"})
+            // Node is just text
             } else if (block.type == "text") {
                 console.log('text! paragraph is now', paragraph, 'block is', block)
                 paragraph.content.push({
                     type: "text",
                     text: block.content
                 })
+            // Node is an @-mention of a hex
             } else if (block.type == "mention") {
                 console.log('mention! paragraph is now', paragraph, 'block is', block)
                 paragraph.content.push({
@@ -849,11 +871,6 @@ export const useHexesStore = defineStore({
         )
         return description;
     },
-    /* Take shorthand from content store and convert to Tiptap-compatible format
-    Parsing options: 
-        "#text" = select a random one from this tag's "text" property
-        "@thing" = mention a hex with tag "thing"
-    */
     formatDescriptionForTiptap(activeHexUUID, startingDescription, descriptionElements, resolveNewTags) {
         console.log('formatting description from starting', startingDescription, 'and elements', descriptionElements)
 
@@ -872,7 +889,11 @@ export const useHexesStore = defineStore({
         console.log("Description finally is", description)
         return description;
     },
-    getMatchingHex(tag, hexUUID) {
+    getMatchingHex(matchParams, hexUUID) {
+
+        // Quickly now to not break it - in theory
+        const tag = this.randomChoice(matchParams.tags)
+
         var validHexes = [];
         var emptyHexes = [];
         var hexCount = 0;

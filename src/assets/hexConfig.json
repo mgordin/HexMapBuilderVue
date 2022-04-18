@@ -157,8 +157,8 @@
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
                 "description": [
                     {"text": "This village is surprisingly prosperous.\nThe #ruler of this village is looking for adventurers to steal something from the ruler of @settlement.", "odds": 1},
-                    {"text": "This village is surprisingly prosperous.\nA #majorResident from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin.", "odds": 1},
-                    {"text": "This village is surprisingly prosperous.\nThe #ruler of this village is having a secret affair with the #majorResident.", "odds": 1}
+                    {"text": "The houses in this village are all painted with flowers.\nA #majorResident from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin.", "odds": 1},
+                    {"text": "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #majorResident.", "odds": 1}
                 ]
             },
             "town": {
