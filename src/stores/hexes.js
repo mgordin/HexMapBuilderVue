@@ -176,7 +176,6 @@ export const useHexesStore = defineStore({
     tagList: (state) => {
         var tags = Object.keys(state.contentTags)
         Object.keys(state.contentTags).forEach((tag) => {
-            console.log("TAGS!", tag, Object.keys(state.contentTags[tag]))
             tags = tags.concat(Object.keys(state.contentTags[tag]))
         })
         return tags;
@@ -366,7 +365,6 @@ export const useHexesStore = defineStore({
         const hex = this.hexByUUID
         const thisHex = hex(hexUUID);
         thisHex.icon = icon;
-        console.log('hex', hexUUID,' now set with icon', thisHex.icon, 'from icon', icon)
     },
     shiftHexNumbers() {
         this.hexes.forEach((rowOfHexes, row) => {
@@ -600,20 +598,15 @@ export const useHexesStore = defineStore({
     generateHexTags(hexUUID, terrain, startingTags, pointOfInterestChance) {
         // If no starting tags, check chance of having a point of interest and generate
         // tags if it meets that chance
-        console.log('starting tags', startingTags)
         if (startingTags.length == 0) {
-            console.log("starting tags empty")
             if (Math.random() > pointOfInterestChance) {
-                console.log("do not make any tags")
                 return startingTags;
             } else {
-                console.log('make tags')
                 const newTags = this.generateHexTag(terrain);
                 return newTags;
             }
         // If there are already things in startingTags, refine those as needed
         } else {
-            console.log('starting tags not empty')
             var tags = startingTags
             startingTags.forEach((tag) => {
                 tags = this.refineTag(tag, tags)
@@ -625,22 +618,17 @@ export const useHexesStore = defineStore({
     generateHexTag(terrain) {
         const typeTag = this.weightedRandom(this.pointOfInterest.type, this.pointOfInterest.odds)
         
-        console.log('type tag', typeTag)
         return this.refineTag(typeTag, [typeTag])
     },
     refineTag(typeTag, tags) {
         if (Object.keys(this.contentTags).includes(typeTag)) {
-            console.log('regining - type tag', typeTag, 'tags', tags)
             var options = Object.keys(this.contentTags[typeTag])
-            console.log('options', options)
             var optionWeights = []
             options.forEach((option) => {
                 optionWeights.push(this.contentTags[typeTag][option].odds)
             })
-            console.log('weights', optionWeights)
 
             tags.push(this.weightedRandom(options, optionWeights))
-            console.log('full tags set is', tags)
 
             return tags;
         } else {
@@ -653,18 +641,13 @@ export const useHexesStore = defineStore({
         const reMention = new RegExp('@[a-zA-Z0-9]+', 'g')
 
         tags.forEach((tag) => {
-            console.log('working on tag', tag)
             if (!Object.keys(this.contentTags).includes(tag)) {
-                console.log('not a type tag', tag)
                 const parentTypeTag = this.parentTypeTag(tag)
-                console.log('parent tag', parentTypeTag)
                 if (parentTypeTag != null) {
-                    console.log('parent is not null - is', parentTypeTag, 'tag is', tag)
                     var options = []
                     var weights = []
 
                     this.contentTags[parentTypeTag][tag].description.forEach((option) => {
-                        console.log('hexOptions.mention is', hexOptions.mention)
                         if (hexOptions.mention == 'any') {
                             options.push(option.text);
                             weights.push(option.odds);
@@ -674,7 +657,6 @@ export const useHexesStore = defineStore({
                         }
                     })
 
-                    console.log('set options', options, 'and weights', weights)
                     descriptionElements.push(
                         {
                             tag: tag,
@@ -686,17 +668,13 @@ export const useHexesStore = defineStore({
             }
         })
 
-        console.log('description elements', descriptionElements)
         // Format it to work with tiptap
         return descriptionElements;
     },
     parentTypeTag(tag) {
-        console.log('finding parent tag for ', tag)
         var parentTag = null;
         Object.keys(this.contentTags).forEach((typeTag) => {
-            console.log('is it', typeTag)
             if (Object.keys(this.contentTags[typeTag]).includes(tag)) {
-                console.log('it is')
                 parentTag = typeTag;
             }
         })
@@ -706,14 +684,11 @@ export const useHexesStore = defineStore({
         const reChoice = new RegExp('#[a-zA-Z0-9]+', 'g')
 
         var text = element.text;
-        console.log('element is', element, 'text is', text)
         const choiceMatches = text.match(reChoice);
 
         if (choiceMatches != null) {
-            console.log('going to try and replace stuff from a list')
             choiceMatches.forEach((match) => {
                 const m = new RegExp(match)
-                console.log('trying to replace', match)
                 text = text.replace(m, this.randomChoice(this.contentTags[element.type][element.tag][match.substring(1)]))
             })
         }
@@ -721,21 +696,16 @@ export const useHexesStore = defineStore({
         return text
     },
     resolveLineBreaks(text) {
-        console.log('resolving breaks, text is', text)
         const reBreak = new RegExp('\\n','g')
         
         if (!reBreak.test(text)) {
-            console.log('no breaks')
             return [{type: "text", content: text}]
         } else {
-            console.log('has breaks')
             var blocks = [];
 
             var splitText = text.split(/\n/);
-            console.log('splittext is', splitText)
 
             for (let i = 0; i < splitText.length; i++) {
-                console.log('will now push text ', splitText[i], 'and breaks');
                 
                 if (splitText[i] != "") {
                     blocks.push({type: "text", content: splitText[i]})
@@ -746,51 +716,45 @@ export const useHexesStore = defineStore({
             }
 
 
-            console.log('resolved breaks, blocks are', blocks)
             return blocks;
         }
     },
-    // Mention syntax example: @tagOptionA||tagOptionB:lt3s
+    // Mention syntax example: @tagOptionA||tagOptionB:dist=lt3s
     resolveContentMentions(activeHexUUID, blocks, resolveNewTags) {
-        console.log('resolving mentions, blocks are', blocks)
         var updatedBlocks = [];
 
         // Regex to use instead for getting params above: const r = new RegExp('@[a-zA-Z0-9|:<=>]+', 'g')
-        const reMention = new RegExp('@[a-zA-Z0-9|:]+', 'g')
+        const reMention = new RegExp('@[a-zA-Z0-9|:=]+', 'g')
 
         blocks.forEach((block) => {
             const mentionMatches = block.content.match(reMention);
             if (mentionMatches == null) {
                 updatedBlocks.push(block)
             } else {
-                var splitText = block.content.split(/@[a-zA-Z0-9|:]+/);
+                var splitText = block.content.split(/@[a-zA-Z0-9|:=]+/);
                 var resolvedMentions = [];
-                console.log('split is', splitText)
 
                 // Loop through mentions and resolve them
                 mentionMatches.forEach((match) => {
-                    console.log('resolving mention match', match)
 
                     const matchSplitParams = match.split(":")
                     const matchSplitOptions = matchSplitParams[0].split("||")
                     matchSplitOptions[0] = matchSplitOptions[0].substring(1)
                     const matchParams = {
-                        tags: matchSplitOptions,
-                        params: matchSplitParams.slice(1)
+                        tag: this.randomChoice(matchSplitOptions),
+                        constraints: matchSplitParams.slice(1)
                     }
 
                     const matchingHex = this.getMatchingHex(matchParams, activeHexUUID)
-                    console.log('with UUID', matchingHex.uuid)
                     resolvedMentions.push(matchingHex.uuid);
                     if (matchingHex.type != 'existing') {
-                        resolveNewTags.push({tag: match.substring(1), uuid: matchingHex.uuid})
+                        resolveNewTags.push({tag: matchParams.tag, uuid: matchingHex.uuid})
                     }
                 })
 
                 // Make a blocks array where each thing that should end us as a node
                 // is its own block
                 for (let i = 0; i < splitText.length; i++) {
-                    console.log('will now push text ', splitText[i], 'and mention of hex', resolvedMentions[i])
                     
                     if (splitText[i] != "") {
                         updatedBlocks.push({type: "text", content: splitText[i]})
@@ -802,11 +766,9 @@ export const useHexesStore = defineStore({
             }
         })
 
-        console.log('mentions resolved, blocks are', updatedBlocks)
         return updatedBlocks;
     },
     setTiptapNodes(description, blocks, tag) {
-        console.log("Setting up nodes, blocks are", blocks, "starting description is", description)
 
         description.content.push({
             type: "paragraph",
@@ -826,13 +788,10 @@ export const useHexesStore = defineStore({
             content: []
         };
 
-        console.log('paragraph starting is', paragraph)
 
         blocks.forEach((block) => {
-            console.log('paragraph?', paragraph)
             // Node should be a paragraph break - end previous node and add that
             if (block.type == "break") {
-                console.log('break! paragraph is now', paragraph, 'block is', block)
                 if (paragraph.content.length > 0) {
                     description.content.push(paragraph)
                     paragraph = {
@@ -843,14 +802,12 @@ export const useHexesStore = defineStore({
                 description.content.push({type: "paragraph"})
             // Node is just text
             } else if (block.type == "text") {
-                console.log('text! paragraph is now', paragraph, 'block is', block)
                 paragraph.content.push({
                     type: "text",
                     text: block.content
                 })
             // Node is an @-mention of a hex
             } else if (block.type == "mention") {
-                console.log('mention! paragraph is now', paragraph, 'block is', block)
                 paragraph.content.push({
                     type: "mention",
                     attrs: {
@@ -889,66 +846,249 @@ export const useHexesStore = defineStore({
         console.log("Description finally is", description)
         return description;
     },
+    resolveMatchingHexConstraints(constraints, activeHexUUID, checkHex) {
+        if (constraints.length == 0) {
+            return 'preferred';
+        } else {
+            return this.checkHexDistanceConstraint(constraints, activeHexUUID, checkHex);
+        }
+    },
+    // syntax for constraints is as [constraint][distance][type]
+    // constraint = lt, lte, gt, gte, eq
+    // distance = the distance number
+    // type = s for soft constraint, h for hard constraint
+    checkHexDistanceConstraint(constraints, activeHexUUID, checkHex) {
+        console.log('checking distance constraint')
+        const hexByUUID = this.hexByUUID;
+        const thisHex = hexByUUID(activeHexUUID)
+
+        const distance = this.hexToHexDistance(thisHex, checkHex)
+
+        var distanceConstraintFound = false;
+        const reDistance = new RegExp('([a-z]+)([0-9]+)([a-z]+)')
+        for (let i = 0; i < constraints.length; i++) {
+            const constraint = constraints[i]
+            const distanceConstraint = constraint.match(reDistance)
+            if (distanceConstraint != null) {
+                distanceConstraintFound = true;
+                const condition = distanceConstraint[1]
+                const distanceBound = distanceConstraint[2]
+                const conditionType = distanceConstraint[3]
+                
+                if (condition == 'lt') {
+                    console.log('lt')
+                    console.log(checkHex.id, distance, distanceBound)
+                    if (conditionType == 's') {
+                        if (distance < distanceBound) {
+                            console.log('beep boop')
+                            return 'preferred'
+                        } else {
+                            return 'accepted'
+                        }
+                    } else {
+                        if (distance < distanceBound) {
+                            return 'preferred'
+                        } else {
+                            return 'invalid'
+                        }
+                    }
+                } else if (condition == 'lte') {
+                    console.log('lte')
+                    if (conditionType == 's') {
+                        if (distance <= distanceBound) {
+                            return 'preferred'
+                        } else {
+                            return 'accepted'
+                        }
+                    } else {
+                        if (distance <= distanceBound) {
+                            return 'preferred'
+                        } else {
+                            return 'invalid'
+                        }
+                    }
+                } else if (condition == 'gt') {
+                    console.log('gt')
+                    if (conditionType == 's') {
+                        if (distance > distanceBound) {
+                            return 'preferred'
+                        } else {
+                            return 'accepted'
+                        }
+                    } else {
+                        if (distance > distanceBound) {
+                            return 'preferred'
+                        } else {
+                            return 'invalid'
+                        }
+                    }
+                } else if (condition == 'gte') {
+                    console.log('gte')
+                    if (conditionType == 's') {
+                        if (distance >= distanceBound) {
+                            return 'preferred'
+                        } else {
+                            return 'accepted'
+                        }
+                    } else {
+                        if (distance >= distanceBound) {
+                            return 'preferred'
+                        } else {
+                            return 'invalid'
+                        }
+                    }
+                } else if (condition == 'eq') {
+                    console.log('eq')
+                    if (conditionType == 's') {
+                        if (distance == distanceBound) {
+                            return 'preferred'
+                        } else {
+                            return 'accepted'
+                        }
+                    } else {
+                        console.log('nope')
+                        if (distance == distanceBound) {
+                            return 'preferred'
+                        } else {
+                            return 'invalid'
+                        }
+                    }
+                }
+            }
+        }
+
+    },
     getMatchingHex(matchParams, hexUUID) {
+        console.log('get matching hex')
+        // Quickly now to not break it yet
+        const tag = matchParams.tag
 
-        // Quickly now to not break it - in theory
-        const tag = this.randomChoice(matchParams.tags)
+        var taggedHexes = {preferred: [], accepted: []};
+        var emptyHexes = {preferred: [], accepted: []};
+        var otherHexes = {preferred: [], accepted: []};
 
-        var validHexes = [];
-        var emptyHexes = [];
-        var hexCount = 0;
-
+        // Check through all hexes and find ones matching the (soft or hard) constraints
         this.hexes.flat().forEach((hex) => {
             if (hex.tags.length == 0 && hex.uuid != hexUUID) {
-                emptyHexes.push(hex.uuid);
+                const c = this.resolveMatchingHexConstraints(matchParams.constraints, hexUUID, hex)
+                if (c == 'preferred') {
+                    emptyHexes.preferred.push(hex.uuid);
+                } else if (c == 'accepted') {
+                    emptyHexes.accepted.push(hex.uuid);
+                }
             } else if (hex.tags.includes(tag) && hex.uuid != hexUUID) {
-                validHexes.push(hex.uuid);
+                const c = this.resolveMatchingHexConstraints(matchParams.constraints, hexUUID, hex)
+                if (c == 'preferred') {
+                    taggedHexes.preferred.push(hex.uuid);
+                } else if (c == 'accepted') {
+                    taggedHexes.accepted.push(hex.uuid);
+                }
+            } else {
+                const c = this.resolveMatchingHexConstraints(matchParams.constraints, hexUUID, hex)
+                if (c == 'preferred') {
+                    otherHexes.preferred.push(hex.uuid);
+                } else if (c == 'accepted') {
+                    otherHexes.accepted.push(hex.uuid);
+                }
             }
-            hexCount++;
         })
 
+        console.log('resolved constraints')
+        var taggedHexesIDs = []
+        var emptyHexesIDs = []
+        var otherHexesIDs = []
+        taggedHexes.preferred.forEach((hexUUID) => {
+            const hexByUUID = this.hexByUUID
+            const thisHex = hexByUUID(hexUUID)
+            taggedHexesIDs.push(thisHex.id)
+        })
+        emptyHexes.preferred.forEach((hexUUID) => {
+            const hexByUUID = this.hexByUUID
+            const thisHex = hexByUUID(hexUUID)
+            emptyHexesIDs.push(thisHex.id)
+        })
+        otherHexes.preferred.forEach((hexUUID) => {
+            const hexByUUID = this.hexByUUID
+            const thisHex = hexByUUID(hexUUID)
+            otherHexesIDs.push(thisHex.id)
+        })
+        console.log('tagged:', taggedHexesIDs, 'empty:', emptyHexesIDs, 'other:', otherHexesIDs)
+
         var matchType = null;
-        if (validHexes.length > 2) {
-            return { uuid: this.randomChoice(validHexes), type: 'existing' };
-        } else if (validHexes.length > 0 && emptyHexes.length > 4) {
+        if (taggedHexes.preferred.length > 2) {
+            return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+        } else if (taggedHexes.preferred.length > 0 && emptyHexes.preferred.length > 4) {
             if (this.randomChoice(['empty', 'existing']) == 'existing') {
-                return { uuid: this.randomChoice(validHexes), type: 'existing' };
+                return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
             } else {
                 const hexByUUID = this.hexByUUID
-                const thisHex = hexByUUID(this.randomChoice(emptyHexes))
+                const thisHex = hexByUUID(this.randomChoice(emptyHexes.preferred))
                 thisHex.startingTags.push(tag)
                 return { uuid: thisHex.uuid, type: "empty" }
             }
-        } else if (validHexes.length > 0) {
-            return { uuid: this.randomChoice(validHexes), type: 'existing' };
+        } else if (taggedHexes.preferred.length > 0) {
+            return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
         // Need to add a mechanism to apply the new tag
-        } else if (emptyHexes.length > 0) {
+        } else if (emptyHexes.preferred.length > 0) {
             const hexByUUID = this.hexByUUID
-            const thisHex = hexByUUID(this.randomChoice(emptyHexes))
+            const thisHex = hexByUUID(this.randomChoice(emptyHexes.preferred))
             thisHex.startingTags.push(tag)
             return { uuid: thisHex.uuid, type: "empty" }
+        } else if (otherHexes.preferred.length > 0) {
+            const hexByUUID = this.hexByUUID
+            const thisHex = hexByUUID(this.randomChoice(otherHexes.preferred))
+            thisHex.startingTags.push(tag)
+            return { uuid: thisHex.uuid, type: "random" }
+        } else if (taggedHexes.preferred.length > 2) {
+            return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+        } else if (taggedHexes.preferred.length > 0 && emptyHexes.length.preferred > 4) {
+            if (this.randomChoice(['empty', 'existing']) == 'existing') {
+                return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+            } else {
+                const hexByUUID = this.hexByUUID
+                const thisHex = hexByUUID(this.randomChoice(emptyHexes.preferred))
+                thisHex.startingTags.push(tag)
+                return { uuid: thisHex.uuid, type: "empty" }
+            }
+        } else if (taggedHexes.accepted.length > 0) {
+            return { uuid: this.randomChoice(taggedHexes.accepted), type: 'existing' };
+        // Need to add a mechanism to apply the new tag
+        } else if (emptyHexes.accepted.length > 0) {
+            const hexByUUID = this.hexByUUID
+            const thisHex = hexByUUID(this.randomChoice(emptyHexes.accepted))
+            thisHex.startingTags.push(tag)
+            return { uuid: thisHex.uuid, type: "empty" }
+        } else if (otherHexes.accepted.length > 0) {
+            const hexByUUID = this.hexByUUID
+            const thisHex = hexByUUID(this.randomChoice(otherHexes.accepted))
+            thisHex.startingTags.push(tag)
+            return { uuid: thisHex.uuid, type: "random" }
         // Need to add a mechanism to apply the new tag
         } else {
-            const thisHex = this.randomChoice(this.hexes)
+            const thisHex = this.randomChoice(this.hexes.flat())
             thisHex.startingTags.push(tag)
             return { uuid: thisHex.uuid, type: "random" }
         }
     },
     resolveHexTagUpdate(hexUUID, tag) {
-        console.log("!!!!!!-------------!!!!!!! Contents for hex", hexUUID, "from resolveHexTagUpdate !!!!!!-------------!!!!!!!")
 
         const hexByUUID = this.hexByUUID;
         const thisHex = hexByUUID(hexUUID);
+
+        console.log("!!!!!!-------------!!!!!!! Contents for hex", thisHex.id, "from resolveHexTagUpdate !!!!!!-------------!!!!!!!")
+
 
         var useMentions = 'any'
         if (thisHex.tags.length > 0) {
             useMentions = 'no'
         }
 
+        console.log('starting tags', thisHex.tags)
         var tags = this.refineTag(tag, [tag])
         tags.forEach((tag) => {
             thisHex.tags.push(tag)
         })
+        console.log('new tags', thisHex.tags)
         
         console.log(">>> Making description for hex ", hexUUID, "hex named", thisHex.id, "with tags", thisHex.tags, "and - mentions?", useMentions)
         const descriptionElements = this.generateHexDescription(hexUUID, tags, {mention: useMentions})
@@ -982,7 +1122,6 @@ export const useHexesStore = defineStore({
         return {q: q, r: r, s: s};
     },
     convertToCubeCoordinates(row, col) {
-        console.log('converting to cube coords from row', row, 'and col', col)
         var offset = 1
         if (this.leftmostColumn == 'odd') {
             var offset = -1
@@ -990,8 +1129,6 @@ export const useHexesStore = defineStore({
         var q = col-1;
         var r = row-1 - (col-1 + offset * ((col-1) & 1)) / 2;
         var s = -q - r;
-
-        console.log('coords are q =', q, 'r =', r, 's = ', s)
 
         return this.cubeHex(q, r, s);
     },
@@ -1005,15 +1142,12 @@ export const useHexesStore = defineStore({
         return this.cubeHexLength(this.cubeHexSubtract(cubeHexA, cubeHexB));
     },
     hexToHexDistance(hexA, hexB) {
-        console.log("Get distance between", hexA, "and", hexB)
         const cubeHexA = this.convertToCubeCoordinates(hexA.row, hexA.column);
         const cubeHexB = this.convertToCubeCoordinates(hexB.row, hexB.column);
         return this.cubeHexDistance(cubeHexA, cubeHexB);
     },
     randomChoice(options) {
-        console.log('choosing - options are', options)
         const index = Math.floor(Math.random() * options.length);
-        console.log('index is', index)
         return options[index];
     },
     weightedRandom(items, weights) {
