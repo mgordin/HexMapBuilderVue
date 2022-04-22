@@ -509,11 +509,14 @@ export const useHexesStore = defineStore({
         })
 
         // Hex contents
+        var s = performance.now()
         this.hexes.forEach((row) => {
             row.forEach((hex) => {
                 this.generateHexContents(hex.uuid, false);
             })
         })
+        var e = performance.now() - s
+        console.log("HEXES took: ", e)
 
         // Maintain empty map edge
         this.addRow('top', this.countColumns, this.defaultHexProperties)
@@ -556,16 +559,17 @@ export const useHexesStore = defineStore({
         this.setHexTerrain(hexUUID, thisTerrain, false)
     },
     generateHexContents(hexUUID, overwrite) {
-        console.log("!!!!!!!!!!!!! Contents for hex", hexUUID, "from generateHexContents")
-
         // Get hex to be filled
         const hexByUUID = this.hexByUUID;
         const thisHex = hexByUUID(hexUUID);
+        console.log("!!!!!!!!!!!!! Contents for hex", thisHex.id, "from generateHexContents")
+
+
+        var s = performance.now()
 
         if (thisHex.tags.length == 0 || overwrite) {
             // Refine and/or generate tags that indicate the type of content, if any
             thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags, 0.5)
-            console.log('tags generated are', thisHex.tags)
 
             // Generate content from tags, selecting and filling a matching content template
             //from the tag(s) list(s)
@@ -575,7 +579,11 @@ export const useHexesStore = defineStore({
                 type: "doc", 
                 content: []
             }
+            const t5 = performance.now()
+
             thisHex.content = this.formatDescriptionForTiptap(thisHex.uuid, startingDescription, descriptionElements, resolveNewTags)
+            const t6 = performance.now()
+            console.log("TIME: formatDescriptionForTiptap", t6 - t5)
 
             // Set icon to match contents
             var icon = null;
@@ -584,13 +592,18 @@ export const useHexesStore = defineStore({
                     icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
                 }
             })
-            console.log("setting icon for hex", thisHex.uuid, "which is", icon)
             this.setHexIcon(thisHex.uuid, icon);
 
             resolveNewTags.forEach((hexUpdate) => {
+                const t8 = performance.now()
                 this.resolveHexTagUpdate(hexUpdate.uuid, hexUpdate.tag)
+                const t9 = performance.now() - t8
+                console.log("TIME: resolveHexTagUpdate:", t9)
             })
         }
+
+        var e = performance.now() - s
+        console.log("HEX ", thisHex.id, " took: ", e, "(including resolving extra hex updates)")
     },
     // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
     // additional tags as needed
@@ -737,15 +750,34 @@ export const useHexesStore = defineStore({
                 // Loop through mentions and resolve them
                 mentionMatches.forEach((match) => {
 
-                    const matchSplitParams = match.split(":")
+                    var matchSplitParams = match.split(":")
                     const matchSplitOptions = matchSplitParams[0].split("||")
                     matchSplitOptions[0] = matchSplitOptions[0].substring(1)
-                    const matchParams = {
-                        tag: this.randomChoice(matchSplitOptions),
-                        constraints: matchSplitParams.slice(1)
+                    var matchConstraints = matchSplitParams.slice(1)
+
+                    const reDistance = new RegExp('([a-z]+)([0-9]+)([a-z]+)')
+
+                    for (let i = 0; i < matchConstraints.length; i++) {
+                        const constraint = matchConstraints[i]
+                        const distanceConstraint = constraint.match(reDistance)
+                        if (distanceConstraint != null) {
+                            matchConstraints[i] = {
+                                condition: distanceConstraint[1],
+                                distanceBound: distanceConstraint[2],
+                                conditionType: distanceConstraint[3]
+                            }
+                        }
                     }
 
+                    const matchParams = {
+                        tag: this.randomChoice(matchSplitOptions),
+                        constraints: matchConstraints
+                    }
+
+                    const t1 = performance.now()
                     const matchingHex = this.getMatchingHex(matchParams, activeHexUUID)
+                    const t2 = performance.now()
+                    console.log('MENT-TIME: getMatchingHex', t2 - t1)
                     resolvedMentions.push(matchingHex.uuid);
                     if (matchingHex.type != 'existing') {
                         resolveNewTags.push({tag: matchParams.tag, uuid: matchingHex.uuid})
@@ -829,137 +861,124 @@ export const useHexesStore = defineStore({
         return description;
     },
     formatDescriptionForTiptap(activeHexUUID, startingDescription, descriptionElements, resolveNewTags) {
-        console.log('formatting description from starting', startingDescription, 'and elements', descriptionElements)
 
         var description = startingDescription;
 
         for (let i = 0; i < descriptionElements.length; i++) {
             var element = descriptionElements[i];
+            
             var text = this.resolveContentChoices(element);
+
             var blocks = this.resolveLineBreaks(text);
+            const t3 = performance.now()
+
             blocks = this.resolveContentMentions(activeHexUUID, blocks, resolveNewTags);
+            const t4 = performance.now()
+            console.log("DESC---TIME, resolveContentMentions: ", t4 - t3)
+
             description = this.setTiptapNodes(description, blocks, element.tag);
             if (i < descriptionElements.length - 1) {
                 description = this.addLineBreak(description)
             }
         }
-        console.log("Description finally is", description)
         return description;
     },
-    resolveMatchingHexConstraints(constraints, activeHexUUID, checkHex) {
+    resolveMatchingHexConstraints(constraints, activeHex, checkHex) {
         if (constraints.length == 0) {
             return 'preferred';
         } else {
-            return this.checkHexDistanceConstraint(constraints, activeHexUUID, checkHex);
+            return this.checkHexDistanceConstraint(constraints, activeHex, checkHex);
         }
     },
     // syntax for constraints is as [constraint][distance][type]
     // constraint = lt, lte, gt, gte, eq
     // distance = the distance number
     // type = s for soft constraint, h for hard constraint
-    checkHexDistanceConstraint(constraints, activeHexUUID, checkHex) {
-        console.log('checking distance constraint')
-        const hexByUUID = this.hexByUUID;
-        const thisHex = hexByUUID(activeHexUUID)
+    checkHexDistanceConstraint(constraints, thisHex, checkHex) {
 
         const distance = this.hexToHexDistance(thisHex, checkHex)
 
-        var distanceConstraintFound = false;
-        const reDistance = new RegExp('([a-z]+)([0-9]+)([a-z]+)')
         for (let i = 0; i < constraints.length; i++) {
-            const constraint = constraints[i]
-            const distanceConstraint = constraint.match(reDistance)
-            if (distanceConstraint != null) {
-                distanceConstraintFound = true;
-                const condition = distanceConstraint[1]
-                const distanceBound = distanceConstraint[2]
-                const conditionType = distanceConstraint[3]
                 
-                if (condition == 'lt') {
-                    console.log('lt')
-                    console.log(checkHex.id, distance, distanceBound)
-                    if (conditionType == 's') {
-                        if (distance < distanceBound) {
-                            console.log('beep boop')
+                if (constraints[i].condition == 'lt') {
+                    if (constraints[i].conditionType == 's') {
+                        if (distance < constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'accepted'
                         }
                     } else {
-                        if (distance < distanceBound) {
+                        if (distance < constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'invalid'
                         }
                     }
-                } else if (condition == 'lte') {
-                    console.log('lte')
-                    if (conditionType == 's') {
-                        if (distance <= distanceBound) {
+                } else if (constraints[i].condition == 'lte') {
+                    if (constraints[i].conditionType == 's') {
+                        if (distance <= constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'accepted'
                         }
                     } else {
-                        if (distance <= distanceBound) {
+                        if (distance <= constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'invalid'
                         }
                     }
-                } else if (condition == 'gt') {
-                    console.log('gt')
-                    if (conditionType == 's') {
-                        if (distance > distanceBound) {
+                } else if (constraints[i].condition == 'gt') {
+                    if (constraints[i].conditionType == 's') {
+                        if (distance > constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'accepted'
                         }
                     } else {
-                        if (distance > distanceBound) {
+                        if (distance > constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'invalid'
                         }
                     }
-                } else if (condition == 'gte') {
-                    console.log('gte')
-                    if (conditionType == 's') {
-                        if (distance >= distanceBound) {
+                } else if (constraints[i].condition == 'gte') {
+                    if (constraints[i].conditionType == 's') {
+                        if (distance >= constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'accepted'
                         }
                     } else {
-                        if (distance >= distanceBound) {
+                        if (distance >= constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'invalid'
                         }
                     }
-                } else if (condition == 'eq') {
-                    console.log('eq')
-                    if (conditionType == 's') {
-                        if (distance == distanceBound) {
+                } else if (constraints[i].condition == 'eq') {
+                    if (constraints[i].conditionType == 's') {
+                        if (distance == constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'accepted'
                         }
                     } else {
-                        console.log('nope')
-                        if (distance == distanceBound) {
+                        if (distance == constraints[i].distanceBound) {
                             return 'preferred'
                         } else {
                             return 'invalid'
                         }
                     }
                 }
-            }
+            
         }
 
     },
     getMatchingHex(matchParams, hexUUID) {
-        console.log('get matching hex')
+        const hexByUUID = this.hexByUUID;
+        const thisHex = hexByUUID(hexUUID);
+        
         // Quickly now to not break it yet
         const tag = matchParams.tag
 
@@ -968,23 +987,28 @@ export const useHexesStore = defineStore({
         var otherHexes = {preferred: [], accepted: []};
 
         // Check through all hexes and find ones matching the (soft or hard) constraints
-        this.hexes.flat().forEach((hex) => {
+        const t00 = performance.now()
+        const h = this.hexes.flat()
+        var t0 = performance.now()
+        console.log('flattening hexes time', t0 - t00)
+
+        h.forEach((hex) => {
             if (hex.tags.length == 0 && hex.uuid != hexUUID) {
-                const c = this.resolveMatchingHexConstraints(matchParams.constraints, hexUUID, hex)
+                const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
                 if (c == 'preferred') {
                     emptyHexes.preferred.push(hex.uuid);
                 } else if (c == 'accepted') {
                     emptyHexes.accepted.push(hex.uuid);
                 }
             } else if (hex.tags.includes(tag) && hex.uuid != hexUUID) {
-                const c = this.resolveMatchingHexConstraints(matchParams.constraints, hexUUID, hex)
+                const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
                 if (c == 'preferred') {
                     taggedHexes.preferred.push(hex.uuid);
                 } else if (c == 'accepted') {
                     taggedHexes.accepted.push(hex.uuid);
                 }
             } else {
-                const c = this.resolveMatchingHexConstraints(matchParams.constraints, hexUUID, hex)
+                const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
                 if (c == 'preferred') {
                     otherHexes.preferred.push(hex.uuid);
                 } else if (c == 'accepted') {
@@ -992,82 +1016,116 @@ export const useHexesStore = defineStore({
                 }
             }
         })
+        var tf = performance.now()
+        console.log("CONST---TIME: ", tf - t0)
 
-        console.log('resolved constraints')
-        var taggedHexesIDs = []
-        var emptyHexesIDs = []
-        var otherHexesIDs = []
-        taggedHexes.preferred.forEach((hexUUID) => {
-            const hexByUUID = this.hexByUUID
-            const thisHex = hexByUUID(hexUUID)
-            taggedHexesIDs.push(thisHex.id)
-        })
-        emptyHexes.preferred.forEach((hexUUID) => {
-            const hexByUUID = this.hexByUUID
-            const thisHex = hexByUUID(hexUUID)
-            emptyHexesIDs.push(thisHex.id)
-        })
-        otherHexes.preferred.forEach((hexUUID) => {
-            const hexByUUID = this.hexByUUID
-            const thisHex = hexByUUID(hexUUID)
-            otherHexesIDs.push(thisHex.id)
-        })
-        console.log('tagged:', taggedHexesIDs, 'empty:', emptyHexesIDs, 'other:', otherHexesIDs)
+      
 
+
+        const t1 = performance.now()
         var matchType = null;
         if (taggedHexes.preferred.length > 2) {
-            return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+            const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+            const t2 = performance.now()
+            console.log('RESOLVE---TIME: 1: ', t2 - t1)
+            return c;
+
         } else if (taggedHexes.preferred.length > 0 && emptyHexes.preferred.length > 4) {
             if (this.randomChoice(['empty', 'existing']) == 'existing') {
-                return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+                const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+                const t2 = performance.now()
+                console.log('RESOLVE---TIME: 2: ', t2 - t1)
+                return c
+
             } else {
                 const hexByUUID = this.hexByUUID
                 const thisHex = hexByUUID(this.randomChoice(emptyHexes.preferred))
                 thisHex.startingTags.push(tag)
-                return { uuid: thisHex.uuid, type: "empty" }
+                const c = { uuid: thisHex.uuid, type: "empty" }
+                const t2 = performance.now()
+                console.log('RESOLVE---TIME: 3: ', t2 - t1)
+                return c;
             }
         } else if (taggedHexes.preferred.length > 0) {
-            return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+            const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+            const t2 = performance.now()
+            console.log('RESOLVE---TIME: 4: ', t2 - t1)
+            return c;
+
         // Need to add a mechanism to apply the new tag
         } else if (emptyHexes.preferred.length > 0) {
             const hexByUUID = this.hexByUUID
             const thisHex = hexByUUID(this.randomChoice(emptyHexes.preferred))
             thisHex.startingTags.push(tag)
-            return { uuid: thisHex.uuid, type: "empty" }
+            const c = { uuid: thisHex.uuid, type: "empty" }
+            const t2 = performance.now()
+            console.log('RESOLVE---TIME: 5: ', t2 - t1)
+            return c;
+
         } else if (otherHexes.preferred.length > 0) {
             const hexByUUID = this.hexByUUID
             const thisHex = hexByUUID(this.randomChoice(otherHexes.preferred))
             thisHex.startingTags.push(tag)
-            return { uuid: thisHex.uuid, type: "random" }
+            const c = { uuid: thisHex.uuid, type: "random" }
+            const t2 = performance.now()
+            console.log('RESOLVE---TIME: 6: ', t2 - t1)
+            return c;
+
         } else if (taggedHexes.preferred.length > 2) {
-            return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+            const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+            const t2 = performance.now()
+            console.log('RESOLVE---TIME: 7: ', t2 - t1)
+            return c;
+
         } else if (taggedHexes.preferred.length > 0 && emptyHexes.length.preferred > 4) {
             if (this.randomChoice(['empty', 'existing']) == 'existing') {
-                return { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+                const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
+                const t2 = performance.now()
+                console.log('RESOLVE---TIME: 8: ', t2 - t1)
+                return c;
+
             } else {
                 const hexByUUID = this.hexByUUID
                 const thisHex = hexByUUID(this.randomChoice(emptyHexes.preferred))
                 thisHex.startingTags.push(tag)
-                return { uuid: thisHex.uuid, type: "empty" }
+                const c = { uuid: thisHex.uuid, type: "empty" }
+                const t2 = performance.now()
+                console.log('RESOLVE---TIME: 9: ', t2 - t1)
+                return c;
             }
         } else if (taggedHexes.accepted.length > 0) {
-            return { uuid: this.randomChoice(taggedHexes.accepted), type: 'existing' };
+            const c = { uuid: this.randomChoice(taggedHexes.accepted), type: 'existing' };
+            const t2 = performance.now()
+            console.log('RESOLVE---TIME: 10: ', t2 - t1)
+            return c;
+
         // Need to add a mechanism to apply the new tag
         } else if (emptyHexes.accepted.length > 0) {
             const hexByUUID = this.hexByUUID
             const thisHex = hexByUUID(this.randomChoice(emptyHexes.accepted))
             thisHex.startingTags.push(tag)
-            return { uuid: thisHex.uuid, type: "empty" }
+            const c = { uuid: thisHex.uuid, type: "empty" }
+            const t2 = performance.now()
+            console.log('RESOLVE---TIME: 11: ', t2 - t1)
+            return c;
+
         } else if (otherHexes.accepted.length > 0) {
             const hexByUUID = this.hexByUUID
             const thisHex = hexByUUID(this.randomChoice(otherHexes.accepted))
             thisHex.startingTags.push(tag)
-            return { uuid: thisHex.uuid, type: "random" }
+            const c = { uuid: thisHex.uuid, type: "random" }
+            const t2 = performance.now()
+            console.log('RESOLVE---TIME: 12: ', t2 - t1)
+            return c;
+
         // Need to add a mechanism to apply the new tag
         } else {
             const thisHex = this.randomChoice(this.hexes.flat())
             thisHex.startingTags.push(tag)
-            return { uuid: thisHex.uuid, type: "random" }
+            const c = { uuid: thisHex.uuid, type: "random" }
+            const t2 = performance.now()
+            console.log('RESOLVE---TIME: 13: ', t2 - t1)
+            return c;
         }
     },
     resolveHexTagUpdate(hexUUID, tag) {
@@ -1083,14 +1141,11 @@ export const useHexesStore = defineStore({
             useMentions = 'no'
         }
 
-        console.log('starting tags', thisHex.tags)
         var tags = this.refineTag(tag, [tag])
         tags.forEach((tag) => {
             thisHex.tags.push(tag)
         })
-        console.log('new tags', thisHex.tags)
         
-        console.log(">>> Making description for hex ", hexUUID, "hex named", thisHex.id, "with tags", thisHex.tags, "and - mentions?", useMentions)
         const descriptionElements = this.generateHexDescription(hexUUID, tags, {mention: useMentions})
         var resolveNewTags = []
         var startingDescription = {
@@ -1109,7 +1164,6 @@ export const useHexesStore = defineStore({
                  icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
              }
          })
-         console.log("setting icon for hex", thisHex.uuid, "which is", icon)
          this.setHexIcon(thisHex.uuid, icon);
 
          resolveNewTags.forEach((hexUpdate) => {
