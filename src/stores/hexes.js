@@ -569,11 +569,11 @@ export const useHexesStore = defineStore({
 
         if (thisHex.tags.length == 0 || overwrite) {
             // Refine and/or generate tags that indicate the type of content, if any
-            thisHex.tags = this.generateHexTags(hexUUID, thisHex.terrain, thisHex.tags, 0.5)
+            thisHex.tags = this.generateHexTags(thisHex, 0.5)
 
             // Generate content from tags, selecting and filling a matching content template
             //from the tag(s) list(s)
-            const descriptionElements = this.generateHexDescription(hexUUID, thisHex.tags, {mention: 'any'})
+            const descriptionElements = this.generateHexDescription(thisHex, {mention: 'any'})
             var resolveNewTags = []
             const startingDescription = {
                 type: "doc", 
@@ -581,7 +581,7 @@ export const useHexesStore = defineStore({
             }
             const t5 = performance.now()
 
-            thisHex.content = this.formatDescriptionForTiptap(thisHex.uuid, startingDescription, descriptionElements, resolveNewTags)
+            thisHex.content = this.formatDescriptionForTiptap(thisHex, startingDescription, descriptionElements, resolveNewTags)
             const t6 = performance.now()
             console.log("TIME: formatDescriptionForTiptap", t6 - t5)
 
@@ -596,7 +596,7 @@ export const useHexesStore = defineStore({
 
             resolveNewTags.forEach((hexUpdate) => {
                 const t8 = performance.now()
-                this.resolveHexTagUpdate(hexUpdate.uuid, hexUpdate.tag)
+                this.resolveHexTagUpdate(thisHex, hexUpdate.tag)
                 const t9 = performance.now() - t8
                 console.log("TIME: resolveHexTagUpdate:", t9)
             })
@@ -608,20 +608,20 @@ export const useHexesStore = defineStore({
     // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
     // additional tags as needed
     // pointOfInterestChance as a decimal
-    generateHexTags(hexUUID, terrain, startingTags, pointOfInterestChance) {
+    generateHexTags(thisHex, pointOfInterestChance) {
         // If no starting tags, check chance of having a point of interest and generate
         // tags if it meets that chance
-        if (startingTags.length == 0) {
+        if (thisHex.tags.length == 0) {
             if (Math.random() > pointOfInterestChance) {
-                return startingTags;
+                return thisHex.tags;
             } else {
-                const newTags = this.generateHexTag(terrain);
+                const newTags = this.generateHexTag(thisHex.terrain);
                 return newTags;
             }
         // If there are already things in startingTags, refine those as needed
         } else {
-            var tags = startingTags
-            startingTags.forEach((tag) => {
+            var tags = thisHex.tags
+            thisHex.tags.forEach((tag) => {
                 tags = this.refineTag(tag, tags)
             })
             return tags;
@@ -649,11 +649,11 @@ export const useHexesStore = defineStore({
         }
     },
     // Take hex terrain and tags and generate actual content tags / crosslinks
-    generateHexDescription(hexUUID, tags, hexOptions) {
+    generateHexDescription(thisHex, hexOptions) {
         var descriptionElements = [];
         const reMention = new RegExp('@[a-zA-Z0-9]+', 'g')
 
-        tags.forEach((tag) => {
+        thisHex.tags.forEach((tag) => {
             if (!Object.keys(this.contentTags).includes(tag)) {
                 const parentTypeTag = this.parentTypeTag(tag)
                 if (parentTypeTag != null) {
@@ -733,7 +733,7 @@ export const useHexesStore = defineStore({
         }
     },
     // Mention syntax example: @tagOptionA||tagOptionB:dist=lt3s
-    resolveContentMentions(activeHexUUID, blocks, resolveNewTags) {
+    resolveContentMentions(thisHex, blocks, resolveNewTags) {
         var updatedBlocks = [];
 
         // Regex to use instead for getting params above: const r = new RegExp('@[a-zA-Z0-9|:<=>]+', 'g')
@@ -775,7 +775,7 @@ export const useHexesStore = defineStore({
                     }
 
                     const t1 = performance.now()
-                    const matchingHex = this.getMatchingHex(matchParams, activeHexUUID)
+                    const matchingHex = this.getMatchingHex(matchParams, thisHex)
                     const t2 = performance.now()
                     console.log('MENT-TIME: getMatchingHex', t2 - t1)
                     resolvedMentions.push(matchingHex.uuid);
@@ -854,13 +854,13 @@ export const useHexesStore = defineStore({
 
         return description;
     },
-    addLineBreak(startingDescription) {
+    addLineBreak(description) {
         description.content.push(
             {type: "paragraph"}
         )
         return description;
     },
-    formatDescriptionForTiptap(activeHexUUID, startingDescription, descriptionElements, resolveNewTags) {
+    formatDescriptionForTiptap(thisHex, startingDescription, descriptionElements, resolveNewTags) {
 
         var description = startingDescription;
 
@@ -872,7 +872,7 @@ export const useHexesStore = defineStore({
             var blocks = this.resolveLineBreaks(text);
             const t3 = performance.now()
 
-            blocks = this.resolveContentMentions(activeHexUUID, blocks, resolveNewTags);
+            blocks = this.resolveContentMentions(thisHex, blocks, resolveNewTags);
             const t4 = performance.now()
             console.log("DESC---TIME, resolveContentMentions: ", t4 - t3)
 
@@ -975,9 +975,7 @@ export const useHexesStore = defineStore({
         }
 
     },
-    getMatchingHex(matchParams, hexUUID) {
-        const hexByUUID = this.hexByUUID;
-        const thisHex = hexByUUID(hexUUID);
+    getMatchingHex(matchParams, thisHex) {
         
         // Quickly now to not break it yet
         const tag = matchParams.tag
@@ -987,20 +985,18 @@ export const useHexesStore = defineStore({
         var otherHexes = {preferred: [], accepted: []};
 
         // Check through all hexes and find ones matching the (soft or hard) constraints
-        const t00 = performance.now()
         const h = this.hexes.flat()
         var t0 = performance.now()
-        console.log('flattening hexes time', t0 - t00)
 
         h.forEach((hex) => {
-            if (hex.tags.length == 0 && hex.uuid != hexUUID) {
+            if (hex.tags.length == 0 && hex.uuid != thisHex.uuid) {
                 const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
                 if (c == 'preferred') {
                     emptyHexes.preferred.push(hex.uuid);
                 } else if (c == 'accepted') {
                     emptyHexes.accepted.push(hex.uuid);
                 }
-            } else if (hex.tags.includes(tag) && hex.uuid != hexUUID) {
+            } else if (hex.tags.includes(tag) && hex.uuid != thisHex.uuid) {
                 const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
                 if (c == 'preferred') {
                     taggedHexes.preferred.push(hex.uuid);
@@ -1128,10 +1124,7 @@ export const useHexesStore = defineStore({
             return c;
         }
     },
-    resolveHexTagUpdate(hexUUID, tag) {
-
-        const hexByUUID = this.hexByUUID;
-        const thisHex = hexByUUID(hexUUID);
+    resolveHexTagUpdate(thisHex, tag) {
 
         console.log("!!!!!!-------------!!!!!!! Contents for hex", thisHex.id, "from resolveHexTagUpdate !!!!!!-------------!!!!!!!")
 
@@ -1146,7 +1139,7 @@ export const useHexesStore = defineStore({
             thisHex.tags.push(tag)
         })
         
-        const descriptionElements = this.generateHexDescription(hexUUID, tags, {mention: useMentions})
+        const descriptionElements = this.generateHexDescription(thisHex, {mention: useMentions})
         var resolveNewTags = []
         var startingDescription = {
             type: "doc", 
@@ -1155,7 +1148,7 @@ export const useHexesStore = defineStore({
         if (thisHex.content != null) {
             startingDescription = thisHex.content
         }
-        thisHex.content = this.formatDescriptionForTiptap(hexUUID, startingDescription, descriptionElements, resolveNewTags)
+        thisHex.content = this.formatDescriptionForTiptap(thisHex, startingDescription, descriptionElements, resolveNewTags)
 
          // Set icon to match contents
          var icon = null;
@@ -1167,7 +1160,7 @@ export const useHexesStore = defineStore({
          this.setHexIcon(thisHex.uuid, icon);
 
          resolveNewTags.forEach((hexUpdate) => {
-             this.resolveHexTagUpdate(hexUpdate.uuid, hexUpdate.tag)
+             this.resolveHexTagUpdate(thisHex, hexUpdate.tag)
          })
 
     },
