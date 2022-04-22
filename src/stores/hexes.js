@@ -596,7 +596,8 @@ export const useHexesStore = defineStore({
 
             resolveNewTags.forEach((hexUpdate) => {
                 const t8 = performance.now()
-                this.resolveHexTagUpdate(thisHex, hexUpdate.tag)
+                const newHex = hexByUUID(hexUpdate.uuid)
+                this.resolveHexTagUpdate(newHex, hexUpdate.tag)
                 const t9 = performance.now() - t8
                 console.log("TIME: resolveHexTagUpdate:", t9)
             })
@@ -1124,7 +1125,7 @@ export const useHexesStore = defineStore({
             return c;
         }
     },
-    resolveHexTagUpdate(thisHex, tag) {
+    resolveHexTagUpdate(thisHex, tag) {        
 
         console.log("!!!!!!-------------!!!!!!! Contents for hex", thisHex.id, "from resolveHexTagUpdate !!!!!!-------------!!!!!!!")
 
@@ -1160,7 +1161,9 @@ export const useHexesStore = defineStore({
          this.setHexIcon(thisHex.uuid, icon);
 
          resolveNewTags.forEach((hexUpdate) => {
-             this.resolveHexTagUpdate(thisHex, hexUpdate.tag)
+             const hexByUUID = this.hexByUUID
+             const newHex = hexByUUID(hexUpdate.uuid)
+             this.resolveHexTagUpdate(newHex, hexUpdate.tag)
          })
 
     },
