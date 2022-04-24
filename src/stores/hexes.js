@@ -594,6 +594,10 @@ export const useHexesStore = defineStore({
             })
             this.setHexIcon(thisHex.uuid, icon);
 
+            var e = performance.now() - s
+            console.log("HEX ", thisHex.id, " took: ", e, "(without resolving extra hex updates)")
+
+            s = performance.now()
             resolveNewTags.forEach((hexUpdate) => {
                 const t8 = performance.now()
                 const newHex = hexByUUID(hexUpdate.uuid)
@@ -603,8 +607,8 @@ export const useHexesStore = defineStore({
             })
         }
 
-        var e = performance.now() - s
-        console.log("HEX ", thisHex.id, " took: ", e, "(including resolving extra hex updates)")
+        e = performance.now() - s
+        console.log("Additional hexes took:", e)
     },
     // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
     // additional tags as needed
@@ -901,78 +905,95 @@ export const useHexesStore = defineStore({
 
         for (let i = 0; i < constraints.length; i++) {
                 
-                if (constraints[i].condition == 'lt') {
-                    if (constraints[i].conditionType == 's') {
-                        if (distance < constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'accepted'
-                        }
+            if (constraints[i].condition == 'lt') {
+                if (constraints[i].conditionType == 's') {
+                    if (distance < constraints[i].distanceBound) {
+                        return 'preferred'
                     } else {
-                        if (distance < constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'invalid'
-                        }
+                        
+                        return 'accepted'
                     }
-                } else if (constraints[i].condition == 'lte') {
-                    if (constraints[i].conditionType == 's') {
-                        if (distance <= constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'accepted'
-                        }
+                } else {
+                    if (distance < constraints[i].distanceBound) {
+                        return 'preferred'
                     } else {
-                        if (distance <= constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'invalid'
-                        }
-                    }
-                } else if (constraints[i].condition == 'gt') {
-                    if (constraints[i].conditionType == 's') {
-                        if (distance > constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'accepted'
-                        }
-                    } else {
-                        if (distance > constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'invalid'
-                        }
-                    }
-                } else if (constraints[i].condition == 'gte') {
-                    if (constraints[i].conditionType == 's') {
-                        if (distance >= constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'accepted'
-                        }
-                    } else {
-                        if (distance >= constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'invalid'
-                        }
-                    }
-                } else if (constraints[i].condition == 'eq') {
-                    if (constraints[i].conditionType == 's') {
-                        if (distance == constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'accepted'
-                        }
-                    } else {
-                        if (distance == constraints[i].distanceBound) {
-                            return 'preferred'
-                        } else {
-                            return 'invalid'
-                        }
+                        
+                        return 'invalid'
                     }
                 }
-            
+            } else if (constraints[i].condition == 'lte') {
+                if (constraints[i].conditionType == 's') {
+                    if (distance <= constraints[i].distanceBound) {
+                        
+                        return 'preferred'
+                    } else {
+                        
+                        return 'accepted'
+                    }
+                } else {
+                    if (distance <= constraints[i].distanceBound) {
+                        
+                        return 'preferred'
+                    } else {
+                        
+                        return 'invalid'
+                    }
+                }
+            } else if (constraints[i].condition == 'gt') {
+                if (constraints[i].conditionType == 's') {
+                    if (distance > constraints[i].distanceBound) {
+                        
+                        return 'preferred'
+                    } else {
+                        
+                        return 'accepted'
+                    }
+                } else {
+                    if (distance > constraints[i].distanceBound) {
+                        
+                        return 'preferred'
+                    } else {
+                        
+                        return 'invalid'
+                    }
+                }
+            } else if (constraints[i].condition == 'gte') {
+                if (constraints[i].conditionType == 's') {
+                    if (distance >= constraints[i].distanceBound) {
+                        
+                        return 'preferred'
+                    } else {
+                        
+                        return 'accepted'
+                    }
+                } else {
+                    if (distance >= constraints[i].distanceBound) {
+                        
+                        return 'preferred'
+                    } else {
+                        
+                        return 'invalid'
+                    }
+                }
+            } else if (constraints[i].condition == 'eq') {
+                if (constraints[i].conditionType == 's') {
+                    if (distance == constraints[i].distanceBound) {
+                        
+                        return 'preferred'
+                    } else {
+                        
+                        return 'accepted'
+                    }
+                } else {
+                    if (distance == constraints[i].distanceBound) {
+                        
+                        return 'preferred'
+                    } else {
+                        
+                        return 'invalid'
+                    }
+                }
+            }
         }
 
     },
@@ -1249,6 +1270,30 @@ export const useHexesStore = defineStore({
         const hexA = hexByUUID(es.activeHexes[0])
         const hexB = hexByUUID(es.activeHexes[1])
         console.log("Distance between hexes", hexA.id, "and", hexB.id, "is", this.hexToHexDistance(hexA, hexB))
+    },
+    mentionedByHexes(hexUUID) {
+        var mentioningHexes = []
+        this.hexes.flat().forEach((hex) => {
+            if (hex.content != null) {
+                if (hex.content.content.length > 0) {
+                        hex.content.content.forEach((paragraph) => {
+                            if (paragraph.content != undefined) {
+                                paragraph.content.forEach((node) => {
+                                    if (node.type == 'mention') {
+                                        if (node.attrs.uuid == hexUUID) {
+                                            mentioningHexes.push(hex)
+                                        }
+                                    }
+                                })
+                            }
+                            
+                        })
+                }
+            }
+            
+        })
+        return mentioningHexes
     }
   }
+  
 })

@@ -33,7 +33,7 @@ function logPaddingShift() {
         class="image-hex flat-hex"
         v-for="hex in row"
         :key="hex.uuid"
-        v-bind:class="{ 'hex-selected': es.activeHexes.includes(hex.uuid) }"
+        v-bind:class="{ 'hex-selected': es.activeHexes.includes(hex.uuid), 'hex-mentioned': es.mentioningHexes.includes(hex.uuid) }"
         v-bind:uuid="hex.uuid"
         @click="es.selectHex(hex, $event)"
       >
@@ -44,6 +44,7 @@ function logPaddingShift() {
           v-bind="{ src: es.iconProperties[hex.icon].file }"
         />
         <div class="hex-overlay"></div>
+        <div class="hex-overlay-mentioned"></div>
         <div class="hex-label">{{ hex.id }}</div>
       </div>
     </div>
@@ -127,6 +128,10 @@ function logPaddingShift() {
 }
 
 .hex-selected {
+  opacity: 0.3;
+}
+
+.hex-mentioned {
   opacity: 0.3;
 }
 

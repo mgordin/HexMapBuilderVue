@@ -13,12 +13,15 @@ export const useEditorStore = defineStore({
         textSectionVisible: true,
         terrainSectionVisible: true,
         iconsSectionVisible: true,
+        mentionedBySectionVisible: true,
         terrainToImage: json.terrainToImage,
         multipleHexesImage: json.multiple_hexes,
         iconProperties: json.icons,
         initializeMapModelShown: true,
         initializeHexRows: 8,
-        initializeHexColumns: 8
+        initializeHexColumns: 8,
+        mentioningHexes: [],
+        currentSelectedContent: null
     }),
     getters: {
         activeHexImage(state) {
@@ -90,6 +93,10 @@ export const useEditorStore = defineStore({
 
                 // Select active hex's icons (incomplete)
                 this.selectedIcon = hex.icon;
+
+                const hs = useHexesStore();
+                this.mentioningHexes = hs.mentionedByHexes(hex.uuid)
+                //this.currentSelectedContent = hex.content
             }
         },
         deselectAllHexes() {

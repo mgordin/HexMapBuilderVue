@@ -17,6 +17,9 @@ import Mention from "@/MentionExport";
 import { useHexesStore } from "@/stores/hexes";
 import Placeholder from '@tiptap/extension-placeholder'
 
+import 'tippy.js/dist/tippy.css' // optional for styling
+import 'tippy.js/themes/light.css';
+
 
 const hs = useHexesStore();
 
@@ -70,6 +73,8 @@ const editor = new Editor({
                     interactive: true,
                     trigger: 'manual',
                     placement: 'bottom-start',
+                    theme: 'light',
+                    arrow: false
                   })
                 },
 

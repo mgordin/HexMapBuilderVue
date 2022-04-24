@@ -19,7 +19,8 @@
     "remixicon": "^2.5.0",
     "tippy.js": "^6.3.7",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue-tippy": "^6.0.0-alpha.58"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.2",

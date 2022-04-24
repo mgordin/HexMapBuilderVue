@@ -5,11 +5,17 @@ import TextEditor from "@/components/TextEditor.vue";
 import Multiselect from '@vueform/multiselect'
 import 'remixicon/fonts/remixicon.css'
 
+import MentioningHexPopup from "@/components/MentioningHexPopup.vue";
+import 'tippy.js/dist/tippy.css' // optional for styling
+import 'tippy.js/themes/light-border.css';
+
+
 const es = useEditorStore();
 const hs = useHexesStore();
 
 const activeHex = hs.activeHex;
 const hexByUUID = hs.hexByUUID;
+
 </script>
 
 <template>
@@ -30,6 +36,50 @@ const hexByUUID = hs.hexByUUID;
       </header>
       <!-- Sidebar section start here -->
       <div class="card-content">
+        <!-- Mentioned by section -->
+        <div class="block" v-if="es.selectedHexCount==1">
+          <div class="card">
+            <header class="card-header has-background-primary" @click="es.toggleSection('mentioned-by')">
+                <p class="card-header-title">Mentioned By</p>
+                <span class="icon details">
+                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.tagsSectionVisible"></i>
+                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.tagsSectionVisible"></i>
+                </span>
+            </header>
+            <div class="card-content" v-if="es.mentionedBySectionVisible">
+              <div class="tags">
+                <span class="tag is-medium" 
+                  v-for="hex in es.mentioningHexes" 
+                  @mouseover="es.currentSelectedContent = hex.content"
+                  @click="es.selectHex(hex, {shiftKey: false})"
+                  v-tippy="{content: MentioningHexPopup,
+                            theme: 'light-border',
+                            placement: 'bottom'}"
+                >
+                  {{hex.id}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Text section -->
+        <div class="block" v-if="es.selectedHexCount==1">
+          <div class="card">
+            <header class="card-header has-background-primary" @click="es.toggleSection('text')">
+              <p class="card-header-title">Hex Details</p>
+              <span class="icon details">
+                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.textSectionVisible"></i>
+                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.textSectionVisible"></i>
+              </span>
+            </header>
+            <div class="card-content" v-if="es.textSectionVisible">
+              <TextEditor
+                v-model="hexByUUID(es.activeHexes[0]).content"
+                v-bind:editable="es.activeHexes.length == 1"
+              />
+            </div>
+          </div>
+        </div>
         <!-- Tags section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
@@ -50,24 +100,6 @@ const hexByUUID = hs.hexByUUID;
                     placeholder="Select location tags..."
                     :options="hs.tagList"
                     />
-            </div>
-          </div>
-        </div>
-        <!-- Text section -->
-        <div class="block" v-if="es.selectedHexCount==1">
-          <div class="card">
-            <header class="card-header has-background-primary" @click="es.toggleSection('text')">
-              <p class="card-header-title">Hex Details</p>
-              <span class="icon details">
-                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.textSectionVisible"></i>
-                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.textSectionVisible"></i>
-              </span>
-            </header>
-            <div class="card-content" v-if="es.textSectionVisible">
-              <TextEditor
-                v-model="hexByUUID(es.activeHexes[0]).content"
-                v-bind:editable="es.activeHexes.length == 1"
-              />
             </div>
           </div>
         </div>
