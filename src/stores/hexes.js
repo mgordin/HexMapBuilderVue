@@ -703,6 +703,7 @@ export const useHexesStore = defineStore({
         const reChoice = new RegExp('[#!][a-zA-Z0-9|]+')
 
         var text = element.text;
+        console.log('text:', element)
         const choiceMatches = text.match(reChoice);
         console.log('element', element)
         console.log('text:', text)

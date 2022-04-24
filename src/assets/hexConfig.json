@@ -158,12 +158,30 @@
                 "icon": "village",
                 "ruler": ["headman", "council of elders"],
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
-                "testThing1": ["1a - #majorResident and #ruler"],
-                "testThing2": ["1b - #majorResident and #ruler"],
+                "wealth": [
+                    "This village is quite prosperous. The buildings are in good repair and the people are dressed in clear, well-repaired clothes.",
+                    "This village is doing fine - about as well as you'd expect from an average village in this region.",
+                    "This village is just hanging on. There are several abandoned houses, and the people look thin and hungry."
+                ],
+                "attitude": [
+                    "Its people seem cheerful and open to outsiders.",
+                    "Its people are standoffish, but willing to trade and hear news from the wider world.",
+                    "Its people seem nervous, and conversations stop whenever #ruler is nearby."
+                ],
+                "villageDescription": [
+                    "#wealth #attitude",
+                    "This village was clearly founded by people foreign to these lands - the local architecture still looks distinct from any surrounding settlements."
+                ],
+                "hook": [
+                    "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement:dist=lt3s.",
+                    "The houses in this village are all painted with flowers.\nA #majorResident from this village is looking for their missing son, who was last seen heading toward the ruins at @ruin:dist=lt3s.",
+                    "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #majorResident.",
+                    "There has been a rash of livestock thefts recently, and the #ruler is willing to pay someone who can make them stop.",
+                    "Recently several villagers have been killed by a best living in the nearby wilderness, and they've started pooling money to hire a monster hunter to deal with it.",
+                    "The villagers have just found a bounty of a rare resource. The #majorResident of @village has learned about this and is trying to steal it."
+                ],
                 "description": [
-                    {"text": "This village is surprisingly prosperous.\nThe #ruler of this village is looking for adventurers to steal something from the ruler of @settlement:dist=lt3s.", "odds": 1},
-                    {"text": "The houses in this village are all painted with flowers.\nA #testThing1||testThing2 from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin:dist=lt3s.", "odds": 1},
-                    {"text": "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #testThing1||testThing2.", "odds": 1}
+                    {"text": "#villageDescription\n#hook", "odds": 1}
                 ]
             },
             "town": {
@@ -175,8 +193,8 @@
                 "testThing2": ["1b - #majorResident and #ruler"],
                 "description": [
                     {"text": "The #ruler of this town is organizing a festival, but people from @settlement:dist=lt3s are trying to sabotage it.", "odds": 1},
-                    {"text": "The #testThing1||testThing2 of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.", "odds": 1},
-                    {"text": "The #testThing1||testThing2 is secretly a vampire.", "odds": 1}
+                    {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.", "odds": 1},
+                    {"text": "The #majorResident is secretly a vampire.", "odds": 1}
                 ]
             },
             "castle": {
@@ -187,7 +205,7 @@
                 "testThing1": ["1a - #majorResident and #ruler"],
                 "testThing2": ["1b - #majorResident and #ruler"],
                 "description": [
-                    {"text": "The #testThing1||testThing2 of this castle is secretly a werewolf.", "odds": 1},
+                    {"text": "The #majorResident of this castle is secretly a werewolf.", "odds": 1},
                     {"text": "Humanoids living in the ruins in @ruin:dist=lt3s have been attacking the castle at night.", "odds": 1}
                 ]
             }
