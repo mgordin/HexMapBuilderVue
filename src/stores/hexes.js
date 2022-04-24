@@ -111,6 +111,7 @@ export const useHexesStore = defineStore({
         "ruin": json.contentTags.ruin,
         "wilderness": json.contentTags.wilderness
     },
+    globalFillLists: json.globalFillLists,
     pointOfInterest: {
         type: ["settlement", "ruin", "wilderness"],
         odds: [1,1,1]
@@ -699,19 +700,37 @@ export const useHexesStore = defineStore({
         return parentTag;
     },
     resolveContentChoices(element) {
-        const reChoice = new RegExp('#[a-zA-Z0-9]+', 'g')
+        const reChoice = new RegExp('[#!][a-zA-Z0-9|]+')
 
         var text = element.text;
         const choiceMatches = text.match(reChoice);
+        console.log('element', element)
+        console.log('text:', text)
+        console.log('matches:', choiceMatches)
+
 
         if (choiceMatches != null) {
             choiceMatches.forEach((match) => {
-                const m = new RegExp(match)
-                text = text.replace(m, this.randomChoice(this.contentTags[element.type][element.tag][match.substring(1)]))
+                const matchSplitOptions = match.split("||")
+                const choiceType = matchSplitOptions[0].substring(0,1)
+                matchSplitOptions[0] = matchSplitOptions[0].substring(1)
+                const choiceList = this.randomChoice(matchSplitOptions)
+                const m = new RegExp(reChoice)
+                console.log('opt:', matchSplitOptions)
+                console.log('choiceList:', choiceList)
+                if (choiceType == "#") {
+                    text = text.replace(m, this.randomChoice(this.contentTags[element.type][element.tag][choiceList]))
+                } else if (choiceType == "!") {
+                    text = text.replace(m, this.randomChoice(this.globalFillLists[choiceList]))
+                }
+                
+                console.log('new text:', text)
             })
+            element.text = text
+            return this.resolveContentChoices(element)
+        } else {
+            return text;
         }
-
-        return text
     },
     resolveLineBreaks(text) {
         const reBreak = new RegExp('\\n','g')

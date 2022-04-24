@@ -148,6 +148,9 @@
             "decrease": []
         }
     },
+    "globalFillLists": {
+        "size": ["small", "medium", "large"]
+    },
     "contentTags": {
         "settlement": {
             "village": {
@@ -155,10 +158,12 @@
                 "icon": "village",
                 "ruler": ["headman", "council of elders"],
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
+                "testThing1": ["1a - #majorResident and #ruler"],
+                "testThing2": ["1b - #majorResident and #ruler"],
                 "description": [
                     {"text": "This village is surprisingly prosperous.\nThe #ruler of this village is looking for adventurers to steal something from the ruler of @settlement:dist=lt3s.", "odds": 1},
-                    {"text": "The houses in this village are all painted with flowers.\nA #majorResident from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin:dist=lt3s.", "odds": 1},
-                    {"text": "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #majorResident.", "odds": 1}
+                    {"text": "The houses in this village are all painted with flowers.\nA #testThing1||testThing2 from this village is looking for his missing son.  He was last seen heading toward the ruins at @ruin:dist=lt3s.", "odds": 1},
+                    {"text": "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #testThing1||testThing2.", "odds": 1}
                 ]
             },
             "town": {
@@ -166,10 +171,12 @@
                 "icon": "town",
                 "ruler": ["mayor", "ealdorman", "town council"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
+                "testThing1": ["1a - #majorResident and #ruler"],
+                "testThing2": ["1b - #majorResident and #ruler"],
                 "description": [
                     {"text": "The #ruler of this town is organizing a festival, but people from @settlement:dist=lt3s are trying to sabotage it.", "odds": 1},
-                    {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.", "odds": 1},
-                    {"text": "The #majorResident is secretly a vampire.", "odds": 1}
+                    {"text": "The #testThing1||testThing2 of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.", "odds": 1},
+                    {"text": "The #testThing1||testThing2 is secretly a vampire.", "odds": 1}
                 ]
             },
             "castle": {
@@ -177,8 +184,10 @@
                 "icon": "castle",
                 "ruler": ["lord", "commander"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "sage", "merchant"],
+                "testThing1": ["1a - #majorResident and #ruler"],
+                "testThing2": ["1b - #majorResident and #ruler"],
                 "description": [
-                    {"text": "The #majorResident of this castle is secretly a werewolf.", "odds": 1},
+                    {"text": "The #testThing1||testThing2 of this castle is secretly a werewolf.", "odds": 1},
                     {"text": "Humanoids living in the ruins in @ruin:dist=lt3s have been attacking the castle at night.", "odds": 1}
                 ]
             }
@@ -188,16 +197,16 @@
                 "odds": 1,
                 "icon": "ruined-castle",
                 "description": [
-                    {"text": "It is said that the magically-infused bones of a powerful, ancient wizard can be found here.", "odds": 1},
-                    {"text": "Humanoids living here are friendly to outsiders, but persecuted by the people of @settlement.", "odds": 1}
+                    {"text": "This ruin is !size.\nIt is said that the magically-infused bones of a powerful, ancient wizard can be found here.", "odds": 1},
+                    {"text": "This ruin is !size.\nHumanoids living here are friendly to outsiders, but persecuted by the people of @settlement.", "odds": 1}
                 ]
             },
             "abandoned village": {
                 "odds": 1,
                 "icon": "ruined-town",
                 "description": [
-                    {"text": "Many people living in @settlement used to live here, before disaster struck.", "odds": 1},
-                    {"text": "It is said that a great treasure is buried somewhere under this village, but the village is now the lair of a powerful monster.", "odds": 1}
+                    {"text": "This ruin is !size.\nMany people living in @settlement used to live here, before disaster struck.", "odds": 1},
+                    {"text": "This ruin is !size.\nIt is said that a great treasure is buried somewhere under this village, but the village is now the lair of a powerful monster.", "odds": 1}
                 ]
             }
         },
