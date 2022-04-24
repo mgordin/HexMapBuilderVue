@@ -23,12 +23,19 @@ const hs = useHexesStore();
                     <a class="navbar-item" @click="hs.logHexes">Log hexes</a>
                     <a class="navbar-item" @click="hs.fillMap('temperate forest', 4, 4)">Generate terrain!</a>
                     <a class="navbar-item" @click="hs.logHexDistances()">Calculate distance between selected hexes</a>
-                    
                 </div>
             </div>
         </div>
         <div class="navbar-end">
-        
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">Save / Load</a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" @click="">Export map to file</a>
+                    <a class="navbar-item" @click="">Save to browser storage</a>
+                    <a class="navbar-item" @click="">Load map from file</a>
+                    
+                </div>
+            </div>
         </div>
     </nav>
 </template>
