@@ -48,9 +48,9 @@ const hexByUUID = hs.hexByUUID;
             </header>
             <div class="card-content" v-if="es.mentionedBySectionVisible">
               <div class="tags">
-                <span class="tag is-medium" 
+                <span class="tag is-medium mentioning-hex" 
                   v-for="hex in es.mentioningHexes" 
-                  @mouseover="es.currentSelectedContent = hex.content"
+                  @mouseover="es.mentionTagHoverStart(hex)"
                   @click="es.selectHex(hex, {shiftKey: false})"
                   v-tippy="{content: MentioningHexPopup,
                             theme: 'light-border',
@@ -65,9 +65,12 @@ const hexByUUID = hs.hexByUUID;
         <!-- Text section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header has-background-primary" @click="es.toggleSection('text')">
+            <header class="card-header has-background-primary">
               <p class="card-header-title">Hex Details</p>
-              <span class="icon details">
+              <span class="icon randomize" title="Randomize again with current tags" @click="hs.rerandomizeHex(es.activeHexes[0], 'description')">
+                  <i class="ri-magic-fill ri-xl"></i>
+                </span>
+              <span class="icon details" title="Collapse section" @click="es.toggleSection('text')">
                   <i class="ri-arrow-left-s-line ri-xl" v-if="!es.textSectionVisible"></i>
                   <i class="ri-arrow-down-s-line ri-xl" v-if="es.textSectionVisible"></i>
               </span>
@@ -205,6 +208,27 @@ const hexByUUID = hs.hexByUUID;
 .icon-picker {
   height: 50px;
   width: 50px;
+}
+
+.mentioning-hex {
+  cursor: pointer;
+}
+
+.mentioning-hex:hover {
+  transform: scale(1.1);
+}
+
+.mentioning-hex-icon {
+  pointer-events: none;
+}
+
+.randomize {
+  top: 12px;
+  left: -10px;
+}
+
+.randomize:hover {
+  transform: scale(1.1)
 }
 
 </style>

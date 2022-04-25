@@ -142,6 +142,9 @@ export const useEditorStore = defineStore({
         },
         logInitializeMapModelShown() {
             console.log(this.initializeMapModelShown)
+        },
+        mentionTagHoverStart(hex) {
+            this.currentSelectedContent = hex.content
         }
     }
 })

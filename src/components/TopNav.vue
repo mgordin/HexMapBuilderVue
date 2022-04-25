@@ -25,17 +25,15 @@ const hs = useHexesStore();
                     <a class="navbar-item" @click="hs.logHexDistances()">Calculate distance between selected hexes</a>
                 </div>
             </div>
-        </div>
-        <div class="navbar-end">
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Save / Load</a>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item" @click="">Export map to file</a>
-                    <a class="navbar-item" @click="">Save to browser storage</a>
-                    <a class="navbar-item" @click="">Load map from file</a>
-                    
+                    <a class="navbar-item" @click="hs.exportMap">Export map to file</a>
+                    <a class="navbar-item" @click="hs.loadMap">Load map from file</a>
                 </div>
             </div>
+        </div>
+        <div class="navbar-end">
         </div>
     </nav>
 </template>

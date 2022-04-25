@@ -17,7 +17,8 @@ export const useHexesStore = defineStore({
             content: null,
             tags: [],
             startingTags: [],
-            referenceMirrors: []
+            referenceMirrors: [],
+            mentionTagHovered: false
         }]
     ],
     defaultHexProperties: {
@@ -213,7 +214,8 @@ export const useHexesStore = defineStore({
             content: null,
             selected: false,
             tags: [],
-            startingTags: []
+            startingTags: [],
+            mentionTagHovered: false
         };
 
     
@@ -513,7 +515,7 @@ export const useHexesStore = defineStore({
         var s = performance.now()
         this.hexes.forEach((row) => {
             row.forEach((hex) => {
-                this.generateHexContents(hex.uuid, false);
+                this.generateHexContents(hex.uuid, 'none');
             })
         })
         var e = performance.now() - s
@@ -559,6 +561,8 @@ export const useHexesStore = defineStore({
         // Just do a thing
         this.setHexTerrain(hexUUID, thisTerrain, false)
     },
+    // overwrite options: 'full' - change everything, 'description' - keep tags, generate new description,
+    // 'none' - don't change it
     generateHexContents(hexUUID, overwrite) {
         // Get hex to be filled
         const hexByUUID = this.hexByUUID;
@@ -566,12 +570,15 @@ export const useHexesStore = defineStore({
         console.log("!!!!!!!!!!!!! Contents for hex", thisHex.id, "from generateHexContents")
 
 
-        var s = performance.now()
-
-        if (thisHex.tags.length == 0 || overwrite) {
+        var startedWithTags = true
+        if (thisHex.tags.length == 0) {
+            startedWithTags = false
+        }
+        if (thisHex.tags.length == 0 || overwrite == 'full') {
             // Refine and/or generate tags that indicate the type of content, if any
             thisHex.tags = this.generateHexTags(thisHex, 0.5)
-
+        }
+        if (!startedWithTags || overwrite == 'full' || overwrite == 'description') {
             // Generate content from tags, selecting and filling a matching content template
             //from the tag(s) list(s)
             const descriptionElements = this.generateHexDescription(thisHex, {mention: 'any'})
@@ -580,11 +587,8 @@ export const useHexesStore = defineStore({
                 type: "doc", 
                 content: []
             }
-            const t5 = performance.now()
 
             thisHex.content = this.formatDescriptionForTiptap(thisHex, startingDescription, descriptionElements, resolveNewTags)
-            const t6 = performance.now()
-            console.log("TIME: formatDescriptionForTiptap", t6 - t5)
 
             // Set icon to match contents
             var icon = null;
@@ -595,21 +599,11 @@ export const useHexesStore = defineStore({
             })
             this.setHexIcon(thisHex.uuid, icon);
 
-            var e = performance.now() - s
-            console.log("HEX ", thisHex.id, " took: ", e, "(without resolving extra hex updates)")
-
-            s = performance.now()
             resolveNewTags.forEach((hexUpdate) => {
-                const t8 = performance.now()
                 const newHex = hexByUUID(hexUpdate.uuid)
                 this.resolveHexTagUpdate(newHex, hexUpdate.tag)
-                const t9 = performance.now() - t8
-                console.log("TIME: resolveHexTagUpdate:", t9)
             })
         }
-
-        e = performance.now() - s
-        console.log("Additional hexes took:", e)
     },
     // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
     // additional tags as needed
@@ -1313,6 +1307,56 @@ export const useHexesStore = defineStore({
             
         })
         return mentioningHexes
+    },
+    exportMap() {
+
+        const content = {
+            hexes: this.hexes,
+            leftmostColumn: this.leftmostColumn,
+            nthChildShift: this.nthChildShift,
+            uuid: this.uuid
+        }
+
+        const a = document.createElement('a');
+        const file = new Blob([JSON.stringify(content)], {type: 'application/json'});
+        
+        a.href= URL.createObjectURL(file);
+        a.download = "map.json";
+        a.click();
+
+        URL.revokeObjectURL(a.href);
+    },
+    loadMap() {
+        var input = document.createElement('input');
+        input.type = 'file';
+
+        input.onchange = e => { 
+
+            // getting a hold of the file reference
+            var file = e.target.files[0]; 
+
+            // setting up the reader
+            var reader = new FileReader();
+            reader.readAsText(file,'UTF-8');
+
+            // here we tell the reader what to do when it's done reading...
+            reader.onload = readerEvent => {
+                var content = readerEvent.target.result; // this is the content!
+                content = JSON.parse(content)
+                this.hexes = content.hexes;
+                this.leftmostColumn = content.leftmostColumn;
+                this.nthChildShift = content.nthChildShift;
+                this.uuid = content.uuid
+            }
+        }
+
+        input.click();
+    },
+    rerandomizeHex(hexUUID, randomizeType) {
+        if (randomizeType == 'description') {
+            console.log('do the thing')
+            this.generateHexContents(hexUUID, 'description')
+        }
     }
   }
   
