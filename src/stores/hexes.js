@@ -512,14 +512,11 @@ export const useHexesStore = defineStore({
         })
 
         // Hex contents
-        var s = performance.now()
         this.hexes.forEach((row) => {
             row.forEach((hex) => {
                 this.generateHexContents(hex.uuid, 'none');
             })
         })
-        var e = performance.now() - s
-        console.log("HEXES took: ", e)
 
         // Maintain empty map edge
         this.addRow('top', this.countColumns, this.defaultHexProperties)
@@ -574,10 +571,10 @@ export const useHexesStore = defineStore({
         if (thisHex.tags.length == 0) {
             startedWithTags = false
         }
-        if (thisHex.tags.length == 0 || overwrite == 'full') {
-            // Refine and/or generate tags that indicate the type of content, if any
-            thisHex.tags = this.generateHexTags(thisHex, 0.5)
-        }
+
+        // Refine and/or generate tags that indicate the type of content, if any
+        thisHex.tags = this.generateHexTags(thisHex, 0.5, overwrite)
+
         if (!startedWithTags || overwrite == 'full' || overwrite == 'description') {
             // Generate content from tags, selecting and filling a matching content template
             //from the tag(s) list(s)
@@ -608,11 +605,17 @@ export const useHexesStore = defineStore({
     // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
     // additional tags as needed
     // pointOfInterestChance as a decimal
-    generateHexTags(thisHex, pointOfInterestChance) {
+    generateHexTags(thisHex, pointOfInterestChance, overwrite) {
         // If no starting tags, check chance of having a point of interest and generate
         // tags if it meets that chance
+        if (overwrite == "full") {
+            thisHex.tags = []
+        }
         if (thisHex.tags.length == 0) {
-            if (Math.random() > pointOfInterestChance) {
+            if (overwrite == 'full' || overwrite == 'description') {
+                const newTags = this.generateHexTag(thisHex.terrain);
+                return newTags;
+            } else if (Math.random() > pointOfInterestChance) {
                 return thisHex.tags;
             } else {
                 const newTags = this.generateHexTag(thisHex.terrain);
@@ -620,12 +623,18 @@ export const useHexesStore = defineStore({
             }
         // If there are already things in startingTags, refine those as needed
         } else {
-            var tags = thisHex.tags
-            thisHex.tags.forEach((tag) => {
-                tags = this.refineTag(tag, tags)
-            })
-            return tags;
+            return this.refineTags(thisHex.tags);
         }
+    },
+    refineTags(tags) {
+        const tagsToRefine = tags.filter(
+            tag => Object.keys(this.contentTags).includes(tag) && 
+            (tags.filter(t => Object.keys(this.contentTags[tag]).includes(t))).length == 0
+        )
+        tagsToRefine.forEach((tag) => {
+            tags = this.refineTag(tag, tags)
+        })
+        return tags
     },
     // Generate a new tag (or an empty hex) based on input probabilities and the current terrain
     generateHexTag(terrain) {
