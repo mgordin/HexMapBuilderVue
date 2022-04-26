@@ -214,16 +214,18 @@
             }
         },
         "ruin": {
-            "ruined castle": {
+            "ruined-castle": {
                 "odds": 1,
+                "name": "ruined castle",
                 "icon": "ruined-castle",
                 "description": [
                     {"text": "This ruin is !size.\nIt is said that the magically-infused bones of a powerful, ancient wizard can be found here.", "odds": 1},
                     {"text": "This ruin is !size.\nHumanoids living here are friendly to outsiders, but persecuted by the people of @settlement.", "odds": 1}
                 ]
             },
-            "abandoned village": {
+            "abandoned-village": {
                 "odds": 1,
+                "name": "abandoned village",
                 "icon": "ruined-town",
                 "description": [
                     {"text": "This ruin is !size.\nMany people living in @settlement used to live here, before disaster struck.", "odds": 1},
@@ -232,8 +234,9 @@
             }
         },
         "wilderness": {
-            "standing stones": {
+            "standing-stones": {
                 "odds": 1,
+                "name": "standing stones",
                 "icon": "standing-stones",
                 "description": [
                     {"text": "A group of militant druids resides here and is plotting against @settlement.", "odds": 1},
@@ -241,8 +244,9 @@
                     {"text": "On nights with a full moon, the stones speak prophecies.", "odds": 1}
                 ]
             },
-            "magic spring": {
+            "magic-spring": {
                 "odds": 1,
+                "name": "magic spring",
                 "icon": "waterfall",
                 "description": [
                     {"text": "The elite of @town believe the spring's waters prevent aging, but the reality is something sinister.", "odds": 1},

@@ -656,7 +656,7 @@ export const useHexesStore = defineStore({
     // Take hex terrain and tags and generate actual content tags / crosslinks
     generateHexDescription(thisHex, hexOptions) {
         var descriptionElements = [];
-        const reMention = new RegExp('@[a-zA-Z0-9:|=]+', 'g')
+        const reMention = new RegExp('@[-a-zA-Z0-9:|=]+', 'g')
 
         thisHex.tags.forEach((tag) => {
             if (!Object.keys(this.contentTags).includes(tag)) {
@@ -761,7 +761,7 @@ export const useHexesStore = defineStore({
         var updatedBlocks = [];
 
         // Regex to use instead for getting params above: const r = new RegExp('@[a-zA-Z0-9|:<=>]+', 'g')
-        const reMention = new RegExp('@[a-zA-Z0-9|:=]+', 'g')
+        const reMention = new RegExp('@[-a-zA-Z0-9|:=]+', 'g')
 
         blocks.forEach((block) => {
             const mentionMatches = block.content.match(reMention);
@@ -824,13 +824,13 @@ export const useHexesStore = defineStore({
 
         return updatedBlocks;
     },
-    setTiptapNodes(description, blocks, tag) {
+    setTiptapNodes(description, blocks, tag, name) {
 
         description.content.push({
             type: "paragraph",
             content: [{
                 type: "text",
-                text: this.toTitleCase(tag),
+                text: this.toTitleCase(name),
                 marks: [
                     {
                         type: "bold"
@@ -894,13 +894,11 @@ export const useHexesStore = defineStore({
             var text = this.resolveContentChoices(element);
 
             var blocks = this.resolveLineBreaks(text);
-            const t3 = performance.now()
 
             blocks = this.resolveContentMentions(thisHex, blocks, resolveNewTags);
-            const t4 = performance.now()
-            console.log("DESC---TIME, resolveContentMentions: ", t4 - t3)
 
-            description = this.setTiptapNodes(description, blocks, element.tag);
+            console.log('element', element)
+            description = this.setTiptapNodes(description, blocks, element.tag, this.contentTags[element.type][element.tag].name);
             if (i < descriptionElements.length - 1) {
                 description = this.addLineBreak(description)
             }
