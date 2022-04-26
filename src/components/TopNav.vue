@@ -32,7 +32,7 @@ const hs = useHexesStore();
             </div>
         </div>
         <div class="navbar-end">
-            <a href="https://github.com/mgordin/HexMapBuilderVue" class="ri-github-fill ri-3x github-icon">
+            <a href="https://github.com/mgordin/HexMapBuilderVue" class="ri-github-fill ri-2x github-icon">
             </a>
         </div>
     </nav>
