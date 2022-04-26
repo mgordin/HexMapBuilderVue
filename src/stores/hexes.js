@@ -356,9 +356,7 @@ export const useHexesStore = defineStore({
         const hexToRemove = hex(hexID);
         this.hexes[hexToRemove.row - 1].splice(hexToRemove.column - 1)
     },
-    setHexTerrain(hexUUID, terrain, maintainEdge) {
-        const hex = this.hexByUUID
-        const thisHex = hex(hexUUID);
+    setHexTerrain(thisHex, terrain, maintainEdge) {
         thisHex.terrain = terrain;
         if (terrain != 'Default' && maintainEdge) {
             this.maintainEmptyMapEdge(thisHex.row, thisHex.column)
@@ -507,14 +505,14 @@ export const useHexesStore = defineStore({
 
         this.hexes.forEach((row) => {
             row.forEach((hex) => {
-                this.generateTerrain(hex.uuid, terrainSetup.odds);
+                this.generateTerrain(hex, terrainSetup.odds);
             })
         })
 
         // Hex contents
         this.hexes.forEach((row) => {
             row.forEach((hex) => {
-                this.generateHexContents(hex.uuid, 'none');
+                this.generateHexContents(hex, 'none');
             })
         })
 
@@ -530,8 +528,8 @@ export const useHexesStore = defineStore({
     seedTerrain(seeds, rows, columns) {
         return null
     },
-    generateTerrain(hexUUID, odds) {
-        const terrainWithinTwoCount = this.terrainWithinTwo(hexUUID);
+    generateTerrain(hex, odds) {
+        const terrainWithinTwoCount = this.terrainWithinTwo(hex.uuid);
         var terrains = []
         var terrainWeights = []
        
@@ -555,15 +553,11 @@ export const useHexesStore = defineStore({
 
         const thisTerrain = this.weightedRandom(terrains, terrainWeights)
 
-        // Just do a thing
-        this.setHexTerrain(hexUUID, thisTerrain, false)
+        this.setHexTerrain(hex, thisTerrain, false)
     },
     // overwrite options: 'full' - change everything, 'description' - keep tags, generate new description,
     // 'none' - don't change it
-    generateHexContents(hexUUID, overwrite) {
-        // Get hex to be filled
-        const hexByUUID = this.hexByUUID;
-        const thisHex = hexByUUID(hexUUID);
+    generateHexContents(thisHex, overwrite) {
         console.log("!!!!!!!!!!!!! Contents for hex", thisHex.id, "from generateHexContents")
 
 
@@ -597,6 +591,7 @@ export const useHexesStore = defineStore({
             this.setHexIcon(thisHex.uuid, icon);
 
             resolveNewTags.forEach((hexUpdate) => {
+                const hexByUUID = this.hexByUUID
                 const newHex = hexByUUID(hexUpdate.uuid)
                 this.resolveHexTagUpdate(newHex, hexUpdate.tag)
             })
@@ -1361,11 +1356,26 @@ export const useHexesStore = defineStore({
 
         input.click();
     },
-    rerandomizeHex(hexUUID, randomizeType) {
+    rerandomizeHex(thisHex, randomizeType) {
+        const es = useEditorStore();
+
         if (randomizeType == 'description') {
-            console.log('do the thing')
-            this.generateHexContents(hexUUID, 'description')
+            this.generateHexContents(thisHex, 'description');
+
+        } else if (randomizeType == 'content') {
+            this.generateHexContents(thisHex, 'full');
+
+        } else if (randomizeType == 'terrain') {
+            this.generateTerrain(thisHex, this.terrainProperties[es.terrainType].odds);
+
+        } else if (randomizeType == 'all') {
+            this.generateTerrain(thisHex, this.terrainProperties[es.terrainType].odds);
+            this.generateHexContents(thisHex, 'full')
         }
+    },
+    initializeMap(terrainType, rows, columns) {
+        this.initializeHexGrid(rows, columns)
+        this.fillMap(terrainType, rows, columns)
     }
   }
   

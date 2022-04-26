@@ -12,7 +12,7 @@ const hs = useHexesStore();
 <template>
     <nav class="navbar is-dark has-shadow is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io">
+            <a class="navbar-item" href="https://github.com/mgordin/HexMapBuilderVue">
                 <img src="/HexMapMakerLogoLight.png" height="60">
             </a>
         </div>
@@ -21,8 +21,6 @@ const hs = useHexesStore();
                 <a class="navbar-link">Useful Buttons</a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" @click="hs.logHexes">Log hexes</a>
-                    <a class="navbar-item" @click="hs.fillMap('temperate forest', 4, 4)">Generate terrain!</a>
-                    <a class="navbar-item" @click="hs.logHexDistances()">Calculate distance between selected hexes</a>
                 </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">

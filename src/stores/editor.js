@@ -21,7 +21,9 @@ export const useEditorStore = defineStore({
         initializeHexRows: 8,
         initializeHexColumns: 8,
         mentioningHexes: [],
-        currentSelectedContent: null
+        currentSelectedContent: null,
+        terrainType: "temperate forest",
+        terrainDropdownOpen: false
     }),
     getters: {
         activeHexImage(state) {
@@ -145,6 +147,12 @@ export const useEditorStore = defineStore({
         },
         mentionTagHoverStart(hex) {
             this.currentSelectedContent = hex.content
+        },
+        toggleTerrainDropdown() {
+            this.terrainDropdownOpen = !this.terrainDropdownOpen;
+        },
+        setTerrainType(terrainType) {
+            this.terrainType = terrainType
         }
     }
 })

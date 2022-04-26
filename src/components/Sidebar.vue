@@ -67,7 +67,7 @@ const hexByUUID = hs.hexByUUID;
           <div class="card">
             <header class="card-header has-background-primary">
               <p class="card-header-title">Hex Details</p>
-              <span class="icon randomize" title="Randomize again with current tags" @click="hs.rerandomizeHex(es.activeHexes[0], 'description')">
+              <span class="icon randomize" title="Randomize again with current tags" @click="hs.rerandomizeHex(hexByUUID(es.activeHexes[0]), 'description')">
                   <i class="ri-magic-fill ri-xl"></i>
                 </span>
               <span class="icon details" title="Collapse section" @click="es.toggleSection('text')">
