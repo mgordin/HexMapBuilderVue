@@ -155,6 +155,7 @@
         "settlement": {
             "village": {
                 "odds": 10,
+                "name": "village",
                 "icon": "village",
                 "ruler": ["headman", "council of elders"],
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
@@ -186,6 +187,7 @@
             },
             "town": {
                 "odds": 2,
+                "name": "town",
                 "icon": "town",
                 "ruler": ["mayor", "ealdorman", "town council"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
@@ -199,6 +201,7 @@
             },
             "castle": {
                 "odds": 1,
+                "name": "castle",
                 "icon": "castle",
                 "ruler": ["lord", "commander"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "sage", "merchant"],

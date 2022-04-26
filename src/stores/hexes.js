@@ -357,14 +357,13 @@ export const useHexesStore = defineStore({
         this.hexes[hexToRemove.row - 1].splice(hexToRemove.column - 1)
     },
     setHexTerrain(thisHex, terrain, maintainEdge) {
+        console.log('hex is', thisHex)
         thisHex.terrain = terrain;
         if (terrain != 'Default' && maintainEdge) {
             this.maintainEmptyMapEdge(thisHex.row, thisHex.column)
         }
     },
-    setHexIcon(hexUUID, icon) {
-        const hex = this.hexByUUID
-        const thisHex = hex(hexUUID);
+    setHexIcon(thisHex, icon) {
         thisHex.icon = icon;
     },
     shiftHexNumbers() {
@@ -505,7 +504,7 @@ export const useHexesStore = defineStore({
 
         this.hexes.forEach((row) => {
             row.forEach((hex) => {
-                this.generateTerrain(hex, terrainSetup.odds);
+                this.generateTerrain(hex, terrainSetup.odds, false);
             })
         })
 
@@ -528,8 +527,9 @@ export const useHexesStore = defineStore({
     seedTerrain(seeds, rows, columns) {
         return null
     },
-    generateTerrain(hex, odds) {
-        const terrainWithinTwoCount = this.terrainWithinTwo(hex.uuid);
+    generateTerrain(thisHex, odds, maintainEmptyEdge) {
+        console.log('generateTerrain')
+        const terrainWithinTwoCount = this.terrainWithinTwo(thisHex.uuid);
         var terrains = []
         var terrainWeights = []
        
@@ -553,7 +553,8 @@ export const useHexesStore = defineStore({
 
         const thisTerrain = this.weightedRandom(terrains, terrainWeights)
 
-        this.setHexTerrain(hex, thisTerrain, false)
+        console.log('passing hex to setHexTerrain', thisHex)
+        this.setHexTerrain(thisHex, thisTerrain, maintainEmptyEdge)
     },
     // overwrite options: 'full' - change everything, 'description' - keep tags, generate new description,
     // 'none' - don't change it
@@ -588,7 +589,7 @@ export const useHexesStore = defineStore({
                     icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
                 }
             })
-            this.setHexIcon(thisHex.uuid, icon);
+            this.setHexIcon(thisHex, icon);
 
             resolveNewTags.forEach((hexUpdate) => {
                 const hexByUUID = this.hexByUUID
@@ -655,7 +656,7 @@ export const useHexesStore = defineStore({
     // Take hex terrain and tags and generate actual content tags / crosslinks
     generateHexDescription(thisHex, hexOptions) {
         var descriptionElements = [];
-        const reMention = new RegExp('@[a-zA-Z0-9]+', 'g')
+        const reMention = new RegExp('@[a-zA-Z0-9:|=]+', 'g')
 
         thisHex.tags.forEach((tag) => {
             if (!Object.keys(this.contentTags).includes(tag)) {
@@ -1197,7 +1198,7 @@ export const useHexesStore = defineStore({
                  icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
              }
          })
-         this.setHexIcon(thisHex.uuid, icon);
+         this.setHexIcon(thisHex, icon);
 
          resolveNewTags.forEach((hexUpdate) => {
              const hexByUUID = this.hexByUUID
@@ -1356,6 +1357,13 @@ export const useHexesStore = defineStore({
 
         input.click();
     },
+    rerandomizeHexes(randomizeType) {
+        const es = useEditorStore()
+        const hexByUUID = this.hexByUUID
+        es.activeHexes.forEach((hexUUID) => {
+            this.rerandomizeHex(hexByUUID(hexUUID), randomizeType)
+        })
+    },
     rerandomizeHex(thisHex, randomizeType) {
         const es = useEditorStore();
 
@@ -1366,10 +1374,10 @@ export const useHexesStore = defineStore({
             this.generateHexContents(thisHex, 'full');
 
         } else if (randomizeType == 'terrain') {
-            this.generateTerrain(thisHex, this.terrainProperties[es.terrainType].odds);
+            this.generateTerrain(thisHex, this.terrainProperties[es.terrainType].odds, true);
 
         } else if (randomizeType == 'all') {
-            this.generateTerrain(thisHex, this.terrainProperties[es.terrainType].odds);
+            this.generateTerrain(thisHex, this.terrainProperties[es.terrainType].odds, true);
             this.generateHexContents(thisHex, 'full')
         }
     },

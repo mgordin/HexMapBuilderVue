@@ -49,6 +49,7 @@ const hs = useHexesStore();
 
 .github-icon:hover {
     color: white;
+    transform: scale(1.2);
 }
 
 </style>

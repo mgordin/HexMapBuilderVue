@@ -108,13 +108,14 @@ export const useEditorStore = defineStore({
         },
         selectTerrain(terrain) {
             const hs = useHexesStore();
+            const hexByUUID = hs.hexByUUID
             this.selectedTerrain = terrain;
             Object.values(this.terrainToImage).forEach((element) => {
                 element.selected = false;
             })
             this.terrainToImage[terrain].selected = true;
-            this.activeHexes.forEach((element) => {
-                hs.setHexTerrain(element, terrain, true)
+            this.activeHexes.forEach((hexUUID) => {
+                hs.setHexTerrain(hexByUUID(hexUUID), terrain, true)
             })
         },
         selectIcon(icon) {
@@ -124,8 +125,8 @@ export const useEditorStore = defineStore({
                 element.selected = false;
             })
             this.iconProperties[icon].selected = true;
-            this.activeHexes.forEach((element) => {
-                hs.setHexIcon(element, icon)
+            this.activeHexes.forEach((hexUUID) => {
+                hs.setHexIcon(hexByUUID(hexUUID), icon)
             })
         },
         toggleSection(section) {

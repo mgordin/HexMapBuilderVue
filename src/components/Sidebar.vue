@@ -67,7 +67,7 @@ const hexByUUID = hs.hexByUUID;
           <div class="card">
             <header class="card-header has-background-primary">
               <p class="card-header-title">Hex Details</p>
-              <span class="icon randomize" title="Randomize description again with current tags" @click="hs.rerandomizeHex(hexByUUID(es.activeHexes[0]), 'description')">
+              <span class="icon randomize" title="Randomize description again with current tags" @click="hs.rerandomizeHexes('description')">
                   <i class="ri-magic-fill ri-xl"></i>
                 </span>
               <span class="icon details" title="Collapse section" @click="es.toggleSection('text')">
@@ -88,7 +88,7 @@ const hexByUUID = hs.hexByUUID;
           <div class="card">
             <header class="card-header has-background-primary">
                 <p class="card-header-title">Hex Tags</p>
-                <span class="icon randomize" title="Randomize tags and description again" @click="hs.rerandomizeHex(hexByUUID(es.activeHexes[0]), 'tags+description')">
+                <span class="icon randomize" title="Randomize tags and description again" @click="hs.rerandomizeHexes('tags+description')">
                   <i class="ri-magic-fill ri-xl"></i>
                 </span>
                 <span class="icon details" @click="es.toggleSection('tags')">
@@ -114,7 +114,7 @@ const hexByUUID = hs.hexByUUID;
           <div class="card">
             <header class="card-header has-background-primary">
               <p class="card-header-title">Terrain</p>
-              <span class="icon randomize" title="Randomize terrain again" @click="hs.rerandomizeHex(hexByUUID(es.activeHexes[0]), 'terrain')">
+              <span class="icon randomize" title="Randomize terrain again" @click="hs.rerandomizeHexes('terrain')">
                   <i class="ri-magic-fill ri-xl"></i>
                 </span>
               <span class="icon details" @click="es.toggleSection('terrain')">
