@@ -1362,7 +1362,7 @@ export const useHexesStore = defineStore({
         if (randomizeType == 'description') {
             this.generateHexContents(thisHex, 'description');
 
-        } else if (randomizeType == 'content') {
+        } else if (randomizeType == 'tags+description') {
             this.generateHexContents(thisHex, 'full');
 
         } else if (randomizeType == 'terrain') {

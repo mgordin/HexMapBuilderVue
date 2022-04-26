@@ -32,6 +32,8 @@ const hs = useHexesStore();
             </div>
         </div>
         <div class="navbar-end">
+            <a href="https://github.com/mgordin/HexMapBuilderVue" class="ri-github-fill ri-3x github-icon">
+            </a>
         </div>
     </nav>
 </template>
@@ -39,5 +41,14 @@ const hs = useHexesStore();
 
 
 <style>
+
+.github-icon {
+    color: white;
+    right: 10px;
+}
+
+.github-icon:hover {
+    color: white;
+}
 
 </style>

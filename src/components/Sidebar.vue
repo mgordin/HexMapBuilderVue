@@ -67,7 +67,7 @@ const hexByUUID = hs.hexByUUID;
           <div class="card">
             <header class="card-header has-background-primary">
               <p class="card-header-title">Hex Details</p>
-              <span class="icon randomize" title="Randomize again with current tags" @click="hs.rerandomizeHex(hexByUUID(es.activeHexes[0]), 'description')">
+              <span class="icon randomize" title="Randomize description again with current tags" @click="hs.rerandomizeHex(hexByUUID(es.activeHexes[0]), 'description')">
                   <i class="ri-magic-fill ri-xl"></i>
                 </span>
               <span class="icon details" title="Collapse section" @click="es.toggleSection('text')">
@@ -86,9 +86,12 @@ const hexByUUID = hs.hexByUUID;
         <!-- Tags section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header has-background-primary" @click="es.toggleSection('tags')">
+            <header class="card-header has-background-primary">
                 <p class="card-header-title">Hex Tags</p>
-                <span class="icon details">
+                <span class="icon randomize" title="Randomize tags and description again" @click="hs.rerandomizeHex(hexByUUID(es.activeHexes[0]), 'tags+description')">
+                  <i class="ri-magic-fill ri-xl"></i>
+                </span>
+                <span class="icon details" @click="es.toggleSection('tags')">
                   <i class="ri-arrow-left-s-line ri-xl" v-if="!es.tagsSectionVisible"></i>
                   <i class="ri-arrow-down-s-line ri-xl" v-if="es.tagsSectionVisible"></i>
                 </span>
@@ -109,12 +112,12 @@ const hexByUUID = hs.hexByUUID;
         <!-- Terrain section -->
         <div class="block">
           <div class="card">
-            <header
-              class="card-header has-background-primary"
-              @click="es.toggleSection('terrain')"
-            >
+            <header class="card-header has-background-primary">
               <p class="card-header-title">Terrain</p>
-              <span class="icon details">
+              <span class="icon randomize" title="Randomize terrain again" @click="hs.rerandomizeHex(hexByUUID(es.activeHexes[0]), 'terrain')">
+                  <i class="ri-magic-fill ri-xl"></i>
+                </span>
+              <span class="icon details" @click="es.toggleSection('terrain')">
                   <i class="ri-arrow-left-s-line ri-xl" v-if="!es.terrainSectionVisible"></i>
                   <i class="ri-arrow-down-s-line ri-xl" v-if="es.terrainSectionVisible"></i>
               </span>
