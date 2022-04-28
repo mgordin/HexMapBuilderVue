@@ -156,7 +156,7 @@
         "settlement": {
             "village": {
                 "odds": 10,
-                "name": "village",
+                "names": ["village", "hamlet", "thorp"],
                 "icon": "village",
                 "ruler": ["headman", "council of elders"],
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
@@ -185,7 +185,7 @@
             },
             "town": {
                 "odds": 2,
-                "name": "town",
+                "names": ["town"],
                 "icon": "town",
                 "ruler": ["mayor", "ealdorman", "town council"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
@@ -210,14 +210,14 @@
             },
             "castle": {
                 "odds": 1,
-                "name": "castle",
+                "names": ["castle", "fortress", "keep"],
                 "icon": "castle",
                 "ruler": ["lord", "commander"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "sage", "merchant"],
                 "description": [
-                    {"text": "A mighty and imposing fortification atop a hill.", "odds": 1},
-                    {"text": "The walls of this castle show signs of magical attack.", "odds": 1},
-                    {"text": "The castle is made of black stone. Impaled bodies line the road leading up to the castle.", "odds": 1}
+                    {"text": "A mighty and imposing &name atop a hill.", "odds": 1},
+                    {"text": "The walls of this &name show signs of magical attack.", "odds": 1},
+                    {"text": "The &name is made of black stone. Impaled bodies line the road leading up to the castle.", "odds": 1}
                 ],
                 "hook": [
                     {"text": "The #majorResident of this castle is secretly a werewolf.  It is said that the waters of @magic-spring:dist=gt3h can cure such an afflication.", "odds": 1},
@@ -228,7 +228,7 @@
         "ruin": {
             "ruined-castle": {
                 "odds": 1,
-                "name": "ruined castle",
+                "names": ["ruined castle", "ruined fortress", "ruined keep"],
                 "icon": "ruined-castle",
                 "description": [
                     {"text": "The walls of this ruined castle have crumbled.", "odds": 1},
@@ -241,7 +241,7 @@
             },
             "abandoned-village": {
                 "odds": 1,
-                "name": "abandoned village",
+                "names": ["abandoned village"],
                 "icon": "ruined-town",
                 "description": [
                     {"text": "This village looks in eerily excellent repair, despite its lack of occupants.", "odds": 1},
@@ -257,7 +257,7 @@
         "wilderness": {
             "standing-stones": {
                 "odds": 1,
-                "name": "standing stones",
+                "names": ["standing stones"],
                 "icon": "standing-stones",
                 "shape": [
                     "circle",
@@ -275,7 +275,7 @@
             },
             "magic-spring": {
                 "odds": 1,
-                "name": "magic spring",
+                "names": ["magic spring"],
                 "icon": "waterfall",
                 "description": [
                     {"text": "A spring bubbling from the earth, surrounded by bountiful vegetation", "odds": 1},
@@ -290,7 +290,7 @@
             },
             "cave": {
                 "odds": 1,
-                "name": "cave",
+                "names": ["cave", "cavern"],
                 "icon": "cave",
                 "description": [
                     {"text": "A deep cave in a hillside.", "odds": 1}
@@ -303,7 +303,7 @@
             },
             "beast-lair": {
                 "odds": 1,
-                "name": "beast lair",
+                "names": ["beast lair"],
                 "icon": "cave",
                 "description": [
                     {"text": "A musky-smelling cave, littered with bones.", "odds": 1},
@@ -311,9 +311,16 @@
                     {"text": "A forest glade dotted with large tunnels.", "odds": 1}
                 ],
                 "hook": [
-                    {"text": "The beast has recently eaten a noble from @town||city, and the noble's signet ring is now in the beast's stomach.", "odds": 1},
+                    {"text": "The beast has recently eaten a noble from @town, and the noble's signet ring is now in the beast's stomach.", "odds": 1},
                     {"text": "The beast is calling others of its kind to the area.", "odds": 1}
                 ]
+            },
+            "monster-lair": {
+                "odds": 1,
+                "names": ["monster lair"],
+                "icon": "cave",
+                "description": ["ref", "wilderness:beast-lair"],
+                "hook": ["ref", "wilderness:beast-lair"]
             }
         }
     }

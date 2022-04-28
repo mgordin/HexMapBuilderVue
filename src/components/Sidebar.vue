@@ -218,7 +218,8 @@ const hexByUUID = hs.hexByUUID;
 }
 
 .mentioning-hex:hover {
-  transform: scale(1.1);
+  background-color: hsl(0, 0%, 21%);
+  color: white;
 }
 
 .mentioning-hex-icon {

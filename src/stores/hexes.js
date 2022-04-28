@@ -665,10 +665,18 @@ export const useHexesStore = defineStore({
                     var options = []
                     var weights = []
 
+                    var tagDetails = this.contentTags[parentTypeTag][tag];
+                    Object.keys(tagDetails).forEach((field) => {
+                        if (tagDetails[field][0] == 'ref') {
+                            const s = tagDetails[field][1].split(":");
+                            tagDetails[field] = this.contentTags[s[0]][s[1]][field]
+                        }
+                    })
+
                     // Description
                     var descriptionsAndHooks = ""
-                    console.log(tag, this.contentTags[parentTypeTag][tag].description)
-                    this.contentTags[parentTypeTag][tag].description.forEach((option) => {
+                    console.log(tag, tagDetails.description)
+                    tagDetails.description.forEach((option) => {
                         if (hexOptions.mention == 'any') {
                             options.push(option.text);
                             weights.push(option.odds);
@@ -683,8 +691,8 @@ export const useHexesStore = defineStore({
                     // Hooks
                     options = []
                     weights = []
-                    console.log(tag, this.contentTags[parentTypeTag][tag].hook)
-                    this.contentTags[parentTypeTag][tag].hook.forEach((option) => {
+                    console.log(tag, tagDetails.hook)
+                    tagDetails.hook.forEach((option) => {
                         if (hexOptions.mention == 'any') {
                             options.push(option.text);
                             weights.push(option.odds);
@@ -719,6 +727,13 @@ export const useHexesStore = defineStore({
         })
         return parentTag;
     },
+    resolveName(element) {
+        const name = this.randomChoice(this.contentTags[element.type][element.tag].names);
+        element.text = element.text.replace('&name', name);
+        console.log('element is now', element)
+
+        return {'element': element, 'name': name};
+    }, 
     resolveContentChoices(element) {
         const reChoice = new RegExp('[#!][a-zA-Z0-9|]+')
 
@@ -736,13 +751,12 @@ export const useHexesStore = defineStore({
                 const choiceType = matchSplitOptions[0].substring(0,1)
                 matchSplitOptions[0] = matchSplitOptions[0].substring(1)
                 const choiceList = this.randomChoice(matchSplitOptions)
-                const m = new RegExp(reChoice)
                 console.log('opt:', matchSplitOptions)
                 console.log('choiceList:', choiceList)
                 if (choiceType == "#") {
-                    text = text.replace(m, this.randomChoice(this.contentTags[element.type][element.tag][choiceList]))
+                    text = text.replace(reChoice, this.randomChoice(this.contentTags[element.type][element.tag][choiceList]))
                 } else if (choiceType == "!") {
-                    text = text.replace(m, this.randomChoice(this.globalFillLists[choiceList]))
+                    text = text.replace(reChoice, this.randomChoice(this.globalFillLists[choiceList]))
                 }
                 
                 console.log('new text:', text)
@@ -784,12 +798,13 @@ export const useHexesStore = defineStore({
         // Regex to use instead for getting params above: const r = new RegExp('@[a-zA-Z0-9|:<=>]+', 'g')
         const reMention = new RegExp('@[-a-zA-Z0-9|:=]+', 'g')
 
+        console.log('blocks', blocks)
         blocks.forEach((block) => {
             const mentionMatches = block.content.match(reMention);
             if (mentionMatches == null) {
                 updatedBlocks.push(block)
             } else {
-                var splitText = block.content.split(/@[a-zA-Z0-9|:=]+/);
+                var splitText = block.content.split(/@[-a-zA-Z0-9|:=]+/);
                 var resolvedMentions = [];
 
                 // Loop through mentions and resolve them
@@ -912,14 +927,17 @@ export const useHexesStore = defineStore({
         for (let i = 0; i < descriptionElements.length; i++) {
             var element = descriptionElements[i];
             
-            var text = this.resolveContentChoices(element);
+            var elementAndName = this.resolveName(element)
+            console.log('en', elementAndName)
+            var text = this.resolveContentChoices(elementAndName.element);
+            console.log('t', text)
 
             var blocks = this.resolveLineBreaks(text);
 
             blocks = this.resolveContentMentions(thisHex, blocks, resolveNewTags);
+            console.log('blocks pt2', blocks)
 
-            console.log('element', element)
-            description = this.setTiptapNodes(description, blocks, element.tag, this.contentTags[element.type][element.tag].name);
+            description = this.setTiptapNodes(description, blocks, element.tag, elementAndName.name);
             if (i < descriptionElements.length - 1) {
                 description = this.addLineBreak(description)
             }
