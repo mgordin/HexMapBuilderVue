@@ -43,6 +43,7 @@
     "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"},
     "icons": {
         "castle": { "file": "./icons/castle-glow.png", "tags": ["settlement", "castle"], "selected": false },
+        "cave": { "file": "./icons/cave-glow.png", "tags": ["wilderness", "cave"], "selected": false },
         "fort": { "file": "./icons/fort.png", "tags": ["settlement", "fort"], "selected": false },
         "waterfall": {"file": "./icons/waterfall-glow.png", "selected": false},
         "monolith": { "file": "./icons/monolith.png", "tags": ["landmark", "monolith"], "selected": false },
@@ -149,7 +150,7 @@
         }
     },
     "globalFillLists": {
-        "size": ["small", "medium", "large"]
+        "size": ["small", "medium-sized", "large"]
     },
     "contentTags": {
         "settlement": {
@@ -169,20 +170,17 @@
                     "Its people are standoffish, but willing to trade and hear news from the wider world.",
                     "Its people seem nervous, and conversations stop whenever #ruler is nearby."
                 ],
-                "villageDescription": [
-                    "#wealth #attitude",
-                    "This village was clearly founded by people foreign to these lands - the local architecture still looks distinct from any surrounding settlements."
-                ],
                 "hook": [
-                    "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement:dist=lt3s.",
-                    "The houses in this village are all painted with flowers.\nA #majorResident from this village is looking for their missing son, who was last seen heading toward the ruins at @ruin:dist=lt3s.",
-                    "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #majorResident.",
-                    "There has been a rash of livestock thefts recently, and the #ruler is willing to pay someone who can make them stop.",
-                    "Recently several villagers have been killed by a best living in the nearby wilderness, and they've started pooling money to hire a monster hunter to deal with it.",
-                    "The villagers have just found a bounty of a rare resource. The #majorResident of @village has learned about this and is trying to steal it."
+                    {"text": "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement:dist=lt3s.", "odds": 1},
+                    {"text": "The houses in this village are all painted with flowers.\nA #majorResident from this village is looking for their missing son, who was last seen heading toward the ruins at @ruin:dist=lt3s.", "odds": 1},
+                    {"text": "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #majorResident.", "odds": 1},
+                    {"text": "There has been a rash of livestock thefts recently, and the #ruler is willing to pay someone who can make them stop. They were stolen by the #majorResident of @village||town.", "odds": 1},
+                    {"text": "Recently several villagers have been killed by a beast lairing in @beast-lair:dist=lt4s, and they've started pooling money to hire a monster hunter to deal with it.", "odds": 1},
+                    {"text": "The villagers have just found a bounty of a rare resource. The #majorResident of @village has learned about this and is trying to steal it.", "odds": 1}
                 ],
                 "description": [
-                    {"text": "#villageDescription\n#hook", "odds": 1}
+                    {"text": "#wealth #attitude", "odds": 10},
+                    {"text": "This village was clearly founded by people foreign to these lands - the local architecture still looks distinct from any surrounding settlements.", "odds": 1}
                 ]
             },
             "town": {
@@ -191,9 +189,20 @@
                 "icon": "town",
                 "ruler": ["mayor", "ealdorman", "town council"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
-                "testThing1": ["1a - #majorResident and #ruler"],
-                "testThing2": ["1b - #majorResident and #ruler"],
+                "status": [
+                    "It seems less prosperous than it once was - some buildings stand empty, while others are in poor repair.  However, the homes around those of the town ruler are freshly painted.",
+                    "There's a lot of new construction here.",
+                    "Half of the town seems to have been abandoned.",
+                    "It seems to be doing fine, and its people are open to outsiders and trade."
+                ],
+                "recentEvent": [
+                    "It was recently attacked by an invading force, and still shows the scars of that battle.",
+                    "It is decorated for an upcoming festival."
+                ],
                 "description": [
+                    {"text": "This is a !size town. #status #recentEvent", "odds": 1}
+                ],
+                "hook": [
                     {"text": "The #ruler of this town is organizing a festival, but people from @settlement:dist=lt3s are trying to sabotage it.", "odds": 1},
                     {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.", "odds": 1},
                     {"text": "The #majorResident is secretly a vampire.", "odds": 1}
@@ -205,10 +214,13 @@
                 "icon": "castle",
                 "ruler": ["lord", "commander"],
                 "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "sage", "merchant"],
-                "testThing1": ["1a - #majorResident and #ruler"],
-                "testThing2": ["1b - #majorResident and #ruler"],
                 "description": [
-                    {"text": "The #majorResident of this castle is secretly a werewolf.", "odds": 1},
+                    {"text": "A mighty and imposing fortification atop a hill.", "odds": 1},
+                    {"text": "The walls of this castle show signs of magical attack.", "odds": 1},
+                    {"text": "The castle is made of black stone. Impaled bodies line the road leading up to the castle.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The #majorResident of this castle is secretly a werewolf.  It is said that the waters of @magic-spring:dist=gt3h can cure such an afflication.", "odds": 1},
                     {"text": "Humanoids living in the ruins in @ruin:dist=lt3s have been attacking the castle at night.", "odds": 1}
                 ]
             }
@@ -219,8 +231,12 @@
                 "name": "ruined castle",
                 "icon": "ruined-castle",
                 "description": [
-                    {"text": "This ruin is !size.\nIt is said that the magically-infused bones of a powerful, ancient wizard can be found here.", "odds": 1},
-                    {"text": "This ruin is !size.\nHumanoids living here are friendly to outsiders, but persecuted by the people of @settlement.", "odds": 1}
+                    {"text": "The walls of this ruined castle have crumbled.", "odds": 1},
+                    {"text": "The castle looks to still be in good condition, despite its abandonment.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "It is said that the magically-infused bones of a powerful, ancient wizard can be found here.", "odds": 1},
+                    {"text": "Humanoids living here are friendly to outsiders, but persecuted by the people of @settlement.", "odds": 1}
                 ]
             },
             "abandoned-village": {
@@ -228,6 +244,11 @@
                 "name": "abandoned village",
                 "icon": "ruined-town",
                 "description": [
+                    {"text": "This village looks in eerily excellent repair, despite its lack of occupants.", "odds": 1},
+                    {"text": "The surrounding wilderness has been busily reclaiming this village.", "odds": 1},
+                    {"text": "The grounds of this village show signs of a past battle, and you see rusted weapons sticking out of the weeds that have taken over", "odds": 1}
+                ],
+                "hook": [
                     {"text": "This ruin is !size.\nMany people living in @settlement used to live here, before disaster struck.", "odds": 1},
                     {"text": "This ruin is !size.\nIt is said that a great treasure is buried somewhere under this village, but the village is now the lair of a powerful monster.", "odds": 1}
                 ]
@@ -238,7 +259,15 @@
                 "odds": 1,
                 "name": "standing stones",
                 "icon": "standing-stones",
+                "shape": [
+                    "circle",
+                    "crescent",
+                    "pentagon"
+                ],
                 "description": [
+                    {"text": "Great stone monoliths arranged in a #shape.", "odds": 1}
+                ],
+                "hook": [
                     {"text": "A group of militant druids resides here and is plotting against @settlement.", "odds": 1},
                     {"text": "Long ago, wizards from @ruin sealed a terrible evil below these stones.", "odds": 1},
                     {"text": "On nights with a full moon, the stones speak prophecies.", "odds": 1}
@@ -249,9 +278,41 @@
                 "name": "magic spring",
                 "icon": "waterfall",
                 "description": [
+                    {"text": "A spring bubbling from the earth, surrounded by bountiful vegetation", "odds": 1},
+                    {"text": "A pool of faintly glowing water.", "odds": 1}
+
+                ],
+                "hook": [
                     {"text": "The elite of @town believe the spring's waters prevent aging, but the reality is something sinister.", "odds": 1},
                     {"text": "The spring turns local animals into dire beasts.", "odds": 1},
                     {"text": "There is a hive of talking bees.", "odds": 1}
+                ]
+            },
+            "cave": {
+                "odds": 1,
+                "name": "cave",
+                "icon": "cave",
+                "description": [
+                    {"text": "A deep cave in a hillside.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The people of @village:dist=lt3s claim there is a bird nesting near this cave that lays golden eggs - but that a terrible beast lairs inside the cave itself.", "odds": 1},
+                    {"text": "Strange albino creatures lurk in the cave and grant prophecies.", "odds": 1},
+                    {"text": "A bandit of old hid their treasure inside the cave - and guarded it with a curse.", "odds": 1}
+                ]
+            },
+            "beast-lair": {
+                "odds": 1,
+                "name": "beast lair",
+                "icon": "cave",
+                "description": [
+                    {"text": "A musky-smelling cave, littered with bones.", "odds": 1},
+                    {"text": "A blood-soaked clearing.", "odds": 1},
+                    {"text": "A forest glade dotted with large tunnels.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The beast has recently eaten a noble from @town||city, and the noble's signet ring is now in the beast's stomach.", "odds": 1},
+                    {"text": "The beast is calling others of its kind to the area.", "odds": 1}
                 ]
             }
         }

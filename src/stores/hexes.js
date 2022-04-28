@@ -665,6 +665,9 @@ export const useHexesStore = defineStore({
                     var options = []
                     var weights = []
 
+                    // Description
+                    var descriptionsAndHooks = ""
+                    console.log(tag, this.contentTags[parentTypeTag][tag].description)
                     this.contentTags[parentTypeTag][tag].description.forEach((option) => {
                         if (hexOptions.mention == 'any') {
                             options.push(option.text);
@@ -675,11 +678,29 @@ export const useHexesStore = defineStore({
                         }
                     })
 
+                    descriptionsAndHooks = descriptionsAndHooks + this.weightedRandom(options, weights)
+
+                    // Hooks
+                    options = []
+                    weights = []
+                    console.log(tag, this.contentTags[parentTypeTag][tag].hook)
+                    this.contentTags[parentTypeTag][tag].hook.forEach((option) => {
+                        if (hexOptions.mention == 'any') {
+                            options.push(option.text);
+                            weights.push(option.odds);
+                        } else if (hexOptions.mention == 'no' && !reMention.test(option.text)) {
+                            options.push(option.text);
+                            weights.push(option.odds);
+                        }
+                    })
+
+                    descriptionsAndHooks = descriptionsAndHooks + "\n" + this.weightedRandom(options, weights)
+
                     descriptionElements.push(
                         {
                             tag: tag,
                             type: parentTypeTag,
-                            text: this.weightedRandom(options, weights)
+                            text: descriptionsAndHooks
                         }
                     )
                 }
