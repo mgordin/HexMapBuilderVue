@@ -727,9 +727,10 @@ export const useHexesStore = defineStore({
         })
         return parentTag;
     },
-    resolveName(element) {
+    resolveNameAndTerrain(element, terrain) {
         const name = this.randomChoice(this.contentTags[element.type][element.tag].names);
         element.text = element.text.replace('&name', name);
+        element.text = element.text.replace('&terrain', terrain);
         console.log('element is now', element)
 
         return {'element': element, 'name': name};
@@ -927,9 +928,9 @@ export const useHexesStore = defineStore({
         for (let i = 0; i < descriptionElements.length; i++) {
             var element = descriptionElements[i];
             
-            var elementAndName = this.resolveName(element)
-            console.log('en', elementAndName)
-            var text = this.resolveContentChoices(elementAndName.element);
+            var elementPlus = this.resolveNameAndTerrain(element, thisHex.terrain)
+            console.log('en', elementPlus)
+            var text = this.resolveContentChoices(elementPlus.element);
             console.log('t', text)
 
             var blocks = this.resolveLineBreaks(text);
@@ -937,7 +938,7 @@ export const useHexesStore = defineStore({
             blocks = this.resolveContentMentions(thisHex, blocks, resolveNewTags);
             console.log('blocks pt2', blocks)
 
-            description = this.setTiptapNodes(description, blocks, element.tag, elementAndName.name);
+            description = this.setTiptapNodes(description, blocks, element.tag, elementPlus.name);
             if (i < descriptionElements.length - 1) {
                 description = this.addLineBreak(description)
             }

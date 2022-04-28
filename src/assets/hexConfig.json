@@ -217,11 +217,12 @@
                 "description": [
                     {"text": "A mighty and imposing &name atop a hill.", "odds": 1},
                     {"text": "The walls of this &name show signs of magical attack.", "odds": 1},
-                    {"text": "The &name is made of black stone. Impaled bodies line the road leading up to the castle.", "odds": 1}
+                    {"text": "The &name is made of black stone. Impaled bodies line the road leading up to the castle.", "odds": 1},
+                    {"text": "A lonely &name surrounded by &terrain.", "odds": 1}
                 ],
                 "hook": [
-                    {"text": "The #majorResident of this castle is secretly a werewolf.  It is said that the waters of @magic-spring:dist=gt3h can cure such an afflication.", "odds": 1},
-                    {"text": "Humanoids living in the ruins in @ruin:dist=lt3s have been attacking the castle at night.", "odds": 1}
+                    {"text": "The #majorResident of this &name is secretly a werewolf.  It is said that the waters of @magic-spring:dist=gt3h can cure such an afflication.", "odds": 1},
+                    {"text": "Humanoids living in the ruins in @ruin:dist=lt3s have been attacking the &name at night.", "odds": 1}
                 ]
             }
         },
