@@ -31,6 +31,7 @@ const hs = useHexesStore();
                     <a class="navbar-item" @click="hs.loadMap">Load map from file</a>
                 </div>
             </div>
+            <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
         </div>
         <div class="navbar-end">
             <a href="https://github.com/mgordin/HexMapBuilderVue" class="ri-github-fill ri-2x github-icon">

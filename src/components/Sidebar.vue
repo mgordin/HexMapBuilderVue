@@ -9,6 +9,10 @@ import MentioningHexPopup from "@/components/MentioningHexPopup.vue";
 import 'tippy.js/dist/tippy.css' // optional for styling
 import 'tippy.js/themes/light-border.css';
 
+import vSelect from 'vue-select'
+import "vue-select/dist/vue-select.css";
+
+
 
 const es = useEditorStore();
 const hs = useHexesStore();
@@ -20,6 +24,7 @@ const hexByUUID = hs.hexByUUID;
 
 <template>
   <div class="sidebar-main">
+
     <!-- Real sidebar content -->
     <div class="card">
       <!-- Sidebar header -->
@@ -109,8 +114,8 @@ const hexByUUID = hs.hexByUUID;
             </div>
           </div>
         </div>
-        <!-- Terrain section -->
-        <div class="block">
+        <!-- Terrain section as panel -->
+        <div class="block" v-if="es.showTerrainsAndIconsAsPanel">
           <div class="card">
             <header class="card-header has-background-primary">
               <p class="card-header-title">Terrain</p>
@@ -137,8 +142,8 @@ const hexByUUID = hs.hexByUUID;
           </div>
         </div>
 
-        <!-- Icon section -->
-        <div class="block">
+        <!-- Icon section as panel -->
+        <div class="block" v-if="es.showTerrainsAndIconsAsPanel">
           <div class="card">
             <header
               class="card-header has-background-primary"
@@ -164,6 +169,36 @@ const hexByUUID = hs.hexByUUID;
             </div>
           </div>
         </div>
+
+        <!-- Terrains and icons as dropdowns -->
+        <div class="block" v-if="!es.showTerrainsAndIconsAsPanel">
+          <div class="card">
+            <header
+              class="card-header has-background-primary"
+              @click="es.toggleSection('terrain')"
+            >
+              <p class="card-header-title">Terrain and Point of Interest</p>
+              <span class="icon details">
+                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.terrainSectionVisible"></i>
+                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.terrainSectionVisible"></i>
+              </span>
+            </header>
+            <div class="card-content" v-if="es.terrainSectionVisible">
+              <v-select v-model="hexByUUID(es.activeHexes[0]).terrain" :options="es.terrainDropdownOptions" :reduce="terrain => terrain.label">
+                <template #option="{label, file}">
+                  <span class="terrain-dropdown-option">
+                    <img class="terrain-picker-hex" v-bind="{src: file}"/>
+                    <span class="terrain-dropdown-text">{{label}}</span>
+                  </span>
+                </template>
+              </v-select>
+            </div>
+
+
+
+              
+          </div>
+        </div> 
       </div>
     </div>
   </div>
@@ -233,6 +268,15 @@ const hexByUUID = hs.hexByUUID;
 
 .randomize:hover {
   transform: scale(1.1)
+}
+
+.terrain-dropdown-option {
+  text-align: center;
+}
+
+.terrain-dropdown-text {
+  text-align: center;
+  margin-left: 10px;
 }
 
 </style>

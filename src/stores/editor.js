@@ -23,7 +23,9 @@ export const useEditorStore = defineStore({
         mentioningHexes: [],
         currentSelectedContent: null,
         terrainType: "temperate forest",
-        terrainDropdownOpen: false
+        terrainDropdownOpen: false,
+        settingsOpen: false,
+        showTerrainsAndIconsAsPanel: false
     }),
     getters: {
         activeHexImage(state) {
@@ -46,6 +48,16 @@ export const useEditorStore = defineStore({
             } else {
                 return "Editing Hex ".concat(hexByUUID(state.activeHexes).id);
             }
+        },
+        terrainDropdownOptions(state) {
+            var terrains = [];
+            Object.keys(state.terrainToImage).forEach((terrain) => {
+                var t = state.terrainToImage[terrain]
+                t["label"] = terrain
+                terrains.push(t)
+            })
+            console.log('terrains are', terrains)
+            return terrains
         }
     },
     actions: {
@@ -157,6 +169,9 @@ export const useEditorStore = defineStore({
         },
         logActive() {
             console.log(this.activeHexes)
+        },
+        toggleSettingsModal() {
+            this.settingsOpen = !this.settingsOpen;
         }
     }
 })
