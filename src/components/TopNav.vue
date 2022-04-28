@@ -21,6 +21,7 @@ const hs = useHexesStore();
                 <a class="navbar-link">Useful Buttons</a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" @click="hs.logHexes">Log hexes</a>
+                    <a class="navbar-item" @click="es.logActive">Log active hexes</a>
                 </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">

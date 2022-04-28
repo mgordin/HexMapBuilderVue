@@ -154,6 +154,9 @@ export const useEditorStore = defineStore({
         },
         setTerrainType(terrainType) {
             this.terrainType = terrainType
+        },
+        logActive() {
+            console.log(this.activeHexes)
         }
     }
 })

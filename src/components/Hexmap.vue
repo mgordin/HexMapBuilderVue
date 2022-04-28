@@ -43,8 +43,10 @@ function logPaddingShift() {
           v-if="hex.icon != null"
           v-bind="{ src: es.iconProperties[hex.icon].file }"
         />
-        <div class="hex-overlay"></div>
-        <div class="hex-overlay-mentioned"></div>
+        <img class="hex-overlay-mentioning" 
+          :class="{ 'mentioning-overlay-active': es.mentioningHexes.find(h => h.uuid == hex.uuid) != null }" 
+          src="blue.png"
+        />
         <div class="hex-label">{{ hex.id }}</div>
       </div>
     </div>
@@ -112,27 +114,25 @@ function logPaddingShift() {
 }
 
 .hex-overlay {
-  transition: 0.5s ease;
-  opacity: 0;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-  opacity: 0.3;
+  left: 0px;
+  top: 0px;
+  overflow: hidden;
+  opacity: 1;
+  background-color: white;
+  color: white
 }
 
 .image-hex:hover {
-  opacity: 0.6;
+  opacity: 0.6
 }
 
 .hex-selected {
   opacity: 0.3;
 }
 
-.hex-mentioned {
-  opacity: 0.3;
+.selected-overlay-active {
+  opacity: 0.6
 }
 
 .flat-row:nth-child(even) {
@@ -155,4 +155,17 @@ function logPaddingShift() {
   left: 25px;
   top: 25px;
 }
+
+.hex-overlay-mentioning {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.mentioning-overlay-active {
+  opacity: 0.4
+}
+
 </style>
