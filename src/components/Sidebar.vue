@@ -115,7 +115,7 @@ const hexByUUID = hs.hexByUUID;
           </div>
         </div>
         <!-- Terrain section as panel -->
-        <div class="block" v-if="es.showTerrainsAndIconsAsPanel">
+        <div class="block">
           <div class="card">
             <header class="card-header has-background-primary">
               <p class="card-header-title">Terrain</p>
@@ -127,7 +127,9 @@ const hexByUUID = hs.hexByUUID;
                   <i class="ri-arrow-down-s-line ri-xl" v-if="es.terrainSectionVisible"></i>
               </span>
             </header>
-            <div class="card-content" v-if="es.terrainSectionVisible">
+
+            <!-- If the terrain is being shown as a panel -->
+            <div class="card-content" v-if="es.terrainSectionVisible && es.showTerrainsAsPanel">
               <div class="columns is-multiline">
                 <div
                   class="box"
@@ -138,6 +140,18 @@ const hexByUUID = hs.hexByUUID;
                   <img class="terrain-picker-hex" v-bind="{ src: terrainProperties.file }" />
                 </div>
               </div>
+            </div>
+
+            <!-- If the terrain is being shown as a dropdown -->
+            <div class="card-content" v-if="es.terrainSectionVisible && !es.showTerrainsAsPanel">
+              <v-select v-model="hexByUUID(es.activeHexes[0]).terrain" :options="es.terrainDropdownOptions" :reduce="terrain => terrain.label">
+                <template #option="{label, file}">
+                  <span class="terrain-dropdown-option">
+                    <img class="terrain-picker-hex" v-bind="{src: file}"/>
+                    <span class="terrain-dropdown-text">{{label}}</span>
+                  </span>
+                </template>
+              </v-select>
             </div>
           </div>
         </div>
@@ -169,36 +183,6 @@ const hexByUUID = hs.hexByUUID;
             </div>
           </div>
         </div>
-
-        <!-- Terrains and icons as dropdowns -->
-        <div class="block" v-if="!es.showTerrainsAndIconsAsPanel">
-          <div class="card">
-            <header
-              class="card-header has-background-primary"
-              @click="es.toggleSection('terrain')"
-            >
-              <p class="card-header-title">Terrain and Point of Interest</p>
-              <span class="icon details">
-                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.terrainSectionVisible"></i>
-                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.terrainSectionVisible"></i>
-              </span>
-            </header>
-            <div class="card-content" v-if="es.terrainSectionVisible">
-              <v-select v-model="hexByUUID(es.activeHexes[0]).terrain" :options="es.terrainDropdownOptions" :reduce="terrain => terrain.label">
-                <template #option="{label, file}">
-                  <span class="terrain-dropdown-option">
-                    <img class="terrain-picker-hex" v-bind="{src: file}"/>
-                    <span class="terrain-dropdown-text">{{label}}</span>
-                  </span>
-                </template>
-              </v-select>
-            </div>
-
-
-
-              
-          </div>
-        </div> 
       </div>
     </div>
   </div>

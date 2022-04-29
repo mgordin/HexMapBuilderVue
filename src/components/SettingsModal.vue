@@ -18,7 +18,7 @@ const es = useEditorStore();
         </header>
         <section class="modal-card-body">
             <label class="checkbox">
-                <input type="checkbox" v-model="es.showTerrainsAndIconsAsPanel">
+                <input type="checkbox" v-model="es.showTerrainsAsPanel">
                 Use panels instead of dropdowns for terrain and icon
             </label>
         </section>

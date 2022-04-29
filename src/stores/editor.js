@@ -25,7 +25,7 @@ export const useEditorStore = defineStore({
         terrainType: "temperate forest",
         terrainDropdownOpen: false,
         settingsOpen: false,
-        showTerrainsAndIconsAsPanel: false
+        showTerrainsAsPanel: false
     }),
     getters: {
         activeHexImage(state) {
