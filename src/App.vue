@@ -2,17 +2,13 @@
 //import { RouterLink, RouterView } from 'vue-router'
 import { useEditorStore } from '@/stores/editor'
 import { useHexesStore } from '@/stores/hexes'
-import Sidebar from '@/components/Sidebar.vue'
-import Hexmap from '@/components/Hexmap.vue'
 import InitializeMapModal from './components/InitializeMapModal.vue';
 import SettingsModal from './components/SettingsModal.vue';
 import LoadMapModal from './components/LoadMapModal.vue';
 import SaveNameModal from './components/SaveNameModal.vue';
 import TopNav from '@/components/TopNav.vue'
 import { useMagicKeys, whenever } from '@vueuse/core'
-
-
-
+import MapEditor from './components/MapEditor.vue'
 
 const es = useEditorStore();
 const hs = useHexesStore();
@@ -40,14 +36,8 @@ whenever(ctrl_s, () => es.saveMapLocally())
   <LoadMapModal />
   <SaveNameModal />
   <TopNav />
-  <div class="columns is-gapless">
-      <div class="column is-one-quarter has-background-white">
-        <Sidebar />
-      </div>
-      <div class="column scroll-column">
-        <Hexmap />
-      </div>
-  </div>
+  <MapEditor/>
+  
 </template>
 
 <style>
