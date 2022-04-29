@@ -364,6 +364,7 @@ export const useHexesStore = defineStore({
         }
     },
     setHexIcon(thisHex, icon) {
+        console.log('Setting icon -', icon, 'for', thisHex)
         thisHex.icon = icon;
     },
     shiftHexNumbers() {
