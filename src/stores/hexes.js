@@ -1422,6 +1422,34 @@ export const useHexesStore = defineStore({
     initializeMap(terrainType, rows, columns) {
         this.initializeHexGrid(rows, columns)
         this.fillMap(terrainType, rows, columns)
+    },
+    getContentAsHTML(content) {
+        const e = new Editor({
+            content: content,
+          })
+        return e.getHTML()
+    },
+    getContentAsPlainText(content) {
+        var text = ""
+        console.log(content)
+        if (content != null) {
+            const hexByUUID = this.hexByUUID
+            content.content.forEach((paragraph) => {
+                console.log('par')
+                if (Object.keys(paragraph).includes('content')) {
+                    paragraph.content.forEach((node) => {
+                        console.log('node')
+                        if (node.type == "text") {
+                            text = text + node.text
+                        } else if (node.type == "mention") {
+                            text = text + hexByUUID(node.attrs.uuid)
+                        }
+                    })
+                }
+            })
+        }
+        console.log(text)
+        return text.substring(0, 60)
     }
   }
   

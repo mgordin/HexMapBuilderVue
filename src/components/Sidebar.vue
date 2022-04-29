@@ -39,8 +39,11 @@ const hexByUUID = hs.hexByUUID;
         </div>
 
       </header>
+
+
       <!-- Sidebar section start here -->
       <div class="card-content">
+
         <!-- Mentioned by section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
@@ -261,6 +264,20 @@ const hexByUUID = hs.hexByUUID;
 .terrain-dropdown-text {
   text-align: center;
   margin-left: 10px;
+}
+
+.hex-search-item-content {
+  max-block-size: 20px;
+  max-inline-size: 20px;
+  block-size: 20px;
+  inline-size: 20px;
+  width: 20px;
+  max-width: 20px;
+}
+
+.text-item-thing {
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 </style>

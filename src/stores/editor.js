@@ -25,7 +25,12 @@ export const useEditorStore = defineStore({
         terrainType: "temperate forest",
         terrainDropdownOpen: false,
         settingsOpen: false,
-        showTerrainsAsPanel: false
+        showTerrainsAsPanel: false,
+        saveName: null,
+        showLoadModal: false,
+        loadName: null,
+        showSaveNameModal: false,
+        savingIndicator: false
     }),
     getters: {
         activeHexImage(state) {
@@ -58,6 +63,18 @@ export const useEditorStore = defineStore({
             })
             console.log('terrains are', terrains)
             return terrains
+        },
+        listSavedMaps(state) {
+
+            const r = new RegExp("hexmapmaker-map-")
+            var maps = []
+            Object.keys(localStorage).forEach((key) => {
+                if (r.test(key)) {
+                    maps.push(key.replace(r, ""))
+                }
+            })
+            return maps;
+            
         }
     },
     actions: {
@@ -172,6 +189,63 @@ export const useEditorStore = defineStore({
         },
         toggleSettingsModal() {
             this.settingsOpen = !this.settingsOpen;
+        },
+        saveMapLocally() {      
+            if (this.saveName == null) {
+                this.toggleSaveNameModal()
+            } else {
+                this.showSaveNameModal = false
+                const hs = useHexesStore()     
+                const content = {
+                    hexes: hs.hexes,
+                    leftmostColumn: hs.leftmostColumn,
+                    nthChildShift: hs.nthChildShift,
+                    uuid: hs.uuid
+                }
+
+                this.localSave("hexmapmaker-map-" + this.saveName, content)
+                this.savingIndicator = true
+                setTimeout(() => {  this.savingIndicator = false }, 2000);
+
+            }
+            
+        },
+        loadLocalMap() {
+            const hs = useHexesStore()
+
+            const content = this.loadData("hexmapmaker-map-" + this.loadName)
+            console.log('content is', content)
+
+            hs.hexes = content.hexes;
+            hs.leftmostColumn = content.leftmostColumn;
+            hs.nthChildShift = content.nthChildShift;
+            hs.uuid = content.uuid
+
+            this.showLoadModal = false;
+        },
+        localSave(name, data) {
+            localStorage.setItem(name, JSON.stringify(data));
+        },
+        loadData(name) {
+            var loaded = JSON.parse(localStorage.getItem(name));
+            return loaded
+        },
+        
+        toggleLoadModal() {
+            this.showLoadModal = !this.showLoadModal
+        },
+        listAllStored() {
+            var m = []
+            Object.keys(localStorage).forEach((key) => {
+                m.push({
+                    'key': key,
+                    'value': localStorage.getItem(key)
+                })
+            })
+            console.log('all keys and values', m)
+        },
+        toggleSaveNameModal() {
+            this.showSaveNameModal = !this.showSaveNameModal
         }
     }
 })
