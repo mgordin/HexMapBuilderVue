@@ -2,9 +2,13 @@ import { defineStore } from 'pinia'
 import { useHexesStore } from '@/stores/hexes'
 import json from '@/assets/hexConfig.json';
 
+
 export const useEditorStore = defineStore({
     id: 'editor',
     state: () => ({
+        showEditor: true,
+        showViewer: false,
+        showDocumentation: false,
         activeHexes: [1],
         activeRow: 1,
         selectedTerrain: null,
@@ -30,7 +34,8 @@ export const useEditorStore = defineStore({
         showLoadModal: false,
         loadName: null,
         showSaveNameModal: false,
-        savingIndicator: false
+        savingIndicator: false,
+        exportToPNGTrigger: true
     }),
     getters: {
         activeHexImage(state) {
@@ -191,7 +196,7 @@ export const useEditorStore = defineStore({
             this.settingsOpen = !this.settingsOpen;
         },
         saveMapLocally() {      
-            if (this.saveName == null) {
+            if (this.saveName == null || this.saveName == "") {
                 this.toggleSaveNameModal()
             } else {
                 this.showSaveNameModal = false
@@ -246,6 +251,9 @@ export const useEditorStore = defineStore({
         },
         toggleSaveNameModal() {
             this.showSaveNameModal = !this.showSaveNameModal
+        },
+        triggerExportToPNG() {
+            this.exportToPNGTrigger = true;
         }
     }
 })

@@ -16,6 +16,8 @@
     "@tiptap/vue-3": "^2.0.0-beta.90",
     "@vueform/multiselect": "^2.3.3",
     "@vueuse/core": "^8.3.1",
+    "html-to-image": "^1.9.0",
+    "html2canvas": "^1.4.1",
     "pinia": "^2.0.11",
     "remixicon": "^2.5.0",
     "tippy.js": "^6.3.7",

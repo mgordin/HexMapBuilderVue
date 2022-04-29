@@ -5,10 +5,23 @@ import 'remixicon/fonts/remixicon.css'
 import vSelect from 'vue-select'
 import "vue-select/dist/vue-select.css";
 import Multiselect from '@vueform/multiselect'
+import html2canvas from 'html2canvas';
 
 
 const es = useEditorStore();
 const hs = useHexesStore();
+
+function exportMapToPNG() { 
+    html2canvas(document.querySelector("#hex-container")).then(canvas => {
+        var image = canvas.toDataURL();
+
+        const a = document.createElement('a');        
+        a.href= image;
+        a.download = "map.png";
+        a.click();
+        URL.revokeObjectURL(a.href);
+    });
+}
 
 </script>
 
@@ -34,13 +47,15 @@ const hs = useHexesStore();
                 <div class="navbar-dropdown">
                     <a class="navbar-item" @click="hs.exportMap">Export map to file</a>
                     <a class="navbar-item" @click="hs.loadMap">Load map from file</a>
+                    <hr class="dropdown-divider">
                     <a class="navbar-item" @click="es.saveMapLocally">Save map to local storage</a>
                     <a class="navbar-item" @click="es.toggleLoadModal">Load map from local storage</a>
                     <a class="navbar-item" @click="es.listAllStored">List stored to console</a>
+                    <hr class="dropdown-divider">
+                    <a class="navbar-item" @click="exportMapToPNG">Export to PNG</a>
                 </div>
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
-            <a class="navbar-item" href="">Settings</a>
         </div>
         <div class="navbar-end">
             <div class="navbar-item save-indicator" v-if="es.savingIndicator">

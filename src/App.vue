@@ -7,8 +7,8 @@ import SettingsModal from './components/SettingsModal.vue';
 import LoadMapModal from './components/LoadMapModal.vue';
 import SaveNameModal from './components/SaveNameModal.vue';
 import TopNav from '@/components/TopNav.vue'
-import { useMagicKeys, whenever } from '@vueuse/core'
 import MapEditor from './components/MapEditor.vue'
+import { useMagicKeys, whenever } from '@vueuse/core'
 
 const es = useEditorStore();
 const hs = useHexesStore();
@@ -26,7 +26,6 @@ const { ctrl_s } = useMagicKeys({
 
 whenever(ctrl_s, () => es.saveMapLocally())
 
-
 </script>
 
 <template>
@@ -36,7 +35,7 @@ whenever(ctrl_s, () => es.saveMapLocally())
   <LoadMapModal />
   <SaveNameModal />
   <TopNav />
-  <MapEditor/>
+  <MapEditor v-if="es.showEditor"/>
   
 </template>
 

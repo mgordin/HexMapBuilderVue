@@ -1,6 +1,9 @@
 <script setup>
 import Sidebar from '@/components/Sidebar.vue'
 import Hexmap from '@/components/Hexmap.vue'
+
+
+
 </script>
 
 <template>

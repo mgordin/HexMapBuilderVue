@@ -1,32 +1,4 @@
 {
-    "terrainToImageOld": {
-        "Default": { "file": "./terrain_tiles/flat/default-hex.png", "selected": false },
-        "Volcano": { "file": "./terrain_tiles/flat/1-greenlands_vulcano.png", "selected": false },
-        "Forest": { "file": "./terrain_tiles/flat/2-greenlands_forest.png", "selected": false },
-        "Tundra": { "file": "./terrain_tiles/flat/3-greenlands_tundra.png", "selected": false },
-        "Trees": { "file": "./terrain_tiles/flat/4-greenlands_trees.png", "selected": false },
-        "Water": { "file": "./terrain_tiles/flat/5-greenlands_water.png", "selected": false },
-        "Hills": { "file": "./terrain_tiles/flat/6-greenlands_hills.png", "selected": false },
-        "River": { "file": "./terrain_tiles/flat/7-greenlands_river.png", "selected": false },
-        "Portal": { "file": "./terrain_tiles/flat/8-greenlands_Portal.png", "selected": false },
-        "Mountains": { "file": "./terrain_tiles/flat/9-greenlands_mountains.png", "selected": false },
-        "Lake": { "file": "./terrain_tiles/flat/10-greenlands_lake.png", "selected": false },
-        "Village": { "file": "./terrain_tiles/flat/11-greenlands_village.png", "selected": false },
-        "City": { "file": "./terrain_tiles/flat/12-greenlands_city.png", "selected": false }
-    },
-    "terrainToImageClassic": {
-        "Default": { "file": "./terrain_tiles/flat/default-hex.png", "selected": false },
-        "grassland": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/06-grassland/grassland.png", "selected": false },
-        "grassy hills": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/06-grassland/grassland_hills.png", "selected": false },
-        "savannah": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/06-grassland/savannah.png", "selected": false },
-        "deciduous forest": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/02-forest/forest_heavy.png", "selected": false },
-        "mixed forest": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/02-forest/forest_mixed.png", "selected": false },
-        "forested hills": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/02-forest/forested_hills.png", "selected": false },
-        "deciduous forested mountains": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/02-forest/forested_mountain_range.png", "selected": false },
-        "mountains": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/11-mountains/mountain_range.png", "selected": false },
-        "evergreen forest": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/03-evergreen_forest/evergreen_heavy.png", "selected": false },
-        "evergreen forested mountains": {"file": "./terrain_tiles/Classic_Hex_Map_Tileset/03-evergreen_forest/evergreen_mountainrange.png", "selected": false }
-    },
     "terrainToImage": {
         "Default": { "file": "./terrain_tiles/flat/default-hex.png", "selected": false },
         "grassland": {"file": "./terrain_tiles/Inkarnate/grassland.png", "selected": false },

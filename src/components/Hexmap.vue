@@ -27,7 +27,7 @@ function logPaddingShift() {
 </script>
 
 <template>
-  <div class="hex-container">
+  <div id="hex-container" class="hex-container">
     <div class="image-row flat-row" v-for="row in hs.hexes">
       <div
         class="image-hex flat-hex"
