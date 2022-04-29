@@ -40,6 +40,7 @@ const hs = useHexesStore();
                 </div>
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
+            <a class="navbar-item" href="">Settings</a>
         </div>
         <div class="navbar-end">
             <div class="navbar-item save-indicator" v-if="es.savingIndicator">
