@@ -56,7 +56,7 @@ function exportMapToPNG(hexHeight, hexWidth) {
                     <a class="navbar-item" @click="es.toggleLoadModal">Load map from local storage</a>
                     <a class="navbar-item" @click="es.listAllStored">List stored to console</a>
                     <hr class="dropdown-divider">
-                    <a class="navbar-item" @click="hs.exportMapImage(96, 110)">Export to PNG</a>
+                    <a class="navbar-item" @click="hs.exportMapImage(48, 110)">Export to PNG</a>
                 </div>
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>

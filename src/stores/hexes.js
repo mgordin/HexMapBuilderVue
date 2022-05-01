@@ -1573,9 +1573,11 @@ export const useHexesStore = defineStore({
                     }
                     // Draw hex ID (depending on settings)
                     if (showHexNumbers) {
+                        const textSize = ctx.measureText(hex.id).width
+                        console.log('hex width', hexWidth, 'text size', textSize)
                         ctx.fillText(hex.id, 
-                            (hexWidth + (hexWidth/2 + 2.5))*j + hexWidth/(hexWidth/110*2.7) + shift, // TODO: change the 2.7 to parametric with hex and text size
-                            hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/(hexHeight/96 * 4.5)  // TODO: change the 4.5 to parametric with hex and text size
+                            (hexWidth + (hexWidth/2 + 2.5))*j + (hexWidth-textSize)/2 + shift,
+                            hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/4.5
                         )
                     }
                 }
