@@ -62,4 +62,8 @@ const es = useEditorStore();
 
 <style>
 
+.modal-card {
+    min-height:75vh;
+}
+
 </style>
