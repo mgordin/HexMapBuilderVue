@@ -17,13 +17,39 @@ const es = useEditorStore();
             <button class="delete" aria-label="close" @click="es.toggleSettingsModal"></button>
         </header>
         <section class="modal-card-body">
-            <label>Name to save map under</label>
-            <input class="input" type="text" placeholder="Name to save map under" v-model="es.saveName">
+            <div class="block">
+                <h1 class="title">Display Settings</h1>
+                <label class="checkbox">
+                    <input type="checkbox" v-model="es.showTerrainsAsPanel">
+                    Use panels instead of dropdowns for terrain and icon
+                </label>
+            </div>
+
+            <hr>
+
+            <div class="block">
+                <h1 class="title">Save Map Settings</h1>
+                <label>Name to save map under</label>
+                <input class="input" type="text" placeholder="Name to save map under" v-model="es.saveName">
+            </div>
+
+            <hr>
+            <div class="block">
+                <h1 class="title">Export to PNG Settings</h1>
+                <div>
+                    <label class="checkbox">
+                        <input type="checkbox" v-model="es.mapExportAsPNGShowHexNumbers">
+                        Show hex labels
+                    </label>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <input type="checkbox" v-model="es.mapExportAsPNGShowHexIcons">
+                        Show hex icons
+                    </label>
+                </div>
+            </div>
             
-            <label class="checkbox">
-                <input type="checkbox" v-model="es.showTerrainsAsPanel">
-                Use panels instead of dropdowns for terrain and icon
-            </label>
         </section>
         <footer class="modal-card-foot">
             

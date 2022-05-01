@@ -1541,13 +1541,14 @@ export const useHexesStore = defineStore({
             image.onload = ()=>{ 
                 imageCount += 1;
                 if(imageCount === imageFiles.length){ // have all loaded????
-                    this.exportMapWithLoadedImages(canvas, ctx, images, es.mapExportAsPNGShowHexNumbers, hexHeightScaled, hexWidthScaled); // call function to start rendering
+                    this.exportMapWithLoadedImages(canvas, ctx, images, hexHeightScaled, hexWidthScaled); // call function to start rendering
                 }
             }
             images[imageFile.name] = image; // add loading image to images array
         })
     },
-    exportMapWithLoadedImages(canvas, ctx, images, showHexNumbers, hexHeight, hexWidth){
+    exportMapWithLoadedImages(canvas, ctx, images, hexHeight, hexWidth){
+        const es = useEditorStore()
         // all images have loaded and can be rendered
         console.log('hexes', this.hexes)
         const fontSize = hexWidth/110 * 18
@@ -1573,7 +1574,7 @@ export const useHexesStore = defineStore({
                         hexHeight*i - (hexHeight/2 - 0.5)*(i+1), 
                         hexWidth, hexHeight);
                     // Draw icon
-                    if (hex.icon != null) {
+                    if (hex.icon != null && es.mapExportAsPNGShowHexIcons) {
                         ctx.drawImage(images[hex.icon], 
                             (hexWidth + (hexWidth/2 + 2.5))*j + hexWidth*3/14 + shift - hexWidth/2,  // x
                             hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/4,      // y
@@ -1581,7 +1582,7 @@ export const useHexesStore = defineStore({
                             hexWidth/1.75);                                             // height
                     }
                     // Draw hex ID (depending on settings)
-                    if (showHexNumbers) {
+                    if (es.mapExportAsPNGShowHexNumbers) {
                         const textSize = ctx.measureText(hex.id).width
                         console.log('hex width', hexWidth, 'text size', textSize)
                         ctx.fillText(hex.id, 

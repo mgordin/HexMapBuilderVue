@@ -36,7 +36,8 @@ export const useEditorStore = defineStore({
         showSaveNameModal: false,
         savingIndicator: false,
         exportToPNGTrigger: true,
-        mapExportAsPNGShowHexNumbers: true
+        mapExportAsPNGShowHexNumbers: true,
+        mapExportAsPNGShowHexIcons: true
     }),
     getters: {
         activeHexImage(state) {
