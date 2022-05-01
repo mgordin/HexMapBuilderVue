@@ -44,7 +44,6 @@ function exportMapToPNG(hexHeight, hexWidth) {
                 <div class="navbar-dropdown">
                     <a class="navbar-item" @click="hs.logHexes">Log hexes</a>
                     <a class="navbar-item" @click="es.logActive">Log active hexes</a>
-                    <a class="navbar-item" @click="hs.exportMapImage(96, 110)">Test canvas draw</a>
                 </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">
@@ -57,7 +56,7 @@ function exportMapToPNG(hexHeight, hexWidth) {
                     <a class="navbar-item" @click="es.toggleLoadModal">Load map from local storage</a>
                     <a class="navbar-item" @click="es.listAllStored">List stored to console</a>
                     <hr class="dropdown-divider">
-                    <a class="navbar-item" @click="">Export to PNG</a>
+                    <a class="navbar-item" @click="hs.exportMapImage(96, 110)">Export to PNG</a>
                 </div>
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>

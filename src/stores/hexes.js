@@ -1541,7 +1541,9 @@ export const useHexesStore = defineStore({
     exportMapWithLoadedImages(canvas, ctx, images, showHexNumbers, hexHeight, hexWidth){
         // all images have loaded and can be rendered
         console.log('hexes', this.hexes)
-        ctx.font = '18px serif';
+        const fontSize = hexWidth/110 * 18
+        ctx.fillStyle = 'white'
+        ctx.font = 'bold '+fontSize+'px arial';   // TODO: change the 18 to parametric with hex size
         for (let i = 2; i < this.hexes.length; i++) {
             for (let j = 0; j < this.hexes[i].length; j++) {
                 const hex = this.hexes[i][j]  // Current hex
@@ -1556,21 +1558,25 @@ export const useHexesStore = defineStore({
                     } else if (!((i+1) % 2 == 0) && this.leftmostColumn == 'odd') {
                         shift = 0
                     }
+                    // Draw terrain
                     ctx.drawImage(images[hex.terrain], 
-                        (hexWidth+(hexWidth/2 + 2.5))*j+shift, 
+                        (hexWidth + (hexWidth/2 + 2.5))*j + shift, 
                         hexHeight*i - (hexHeight/2 - 0.5)*(i+1), 
                         hexWidth, hexHeight);
+                    // Draw icon
                     if (hex.icon != null) {
                         ctx.drawImage(images[hex.icon], 
-                            ((hexWidth/2 + 2.5) + hexWidth)*j + hexWidth/4 + shift, 
-                            hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/2, 
-                            hexWidth/2, 
-                            hexHeight/2);
+                            (hexWidth + (hexWidth/2 + 2.5))*j + hexWidth*3/14 + shift,  // x
+                            hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/4,      // y
+                            hexWidth/1.75,                                              // width
+                            hexWidth/1.75);                                             // height
                     }
+                    // Draw hex ID (depending on settings)
                     if (showHexNumbers) {
                         ctx.fillText(hex.id, 
-                            (hexWidth + (hexWidth/2 + 2.5))*j + hexWidth/3 + shift, 
-                            hexHeight*i - (hexHeight/2 - 0.5)*(i+1))
+                            (hexWidth + (hexWidth/2 + 2.5))*j + hexWidth/(hexWidth/110*2.7) + shift, // TODO: change the 2.7 to parametric with hex and text size
+                            hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/(hexHeight/96 * 4.5)  // TODO: change the 4.5 to parametric with hex and text size
+                        )
                     }
                 }
             }
