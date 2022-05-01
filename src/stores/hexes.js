@@ -1503,12 +1503,21 @@ export const useHexesStore = defineStore({
             images.push(image); // add loading image to images array
         })
     },
-    exportMapImage(hexHeight, hexWidth) {
+    exportMapImage(hexHeight, hexWidth, scale) {
         const es = useEditorStore()
 
+        const hexHeightScaled = hexHeight * scale
+        const hexWidthScaled = hexWidth * scale
+
+        console.log('unscaled', hexWidth, hexHeight, 'scale', scale, 'scaled', hexWidthScaled, hexHeightScaled)
+
         const canvas = document.createElement('canvas');
-        canvas.width = this.countColumns * hexHeight;
-        canvas.height = (this.hexes.length / 2 - 1) * hexWidth;
+        if (this.hexes[1].length > this.hexes[0].length) {
+            canvas.width = (this.hexes[1].length + this.hexes[0].length/2 - 0.5) * hexWidthScaled;
+        } else {
+            canvas.width = (this.hexes[0].length + this.hexes[1].length/2 - 0.5) * hexWidthScaled;
+        }
+        canvas.height = (this.hexes.length / 2 - 0.5) * hexHeightScaled;
         var ctx = canvas.getContext('2d');
         ctx.fillStyle = "lightgray";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1532,7 +1541,7 @@ export const useHexesStore = defineStore({
             image.onload = ()=>{ 
                 imageCount += 1;
                 if(imageCount === imageFiles.length){ // have all loaded????
-                    this.exportMapWithLoadedImages(canvas, ctx, images, es.mapExportAsPNGShowHexNumbers, hexHeight, hexWidth); // call function to start rendering
+                    this.exportMapWithLoadedImages(canvas, ctx, images, es.mapExportAsPNGShowHexNumbers, hexHeightScaled, hexWidthScaled); // call function to start rendering
                 }
             }
             images[imageFile.name] = image; // add loading image to images array
@@ -1560,13 +1569,13 @@ export const useHexesStore = defineStore({
                     }
                     // Draw terrain
                     ctx.drawImage(images[hex.terrain], 
-                        (hexWidth + (hexWidth/2 + 2.5))*j + shift, 
+                        (hexWidth + (hexWidth/2 + 2.5))*j + shift - hexWidth/2, 
                         hexHeight*i - (hexHeight/2 - 0.5)*(i+1), 
                         hexWidth, hexHeight);
                     // Draw icon
                     if (hex.icon != null) {
                         ctx.drawImage(images[hex.icon], 
-                            (hexWidth + (hexWidth/2 + 2.5))*j + hexWidth*3/14 + shift,  // x
+                            (hexWidth + (hexWidth/2 + 2.5))*j + hexWidth*3/14 + shift - hexWidth/2,  // x
                             hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/4,      // y
                             hexWidth/1.75,                                              // width
                             hexWidth/1.75);                                             // height
@@ -1576,7 +1585,7 @@ export const useHexesStore = defineStore({
                         const textSize = ctx.measureText(hex.id).width
                         console.log('hex width', hexWidth, 'text size', textSize)
                         ctx.fillText(hex.id, 
-                            (hexWidth + (hexWidth/2 + 2.5))*j + (hexWidth-textSize)/2 + shift,
+                            (hexWidth + (hexWidth/2 + 2.5))*j + (hexWidth-textSize)/2 + shift - hexWidth/2,
                             hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/4.5
                         )
                     }
