@@ -11,7 +11,7 @@ const es = useEditorStore();
 <template>
 <div class="modal" v-bind:class="{'is-active': es.settingsOpen}">
     <div class="modal-background"></div>
-    <div class="modal-card">
+    <div class="modal-card settings-panel">
         <header class="modal-card-head">
             <p class="modal-card-title">Settings</p>
             <button class="delete" aria-label="close" @click="es.toggleSettingsModal"></button>
@@ -62,7 +62,7 @@ const es = useEditorStore();
 
 <style>
 
-.modal-card {
+.settings-panel {
     min-height:75vh;
 }
 

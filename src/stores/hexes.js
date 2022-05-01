@@ -1410,9 +1410,15 @@ export const useHexesStore = defineStore({
 
         if (randomizeType == 'description') {
             this.generateHexContents(thisHex, 'description');
+            if (thisHex.terrain == 'Default') {
+                this.generateTerrain(thisHex, this.terrainProperties[es.terrainType].odds, true);
+            }
 
         } else if (randomizeType == 'tags+description') {
             this.generateHexContents(thisHex, 'full');
+            if (thisHex.terrain == 'Default') {
+                this.generateTerrain(thisHex, this.terrainProperties[es.terrainType].odds, true);
+            }
 
         } else if (randomizeType == 'terrain') {
             this.generateTerrain(thisHex, this.terrainProperties[es.terrainType].odds, true);
