@@ -729,9 +729,11 @@ export const useHexesStore = defineStore({
         return parentTag;
     },
     resolveNameAndTerrain(element, terrain) {
+        const reName = new RegExp("&name", 'g')
+        const reTerrain = new RegExp("&terrain", 'g')
         const name = this.randomChoice(this.contentTags[element.type][element.tag].names);
-        element.text = element.text.replace('&name', name);
-        element.text = element.text.replace('&terrain', terrain);
+        element.text = element.text.replace(reName, name);
+        element.text = element.text.replace(reTerrain, terrain);
         console.log('element is now', element)
 
         return {'element': element, 'name': name};
@@ -1451,6 +1453,139 @@ export const useHexesStore = defineStore({
         }
         console.log(text)
         return text.substring(0, 60)
+    },
+    drawTest() {
+        const es = useEditorStore()
+
+        const canvas = document.createElement('canvas');
+        canvas.width = 700;
+        canvas.height = 700;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = "lightgray";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+        const imageURL = [es.terrainToImage['grassland'].file, es.terrainToImage['deciduous forest'].file]; // list of image URLs
+        const images = []; /// array to hold images.
+        var imageCount = 0; // number of loaded images;
+
+        // function called once all images have loaded.
+        function allLoaded(){
+            // all images have loaded and can be rendered
+            for (let i = 0; i < 5; i++) {
+                for (let j = 0; j < 5; j++) {
+                    if (i % 2 == 0) {
+                        ctx.drawImage(images[0], 110*i+55, 96*j+48, 110, 96);
+                    } else {
+                        ctx.drawImage(images[1], 110*i+55, 96*j+48, 110, 96);
+                    }
+                }
+            }
+            var outputImage = canvas.toDataURL("image/png");
+
+            const a = document.createElement('a');        
+            a.href= outputImage;
+            a.download = "testMap.png";
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        // iterate each image URL, create, load, and add it to the images array
+        imageURL.forEach(src => {  // for each image url
+            const image = new Image();
+            image.src = src;
+            image.onload = ()=>{ 
+                imageCount += 1;
+                if(imageCount === imageURL.length){ // have all loaded????
+                    allLoaded(); // call function to start rendering
+                }
+            }
+            images.push(image); // add loading image to images array
+        })
+    },
+    exportMapImage(hexHeight, hexWidth) {
+        const es = useEditorStore()
+
+        const canvas = document.createElement('canvas');
+        canvas.width = this.countColumns * hexHeight;
+        canvas.height = (this.hexes.length / 2 - 1) * hexWidth;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = "lightgray";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const images = {};
+        var imageCount = 0; // number of loaded images;
+        console.log('no really, hexes', this.hexes)
+
+        var imageFiles = [];
+        Object.keys(es.terrainToImage).forEach((terrain) => {
+            imageFiles.push({'name': terrain, 'file': es.terrainToImage[terrain].file})
+        });
+        Object.keys(es.iconProperties).forEach((icon) => {
+            imageFiles.push({'name': icon, 'file': es.iconProperties[icon].file})
+        })
+
+        // iterate each image URL, create, load, and add it to the images array
+        imageFiles.forEach(imageFile => {  // for each image url
+            const image = new Image();
+            image.src = imageFile.file;
+            image.onload = ()=>{ 
+                imageCount += 1;
+                if(imageCount === imageFiles.length){ // have all loaded????
+                    this.exportMapWithLoadedImages(canvas, ctx, images, es.mapExportAsPNGShowHexNumbers, hexHeight, hexWidth); // call function to start rendering
+                }
+            }
+            images[imageFile.name] = image; // add loading image to images array
+        })
+    },
+    exportMapWithLoadedImages(canvas, ctx, images, showHexNumbers, hexHeight, hexWidth){
+        // all images have loaded and can be rendered
+        console.log('hexes', this.hexes)
+        ctx.font = '18px serif';
+        for (let i = 2; i < this.hexes.length; i++) {
+            for (let j = 0; j < this.hexes[i].length; j++) {
+                const hex = this.hexes[i][j]  // Current hex
+                if (hex.terrain != 'Default') {
+                    var shift = 0
+                    if ((i+1) % 2 == 0 && this.leftmostColumn == 'even') {
+                        shift = 0
+                    } else if ((i+1) % 2 == 0 && this.leftmostColumn == 'odd') {
+                        shift = hexWidth * 0.75 + 1
+                    } else if (!((i+1) % 2 == 0) && this.leftmostColumn == 'even') {
+                        shift = hexWidth * 0.75 + 1
+                    } else if (!((i+1) % 2 == 0) && this.leftmostColumn == 'odd') {
+                        shift = 0
+                    }
+                    ctx.drawImage(images[hex.terrain], 
+                        (hexWidth+(hexWidth/2 + 2.5))*j+shift, 
+                        hexHeight*i - (hexHeight/2 - 0.5)*(i+1), 
+                        hexWidth, hexHeight);
+                    if (hex.icon != null) {
+                        ctx.drawImage(images[hex.icon], 
+                            ((hexWidth/2 + 2.5) + hexWidth)*j + hexWidth/4 + shift, 
+                            hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/2, 
+                            hexWidth/2, 
+                            hexHeight/2);
+                    }
+                    if (showHexNumbers) {
+                        ctx.fillText(hex.id, 
+                            (hexWidth + (hexWidth/2 + 2.5))*j + hexWidth/3 + shift, 
+                            hexHeight*i - (hexHeight/2 - 0.5)*(i+1))
+                    }
+                }
+            }
+        }
+        this.hexes.flat().forEach((hex) => {
+            
+        })
+
+        var outputImage = canvas.toDataURL("image/png");
+
+        const a = document.createElement('a');        
+        a.href= outputImage;
+        a.download = "testMap.png";
+        a.click();
+        URL.revokeObjectURL(a.href);
     }
   }
   

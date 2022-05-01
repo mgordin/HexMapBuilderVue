@@ -160,7 +160,7 @@ const hexByUUID = hs.hexByUUID;
         </div>
 
         <!-- Icon section as panel -->
-        <div class="block" v-if="es.showTerrainsAndIconsAsPanel">
+        <div class="block">
           <div class="card">
             <header
               class="card-header has-background-primary"
@@ -175,10 +175,11 @@ const hexByUUID = hs.hexByUUID;
             <div class="card-content" v-if="es.iconsSectionVisible">
               <div class="columns is-multiline">
                 <div
-                  class="box"
+                  class="box icon-picker-container"
                   v-for="(iconProperties, iconName) in es.iconProperties"
                   v-bind:class="{ 'has-background-light': iconProperties.selected }"
                   @click="es.selectIcon(iconName)"
+                  :title="iconName"
                 >
                   <img class="icon-picker" v-bind="{ src: iconProperties.file }" />
                 </div>
@@ -231,8 +232,13 @@ const hexByUUID = hs.hexByUUID;
 }
 
 .icon-picker {
-  height: 50px;
-  width: 50px;
+  max-height: 45px;
+  max-width: 45px;
+}
+
+.icon-picker-container {
+  width: 90px;
+  height: 90px;
 }
 
 .mentioning-hex {

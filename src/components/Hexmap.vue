@@ -101,7 +101,7 @@ function logPaddingShift() {
   overflow: hidden;
   display: inline-block;
   margin-left: 57.5px;
-  margin-top: -42px; /*-47px;*/
+  margin-top: -42px;
   user-select: none;
 }
 
@@ -151,9 +151,11 @@ function logPaddingShift() {
 
 .hex-icon {
   position: absolute;
-  width: 60px;
-  left: 25px;
-  top: 25px;
+  max-width: 60px;
+  max-height: 60px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .hex-overlay-mentioning {

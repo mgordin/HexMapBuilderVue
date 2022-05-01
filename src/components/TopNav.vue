@@ -11,8 +11,12 @@ import html2canvas from 'html2canvas';
 const es = useEditorStore();
 const hs = useHexesStore();
 
-function exportMapToPNG() { 
-    html2canvas(document.querySelector("#hex-container")).then(canvas => {
+function exportMapToPNG(hexHeight, hexWidth) {
+    const element = document.querySelector("#hex-container"); 
+    html2canvas(element, {
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight
+    }).then(canvas => {
         var image = canvas.toDataURL();
 
         const a = document.createElement('a');        
@@ -40,6 +44,7 @@ function exportMapToPNG() {
                 <div class="navbar-dropdown">
                     <a class="navbar-item" @click="hs.logHexes">Log hexes</a>
                     <a class="navbar-item" @click="es.logActive">Log active hexes</a>
+                    <a class="navbar-item" @click="hs.exportMapImage(96, 110)">Test canvas draw</a>
                 </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">
@@ -52,7 +57,7 @@ function exportMapToPNG() {
                     <a class="navbar-item" @click="es.toggleLoadModal">Load map from local storage</a>
                     <a class="navbar-item" @click="es.listAllStored">List stored to console</a>
                     <hr class="dropdown-divider">
-                    <a class="navbar-item" @click="exportMapToPNG">Export to PNG</a>
+                    <a class="navbar-item" @click="">Export to PNG</a>
                 </div>
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>

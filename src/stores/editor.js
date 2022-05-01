@@ -35,7 +35,8 @@ export const useEditorStore = defineStore({
         loadName: null,
         showSaveNameModal: false,
         savingIndicator: false,
-        exportToPNGTrigger: true
+        exportToPNGTrigger: true,
+        mapExportAsPNGShowHexNumbers: true
     }),
     getters: {
         activeHexImage(state) {
@@ -154,6 +155,7 @@ export const useEditorStore = defineStore({
         },
         selectIcon(icon) {
             const hs = useHexesStore();
+            const hexByUUID = hs.hexByUUID
             this.selectedIcon = icon;
             Object.values(this.iconProperties).forEach((element) => {
                 element.selected = false;
