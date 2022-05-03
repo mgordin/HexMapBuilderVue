@@ -562,6 +562,7 @@ export const useHexesStore = defineStore({
     generateHexContents(thisHex, overwrite) {
         console.log("!!!!!!!!!!!!! Contents for hex", thisHex.id, "from generateHexContents")
 
+        const es = useEditorStore()
 
         var startedWithTags = true
         if (thisHex.tags.length == 0) {
@@ -569,7 +570,7 @@ export const useHexesStore = defineStore({
         }
 
         // Refine and/or generate tags that indicate the type of content, if any
-        thisHex.tags = this.generateHexTags(thisHex, 0.5, overwrite)
+        thisHex.tags = this.generateHexTags(thisHex, es.baseFractionWithContent, overwrite)
 
         if (!startedWithTags || overwrite == 'full' || overwrite == 'description') {
             // Generate content from tags, selecting and filling a matching content template

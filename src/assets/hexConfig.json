@@ -276,7 +276,7 @@
         ],
         "goodDeity": [
             "!deityType of Light",
-            "!deityType God",
+            "!deityType of Bees",
             "!deityType of Trade",
             "!deityType of Love"
         ],
@@ -398,6 +398,75 @@
                     {"text": "Humanoids lairing in @ruin:dist=lt3s are bothering the wizard, who would like them to be dealt with.", "odds": 1},
                     {"text": "The wizard has created life!  Life!  But it's gotten out of hand, and needs assistance.", "odds": 1},
                     {"text": "A creation of the wizard has escaped and is harassing the settlement in @settlement.", "odds": 1}
+                ]
+            },
+            "extraplanar-outpost": {
+                "odds": 0.1,
+                "names": ["extraplanar outpost"],
+                "icon": "building",
+                "description": [
+                    {"text": "A sphere of coppery metal over a hundred feet across.", "odds": 1},
+                    {"text": "Obsidian cubes rise from burnt ground, with fissures between them spitting out orange light.", "odds": 1},
+                    {"text": "Elaborate crystal spires rise up into the sky, glinting with rainbows in the light.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The outpost is trapped on this plane, and the inhabitants can't be away from it long. They need someone to get them a component from @ruin:dist=gt2s sp they can return home.", "odds": 1},
+                    {"text": "This outpost is the front of an invasion, but the gateway they've come through is unstable and could be disrupted. The wizard in @wizard-tower knows how.", "odds": 1}
+                ]
+            },
+            "bandit-camp": {
+                "odds": 1,
+                "names": ["bandit camp"],
+                "icon": "large-camp",
+                "description": [
+                    {"text": "A small, hidden nest of bandits and their camp followers.", "odds": 1},
+                    {"text": "A large and well-guarded camp with numerous bandits.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The bandits are planning a raid on @village||town:dist=lt3s.", "odds": 1},
+                    {"text": "The bandits steal from the rich and give to the poor - but now one of the nobles they stole from has put a bounty on their head. The party can learn about it in @settlement.", "odds": 1},
+                    {"text": "THe bandits are actually a front for a sinister cult. They are trying to steal a particular artifact coming to a noble in @town||city||manor to conduct a dark ritual of summoning.", "odds": 1}
+                ]
+            },
+            "manor": {
+                "odds": 1,
+                "names": ["manor", "noble's manor", "country manor"],
+                "icon": "town-2",
+                "description": [
+                    {"text": "A large and beatiful manor house surrounded by well-kept grounds.", "odds": 1},
+                    {"text": "This manor has seen better days.  The outside the weathered and peeling, and the grounds look wild and ill-kept.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "Twenty years ago the lord here made a deal with a devil - now he desperately needs someone to help disuade the devil from collecting, as the deal comes due soon.", "odds": 1},
+                    {"text": "The noble here is plotting against another noble in @town||city||manor, and needs deniable agents to help frame that noble for a crime.", "odds": 1},
+                    {"text": "The noble here would pay a high bounty for the beast lairing in @beast-lair||monster-lair, as that creature killed his cousin.", "odds": 1}
+                ]
+            },
+            "monastery": {
+                "odds": 1,
+                "names": ["monastery", "abbey"],
+                "icon": "cathedral",
+                "description": [
+                    {"text": "A simple monastery, with plainly-clad monks outside tending the vegetable gardens.", "odds": 1},
+                    {"text": "A large and ornate monasteries, with fine carvings and inlays of precious metals.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "Someone has murdered the abbot, and the monks need help discovering the truth behind it.", "odds": 1},
+                    {"text": "One of the monks has disappeared, and the abbot wants someone to find them. The monk was kidnapped by bandits in @bandit-camp, to whom his family owes money.", "odds": 1}
+                ]
+            },
+            "mine": {
+                "odds": 1,
+                "names": ["mine"],
+                "icon": "mine",
+                "description": [
+                    {"text": "A network of shallow tunnels filled with the sounds of hammers and pickaxes.", "odds": 1},
+                    {"text": "A deep pit in the earth, with an elevator that lets people descend.", "odds": 1},
+                    {"text": "A fortified structure about an elaborate mining operations, pulling previous materials from the ground.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "Miners have been disappearing - consumed off by a terrible beast their digging has released.", "odds": 1},
+                    {"text": "The mine is run by two fueding clans. The fued has become heated enough that one clan is risking bringing down the mine to get back at the other.", "odds": 1}
                 ]
             }
         },

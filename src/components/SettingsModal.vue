@@ -18,6 +18,14 @@ const es = useEditorStore();
         </header>
         <section class="modal-card-body">
             <div class="block">
+                <h1 class="title">Content Settings</h1>
+                <label>
+                Base fraction of hexed with content generated:  
+                <input type="number" v-model="es.baseFractionWithContent">
+                </label>
+            </div>
+
+            <div class="block">
                 <h1 class="title">Display Settings</h1>
                 <label class="checkbox">
                     <input type="checkbox" v-model="es.showTerrainsAsPanel">
