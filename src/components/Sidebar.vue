@@ -6,11 +6,13 @@ import Multiselect from '@vueform/multiselect'
 import 'remixicon/fonts/remixicon.css'
 
 import MentioningHexPopup from "@/components/MentioningHexPopup.vue";
-import 'tippy.js/dist/tippy.css' // optional for styling
-import 'tippy.js/themes/light-border.css';
 
 import vSelect from 'vue-select'
 import "vue-select/dist/vue-select.css";
+
+import MentionedByTag from "@/components/MentionedByTag.vue"
+import MentionedByTag2 from "@/components/MentionedByTag2.vue"
+import MentionedByTagPopper from "@/components/MentionedByTagPopper.vue"
 
 
 
@@ -20,10 +22,13 @@ const hs = useHexesStore();
 const activeHex = hs.activeHex;
 const hexByUUID = hs.hexByUUID;
 
+
 </script>
 
 <template>
   <div class="sidebar-main">
+
+  
 
     <!-- Real sidebar content -->
     <div class="card">
@@ -56,16 +61,7 @@ const hexByUUID = hs.hexByUUID;
             </header>
             <div class="card-content" v-if="es.mentionedBySectionVisible">
               <div class="tags">
-                <span class="tag is-medium mentioning-hex" 
-                  v-for="hex in es.mentioningHexes" 
-                  @mouseover="es.mentionTagHoverStart(hex)"
-                  @click="es.selectHex(hex, {shiftKey: false})"
-                  v-tippy="{content: MentioningHexPopup,
-                            theme: 'light-border',
-                            placement: 'bottom'}"
-                >
-                  {{hex.id}}
-                </span>
+                  <MentionedByTagPopper v-for="hex in es.mentioningHexes" :hex="hex" />
               </div>
             </div>
           </div>
@@ -279,11 +275,6 @@ const hexByUUID = hs.hexByUUID;
   inline-size: 20px;
   width: 20px;
   max-width: 20px;
-}
-
-.text-item-thing {
-    word-wrap: break-word;
-    word-break: break-all;
 }
 
 </style>
