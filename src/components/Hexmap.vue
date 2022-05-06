@@ -24,6 +24,12 @@ function logShift() {
 function logPaddingShift() {
   console.log(paddingShift());
 }
+
+import PopperComponent from "@/components/PopperComponent.vue"
+import MentionedByTagPopper from "@/components/MentionedByTagPopper.vue"
+
+const hexByUUID = hs.hexByUUID
+
 </script>
 
 <template>

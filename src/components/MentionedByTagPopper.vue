@@ -1,57 +1,43 @@
 <template>
-  <node-view-wrapper class="custom-mention-component" as="span">
-      <span 
-        class="hex-mention"
-        :id="'hex-mention-'+hex.id"
-        @mouseenter="show"
-        @focus="show"
-        @blur="hide"
-        @mouseleave="hide"
-        @click="es.selectHex(hex, {'shiftKey': false})"
-      > 
-        {{ hex.id }} 
-      </span>
-      <div class="tooltip" :id="'tooltip-hex-mention-'+numberToLetters(hex.uuid)" role="tooltip">
-          <MentioningHexPopup2 :content="hex.content"/>
-          <div id="arrow" data-popper-arrow></div>
-      </div>
-  </node-view-wrapper>
+<span :id="'hex-tag-'+hex.id" class="tag is-medium"
+    @mouseenter="show"
+    @focus="show"
+    @blur="hide"
+    @mouseleave="hide"
+    @click="es.selectHex(hex, {shiftKey: false})"
+>
+    {{hex.id}}
+</span>
+<div class="tooltip" :id="'tooltip-hex-tag-'+numberToLetters(hex.uuid)" role="tooltip">
+    <MentioningHexPopup2 :content="hex.content"/>
+    <div id="arrow" data-popper-arrow></div>
+</div>
 </template>
 
+
 <script setup>
-import { useHexesStore } from "@/stores/hexes";
-import { useEditorStore } from '@/stores/editor'
-import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import { createPopper } from '@popperjs/core';
 import { onMounted } from 'vue'
 import MentioningHexPopup2 from "@/components/MentioningHexPopup2.vue"
+import { useEditorStore } from "@/stores/editor";
 
+const es = useEditorStore();
 
-const hs = useHexesStore();
-const hexByUUID = hs.hexByUUID;
-
-const es = useEditorStore()
 
 const props = defineProps({
-  nodeViewProps: nodeViewProps,
-  node: {
-    type: Object,
-    required: true,
-  },
+  hex: {
+        type: Object
+      }
 })
 
-const hex = hexByUUID(props.node.attrs.uuid)
 
-console.log('hex is', hex)
-console.log('content is', hex.content)
-
-var popperInstance, mention, tooltip = null
+var popperInstance, button, tooltip = null
 
 onMounted(() => {
-    mention = document.querySelector('#hex-mention-'+hex.id);
-    tooltip = document.querySelector('#tooltip-hex-mention-'+numberToLetters(hex.uuid));
+    button = document.querySelector('#hex-tag-'+props.hex.id);
+    tooltip = document.querySelector('#tooltip-hex-tag-'+numberToLetters(props.hex.uuid));
 
-    popperInstance = createPopper(mention, tooltip, {
+    popperInstance = createPopper(button, tooltip, {
         modifiers: [
             {
             name: 'offset',
@@ -66,9 +52,10 @@ onMounted(() => {
     
 })
 
-// Popper stuff
 function show() {
     console.log(popperInstance)
+    console.log('hex is', props.hex)
+    console.log('letters are', numberToLetters(props.hex.uuid))
 
     // Make the tooltip visible
     tooltip.setAttribute('data-show', '');
@@ -94,20 +81,9 @@ function numberToLetters(number) {
     return result
 }
 
-
 </script>
 
 <style>
-
-.custom-mention-component {
-  cursor: pointer;
-}
-
-.custom-mention-component:hover {
-  background-color: hsl(0, 0%, 21%);
-  color: white;
-}
-
 .tooltip {
     background: #333;
     color: white;
@@ -155,6 +131,12 @@ function numberToLetters(number) {
 
 .tooltip[data-popper-placement^='right'] > #arrow {
   left: -4px;
+}
+
+.tag:hover {
+    color: white;
+    background-color: #333;
+    cursor: pointer;
 }
 
 </style>

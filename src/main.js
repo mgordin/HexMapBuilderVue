@@ -2,8 +2,12 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { plugin as VueTippy } from 'vue-tippy'
 
+import FloatingVue from 'floating-vue'
+
+
 import App from './App.vue'
 //import router from './router'
+
 
 const app = createApp(App)
 
@@ -22,5 +26,8 @@ app.use(
       }, // => Global default options * see all props
     }
   )
+
+  app.use(FloatingVue)
+
 
 app.mount('#app')

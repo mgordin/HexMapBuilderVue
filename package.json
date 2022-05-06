@@ -10,12 +10,14 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@popperjs/core": "^2.11.5",
     "@tiptap/extension-mention": "^2.0.0-beta.95",
     "@tiptap/extension-placeholder": "^2.0.0-beta.48",
     "@tiptap/starter-kit": "^2.0.0-beta.183",
     "@tiptap/vue-3": "^2.0.0-beta.90",
     "@vueform/multiselect": "^2.3.3",
     "@vueuse/core": "^8.3.1",
+    "floating-vue": "^2.0.0-beta.16",
     "html-to-image": "^1.9.0",
     "html2canvas": "^1.4.1",
     "pinia": "^2.0.11",
@@ -24,7 +26,8 @@
     "vue": "^3.2.31",
     "vue-router": "^4.0.12",
     "vue-select": "^4.0.0-beta.3",
-    "vue-tippy": "^6.0.0-alpha.58"
+    "vue-tippy": "^6.0.0-alpha.58",
+    "vue3-popper": "^1.4.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.2",
