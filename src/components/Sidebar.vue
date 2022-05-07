@@ -7,13 +7,9 @@ import 'remixicon/fonts/remixicon.css'
 
 import MentioningHexPopup from "@/components/MentioningHexPopup.vue";
 
-import vSelect from 'vue-select'
-import "vue-select/dist/vue-select.css";
-
 import MentionedByTag from "@/components/MentionedByTag.vue"
 import MentionedByTag2 from "@/components/MentionedByTag2.vue"
 import MentionedByTagPopper from "@/components/MentionedByTagPopper.vue"
-
 
 
 const es = useEditorStore();
@@ -139,19 +135,7 @@ const hexByUUID = hs.hexByUUID;
                   <img class="terrain-picker-hex" v-bind="{ src: terrainProperties.file }" />
                 </div>
               </div>
-            </div>
-
-            <!-- If the terrain is being shown as a dropdown -->
-            <div class="card-content" v-if="es.terrainSectionVisible && !es.showTerrainsAsPanel">
-              <v-select v-model="hexByUUID(es.activeHexes[0]).terrain" :options="es.terrainDropdownOptions" :reduce="terrain => terrain.label">
-                <template #option="{label, file}">
-                  <span class="terrain-dropdown-option">
-                    <img class="terrain-picker-hex" v-bind="{src: file}"/>
-                    <span class="terrain-dropdown-text">{{label}}</span>
-                  </span>
-                </template>
-              </v-select>
-            </div>
+            </div>            
           </div>
         </div>
 

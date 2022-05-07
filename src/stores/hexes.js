@@ -357,14 +357,12 @@ export const useHexesStore = defineStore({
         this.hexes[hexToRemove.row - 1].splice(hexToRemove.column - 1)
     },
     setHexTerrain(thisHex, terrain, maintainEdge) {
-        console.log('hex is', thisHex)
         thisHex.terrain = terrain;
         if (terrain != 'Default' && maintainEdge) {
             this.maintainEmptyMapEdge(thisHex.row, thisHex.column)
         }
     },
     setHexIcon(thisHex, icon) {
-        console.log('Setting icon -', icon, 'for', thisHex)
         thisHex.icon = icon;
     },
     shiftHexNumbers() {
@@ -529,7 +527,6 @@ export const useHexesStore = defineStore({
         return null
     },
     generateTerrain(thisHex, odds, maintainEmptyEdge) {
-        console.log('generateTerrain')
         const terrainWithinTwoCount = this.terrainWithinTwo(thisHex.uuid);
         var terrains = []
         var terrainWeights = []
@@ -554,13 +551,11 @@ export const useHexesStore = defineStore({
 
         const thisTerrain = this.weightedRandom(terrains, terrainWeights)
 
-        console.log('passing hex to setHexTerrain', thisHex)
         this.setHexTerrain(thisHex, thisTerrain, maintainEmptyEdge)
     },
     // overwrite options: 'full' - change everything, 'description' - keep tags, generate new description,
     // 'none' - don't change it
     generateHexContents(thisHex, overwrite) {
-        console.log("!!!!!!!!!!!!! Contents for hex", thisHex.id, "from generateHexContents")
 
         const es = useEditorStore()
 
@@ -677,7 +672,6 @@ export const useHexesStore = defineStore({
 
                     // Description
                     var descriptionsAndHooks = ""
-                    console.log(tag, tagDetails.description)
                     tagDetails.description.forEach((option) => {
                         if (hexOptions.mention == 'any') {
                             options.push(option.text);
@@ -693,7 +687,6 @@ export const useHexesStore = defineStore({
                     // Hooks
                     options = []
                     weights = []
-                    console.log(tag, tagDetails.hook)
                     tagDetails.hook.forEach((option) => {
                         if (hexOptions.mention == 'any') {
                             options.push(option.text);
@@ -735,7 +728,6 @@ export const useHexesStore = defineStore({
         const name = this.randomChoice(this.contentTags[element.type][element.tag].names);
         element.text = element.text.replace(reName, name);
         element.text = element.text.replace(reTerrain, terrain);
-        console.log('element is now', element)
 
         return {'element': element, 'name': name};
     }, 
@@ -743,11 +735,7 @@ export const useHexesStore = defineStore({
         const reChoice = new RegExp('[#!][a-zA-Z0-9|]+')
 
         var text = element.text;
-        console.log('text:', element)
         const choiceMatches = text.match(reChoice);
-        console.log('element', element)
-        console.log('text:', text)
-        console.log('matches:', choiceMatches)
 
 
         if (choiceMatches != null) {
@@ -756,15 +744,13 @@ export const useHexesStore = defineStore({
                 const choiceType = matchSplitOptions[0].substring(0,1)
                 matchSplitOptions[0] = matchSplitOptions[0].substring(1)
                 const choiceList = this.randomChoice(matchSplitOptions)
-                console.log('opt:', matchSplitOptions)
-                console.log('choiceList:', choiceList)
+
                 if (choiceType == "#") {
                     text = text.replace(reChoice, this.randomChoice(this.contentTags[element.type][element.tag][choiceList]))
                 } else if (choiceType == "!") {
                     text = text.replace(reChoice, this.randomChoice(this.globalFillLists[choiceList]))
                 }
                 
-                console.log('new text:', text)
             })
             element.text = text
             return this.resolveContentChoices(element)
@@ -803,7 +789,6 @@ export const useHexesStore = defineStore({
         // Regex to use instead for getting params above: const r = new RegExp('@[a-zA-Z0-9|:<=>]+', 'g')
         const reMention = new RegExp('@[-a-zA-Z0-9|:=]+', 'g')
 
-        console.log('blocks', blocks)
         blocks.forEach((block) => {
             const mentionMatches = block.content.match(reMention);
             if (mentionMatches == null) {
@@ -839,10 +824,7 @@ export const useHexesStore = defineStore({
                         constraints: matchConstraints
                     }
 
-                    const t1 = performance.now()
                     const matchingHex = this.getMatchingHex(matchParams, thisHex)
-                    const t2 = performance.now()
-                    console.log('MENT-TIME: getMatchingHex', t2 - t1)
                     resolvedMentions.push(matchingHex.uuid);
                     if (matchingHex.type != 'existing') {
                         resolveNewTags.push({tag: matchParams.tag, uuid: matchingHex.uuid})
@@ -933,14 +915,11 @@ export const useHexesStore = defineStore({
             var element = descriptionElements[i];
             
             var elementPlus = this.resolveNameAndTerrain(element, thisHex.terrain)
-            console.log('en', elementPlus)
             var text = this.resolveContentChoices(elementPlus.element);
-            console.log('t', text)
 
             var blocks = this.resolveLineBreaks(text);
 
             blocks = this.resolveContentMentions(thisHex, blocks, resolveNewTags);
-            console.log('blocks pt2', blocks)
 
             description = this.setTiptapNodes(description, blocks, element.tag, elementPlus.name);
             if (i < descriptionElements.length - 1) {
@@ -1096,24 +1075,18 @@ export const useHexesStore = defineStore({
             }
         })
         var tf = performance.now()
-        console.log("CONST---TIME: ", tf - t0)
 
       
 
 
-        const t1 = performance.now()
         var matchType = null;
         if (taggedHexes.preferred.length > 2) {
             const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
-            const t2 = performance.now()
-            console.log('RESOLVE---TIME: 1: ', t2 - t1)
             return c;
 
         } else if (taggedHexes.preferred.length > 0 && emptyHexes.preferred.length > 4) {
             if (this.randomChoice(['empty', 'existing']) == 'existing') {
                 const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
-                const t2 = performance.now()
-                console.log('RESOLVE---TIME: 2: ', t2 - t1)
                 return c
 
             } else {
@@ -1121,14 +1094,10 @@ export const useHexesStore = defineStore({
                 const thisHex = hexByUUID(this.randomChoice(emptyHexes.preferred))
                 thisHex.startingTags.push(tag)
                 const c = { uuid: thisHex.uuid, type: "empty" }
-                const t2 = performance.now()
-                console.log('RESOLVE---TIME: 3: ', t2 - t1)
                 return c;
             }
         } else if (taggedHexes.preferred.length > 0) {
             const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
-            const t2 = performance.now()
-            console.log('RESOLVE---TIME: 4: ', t2 - t1)
             return c;
 
         // Need to add a mechanism to apply the new tag
@@ -1137,8 +1106,6 @@ export const useHexesStore = defineStore({
             const thisHex = hexByUUID(this.randomChoice(emptyHexes.preferred))
             thisHex.startingTags.push(tag)
             const c = { uuid: thisHex.uuid, type: "empty" }
-            const t2 = performance.now()
-            console.log('RESOLVE---TIME: 5: ', t2 - t1)
             return c;
 
         } else if (otherHexes.preferred.length > 0) {
@@ -1146,21 +1113,15 @@ export const useHexesStore = defineStore({
             const thisHex = hexByUUID(this.randomChoice(otherHexes.preferred))
             thisHex.startingTags.push(tag)
             const c = { uuid: thisHex.uuid, type: "random" }
-            const t2 = performance.now()
-            console.log('RESOLVE---TIME: 6: ', t2 - t1)
             return c;
 
         } else if (taggedHexes.preferred.length > 2) {
             const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
-            const t2 = performance.now()
-            console.log('RESOLVE---TIME: 7: ', t2 - t1)
             return c;
 
         } else if (taggedHexes.preferred.length > 0 && emptyHexes.length.preferred > 4) {
             if (this.randomChoice(['empty', 'existing']) == 'existing') {
                 const c = { uuid: this.randomChoice(taggedHexes.preferred), type: 'existing' };
-                const t2 = performance.now()
-                console.log('RESOLVE---TIME: 8: ', t2 - t1)
                 return c;
 
             } else {
@@ -1168,14 +1129,10 @@ export const useHexesStore = defineStore({
                 const thisHex = hexByUUID(this.randomChoice(emptyHexes.preferred))
                 thisHex.startingTags.push(tag)
                 const c = { uuid: thisHex.uuid, type: "empty" }
-                const t2 = performance.now()
-                console.log('RESOLVE---TIME: 9: ', t2 - t1)
                 return c;
             }
         } else if (taggedHexes.accepted.length > 0) {
             const c = { uuid: this.randomChoice(taggedHexes.accepted), type: 'existing' };
-            const t2 = performance.now()
-            console.log('RESOLVE---TIME: 10: ', t2 - t1)
             return c;
 
         // Need to add a mechanism to apply the new tag
@@ -1184,8 +1141,6 @@ export const useHexesStore = defineStore({
             const thisHex = hexByUUID(this.randomChoice(emptyHexes.accepted))
             thisHex.startingTags.push(tag)
             const c = { uuid: thisHex.uuid, type: "empty" }
-            const t2 = performance.now()
-            console.log('RESOLVE---TIME: 11: ', t2 - t1)
             return c;
 
         } else if (otherHexes.accepted.length > 0) {
@@ -1193,8 +1148,6 @@ export const useHexesStore = defineStore({
             const thisHex = hexByUUID(this.randomChoice(otherHexes.accepted))
             thisHex.startingTags.push(tag)
             const c = { uuid: thisHex.uuid, type: "random" }
-            const t2 = performance.now()
-            console.log('RESOLVE---TIME: 12: ', t2 - t1)
             return c;
 
         // Need to add a mechanism to apply the new tag
@@ -1202,14 +1155,11 @@ export const useHexesStore = defineStore({
             const thisHex = this.randomChoice(this.hexes.flat())
             thisHex.startingTags.push(tag)
             const c = { uuid: thisHex.uuid, type: "random" }
-            const t2 = performance.now()
-            console.log('RESOLVE---TIME: 13: ', t2 - t1)
             return c;
         }
     },
     resolveHexTagUpdate(thisHex, tag) {        
 
-        console.log("!!!!!!-------------!!!!!!! Contents for hex", thisHex.id, "from resolveHexTagUpdate !!!!!!-------------!!!!!!!")
 
 
         var useMentions = 'any'
@@ -1327,10 +1277,8 @@ export const useHexesStore = defineStore({
     logHexDistances() {
         const es = useEditorStore();
         const hexByUUID = this.hexByUUID;
-        console.log("active hexes are", es.activeHexes)
         const hexA = hexByUUID(es.activeHexes[0])
         const hexB = hexByUUID(es.activeHexes[1])
-        console.log("Distance between hexes", hexA.id, "and", hexB.id, "is", this.hexToHexDistance(hexA, hexB))
     },
     mentionedByHexes(hexUUID) {
         var mentioningHexes = []
@@ -1441,14 +1389,11 @@ export const useHexesStore = defineStore({
     },
     getContentAsPlainText(content) {
         var text = ""
-        console.log(content)
         if (content != null) {
             const hexByUUID = this.hexByUUID
             content.content.forEach((paragraph) => {
-                console.log('par')
                 if (Object.keys(paragraph).includes('content')) {
                     paragraph.content.forEach((node) => {
-                        console.log('node')
                         if (node.type == "text") {
                             text = text + node.text
                         } else if (node.type == "mention") {
@@ -1458,7 +1403,6 @@ export const useHexesStore = defineStore({
                 }
             })
         }
-        console.log(text)
         return text.substring(0, 60)
     },
     drawTest() {
@@ -1516,7 +1460,6 @@ export const useHexesStore = defineStore({
         const hexHeightScaled = hexHeight * scale
         const hexWidthScaled = hexWidth * scale
 
-        console.log('unscaled', hexWidth, hexHeight, 'scale', scale, 'scaled', hexWidthScaled, hexHeightScaled)
 
         const canvas = document.createElement('canvas');
         if (this.hexes[1].length > this.hexes[0].length) {
@@ -1531,7 +1474,6 @@ export const useHexesStore = defineStore({
 
         const images = {};
         var imageCount = 0; // number of loaded images;
-        console.log('no really, hexes', this.hexes)
 
         var imageFiles = [];
         Object.keys(es.terrainToImage).forEach((terrain) => {
@@ -1557,7 +1499,6 @@ export const useHexesStore = defineStore({
     exportMapWithLoadedImages(canvas, ctx, images, hexHeight, hexWidth){
         const es = useEditorStore()
         // all images have loaded and can be rendered
-        console.log('hexes', this.hexes)
         const fontSize = hexWidth/110 * 18
         ctx.fillStyle = 'white'
         ctx.font = 'bold '+fontSize+'px arial';   // TODO: change the 18 to parametric with hex size
@@ -1591,7 +1532,6 @@ export const useHexesStore = defineStore({
                     // Draw hex ID (depending on settings)
                     if (es.mapExportAsPNGShowHexNumbers) {
                         const textSize = ctx.measureText(hex.id).width
-                        console.log('hex width', hexWidth, 'text size', textSize)
                         ctx.fillText(hex.id, 
                             (hexWidth + (hexWidth/2 + 2.5))*j + (hexWidth-textSize)/2 + shift - hexWidth/2,
                             hexHeight*i - (hexHeight/2 - 0.5)*(i+1) + hexHeight/4.5

@@ -29,7 +29,7 @@ export const useEditorStore = defineStore({
         terrainType: "temperate forest",
         terrainDropdownOpen: false,
         settingsOpen: false,
-        showTerrainsAsPanel: false,
+        showTerrainsAsPanel: true,
         saveName: null,
         showLoadModal: false,
         loadName: null,
@@ -44,7 +44,6 @@ export const useEditorStore = defineStore({
         activeHexImage(state) {
             const hs = useHexesStore();
             if (this.activeHexes.length == 1) {
-                console.log('trying to read terrain path for', hs.hexByUUID(state.activeHexes[0]).terrain)
                 return state.terrainToImage[hs.hexByUUID(state.activeHexes[0]).terrain].file
             } else {
                 return state.multipleHexesImage.file
@@ -69,7 +68,6 @@ export const useEditorStore = defineStore({
                 t["label"] = terrain
                 terrains.push(t)
             })
-            console.log('terrains are', terrains)
             return terrains
         },
         listSavedMaps(state) {
@@ -223,7 +221,6 @@ export const useEditorStore = defineStore({
             const hs = useHexesStore()
 
             const content = this.loadData("hexmapmaker-map-" + this.loadName)
-            console.log('content is', content)
 
             hs.hexes = content.hexes;
             hs.leftmostColumn = content.leftmostColumn;
@@ -251,7 +248,6 @@ export const useEditorStore = defineStore({
                     'value': localStorage.getItem(key)
                 })
             })
-            console.log('all keys and values', m)
         },
         toggleSaveNameModal() {
             this.showSaveNameModal = !this.showSaveNameModal

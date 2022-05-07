@@ -3,13 +3,14 @@ import { Node as ProseMirrorNode } from 'prosemirror-model'
 import { PluginKey } from 'prosemirror-state'
 import Suggestion, { SuggestionOptions } from '@tiptap/suggestion'
 import CustomMentionComponent from "./components/CustomMentionComponent.vue"
+import CustomMentionComponentNoTooltip from "./components/CustomMentionComponentNoTooltip.vue"
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 
 
 
 export type MentionOptions = {
   HTMLAttributes: Record<string, any>,
-  suggestion: Omit<SuggestionOptions, 'editor'>,
+  suggestion: Omit<SuggestionOptions, 'editor'>
 }
 
 export const MentionPluginKey = new PluginKey('mention')
@@ -20,7 +21,6 @@ export const Mention = Node.create<MentionOptions>({
   addOptions() {
     return {
       HTMLAttributes: {},
-      
       suggestion: {
         char: '@',
         pluginKey: MentionPluginKey,
@@ -91,18 +91,34 @@ export const Mention = Node.create<MentionOptions>({
   },
 
   parseHTML() {
-    return [
-      {
-        tag: `custom-mention-component[data-mention-uuid]`,
-      },
-    ]
+    if (this.options.HTMLAttributes.class.includes('no-tooltip')) {
+      return [
+        {
+          tag: `custom-mention-component-no-tooltip[data-mention-uuid]`,
+        },
+      ]
+    } else {
+      return [
+        {
+          tag: `custom-mention-component[data-mention-uuid]`,
+        },
+      ]
+    }
+    
   },
 
   renderHTML({ node, HTMLAttributes }) {
-    return [
-      'custom-mention-component',
-      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)
-    ]
+    if (this.options.HTMLAttributes.class.includes('no-tooltip')) {
+      return [
+        'custom-mention-component-no-tooltip',
+        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)
+      ]
+    } else {
+      return [
+        'custom-mention-component',
+        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)
+      ]
+    }
   },
 
   addKeyboardShortcuts() {
@@ -140,6 +156,11 @@ export const Mention = Node.create<MentionOptions>({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(CustomMentionComponent)
+    if (this.options.HTMLAttributes.class.includes('no-tooltip')) {
+      return VueNodeViewRenderer(CustomMentionComponentNoTooltip)
+    } else {
+      return VueNodeViewRenderer(CustomMentionComponent)
+    }
+    
   },
 })

@@ -14,20 +14,6 @@ const app = createApp(App)
 app.use(createPinia())
 //app.use(router)
 
-app.use(
-    VueTippy,
-    // optional
-    {
-      directive: 'tippy', // => v-tippy
-      component: 'tippy', // => <tippy/>
-      componentSingleton: 'tippy-singleton', // => <tippy-singleton/>,
-      defaultProps: {
-        allowHTML: true
-      }, // => Global default options * see all props
-    }
-  )
-
-  app.use(FloatingVue)
-
+app.config.unwrapInjectedRef = true
 
 app.mount('#app')

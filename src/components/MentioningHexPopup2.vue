@@ -3,9 +3,8 @@
 import TextEditor from "@/components/TextEditor.vue";
 
 const props = defineProps({
-  content: {
+  hex: {
     type: Object,
-    default: null
   }
 })
 
@@ -14,7 +13,7 @@ const props = defineProps({
 <template>
 
 <div class="popupContent">
-  <TextEditor :modelValue="content" />
+  <TextEditor :modelValue="hex.content" :showMentionTooltip="false" />
 </div>
 
 </template>

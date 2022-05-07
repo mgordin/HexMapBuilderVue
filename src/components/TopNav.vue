@@ -3,7 +3,6 @@ import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
 import 'remixicon/fonts/remixicon.css'
 import vSelect from 'vue-select'
-import "vue-select/dist/vue-select.css";
 import Multiselect from '@vueform/multiselect'
 import html2canvas from 'html2canvas';
 

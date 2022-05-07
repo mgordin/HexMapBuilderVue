@@ -2,17 +2,18 @@
   <node-view-wrapper class="custom-mention-component" as="span">
       <span 
         class="hex-mention"
-        :id="'hex-mention-'+hex.id"
+        :id="'hex-mention-'+hexByUUID(node.attrs.uuid).id"
         @mouseenter="show"
         @focus="show"
         @blur="hide"
         @mouseleave="hide"
-        @click="es.selectHex(hex, {'shiftKey': false})"
+        @click="es.selectHex(hexByUUID(node.attrs.uuid), {'shiftKey': false})"
       > 
-        {{ hex.id }} 
+        {{ hexByUUID(node.attrs.uuid).id }}
+        
       </span>
-      <div class="tooltip" :id="'tooltip-hex-mention-'+numberToLetters(hex.uuid)" role="tooltip">
-          <MentioningHexPopup2 :content="hex.content"/>
+      <div class="tooltip" :id="'tooltip-hex-mention-'+numberToLetters(hexByUUID(node.attrs.uuid).uuid)" role="tooltip">
+          <MentioningHexPopup2 :hex="hexByUUID(node.attrs.uuid)" />
           <div id="arrow" data-popper-arrow></div>
       </div>
   </node-view-wrapper>
@@ -37,19 +38,14 @@ const props = defineProps({
   node: {
     type: Object,
     required: true,
-  },
+  }
 })
-
-const hex = hexByUUID(props.node.attrs.uuid)
-
-console.log('hex is', hex)
-console.log('content is', hex.content)
 
 var popperInstance, mention, tooltip = null
 
 onMounted(() => {
-    mention = document.querySelector('#hex-mention-'+hex.id);
-    tooltip = document.querySelector('#tooltip-hex-mention-'+numberToLetters(hex.uuid));
+    mention = document.querySelector('#hex-mention-'+hexByUUID(props.node.attrs.uuid).id);
+    tooltip = document.querySelector('#tooltip-hex-mention-'+numberToLetters(hexByUUID(props.node.attrs.uuid).uuid));
 
     popperInstance = createPopper(mention, tooltip, {
         modifiers: [
@@ -60,15 +56,11 @@ onMounted(() => {
             },
             },
         ],
-    });
-
-
-    
+    }); 
 })
 
 // Popper stuff
 function show() {
-    console.log(popperInstance)
 
     // Make the tooltip visible
     tooltip.setAttribute('data-show', '');
@@ -78,8 +70,11 @@ function show() {
 }
 
 function hide() {
+  
+
     // Hide the tooltip
     tooltip.removeAttribute('data-show');
+
 }
 
 function numberToLetters(number) {

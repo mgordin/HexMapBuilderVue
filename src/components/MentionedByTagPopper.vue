@@ -9,7 +9,7 @@
     {{hex.id}}
 </span>
 <div class="tooltip" :id="'tooltip-hex-tag-'+numberToLetters(hex.uuid)" role="tooltip">
-    <MentioningHexPopup2 :content="hex.content"/>
+    <MentioningHexPopup2 :hex="hex"/>
     <div id="arrow" data-popper-arrow></div>
 </div>
 </template>
@@ -30,6 +30,7 @@ const props = defineProps({
       }
 })
 
+console.log('in tag for '+props.hex.id+' hex is', props.hex)
 
 var popperInstance, button, tooltip = null
 
@@ -53,9 +54,6 @@ onMounted(() => {
 })
 
 function show() {
-    console.log(popperInstance)
-    console.log('hex is', props.hex)
-    console.log('letters are', numberToLetters(props.hex.uuid))
 
     // Make the tooltip visible
     tooltip.setAttribute('data-show', '');

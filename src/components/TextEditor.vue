@@ -29,11 +29,19 @@ const props = defineProps({
   modelValue: {
       type: Object, // String for HTML - but HTML seems to break mentions
       default: '',
-    }
+    },
+  showMentionTooltip: {
+    type: Boolean,
+    default: true
+  }
 })
 
 const emits = defineEmits(['update:modelValue'])
 
+var thisClass = "mention"
+if (!props.showMentionTooltip) {
+  thisClass = "mention no-tooltip"
+}
 
 const editor = new Editor({
       extensions: [
@@ -43,7 +51,7 @@ const editor = new Editor({
         }),
         Mention.configure({
           HTMLAttributes: {
-            class: 'mention',
+            class: thisClass,
           },
           suggestion: {
             items: ({ query }) => {

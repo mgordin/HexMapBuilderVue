@@ -3,8 +3,7 @@
 import { useHexesStore } from '@/stores/hexes'
 import { useEditorStore } from '@/stores/editor'
 
-import vSelect from 'vue-select'
-import "vue-select/dist/vue-select.css";
+import Multiselect from '@vueform/multiselect'
 
 
 const hs = useHexesStore();
@@ -22,7 +21,14 @@ const es = useEditorStore();
             <button class="delete" aria-label="close" @click="es.toggleLoadModal"></button>
         </header>
         <section class="modal-card-body">
-            <v-select v-model="es.loadName" :options="es.listSavedMaps" />
+            <Multiselect
+                v-model="es.loadName"
+                :close-on-select="true"
+                :searchable="true"
+                :create-option="false"
+                placeholder="Select map to load..."
+                :options="es.listSavedMaps"
+            />
         </section>
         <footer class="modal-card-foot">
             <button class="button is-primary" @click="es.loadLocalMap">Load Selected Map</button>
