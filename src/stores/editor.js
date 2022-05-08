@@ -38,7 +38,8 @@ export const useEditorStore = defineStore({
         exportToPNGTrigger: true,
         mapExportAsPNGShowHexNumbers: true,
         mapExportAsPNGShowHexIcons: true,
-        baseFractionWithContent: 0.5
+        baseFractionWithContent: 0.5,
+        showInfoModal: false
     }),
     getters: {
         activeHexImage(state) {
@@ -239,6 +240,9 @@ export const useEditorStore = defineStore({
         
         toggleLoadModal() {
             this.showLoadModal = !this.showLoadModal
+        },
+        toggleInfoModal() {
+            this.showInfoModal = !this.showInfoModal
         },
         listAllStored() {
             var m = []

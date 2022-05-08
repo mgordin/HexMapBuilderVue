@@ -6,6 +6,7 @@ import InitializeMapModal from './components/InitializeMapModal.vue';
 import SettingsModal from './components/SettingsModal.vue';
 import LoadMapModal from './components/LoadMapModal.vue';
 import SaveNameModal from './components/SaveNameModal.vue';
+import InfoModal from './components/InfoModal.vue';
 import TopNav from '@/components/TopNav.vue'
 import MapEditor from './components/MapEditor.vue'
 import { useMagicKeys, whenever } from '@vueuse/core'
@@ -34,6 +35,7 @@ whenever(ctrl_s, () => es.saveMapLocally())
   <SettingsModal />
   <LoadMapModal />
   <SaveNameModal />
+  <InfoModal />
   <TopNav />
   <MapEditor v-if="es.showEditor"/>
   

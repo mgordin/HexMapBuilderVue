@@ -59,6 +59,7 @@ function exportMapToPNG(hexHeight, hexWidth) {
                 </div>
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
+            <a class="navbar-item" @click="es.toggleInfoModal">Info</a>
         </div>
         <div class="navbar-end">
             <div class="navbar-item save-indicator" v-if="es.savingIndicator">
