@@ -159,4 +159,9 @@ watch(() => props.modelValue, (currentValue, oldValue) => {
   pointer-events: none;
   height: 0;
 }
+
+.ProseMirror {
+  color: black;
+  background: white;
+}
 </style>

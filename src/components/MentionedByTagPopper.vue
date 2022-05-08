@@ -82,15 +82,17 @@ function numberToLetters(number) {
 </script>
 
 <style>
+
 .tooltip {
-    background: #333;
-    color: white;
+    background: white;
+    color: black;
     font-weight: bold;
     padding: 4px 8px;
     font-size: 13px;
     border-radius: 4px;
     display: none;
     z-index: 999;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .tooltip[data-show] {
@@ -107,6 +109,7 @@ function numberToLetters(number) {
 
 #arrow {
   visibility: hidden;
+  
 }
 
 #arrow::before {

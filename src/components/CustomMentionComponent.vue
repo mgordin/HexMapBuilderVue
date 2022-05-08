@@ -94,6 +94,10 @@ function numberToLetters(number) {
 
 <style>
 
+.hex-mention {
+  white-space: nowrap;
+}
+
 .custom-mention-component {
   cursor: pointer;
 }
