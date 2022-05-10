@@ -141,6 +141,7 @@
         "temple-7": {"file": "./icons/temple_7-glow.png", "selected": false},
         "temple-8": {"file": "./icons/temple_8-glow.png", "selected": false},
         "temple-9": {"file": "./icons/temple_9-glow.png", "selected": false},
+        "thorns": {"file": "./icons/thorns-glow.png", "selected": false},
         "totem": {"file": "./icons/totem-glow.png", "selected": false},
         "totem-2": {"file": "./icons/totem_2-glow.png", "selected": false},
         "tower": {"file": "./icons/tower-glow.png", "selected": false},
@@ -287,6 +288,11 @@
         "neutralDeity": [
             "!deityType of Death",
             "!deityType of Fortune"
+        ],
+        "deity": [
+            "!goodDeity",
+            "!neutralDeity",
+            "!evilDeity"
         ]
     },
     "contentTags": {
@@ -298,7 +304,7 @@
                 "ruler": ["headman", "council of elders"],
                 "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
                 "wealth": [
-                    "This village is quite prosperous. The buildings are in good repair and the people are dressed in clear, well-repaired clothes.",
+                    "This village is quite prosperous. The buildings are in good repair and the people are dressed in clean, well-repaired clothes.",
                     "This village is doing fine - about as well as you'd expect from an average village in this region.",
                     "This village is just hanging on. There are several abandoned houses, and the people look thin and hungry."
                 ],
@@ -514,6 +520,19 @@
                     {"text": "One can pray to the !deityType of Death here and be heard. Priests from @town||city come here once a year to worship - and not all of them return to their temple.", "odds": 1}
                 ]
             },
+            "crashed-airship": {
+                "odds": 1,
+                "names": ["crashed airship"],
+                "icon": "shipwreck",
+                "description": [
+                    {"text": "Parts of the airship are scattered across a hundred meter area.", "odds": 1},
+                    {"text": "The air ship is mostly intact, but shows sign of attack.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The airship was carrying a powerful arcane artifact, and its trie owner has come from a distant land to find it.", "odds": 1},
+                    {"text": "The airship is actually an enormous and unusually talkative mimic.  It's run out of reading material and will share local secrets with anyone who brings it more.", "odds": 1}
+                ]
+            },
             "crypt": {
                 "odds": 1,
                 "names": ["crypt"],
@@ -559,6 +578,20 @@
                     {"text": "Humanoids living here are friendly to outsiders, but persecuted by the people of @settlement.", "odds": 1}
                 ]
             },
+            "ruined-city": {
+                "odds": 1,
+                "names": ["ruined city"],
+                "icon": "ruins-3",
+                "description": [
+                    {"text": "An enormous city, blackened by ancient flames.", "odds": 1},
+                    {"text": "A city which some terrible calamity befell.  The stones are broken and twisted.", "odds": 1},
+                    {"text": "A city unmarked by any obvious horrors, yet abandoned.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "A dread shapeshifter now lairs amidst the ruins.  It toys with those who enter, luring them into traps and taunting them.  It keeps a treasure horde in the heart of the ruins.", "odds": 1},
+                    {"text": "The whole city was built to channel magical energy for a tremendous ritual that was never carried out.  It could be repurposed.  The wizard of @wizard-tower knows about this.", "odds": 1}
+                ]
+            },
             "statue": {
                 "odds": 1,
                 "names": ["statue"],
@@ -573,9 +606,34 @@
                     {"text": "This &name hides the secret entrance to a long-dead wizard's lair.", "odds": 1},
                     {"text": "The &name is actually a powerful ancient weapon. The wizard of @wizard-tower is trying to find a way to activate it.", "odds": 1}
                 ]
+            },
+            "tomb": {
+                "odds": 1,
+                "names": ["tomb"],
+                "icon": "shrine-2",
+                "description": [
+                    {"text": "A !size tomb made of dark stone, gargoyles watching from the roof.", "odds": 1},
+                    {"text": "A !size tomb carved with motifs of the !deity.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "A vampire has arisen here after sleeping for millenia.  It seeks its reincarnated lover, who dwells in @settlement.", "odds": 1},
+                    {"text": "A demon-summoning ritual went wrong here several hundred years ago.  One can still come here and speak the demon's name to parley with it across the planes.", "odds": 1}
+                ]
             }
         },
         "wilderness": {
+            "awakened-animals": {
+                "odds": 1,
+                "names": ["awakened animals"],
+                "icon": "cattle-2",
+                "description": [
+                    {"text": "", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "A group of awakened squirrels has built a miniature town in a large oak tree.\nRecently a faerie has stolen their lucky accorn, and the squirrels want it back. They know a secret about treasure in @ruin:dist=lt3s which they can trade for it.", "odds": 1},
+                    {"text": "A pack of awakened wolves living in a large cave.\nThey watch over a group of abandoned children they have gradually picked up, or varying ages. The wolves worry about how they will be able to send the older children to school soon.", "odds": 1}
+                ]
+            },
             "beast-lair": {
                 "odds": 1,
                 "names": ["beast lair"],
@@ -616,6 +674,19 @@
                     {"text": "A gathering here is approaching to choose the next High Druid.  A necromancer lairing in @ruin is trying to set a trap for the druids.", "odds": 1}
                 ]
             },
+            "fey": {
+                "odds": 1,
+                "names": ["fey"],
+                "icon": "thorns",
+                "description": [
+                    {"text": "A fey palace, shimmering with rainbow colors.", "odds": 1},
+                    {"text": "The magical hunting camp of a fey lord.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The ruler of this place has fallen in love with a human, but that human has disappeared - kidnapped by a cult operating in @settlement to try and get leverage against the fey noble in the future. The noble will pay handsomely in fey magics for the human's safe return.", "odds": 1},
+                    {"text": "A trickster fey living here is tormenting the people of @settlement, and those people are willing to pay to have someone force the fey to stop.", "odds": 1}
+                ]
+            },
             "hermitage": {
                 "odds": 1,
                 "names": ["hermitage", "hermit's hut"],
@@ -647,7 +718,7 @@
             "monster-lair": {
                 "odds": 1,
                 "names": ["monster lair"],
-                "icon": "danger-2",
+                "icon": "monsters-3",
                 "description": ["ref", "wilderness:beast-lair"],
                 "hook": ["ref", "wilderness:beast-lair"]
             },
