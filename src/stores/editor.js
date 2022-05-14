@@ -39,7 +39,10 @@ export const useEditorStore = defineStore({
         mapExportAsPNGShowHexNumbers: true,
         mapExportAsPNGShowHexIcons: true,
         baseFractionWithContent: 0.5,
-        showInfoModal: false
+        showInfoModal: false,
+        terrainToBeRandomized: false,
+        tagsToBeRandomized: false,
+        descriptionToBeRandomized: false
     }),
     getters: {
         activeHexImage(state) {
@@ -258,6 +261,28 @@ export const useEditorStore = defineStore({
         },
         triggerExportToPNG() {
             this.exportToPNGTrigger = true;
+        },
+        setRandomizeIndicator(indicators) {
+            if (indicators.includes('description')) {
+                this.descriptionToBeRandomized = true;
+            }
+            if (indicators.includes('tags')) {
+                this.tagsToBeRandomized = true;
+            }
+            if (indicators.includes('terrain')) {
+                this.terrainToBeRandomized = true;
+            }
+        },
+        removeRandomizeIndicator(indicators) {
+            if (indicators.includes('description')) {
+                this.descriptionToBeRandomized = false;
+            }
+            if (indicators.includes('tags')) {
+                this.tagsToBeRandomized = false;
+            }
+            if (indicators.includes('terrain')) {
+                this.terrainToBeRandomized = false;
+            }
         }
     }
 })

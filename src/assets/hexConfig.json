@@ -21,7 +21,7 @@
         "arrow": { "file": "./icons/arrow-glow.png", "selected": false },
         "beast": { "file": "./icons/beast-glow.png", "selected": false },
         "bridge": { "file": "./icons/bridge-glow.png", "selected": false },
-        "bridge_2": { "file": "./icons/bridge_2-glow.png", "selected": false },
+        "bridge-2": { "file": "./icons/bridge_2-glow.png", "selected": false },
         "bridge_3": { "file": "./icons/bridge_3-glow.png", "selected": false },
         "building": { "file": "./icons/building-glow.png", "selected": false },
         "camp": { "file": "./icons/camp-glow.png", "selected": false },
@@ -364,7 +364,7 @@
                     {"text": "A lonely &name surrounded by &terrain.", "odds": 1}
                 ],
                 "hook": [
-                    {"text": "The #majorResident of this &name is secretly a werewolf.  It is said that the waters of @magic-spring:dist=gt3h can cure such an afflication.", "odds": 1},
+                    {"text": "The #majorResident of this &name is secretly a werewolf.  It is said that the waters of @magic-spring:dist=gt3h can cure such an affliction.", "odds": 1},
                     {"text": "Humanoids living in the ruins in @ruin:dist=lt3s have been attacking the &name at night.", "odds": 1}
                 ]
             },
@@ -505,6 +505,19 @@
                     {"text": "This ruin is !size.\nIt is said that a great treasure is buried somewhere under this village, but the village is now the lair of a powerful monster.", "odds": 1}
                 ]
             },
+            "ancient-bridge": {
+                "odds": 1,
+                "names": ["ancient bridge"],
+                "icon": "bridge-2",
+                "description": [
+                    {"text": "A stone bridge with troubling cracks running through it.", "odds": 1},
+                    {"text": "A bridge decorated with ancient inscriptions.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "A troll lives under this bridge and demands that all who pass play a board game with it.", "odds": 1},
+                    {"text": "On solstice nights, this bridge leads to another plane.  A noble from @manor||town||city is planning an expedition there to search for their daughter, who disappeared here at the last solstice.", "odds": 1}
+                ]
+            },
             "battlefield": {
                 "odds": 1,
                 "names": ["battlefield"],
@@ -529,7 +542,7 @@
                     {"text": "The air ship is mostly intact, but shows sign of attack.", "odds": 1}
                 ],
                 "hook": [
-                    {"text": "The airship was carrying a powerful arcane artifact, and its trie owner has come from a distant land to find it.", "odds": 1},
+                    {"text": "The airship was carrying a powerful arcane artifact, and its true owner has come from a distant land to find it.", "odds": 1},
                     {"text": "The airship is actually an enormous and unusually talkative mimic.  It's run out of reading material and will share local secrets with anyone who brings it more.", "odds": 1}
                 ]
             },
@@ -563,6 +576,20 @@
                     {"text": "A vampire hunter has come to @settlement:dist=lt3s claiming there is a vampire in this &name, but the locals there refuse to let them exhume any bodies.", "odds": 1},
                     {"text": "It is said that ghosts walk openly here on holy days of the !neutralDeity, and can give advice from beyond the grave to those who are brave or foolish enough.", "odds": 1},
                     {"text": "One gravestone here has been defaced. Any who come close to it hear strange whispers, which get louder the closer one gets to it.", "odds": 1}
+                ]
+            },
+            "mysterious-tower": {
+                "odds": 1,
+                "names": ["ancient tower", "ruined tower", "mysterious tower"],
+                "icon": "tower-2",
+                "description": [
+                    {"text": "An ancient tower of gleaming black stone.", "odds": 1},
+                    {"text": "A tower made of seamless white metal, showing no signs of wear.", "odds": 1},
+                    {"text": "A tower of living wood.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "This tower is larger on the inside than the outside, an each floor holds many doors to a different plane. To pass through any door, one must first complete a test the tower gives.", "odds": 1},
+                    {"text": "This tower was the site of a recent murder.  A well-known detective needs bodyguards to help him investigate it.", "odds": 1}
                 ]
             },
             "ruined-castle": {
@@ -630,8 +657,8 @@
                     {"text": "", "odds": 1}
                 ],
                 "hook": [
-                    {"text": "A group of awakened squirrels has built a miniature town in a large oak tree.\nRecently a faerie has stolen their lucky accorn, and the squirrels want it back. They know a secret about treasure in @ruin:dist=lt3s which they can trade for it.", "odds": 1},
-                    {"text": "A pack of awakened wolves living in a large cave.\nThey watch over a group of abandoned children they have gradually picked up, or varying ages. The wolves worry about how they will be able to send the older children to school soon.", "odds": 1}
+                    {"text": "A group of awakened squirrels has built a miniature town in a large oak tree.\nRecently a faerie has stolen their lucky acorn, and the squirrels want it back. They know a secret about treasure in @ruin:dist=lt3s which they can trade for it.", "odds": 1},
+                    {"text": "A pack of awakened wolves living in a large cave.\nThey watch over a group of abandoned children they have gradually picked up, of varying ages. The wolves worry about how they will be able to send the older children to school soon.", "odds": 1}
                 ]
             },
             "beast-lair": {
@@ -674,6 +701,20 @@
                     {"text": "A gathering here is approaching to choose the next High Druid.  A necromancer lairing in @ruin is trying to set a trap for the druids.", "odds": 1}
                 ]
             },
+            "dryad-grove": {
+                "odds": 1,
+                "names": ["dryad grove"],
+                "icon": "totem-2",
+                "description": [
+                    {"text": "A grove of beautiful birch trees.", "odds": 1},
+                    {"text": "A grove of majestic oaks.", "odds": 1},
+                    {"text": "A grove of tall cedars.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The dryad is incredibly bored.  She'll try and get passersby to stay for a time, or failing that, to bring new reading material.  She has a substantial library in her hidden home in the trees.", "odds": 1},
+                    {"text": "The dryad is trying to start a band to compete in the yearly band contest in @city.  Winners are granted a wish by the city's resident genie.", "odds": 1}
+                ]
+            },
             "fey": {
                 "odds": 1,
                 "names": ["fey"],
@@ -698,6 +739,18 @@
                 "hook": [
                     {"text": "The hermit speaks prophecies to those who treat them kindly.", "odds": 1},
                     {"text": "The hermit is actually the former ruler of @town||city, driven out by a conspiracy. They'll try to get the party to help them return to their former post.", "odds": 1}
+                ]
+            },
+            "hot-springs": {
+                "odds": 1,
+                "names": ["hot springs"],
+                "icon": "waterfall-2",
+                "description": [
+                    {"text": "Steaming hot springs.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The monkeys who frequent these hot springs can talk, and have the gift of far-sight. They enjoy offerings of precious spices.", "odds": 1},
+                    {"text": "The hot springs have real rejuvenative properties for those who soak in them.", "odds": 1}
                 ]
             },
             "magic-spring": {

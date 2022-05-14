@@ -96,15 +96,20 @@ function numberToLetters(number) {
 
 .hex-mention {
   white-space: nowrap;
+  break-inside: avoid;
 }
 
 .custom-mention-component {
   cursor: pointer;
+  white-space: nowrap;
+  break-inside: avoid;
 }
 
 .custom-mention-component:hover {
   background-color: hsl(0, 0%, 21%);
   color: white;
+  white-space: nowrap;
+  break-inside: avoid;
 }
 
 .tooltip {

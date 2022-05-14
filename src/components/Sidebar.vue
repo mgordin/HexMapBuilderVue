@@ -4,11 +4,6 @@ import { useHexesStore } from "@/stores/hexes";
 import TextEditor from "@/components/TextEditor.vue";
 import Multiselect from '@vueform/multiselect'
 import 'remixicon/fonts/remixicon.css'
-
-import MentioningHexPopup from "@/components/MentioningHexPopup.vue";
-
-import MentionedByTag from "@/components/MentionedByTag.vue"
-import MentionedByTag2 from "@/components/MentionedByTag2.vue"
 import MentionedByTagPopper from "@/components/MentionedByTagPopper.vue"
 
 
@@ -66,8 +61,18 @@ const hexByUUID = hs.hexByUUID;
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
             <header class="card-header has-background-primary">
+              <span class="rerandomize-indicator animate-flicker" v-if="es.descriptionToBeRandomized"> 
+                <i class="ri-magic-line ri-xl"></i>
+                <i class="ri-arrow-right-s-line ri-xl"></i>
+              </span>
               <p class="card-header-title">Hex Details</p>
-              <span class="icon randomize" title="Randomize description again with current tags" @click="hs.rerandomizeHexes('description')">
+              <span class="icon randomize" title="Randomize description again with current tags" 
+                @click="hs.rerandomizeHexes('description')"
+                @mouseenter="es.setRandomizeIndicator(['description'])"
+                @focus="es.setRandomizeIndicator(['description'])"
+                @mouseleave="es.removeRandomizeIndicator(['description'])"
+                @blur="es.removeRandomizeIndicator(['description'])"
+              >
                   <i class="ri-magic-fill ri-xl"></i>
                 </span>
               <span class="icon details" title="Collapse section" @click="es.toggleSection('text')">
@@ -87,8 +92,18 @@ const hexByUUID = hs.hexByUUID;
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
             <header class="card-header has-background-primary">
+                <span class="rerandomize-indicator animate-flicker" v-if="es.tagsToBeRandomized"> 
+                  <i class="ri-magic-line ri-xl"></i>
+                  <i class="ri-arrow-right-s-line ri-xl"></i>
+                </span>
                 <p class="card-header-title">Hex Tags</p>
-                <span class="icon randomize" title="Randomize tags and description again" @click="hs.rerandomizeHexes('tags+description')">
+                <span class="icon randomize" title="Randomize tags and description again" 
+                  @click="hs.rerandomizeHexes('tags+description')"
+                  @mouseenter="es.setRandomizeIndicator(['description', 'tags'])"
+                  @focus="es.setRandomizeIndicator(['description', 'tags'])"
+                  @mouseleave="es.removeRandomizeIndicator(['description', 'tags'])"
+                  @blur="es.removeRandomizeIndicator(['description', 'tags'])"
+                >
                   <i class="ri-magic-fill ri-xl"></i>
                 </span>
                 <span class="icon details" @click="es.toggleSection('tags')">
@@ -113,8 +128,18 @@ const hexByUUID = hs.hexByUUID;
         <div class="block">
           <div class="card">
             <header class="card-header has-background-primary">
+              <span class="rerandomize-indicator animate-flicker" v-if="es.terrainToBeRandomized"> 
+                <i class="ri-magic-line ri-xl"></i>
+                <i class="ri-arrow-right-s-line ri-xl"></i>
+              </span>
               <p class="card-header-title">Terrain</p>
-              <span class="icon randomize" title="Randomize terrain again" @click="hs.rerandomizeHexes('terrain')">
+              <span class="icon randomize" title="Randomize terrain again" 
+                @click="hs.rerandomizeHexes('terrain')"
+                @mouseenter="es.setRandomizeIndicator(['terrain'])"
+                @focus="es.setRandomizeIndicator(['terrain'])"
+                @mouseleave="es.removeRandomizeIndicator(['terrain'])"
+                @blur="es.removeRandomizeIndicator(['terrain'])"
+              >
                   <i class="ri-magic-fill ri-xl"></i>
                 </span>
               <span class="icon details" @click="es.toggleSection('terrain')">
@@ -259,6 +284,21 @@ const hexByUUID = hs.hexByUUID;
   inline-size: 20px;
   width: 20px;
   max-width: 20px;
+}
+
+@keyframes flickerAnimation {
+  0%   { opacity:1; }
+  50%  { opacity:0.3; }
+  100% { opacity:1; }
+}
+.animate-flicker {
+    opacity:1;  
+    animation: flickerAnimation 1s infinite;
+}
+
+.rerandomize-indicator {
+  top: 16px;
+  left: 10px;
 }
 
 </style>
