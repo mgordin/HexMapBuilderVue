@@ -42,7 +42,8 @@ export const useEditorStore = defineStore({
         showInfoModal: false,
         terrainToBeRandomized: false,
         tagsToBeRandomized: false,
-        descriptionToBeRandomized: false
+        descriptionToBeRandomized: false,
+        mode: 'edit'
     }),
     getters: {
         activeHexImage(state) {
@@ -282,6 +283,13 @@ export const useEditorStore = defineStore({
             }
             if (indicators.includes('terrain')) {
                 this.terrainToBeRandomized = false;
+            }
+        },
+        toggleViewMode() {
+            if (this.mode == 'edit') {
+                this.mode = 'view'
+            } else {
+                this.mode = 'edit'
             }
         }
     }

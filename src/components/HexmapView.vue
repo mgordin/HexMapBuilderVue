@@ -25,23 +25,28 @@ function logPaddingShift() {
   console.log(paddingShift());
 }
 
-import PopperComponent from "@/components/PopperComponent.vue"
-import MentionedByTagPopper from "@/components/MentionedByTagPopper.vue"
-
 const hexByUUID = hs.hexByUUID
 
+function jumpToHex(hexUUID) {
+    const a = document.createElement('a');        
+    a.href= "#" + hexUUID;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    window.scrollBy(0, -80)
+}
 </script>
 
+
 <template>
-  <div id="hex-container" class="hex-container">
+<div id="hex-container-view" class="hex-container-view">
     <div class="image-row flat-row" v-for="row in hs.hexes">
       <div
         class="image-hex flat-hex"
         v-for="hex in row"
         :key="hex.uuid"
-        v-bind:class="{ 'hex-selected': es.activeHexes.includes(hex.uuid), 'hex-mentioned': es.mentioningHexes.includes(hex.uuid) }"
         v-bind:uuid="hex.uuid"
-        @click="es.selectHex(hex, $event)"
+        :style="{visibility: (hex.terrain == 'Default') ? 'hidden' : 'visible'}"
+        @click="jumpToHex(hex.uuid)"
       >
         <img class="hex-terrain" v-bind="{ src: es.terrainToImage[hex.terrain].file }" />
         <img
@@ -49,23 +54,18 @@ const hexByUUID = hs.hexByUUID
           v-if="hex.icon != null"
           v-bind="{ src: es.iconProperties[hex.icon].file }"
         />
-        <img class="hex-overlay-mentioning" 
-          :class="{ 'mentioning-overlay-active': es.mentioningHexes.find(h => h.uuid == hex.uuid) != null }" 
-          src="blue.png"
-        />
         <div class="hex-label">{{ hex.id }}</div>
       </div>
     </div>
   </div>
 </template>
 
+
 <style scoped>
-.hex-container {
+.hex-container-view {
   position: relative;
-  overflow: scroll;
-  height: calc(100vh - 52px);
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 /* Consolidated pointy-top and flat-top image hex stuff */
@@ -92,6 +92,7 @@ const hexByUUID = hs.hexByUUID
   position: relative;
   overflow: hidden;
   display: inline-block;
+  cursor: pointer;
 }
 
 .pointy-hex {
@@ -175,5 +176,4 @@ const hexByUUID = hs.hexByUUID
 .mentioning-overlay-active {
   opacity: 0.4
 }
-
 </style>

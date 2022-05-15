@@ -33,6 +33,10 @@ const props = defineProps({
   showMentionTooltip: {
     type: Boolean,
     default: true
+  },
+  editable: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -44,6 +48,7 @@ if (!props.showMentionTooltip) {
 }
 
 const editor = new Editor({
+      editable: props.editable,
       extensions: [
         StarterKit,
         Placeholder.configure({

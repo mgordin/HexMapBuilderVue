@@ -1,5 +1,5 @@
 <template>
-<span :id="'hex-tag-'+hex.id" class="tag is-medium"
+<span :id="'hex-tag-'+hex.id" class="tag is-medium mentioningTag"
     @mouseenter="show"
     @focus="show"
     @blur="hide"
@@ -134,7 +134,7 @@ function numberToLetters(number) {
   left: -4px;
 }
 
-.tag:hover {
+.mentioningTag:hover {
     color: white;
     background-color: #333;
     cursor: pointer;

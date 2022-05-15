@@ -9,6 +9,8 @@ import SaveNameModal from './components/SaveNameModal.vue';
 import InfoModal from './components/InfoModal.vue';
 import TopNav from '@/components/TopNav.vue'
 import MapEditor from './components/MapEditor.vue'
+import MapViewer from './components/MapViewer.vue'
+
 import { useMagicKeys, whenever } from '@vueuse/core'
 
 const es = useEditorStore();
@@ -37,10 +39,13 @@ whenever(ctrl_s, () => es.saveMapLocally())
   <SaveNameModal />
   <InfoModal />
   <TopNav />
-  <MapEditor v-if="es.showEditor"/>
+  <MapEditor v-if="es.mode=='edit'"/>
+  <MapViewer v-if="es.mode=='view'"/>
   
 </template>
 
 <style>
   @import '@/assets/base.css';
+
+  
 </style>

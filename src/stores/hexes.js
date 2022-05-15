@@ -1548,7 +1548,11 @@ export const useHexesStore = defineStore({
 
         const a = document.createElement('a');        
         a.href= outputImage;
-        a.download = "testMap.png";
+        if (es.saveName != null && es.saveName != "") {
+            a.download = es.saveName + ".png"
+        } else {
+            a.download = "map.png";
+        }
         a.click();
         URL.revokeObjectURL(a.href);
     }

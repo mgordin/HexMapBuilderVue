@@ -1,16 +1,16 @@
 {
     "terrainToImage": {
         "Default": { "file": "./terrain_tiles/flat/default-hex.png", "selected": false },
-        "grassland": {"file": "./terrain_tiles/Inkarnate/grassland.png", "selected": false },
-        "grassy hills": {"file": "./terrain_tiles/Inkarnate/grassy-hills.png", "selected": false },
-        "deciduous forest": {"file": "./terrain_tiles/Inkarnate/deciduous-forest.png", "selected": false },
-        "deciduous forested hills": {"file": "./terrain_tiles/Inkarnate/deciduous-forested-hills.png", "selected": false },
-        "deciduous forested mountains": {"file": "./terrain_tiles/Inkarnate/deciduous-forested-mountains.png", "selected": false },
-        "mountains": {"file": "./terrain_tiles/Inkarnate/mountains.png", "selected": false },
-        "evergreen forest": {"file": "./terrain_tiles/Inkarnate/evergreen-forest.png", "selected": false },
-        "evergreen forested hills": {"file": "./terrain_tiles/Inkarnate/evergreen-forested-hills.png", "selected": false },
-        "evergreen forested mountains": {"file": "./terrain_tiles/Inkarnate/evergreen-forested-mountains.png", "selected": false },
-        "mixed forest": {"file": "./terrain_tiles/Inkarnate/mixed-forest.png", "selected": false }
+        "grassland": {"file": "./terrain_tiles/Painted/grassland.png", "selected": false },
+        "grassy hills": {"file": "./terrain_tiles/Painted/grassy-hills.png", "selected": false },
+        "deciduous forest": {"file": "./terrain_tiles/Painted/deciduous-forest.png", "selected": false },
+        "deciduous forested hills": {"file": "./terrain_tiles/Painted/deciduous-forested-hills.png", "selected": false },
+        "deciduous forested mountains": {"file": "./terrain_tiles/Painted/deciduous-forested-mountains.png", "selected": false },
+        "mountains": {"file": "./terrain_tiles/Painted/mountains.png", "selected": false },
+        "evergreen forest": {"file": "./terrain_tiles/Painted/evergreen-forest.png", "selected": false },
+        "evergreen forested hills": {"file": "./terrain_tiles/Painted/evergreen-forested-hills.png", "selected": false },
+        "evergreen forested mountains": {"file": "./terrain_tiles/Painted/evergreen-forested-mountains.png", "selected": false },
+        "mixed forest": {"file": "./terrain_tiles/Painted/mixed-forest.png", "selected": false }
     },
     "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"},
     "icons": {
@@ -297,58 +297,18 @@
     },
     "contentTags": {
         "settlement": {
-            "village": {
-                "odds": 10,
-                "names": ["village", "hamlet", "thorp"],
-                "icon": "hut-3",
-                "ruler": ["headman", "council of elders"],
-                "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
-                "wealth": [
-                    "This village is quite prosperous. The buildings are in good repair and the people are dressed in clean, well-repaired clothes.",
-                    "This village is doing fine - about as well as you'd expect from an average village in this region.",
-                    "This village is just hanging on. There are several abandoned houses, and the people look thin and hungry."
-                ],
-                "attitude": [
-                    "Its people seem cheerful and open to outsiders.",
-                    "Its people are standoffish, but willing to trade and hear news from the wider world.",
-                    "Its people seem nervous, and conversations stop whenever #ruler is nearby."
+            "bandit-camp": {
+                "odds": 1,
+                "names": ["bandit camp"],
+                "icon": "large-camp",
+                "description": [
+                    {"text": "A small, hidden nest of bandits and their camp followers.", "odds": 1},
+                    {"text": "A large and well-guarded camp with numerous bandits.", "odds": 1}
                 ],
                 "hook": [
-                    {"text": "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement:dist=lt3s.", "odds": 1},
-                    {"text": "The houses in this village are all painted with flowers.\nA #majorResident from this village is looking for their missing son, who was last seen heading toward the ruins at @ruin:dist=lt3s.", "odds": 1},
-                    {"text": "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #majorResident.", "odds": 1},
-                    {"text": "There has been a rash of livestock thefts recently, and the #ruler is willing to pay someone who can make them stop. They were stolen by the #majorResident of @village||town.", "odds": 1},
-                    {"text": "Recently several villagers have been killed by a beast lairing in @beast-lair:dist=lt4s, and they've started pooling money to hire a monster hunter to deal with it.", "odds": 1},
-                    {"text": "The villagers have just found a bounty of a rare resource. The #majorResident of @village has learned about this and is trying to steal it.", "odds": 1}
-                ],
-                "description": [
-                    {"text": "#wealth #attitude", "odds": 10},
-                    {"text": "This village was clearly founded by people foreign to these lands - the local architecture still looks distinct from any surrounding settlements.", "odds": 1}
-                ]
-            },
-            "town": {
-                "odds": 2,
-                "names": ["town"],
-                "icon": "town",
-                "ruler": ["mayor", "ealdorman", "town council"],
-                "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
-                "status": [
-                    "It seems less prosperous than it once was - some buildings stand empty, while others are in poor repair.  However, the homes around those of the town ruler are freshly painted.",
-                    "There's a lot of new construction here.",
-                    "Half of the town seems to have been abandoned.",
-                    "It seems to be doing fine, and its people are open to outsiders and trade."
-                ],
-                "recentEvent": [
-                    "It was recently attacked by an invading force, and still shows the scars of that battle.",
-                    "It is decorated for an upcoming festival."
-                ],
-                "description": [
-                    {"text": "This is a !size town. #status #recentEvent", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The #ruler of this town is organizing a festival, but people from @settlement:dist=lt3s are trying to sabotage it.", "odds": 1},
-                    {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.", "odds": 1},
-                    {"text": "The #majorResident is secretly a vampire.", "odds": 1}
+                    {"text": "The bandits are planning a raid on @village||town:dist=lt3s.", "odds": 1},
+                    {"text": "The bandits steal from the rich and give to the poor - but now one of the nobles they stole from has put a bounty on their head. The party can learn about it in @settlement.", "odds": 1},
+                    {"text": "The bandits are actually a front for a sinister cult. They are trying to steal a particular artifact coming to a noble in @town||city||manor to conduct a dark ritual of summoning.", "odds": 1}
                 ]
             },
             "castle": {
@@ -392,20 +352,6 @@
                     {"text": "People are being mysteriously and gruesomely murdered by someone the locals have taken to calling the #killerName.", "odds": 1}
                 ]
             },
-            "wizard-tower": {
-                "odds": 1,
-                "names": ["wizard tower"],
-                "icon": "tower-4",
-                "description": [
-                    {"text": "A lonely tower occupied by a cantankerous wizard.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The wizard living here is looking for a rare reagent that can be found in @wilderness.", "odds": 1},
-                    {"text": "Humanoids lairing in @ruin:dist=lt3s are bothering the wizard, who would like them to be dealt with.", "odds": 1},
-                    {"text": "The wizard has created life!  Life!  But it's gotten out of hand, and needs assistance.", "odds": 1},
-                    {"text": "A creation of the wizard has escaped and is harassing the settlement in @settlement.", "odds": 1}
-                ]
-            },
             "extraplanar-outpost": {
                 "odds": 0.1,
                 "names": ["extraplanar outpost"],
@@ -416,22 +362,21 @@
                     {"text": "Elaborate crystal spires rise up into the sky, glinting with rainbows in the light.", "odds": 1}
                 ],
                 "hook": [
-                    {"text": "The outpost is trapped on this plane, and the inhabitants can't be away from it long. They need someone to get them a component from @ruin:dist=gt2s sp they can return home.", "odds": 1},
+                    {"text": "The outpost is trapped on this plane, and the inhabitants can't be away from it long. They need someone to get them a component from @ruin:dist=gt2s so they can return home.", "odds": 1},
                     {"text": "This outpost is the front of an invasion, but the gateway they've come through is unstable and could be disrupted. The wizard in @wizard-tower knows how.", "odds": 1}
                 ]
             },
-            "bandit-camp": {
+            "homestead": {
                 "odds": 1,
-                "names": ["bandit camp"],
-                "icon": "large-camp",
+                "names": ["homestead"],
+                "icon": "cattle",
                 "description": [
-                    {"text": "A small, hidden nest of bandits and their camp followers.", "odds": 1},
-                    {"text": "A large and well-guarded camp with numerous bandits.", "odds": 1}
+                    {"text": "A small, lonely homestead.", "odds": 1},
+                    {"text": "A large farm house surrounded by bountiful fields and livestock.", "odds": 1}
                 ],
                 "hook": [
-                    {"text": "The bandits are planning a raid on @village||town:dist=lt3s.", "odds": 1},
-                    {"text": "The bandits steal from the rich and give to the poor - but now one of the nobles they stole from has put a bounty on their head. The party can learn about it in @settlement.", "odds": 1},
-                    {"text": "THe bandits are actually a front for a sinister cult. They are trying to steal a particular artifact coming to a noble in @town||city||manor to conduct a dark ritual of summoning.", "odds": 1}
+                    {"text": "The family living here is being terrorized by a strange shadow creature. It is after them because the son secretly stole an ancient relic from @ruin.", "odds": 1},
+                    {"text": "Bandits are threatening the family here with violence if they don't give up most of their harvest. The family will turn to any likely candidates for help.", "odds": 1}
                 ]
             },
             "manor": {
@@ -448,17 +393,18 @@
                     {"text": "The noble here would pay a high bounty for the beast lairing in @beast-lair||monster-lair, as that creature killed his cousin.", "odds": 1}
                 ]
             },
-            "monastery": {
+            "military-outpost": {
                 "odds": 1,
-                "names": ["monastery", "abbey"],
-                "icon": "cathedral",
+                "names": ["military outpost"],
+                "icon": "fort-2",
                 "description": [
-                    {"text": "A simple monastery, with plainly-clad monks outside tending the vegetable gardens.", "odds": 1},
-                    {"text": "A large and ornate monasteries, with fine carvings and inlays of precious metals.", "odds": 1}
+                    {"text": "A large and well-fortified outpost.", "odds": 1},
+                    {"text": "A small outpost surrounded by a wall of wooden stakes.", "odds": 1}
                 ],
                 "hook": [
-                    {"text": "Someone has murdered the abbot, and the monks need help discovering the truth behind it.", "odds": 1},
-                    {"text": "One of the monks has disappeared, and the abbot wants someone to find them. The monk was kidnapped by bandits in @bandit-camp, to whom his family owes money.", "odds": 1}
+                    {"text": "The outpost commander needs someone to find a missing squad that went to investigate rumors of an attack on @settlement.", "odds": 1},
+                    {"text": "The outpost commander is loved by their soldiers, but is also cursed to turn into a raven on nights of the new moon.", "odds": 1},
+                    {"text": "The ruler of @settlement:dist=eq1s is agitating their people against the soldiers here. Things will turn bloody unless someone else steps in.", "odds": 1}
                 ]
             },
             "mine": {
@@ -473,6 +419,87 @@
                 "hook": [
                     {"text": "Miners have been disappearing - consumed off by a terrible beast their digging has released.", "odds": 1},
                     {"text": "The mine is run by two fueding clans. The fued has become heated enough that one clan is risking bringing down the mine to get back at the other.", "odds": 1}
+                ]
+            },
+            "monastery": {
+                "odds": 1,
+                "names": ["monastery", "abbey"],
+                "icon": "cathedral",
+                "description": [
+                    {"text": "A simple monastery, with plainly-clad monks outside tending the vegetable gardens.", "odds": 1},
+                    {"text": "A large and ornate monasteries, with fine carvings and inlays of precious metals.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "Someone has murdered the abbot, and the monks need help discovering the truth behind it.", "odds": 1},
+                    {"text": "One of the monks has disappeared, and the abbot wants someone to find them. The monk was kidnapped by bandits in @bandit-camp, to whom his family owes money.", "odds": 1}
+                ]
+            },
+            "town": {
+                "odds": 2,
+                "names": ["town"],
+                "icon": "town",
+                "ruler": ["mayor", "ealdorman", "town council"],
+                "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
+                "status": [
+                    "It seems less prosperous than it once was - some buildings stand empty, while others are in poor repair.  However, the homes around those of the town ruler are freshly painted.",
+                    "There's a lot of new construction here.",
+                    "Half of the town seems to have been abandoned.",
+                    "It seems to be doing fine, and its people are open to outsiders and trade."
+                ],
+                "recentEvent": [
+                    "It was recently attacked by an invading force, and still shows the scars of that battle.",
+                    "It is decorated for an upcoming festival."
+                ],
+                "description": [
+                    {"text": "This is a !size town. #status #recentEvent", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The #ruler of this town is organizing a festival, but people from @settlement:dist=lt3s are trying to sabotage it.", "odds": 1},
+                    {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.", "odds": 1},
+                    {"text": "The #majorResident is secretly a vampire.", "odds": 1}
+                ]
+            },
+            "village": {
+                "odds": 10,
+                "names": ["village", "hamlet", "thorp"],
+                "icon": "hut-3",
+                "ruler": ["headman", "council of elders"],
+                "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
+                "wealth": [
+                    "This village is quite prosperous. The buildings are in good repair and the people are dressed in clean, well-repaired clothes.",
+                    "This village is doing fine - about as well as you'd expect from an average village in this region.",
+                    "This village is just hanging on. There are several abandoned houses, and the people look thin and hungry."
+                ],
+                "attitude": [
+                    "Its people seem cheerful and open to outsiders.",
+                    "Its people are standoffish, but willing to trade and hear news from the wider world.",
+                    "Its people seem nervous, and conversations stop whenever #ruler is nearby."
+                ],
+                "hook": [
+                    {"text": "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement:dist=lt3s.", "odds": 1},
+                    {"text": "The houses in this village are all painted with flowers.\nA #majorResident from this village is looking for their missing son, who was last seen heading toward the ruins at @ruin:dist=lt3s.", "odds": 1},
+                    {"text": "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #majorResident.", "odds": 1},
+                    {"text": "There has been a rash of livestock thefts recently, and the #ruler is willing to pay someone who can make them stop. They were stolen by the #majorResident of @village||town.", "odds": 1},
+                    {"text": "Recently several villagers have been killed by a beast lairing in @beast-lair:dist=lt4s, and they've started pooling money to hire a monster hunter to deal with it.", "odds": 1},
+                    {"text": "The villagers have just found a bounty of a rare resource. The #majorResident of @village has learned about this and is trying to steal it.", "odds": 1}
+                ],
+                "description": [
+                    {"text": "#wealth #attitude", "odds": 10},
+                    {"text": "This village was clearly founded by people foreign to these lands - the local architecture still looks distinct from any surrounding settlements.", "odds": 1}
+                ]
+            },
+            "wizard-tower": {
+                "odds": 1,
+                "names": ["wizard tower"],
+                "icon": "tower-4",
+                "description": [
+                    {"text": "A lonely tower occupied by a cantankerous wizard.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The wizard living here is looking for a rare reagent that can be found in @wilderness.", "odds": 1},
+                    {"text": "Humanoids lairing in @ruin:dist=lt3s are bothering the wizard, who would like them to be dealt with.", "odds": 1},
+                    {"text": "The wizard has created life!  Life!  But it's gotten out of hand, and needs assistance.", "odds": 1},
+                    {"text": "A creation of the wizard has escaped and is harassing the settlement in @settlement.", "odds": 1}
                 ]
             }
         },

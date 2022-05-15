@@ -60,6 +60,12 @@ function exportMapToPNG(hexHeight, hexWidth) {
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
             <a class="navbar-item" @click="es.toggleInfoModal">Info</a>
+            <div class="navbar-item">
+                <div class="tags has-addons modeSelector" @click="es.toggleViewMode">
+                    <span class="tag" :class="{'is-primary': es.mode=='edit'}">Edit</span>
+                    <span class="tag" :class="{'is-primary': es.mode=='view'}">View</span>    
+                </div>
+            </div>
         </div>
         <div class="navbar-end">
             <div class="navbar-item save-indicator" v-if="es.savingIndicator">
@@ -104,6 +110,10 @@ function exportMapToPNG(hexHeight, hexWidth) {
 
 .save-text {
     color: turquoise;
+}
+
+.modeSelector {
+    cursor: pointer;
 }
 
 </style>
