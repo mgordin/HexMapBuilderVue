@@ -225,6 +225,24 @@ export const useHexesStore = defineStore({
             hex.content.content.forEach((c) => {
                 unifiedContents.content.push(c)
             })
+            unifiedContents.content.push({
+                "type": "paragraph",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "Back to top",
+                        "marks": [
+                            {
+                                "type": "link",
+                                "attrs": {
+                                    "href": "#hex-container-view",
+                                    "target": "_self"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            })
             
         })
         console.log('unified', unifiedContents)

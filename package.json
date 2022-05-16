@@ -13,6 +13,7 @@
     "@popperjs/core": "^2.11.5",
     "@tiptap/extension-horizontal-rule": "^2.0.0-beta.31",
     "@tiptap/extension-image": "^2.0.0-beta.27",
+    "@tiptap/extension-link": "^2.0.0-beta.37",
     "@tiptap/extension-mention": "^2.0.0-beta.95",
     "@tiptap/extension-placeholder": "^2.0.0-beta.48",
     "@tiptap/starter-kit": "^2.0.0-beta.183",

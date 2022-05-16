@@ -17,6 +17,7 @@ import Mention from "@/MentionExport";
 import { useHexesStore } from "@/stores/hexes";
 import Placeholder from '@tiptap/extension-placeholder'
 import Image from '@tiptap/extension-image'
+import Link from '@tiptap/extension-link'
 import headingH1 from "@/HeadingExtension.js"
 import hexImage from "@/ViewModeHexImage.js"
 
@@ -63,6 +64,7 @@ const editor = new Editor({
           inline: true,
         }),
         headingH1,
+        Link,
         hexImage.configure({
           inline: true
         }),
