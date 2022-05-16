@@ -16,6 +16,8 @@ import { mergeAttributes } from "@tiptap/core";
 import Mention from "@/MentionExport";
 import { useHexesStore } from "@/stores/hexes";
 import Placeholder from '@tiptap/extension-placeholder'
+import Image from '@tiptap/extension-image'
+import headingH1 from "@/HeadingExtension.js"
 
 import 'tippy.js/dist/tippy.css' // optional for styling
 import 'tippy.js/themes/light.css';
@@ -54,6 +56,10 @@ const editor = new Editor({
         Placeholder.configure({
           placeholder: 'Fill in some info about the hex...'
         }),
+        Image.configure({
+          inline: true,
+        }),
+        headingH1,
         Mention.configure({
           HTMLAttributes: {
             class: thisClass,

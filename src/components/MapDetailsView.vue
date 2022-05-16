@@ -26,42 +26,15 @@ function sortHexesComparison(a,b) {
     }
 }
 
-
 </script>
 
 
 <template>
 <div class="hexDetailReader">
-    <div class="block" 
-        v-for="hex in hs.hexes.flat().filter(h => h.content != null && h.content.content.length > 0).sort(sortHexesComparison)"
-        :id="hex.uuid"
-    >
-        <hr>
-        <article class="media">
-            <div class="media-left">
-                <figure class="image is-48x48">
-                    <img class="reader-hex-terrain" v-bind="{ src: es.terrainToImage[hex.terrain].file }" />
-                </figure>
-            </div>
-            <div class="media-content">
-                <div class="content">
-                    <h1 class="title">{{hex.id}}</h1>
-                </div>
-            </div>
-        </article>
-        <span>
-            <div class="tags">
-                <MentionedByTagPopper v-for="mentioningHex in hs.mentionedByHexes(hex.uuid)" :hex="mentioningHex" />
-            </div>
-        </span>
-        <TextEditor
-            v-model="hex.content"
-            :editable="false"
-        />
-        <div class="block">
-            <a href="#hex-container-view">Back to map</a>
-        </div>
-    </div>
+    <TextEditor
+        v-model="hs.unifyContents"
+        :editable="false"
+    />
 </div>
 </template>
 

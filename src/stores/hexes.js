@@ -181,6 +181,37 @@ export const useHexesStore = defineStore({
             tags = tags.concat(Object.keys(state.contentTags[tag]))
         })
         return tags;
+    },
+    unifyContents: (state) => {
+        var unifiedContents = {
+            "type": "doc",
+            "content": []
+        }
+        state.hexes.flat().filter(h => h.content != null && h.content.content.length > 0).sort(state.sortHexesComparison).forEach((hex) => {
+            unifiedContents.content.push({
+                "type": "paragraph",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": hex.id,
+                        "marks": [
+                            {
+                                "type": "headingH1",
+                                "attrs": {
+                                    "id": hex.uuid
+                                }
+                            }
+                        ]
+                    }
+                ]
+            })
+            hex.content.content.forEach((c) => {
+                unifiedContents.content.push(c)
+            })
+            
+        })
+        console.log('unified', unifiedContents)
+        return unifiedContents
     }
   },
   actions: {
@@ -1555,6 +1586,18 @@ export const useHexesStore = defineStore({
         }
         a.click();
         URL.revokeObjectURL(a.href);
+    },
+    sortHexesComparison(a,b) {
+        if (a.row > b.row) {
+            return 1;
+        } else if (b.row > a.row) {
+            return -1;
+        }
+        if (a.column > b.column) {
+            return 1;
+        } else if (b.column > a.column) {
+            return -1;
+        }
     }
   }
   
