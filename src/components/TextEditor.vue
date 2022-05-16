@@ -18,6 +18,9 @@ import { useHexesStore } from "@/stores/hexes";
 import Placeholder from '@tiptap/extension-placeholder'
 import Image from '@tiptap/extension-image'
 import headingH1 from "@/HeadingExtension.js"
+import hexImage from "@/ViewModeHexImage.js"
+
+
 
 import 'tippy.js/dist/tippy.css' // optional for styling
 import 'tippy.js/themes/light.css';
@@ -60,6 +63,9 @@ const editor = new Editor({
           inline: true,
         }),
         headingH1,
+        hexImage.configure({
+          inline: true
+        }),
         Mention.configure({
           HTMLAttributes: {
             class: thisClass,

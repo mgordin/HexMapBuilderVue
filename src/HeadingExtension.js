@@ -24,7 +24,7 @@ const headingH1 = Mark.create( {
   parseHTML() {
     return [
       {
-        tag: 'span[data-type="headingH1" style="font-size:2em"]',
+        tag: 'span[data-type="headingH1"]',
       }
     ]
   },

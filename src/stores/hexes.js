@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useEditorStore } from '@/stores/editor'
 import json from '@/assets/hexConfig.json';
+import { useEditor } from '@tiptap/vue-3';
 
 
 export const useHexesStore = defineStore({
@@ -183,6 +184,7 @@ export const useHexesStore = defineStore({
         return tags;
     },
     unifyContents: (state) => {
+        const es = useEditorStore()
         var unifiedContents = {
             "type": "doc",
             "content": []
@@ -191,6 +193,21 @@ export const useHexesStore = defineStore({
             unifiedContents.content.push({
                 "type": "paragraph",
                 "content": [
+                    {
+                        "type": "horizontalRule"
+                    }
+                ]
+            })
+            unifiedContents.content.push({
+                "type": "paragraph",
+                "content": [
+                    {
+                        "type": "hex-image",
+                        "attrs": {
+                            "src": es.terrainToImage[hex.terrain].file,
+                            "style": "width:46px; padding-right: 10px"
+                        }
+                    },
                     {
                         "type": "text",
                         "text": hex.id,
