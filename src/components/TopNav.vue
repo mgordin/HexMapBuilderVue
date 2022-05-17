@@ -2,29 +2,10 @@
 import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
 import 'remixicon/fonts/remixicon.css'
-import vSelect from 'vue-select'
-import Multiselect from '@vueform/multiselect'
-import html2canvas from 'html2canvas';
 
 
 const es = useEditorStore();
 const hs = useHexesStore();
-
-function exportMapToPNG(hexHeight, hexWidth) {
-    const element = document.querySelector("#hex-container"); 
-    html2canvas(element, {
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight
-    }).then(canvas => {
-        var image = canvas.toDataURL();
-
-        const a = document.createElement('a');        
-        a.href= image;
-        a.download = "map.png";
-        a.click();
-        URL.revokeObjectURL(a.href);
-    });
-}
 
 </script>
 

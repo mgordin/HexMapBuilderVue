@@ -1218,7 +1218,7 @@ export const useHexesStore = defineStore({
 
         // Need to add a mechanism to apply the new tag
         } else {
-            const thisHex = this.randomChoice(this.hexes.flat())
+            const thisHex = this.randomChoice(this.hexes.flat().filter(h => h.terrain != "Default"))
             thisHex.startingTags.push(tag)
             const c = { uuid: thisHex.uuid, type: "random" }
             return c;
