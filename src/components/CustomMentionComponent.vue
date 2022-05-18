@@ -1,13 +1,13 @@
 <template>
   <node-view-wrapper class="custom-mention-component" as="span">
       <span 
-        class="hex-mention"
+        :class="setClass(node.attrs.class)"
         :id="'hex-mention-'+hexByUUID(node.attrs.uuid).id"
         @mouseenter="show"
         @focus="show"
         @blur="hide"
         @mouseleave="hide"
-        @click="es.selectHex(hexByUUID(node.attrs.uuid), {'shiftKey': false})"
+        @click="es.hexClicked(hexByUUID(node.attrs.uuid), {'shiftKey': false})"
       > 
         {{ hexByUUID(node.attrs.uuid).id }}
         
@@ -89,6 +89,14 @@ function numberToLetters(number) {
     return result
 }
 
+function setClass(inputClass) {
+  console.log('input class', inputClass, 'node', props.node)
+  if (inputClass == 'test-class') {
+    return 'hex-mention test-class'
+  } else {
+    return 'hex-mention'
+  }
+}
 
 </script>
 
@@ -101,8 +109,16 @@ function numberToLetters(number) {
 
 .custom-mention-component {
   cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.3rem;
   white-space: nowrap;
   break-inside: avoid;
+}
+
+.test-class {
+  color:blue;
+  background: teal;
 }
 
 .custom-mention-component:hover {

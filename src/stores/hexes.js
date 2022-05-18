@@ -222,6 +222,34 @@ export const useHexesStore = defineStore({
                     }
                 ]
             })
+            var mentioning = [
+                {
+                    "type": "text",
+                    "text": "Mentioned by: "
+                }
+            ]
+            var c = 0
+            state.mentionedByHexes(hex.uuid).forEach((h) => {
+                if (c > 0) {
+                    mentioning.push({
+                        "type": "text",
+                        "text": ", "
+                    })
+                }
+                mentioning.push({
+                    "type": "mention",
+                    "attrs": {
+                        "uuid": h.uuid,
+                    }
+                })
+                c += 1
+            })
+            if (mentioning.length > 1) {
+                unifiedContents.content.push({
+                    "type": "paragraph",
+                    "content": mentioning
+                })
+            }
             hex.content.content.forEach((c) => {
                 unifiedContents.content.push(c)
             })

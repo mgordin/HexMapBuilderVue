@@ -291,6 +291,20 @@ export const useEditorStore = defineStore({
             } else {
                 this.mode = 'edit'
             }
+        },
+        jumpToHex(hexUUID) {
+            const a = document.createElement('a');        
+            a.href= "#" + hexUUID;
+            a.click();
+            URL.revokeObjectURL(a.href);
+            window.scrollBy(0, -80)
+        },
+        hexClicked(hex, keys) {
+            if (this.mode == 'edit') {
+                this.selectHex(hex, keys)
+            } else if (this.mode == 'view') {
+                this.jumpToHex(hex.uuid)
+            }
         }
     }
 })

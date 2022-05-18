@@ -164,13 +164,7 @@ watch(() => props.modelValue, (currentValue, oldValue) => {
 
 
 <style>
-.custom-mention-component {
-  border: 1px solid #000;
-  border-radius: 0.4rem;
-  padding: 0.1rem 0.3rem;
-  white-space: nowrap;
-  break-inside: avoid;
-}
+
 
 .ProseMirror p.is-editor-empty:first-child::before {
   content: attr(data-placeholder);

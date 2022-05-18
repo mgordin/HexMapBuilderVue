@@ -41,7 +41,7 @@ const hexByUUID = hs.hexByUUID
         :key="hex.uuid"
         v-bind:class="{ 'hex-selected': es.activeHexes.includes(hex.uuid), 'hex-mentioned': es.mentioningHexes.includes(hex.uuid) }"
         v-bind:uuid="hex.uuid"
-        @click="es.selectHex(hex, $event)"
+        @click="es.hexClicked(hex, $event)"
       >
         <img class="hex-terrain" v-bind="{ src: es.terrainToImage[hex.terrain].file }" />
         <img
