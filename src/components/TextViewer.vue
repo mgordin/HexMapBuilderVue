@@ -1,24 +1,10 @@
 <template>
-  <bubble-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
-    <button @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
-      <i class="ri-bold"></i>
-    </button>
-    <button @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
-      <i class="ri-italic"></i>
-    </button>
-    <button @click="editor.chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
-      <i class="ri-strikethrough"></i>
-    </button>
-    <button @click="setLink(this.editor)" :class="{ 'is-active': editor.isActive('link') }">
-      <i class="ri-link"></i>
-    </button>
-  </bubble-menu>
   <editor-content :editor="editor" />
 </template>
 
 <script setup>
 
-import { Editor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
+import { useEditor, Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import suggestion from '@/suggestion'
 import { watch, onBeforeUnmount, defineEmits, defineProps } from 'vue'
@@ -26,12 +12,12 @@ import { VueRenderer } from '@tiptap/vue-3'
 import tippy from 'tippy.js'
 import MentionList from '@/components/MentionList.vue'
 import { mergeAttributes } from "@tiptap/core";
-// import Mention from "@tiptap/extension-mention";
 import Mention from "@/MentionExport";
 import { useHexesStore } from "@/stores/hexes";
-import Placeholder from '@tiptap/extension-placeholder'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
+import headingH1 from "@/HeadingExtension.js"
+import hexImage from "@/ViewModeHexImage.js"
 
 
 
@@ -75,8 +61,11 @@ const editor = new Editor({
         Image.configure({
           inline: true,
         }),
+        headingH1,
         Link,
-        BubbleMenu,
+        hexImage.configure({
+          inline: true
+        }),
         Mention.configure({
           HTMLAttributes: {
             class: thisClass,
@@ -168,39 +157,6 @@ watch(() => props.modelValue, (currentValue, oldValue) => {
 
   editor.commands.setContent(currentValue, false)
 })
-
-function setLink(editor) {
-  const previousUrl = editor.getAttributes('link').href
-  var url = window.prompt('URL', previousUrl)
-  if (!url.includes('http')) {
-    url = 'https://' + url
-  }
-
-  // cancelled
-  if (url === null) {
-    return
-  }
-
-  // empty
-  if (url === '') {
-    editor
-      .chain()
-      .focus()
-      .extendMarkRange('link')
-      .unsetLink()
-      .run()
-
-    return
-  }
-
-  // update link
-  editor
-    .chain()
-    .focus()
-    .extendMarkRange('link')
-    .setLink({ href: url })
-    .run()
-}
 
 </script>
 
