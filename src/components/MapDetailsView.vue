@@ -1,7 +1,7 @@
 <script setup>
 import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
-import TextEditor from "@/components/TextEditor.vue";
+import TextViewer from "@/components/TextViewer.vue";
 import Multiselect from '@vueform/multiselect'
 import 'remixicon/fonts/remixicon.css'
 import MentionedByTagPopper from "@/components/MentionedByTagPopper.vue"
@@ -31,7 +31,7 @@ function sortHexesComparison(a,b) {
 
 <template>
 <div class="hexDetailReader">
-    <TextEditor
+    <TextViewer
         v-model="hs.unifyContents"
         :editable="false"
     />

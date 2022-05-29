@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { useEditorStore } from '@/stores/editor'
 import json from '@/assets/hexConfig.json';
 import { useEditor } from '@tiptap/vue-3';
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 export const useHexesStore = defineStore({
@@ -183,12 +185,27 @@ export const useHexesStore = defineStore({
         })
         return tags;
     },
-    unifyContents: (state) => {
+    unifyContentsAsync: (state) => {
         const es = useEditorStore()
         var unifiedContents = {
             "type": "doc",
             "content": []
         }
+        var hexCount = 0
+        var totalHexes = state.hexes.flat().filter(h => h.content != null && h.content.content.length > 0).length
+        const useHexes = state.hexes.flat().filter(h => h.content != null && h.content.content.length > 0).sort(state.sortHexesComparison)
+        state.asyncForHexes(useHexes, totalHexes, unifiedContents, state.unifyHexProcessing)
+        return unifiedContents
+    },
+    unifyContents: (state) => {
+        const t1 = performance.now()
+        const es = useEditorStore()
+        var unifiedContents = {
+            "type": "doc",
+            "content": []
+        }
+        var hexCount = 0
+        var totalHexes = state.hexes.flat().filter(h => h.content != null && h.content.content.length > 0).length
         state.hexes.flat().filter(h => h.content != null && h.content.content.length > 0).sort(state.sortHexesComparison).forEach((hex) => {
             unifiedContents.content.push({
                 "type": "paragraph",
@@ -239,7 +256,7 @@ export const useHexesStore = defineStore({
                 mentioning.push({
                     "type": "mention",
                     "attrs": {
-                        "uuid": h.uuid,
+                        "uuid": h.uuid
                     }
                 })
                 c += 1
@@ -271,9 +288,13 @@ export const useHexesStore = defineStore({
                     }
                 ]
             })
+            hexCount += 1
+            es.viewModeProgress = hexCount/totalHexes
             
         })
         console.log('unified', unifiedContents)
+        const tf = performance.now()
+        console.log('unifyContents took', tf-t1)
         return unifiedContents
     }
   },
@@ -1661,6 +1682,102 @@ export const useHexesStore = defineStore({
         } else if (b.column > a.column) {
             return -1;
         }
+    },
+    async asyncForHexes(hexes, iters, unifiedContents, callback) {
+        for (let i = 0; i < iters; i++) {
+            const promise = new Promise((resolve, _reject) => {
+                setTimeout(() => {
+                    callback(hexes, i, unifiedContents);
+                    resolve();
+                }, 0);
+            });
+            await promise;
+        }
+    },
+    unifyHexProcessing(hexes, i, unifiedContents) {
+        const es = useEditorStore()
+
+        unifiedContents.content.push({
+            "type": "paragraph",
+            "content": [
+                {
+                    "type": "horizontalRule"
+                }
+            ]
+        })
+        unifiedContents.content.push({
+            "type": "paragraph",
+            "content": [
+                {
+                    "type": "hex-image",
+                    "attrs": {
+                        "src": es.terrainToImage[hexes[i].terrain].file,
+                        "style": "width:46px; padding-right: 10px"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": hexes[i].id,
+                    "marks": [
+                        {
+                            "type": "headingH1",
+                            "attrs": {
+                                "id": hexes[i].uuid
+                            }
+                        }
+                    ]
+                }
+            ]
+        })
+        var mentioning = [
+            {
+                "type": "text",
+                "text": "Mentioned by: "
+            }
+        ]
+        var c = 0
+        this.mentionedByHexes(hexes[i].uuid).forEach((h) => {
+            if (c > 0) {
+                mentioning.push({
+                    "type": "text",
+                    "text": ", "
+                })
+            }
+            mentioning.push({
+                "type": "mention",
+                "attrs": {
+                    "uuid": h.uuid
+                }
+            })
+            c += 1
+        })
+        if (mentioning.length > 1) {
+            unifiedContents.content.push({
+                "type": "paragraph",
+                "content": mentioning
+            })
+        }
+        hexes[i].content.content.forEach((c) => {
+            unifiedContents.content.push(c)
+        })
+        unifiedContents.content.push({
+            "type": "paragraph",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Back to top",
+                    "marks": [
+                        {
+                            "type": "link",
+                            "attrs": {
+                                "href": "#hex-container-view",
+                                "target": "_self"
+                            }
+                        }
+                    ]
+                }
+            ]
+        })
     }
   }
   

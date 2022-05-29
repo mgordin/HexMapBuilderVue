@@ -18,6 +18,8 @@ import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import headingH1 from "@/HeadingExtension.js"
 import hexImage from "@/ViewModeHexImage.js"
+import Placeholder from '@tiptap/extension-placeholder'
+
 
 
 
@@ -40,7 +42,7 @@ const props = defineProps({
   },
   editable: {
     type: Boolean,
-    default: true
+    default: false
   }
 })
 

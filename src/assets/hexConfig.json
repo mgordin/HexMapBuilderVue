@@ -1,6 +1,8 @@
 {
     "terrainToImage": {
         "Default": { "file": "./terrain_tiles/flat/default-hex.png", "selected": false },
+        "badlands": {"file": "./terrain_tiles/Painted/badlands.png", "selected": false },
+        "bog": {"file": "./terrain_tiles/Painted/bog.png", "selected": false },
         "grassland": {"file": "./terrain_tiles/Painted/grassland.png", "selected": false },
         "grassy hills": {"file": "./terrain_tiles/Painted/grassy-hills.png", "selected": false },
         "deciduous forest": {"file": "./terrain_tiles/Painted/deciduous-forest.png", "selected": false },
@@ -10,7 +12,11 @@
         "evergreen forest": {"file": "./terrain_tiles/Painted/evergreen-forest.png", "selected": false },
         "evergreen forested hills": {"file": "./terrain_tiles/Painted/evergreen-forested-hills.png", "selected": false },
         "evergreen forested mountains": {"file": "./terrain_tiles/Painted/evergreen-forested-mountains.png", "selected": false },
-        "mixed forest": {"file": "./terrain_tiles/Painted/mixed-forest.png", "selected": false }
+        "marsh": {"file": "./terrain_tiles/Painted/marsh.png", "selected": false },
+        "mixed forest": {"file": "./terrain_tiles/Painted/mixed-forest.png", "selected": false },
+        "sandy desert": {"file": "./terrain_tiles/Painted/sandy-desert.png", "selected": false },
+        "swamp": {"file": "./terrain_tiles/Painted/swamp.png", "selected": false },
+        "water": {"file": "./terrain_tiles/Painted/water.png", "selected": false }
     },
     "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"},
     "icons": {
@@ -176,17 +182,22 @@
                 "grassland": 0.5,
                 "mountains": 0.5,
                 "deciduous forested mountains": 0.5,
-                "evergreen forested mountains": 0.5
+                "evergreen forested mountains": 0.5,
+                "swamp": 0.25,
+                "marsh": 0.25,
+                "bog": 0.25,
+                "water": 0.1
             },
             "seeds": {
                 "deciduous forest": 1,
                 "grassland": 1
             }
         },
-        "test" : {
+        "hot" : {
             "odds": {
-                "deciduous forest": 1,
-                "grassland": 1
+                "sandy desert": 1,
+                "badlands": 1,
+                "mountains": 0.25
             },
             "seeds": {}
         }
@@ -257,6 +268,42 @@
             "secondary": ["evergreen forest", "evergreen forested hills", "mountains"],
             "tertiary": [],
             "decrease": []
+        },
+        "swamp": {
+            "primary": ["swamp"],
+            "secondary": ["marsh", "bog", "water"],
+            "tertiary": [],
+            "decrease": ["sandy desert", "badlands"]
+        },
+        "marsh": {
+            "primary": ["marsh"],
+            "secondary": ["swamp", "bog", "water"],
+            "tertiary": [],
+            "decrease": ["sandy desert", "badlands"]
+        },
+        "bog": {
+            "primary": ["bog"],
+            "secondary": ["marsh", "swamp", "water"],
+            "tertiary": [],
+            "decrease": ["sandy desert", "badlands"]
+        },
+        "water": {
+            "primary": ["water"],
+            "secondary": ["marsh", "bog", "swamp"],
+            "tertiary": [],
+            "decrease": ["sandy desert", "badlands"]
+        },
+        "sandy desert": {
+            "primary": ["sandy desert"],
+            "secondary": ["badlands", "rocky desert"],
+            "tertiary": [],
+            "decrease": ["water", "bog", "swamp", "marsh"]
+        },
+        "badlands": {
+            "primary": ["badlands"],
+            "secondary": ["sandy desert", "rocky desert", "mountains"],
+            "tertiary": [],
+            "decrease": ["water", "bog", "swamp", "marsh"]
         }
     },
     "globalFillLists": {
@@ -379,13 +426,28 @@
                     {"text": "Bandits are threatening the family here with violence if they don't give up most of their harvest. The family will turn to any likely candidates for help.", "odds": 1}
                 ]
             },
+            "logging-camp": {
+                "odds": 1,
+                "names": ["logging camp", "loggers' camp"],
+                "icon": "weapons",
+                "description": [
+                    {"text": "A few grubby huts in the wilderness.", "odds": 1},
+                    {"text": "A well laid out camp bustling with activity.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The loggers have angered a forest spirit, which is picking them off one by one. They've pooled money as a reward for anyone who deals with it. However, they actually angered it by murdering a favored resident of @settlement:dist=lt3s who had come here to find their brother.", "odds": 1},
+                    {"text": "Lycanthropy is secretly spreading among the loggers.", "odds": 1},
+                    {"text": "The loggers have found an entrance to an ancient ruin nearby. One group went inside and has not returned.", "odds": 1}
+                ]
+            },
             "manor": {
                 "odds": 1,
                 "names": ["manor", "noble's manor", "country manor"],
                 "icon": "town-2",
                 "description": [
-                    {"text": "A large and beatiful manor house surrounded by well-kept grounds.", "odds": 1},
-                    {"text": "This manor has seen better days.  The outside the weathered and peeling, and the grounds look wild and ill-kept.", "odds": 1}
+                    {"text": "A large and beautiful manor house surrounded by well-kept grounds.", "odds": 1},
+                    {"text": "This manor has seen better days.  The outside the weathered and peeling, and the grounds look wild and ill-kept.", "odds": 1},
+                    {"text": "This manor is made of meat.", "odds": 0.1}
                 ],
                 "hook": [
                     {"text": "Twenty years ago the lord here made a deal with a devil - now he desperately needs someone to help disuade the devil from collecting, as the deal comes due soon.", "odds": 1},
@@ -457,6 +519,19 @@
                     {"text": "The #ruler of this town is organizing a festival, but people from @settlement:dist=lt3s are trying to sabotage it.", "odds": 1},
                     {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.", "odds": 1},
                     {"text": "The #majorResident is secretly a vampire.", "odds": 1}
+                ]
+            },
+            "trading-post": {
+                "odds": 1,
+                "names": ["trading post"],
+                "icon": "hut-2",
+                "description": [
+                    {"text": "A small trading post surrounded by a wall of sharpened logs.", "odds": 1},
+                    {"text": "A few wooden buildings with a ragged stone wall surrounding them.", "odds": 1}
+                ],
+                "hook": [
+                    {"text": "The owner of the trading post is actually a spy. They'll pay for incriminating information on the ruler of @settlement.", "odds": 1},
+                    {"text": "A group of bandits is attacking traders on the road to here, and the owner will reward anyone who brings evidence of their demise.  The bandits' lair is in @bandit-camp.", "odds": 1}
                 ]
             },
             "village": {

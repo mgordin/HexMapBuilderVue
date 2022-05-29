@@ -30,7 +30,6 @@ const props = defineProps({
       }
 })
 
-console.log('in tag for '+props.hex.id+' hex is', props.hex)
 
 var popperInstance, button, tooltip = null
 

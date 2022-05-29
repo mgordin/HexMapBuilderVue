@@ -32,8 +32,8 @@ const es = useEditorStore();
                             <a href="#" class="dropdown-item" @click="es.setTerrainType('temperate forest')">
                                 temperate forest
                             </a>
-                            <a href="#" class="dropdown-item" @click="es.setTerrainType('error value')">
-                                Some Other Terrain
+                            <a href="#" class="dropdown-item" @click="es.setTerrainType('hot')">
+                                hot
                             </a>
                         </div>
                     </div>

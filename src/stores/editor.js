@@ -43,7 +43,10 @@ export const useEditorStore = defineStore({
         terrainToBeRandomized: false,
         tagsToBeRandomized: false,
         descriptionToBeRandomized: false,
-        mode: 'edit'
+        mode: 'edit',
+        mentionUUID: 1,
+        viewModeProgress: 0,
+        showViewModeLoaderModal: false
     }),
     getters: {
         activeHexImage(state) {
@@ -86,6 +89,10 @@ export const useEditorStore = defineStore({
             })
             return maps;
             
+        },
+        getMentionUUID(state) {
+            state.mentionUUID += 1
+            return state.mentionUUID - 1
         }
     },
     actions: {
@@ -260,6 +267,10 @@ export const useEditorStore = defineStore({
         toggleSaveNameModal() {
             this.showSaveNameModal = !this.showSaveNameModal
         },
+        toggleViewModeLoaderModal () {
+            this.showViewModeLoaderModal = !this.showViewModeLoaderModal
+
+        },
         triggerExportToPNG() {
             this.exportToPNGTrigger = true;
         },
@@ -286,8 +297,11 @@ export const useEditorStore = defineStore({
             }
         },
         toggleViewMode() {
+            const es = useEditorStore()
             if (this.mode == 'edit') {
+                //es.toggleViewModeLoaderModal()
                 this.mode = 'view'
+                //es.toggleViewModeLoaderModal()
             } else {
                 this.mode = 'edit'
             }

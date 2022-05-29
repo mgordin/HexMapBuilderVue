@@ -148,7 +148,6 @@ const hexByUUID = hs.hexByUUID;
               </span>
             </header>
 
-            <!-- If the terrain is being shown as a panel -->
             <div class="card-content" v-if="es.terrainSectionVisible && es.showTerrainsAsPanel">
               <div class="columns is-multiline">
                 <div
@@ -156,6 +155,7 @@ const hexByUUID = hs.hexByUUID;
                   v-for="(terrainProperties, terrainName) in es.terrainToImage"
                   v-bind:class="{ 'has-background-light': terrainProperties.selected }"
                   @click="es.selectTerrain(terrainName)"
+                  :title="terrainName"
                 >
                   <img class="terrain-picker-hex" v-bind="{ src: terrainProperties.file }" />
                 </div>

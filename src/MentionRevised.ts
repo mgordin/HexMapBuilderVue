@@ -74,7 +74,7 @@ export const Mention = Node.create<MentionOptions>({
         default: null,
         parseHTML: (element) => {
           return {
-            uuid: element.getAttribute("data-mention-uuid")
+            uuid: element.getAttribute("data-mention-uuid"),
           };
         },
         renderHTML: (attributes) => {
@@ -83,7 +83,7 @@ export const Mention = Node.create<MentionOptions>({
           }
 
           return {
-            "data-mention-uuid": attributes.uuid
+            "data-mention-uuid": attributes.uuid,
           };
         }
       }

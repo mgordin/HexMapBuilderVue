@@ -46,7 +46,7 @@ function jumpToHex(hexUUID) {
         :key="hex.uuid"
         v-bind:uuid="hex.uuid"
         :style="{visibility: (hex.terrain == 'Default') ? 'hidden' : 'visible'}"
-        @click="hexClicked(hex, {'shiftKey': false})"
+        @click="es.hexClicked(hex, {'shiftKey': false})"
       >
         <img class="hex-terrain" v-bind="{ src: es.terrainToImage[hex.terrain].file }" />
         <img

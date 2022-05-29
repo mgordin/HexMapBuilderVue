@@ -47,9 +47,6 @@ const hs = useHexesStore();
                     <span class="tag" :class="{'is-primary': es.mode=='view'}">View</span>    
                 </div>
             </div>
-            <div class="navbar-item">
-                <span style="font-size:1em"><a href="#test-id-here">Go to sample ID</a></span>
-            </div>
         </div>
         <div class="navbar-end">
             <div class="navbar-item save-indicator" v-if="es.savingIndicator">

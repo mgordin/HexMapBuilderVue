@@ -1,6 +1,6 @@
 <script setup>
 
-import TextEditor from "@/components/TextEditor.vue";
+import TextViewer from "@/components/TextViewer.vue";
 
 const props = defineProps({
   hex: {
@@ -13,7 +13,7 @@ const props = defineProps({
 <template>
 
 <div class="popupContent">
-  <TextEditor :modelValue="hex.content" :showMentionTooltip="false" />
+  <TextViewer :modelValue="hex.content" :showMentionTooltip="false" />
 </div>
 
 </template>

@@ -2,7 +2,7 @@
   <node-view-wrapper class="custom-mention-component" as="span">
       <span 
         :class="setClass(node.attrs.class)"
-        :id="'hex-mention-'+hexByUUID(node.attrs.uuid).id"
+        :id="'hex-mention-'+thisUUID"
         @mouseenter="show"
         @focus="show"
         @blur="hide"
@@ -12,7 +12,7 @@
         {{ hexByUUID(node.attrs.uuid).id }}
         
       </span>
-      <div class="tooltip" :id="'tooltip-hex-mention-'+numberToLetters(hexByUUID(node.attrs.uuid).uuid)" role="tooltip">
+      <div class="tooltip" :id="'tooltip-hex-mention-'+thisUUID" role="tooltip">
           <MentioningHexPopup2 :hex="hexByUUID(node.attrs.uuid)" />
           <div id="arrow" data-popper-arrow></div>
       </div>
@@ -26,6 +26,7 @@ import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import { createPopper } from '@popperjs/core';
 import { onMounted } from 'vue'
 import MentioningHexPopup2 from "@/components/MentioningHexPopup2.vue"
+import { v4 as uuidv4 } from 'uuid';
 
 
 const hs = useHexesStore();
@@ -43,17 +44,22 @@ const props = defineProps({
 
 var popperInstance, mention, tooltip = null
 
+
+var thisUUID = uuidv4()
+
 onMounted(() => {
-    mention = document.querySelector('#hex-mention-'+hexByUUID(props.node.attrs.uuid).id);
-    tooltip = document.querySelector('#tooltip-hex-mention-'+numberToLetters(hexByUUID(props.node.attrs.uuid).uuid));
+
+    mention = document.querySelector('#hex-mention-'+thisUUID);
+    tooltip = document.querySelector('#tooltip-hex-mention-'+thisUUID);
 
     popperInstance = createPopper(mention, tooltip, {
+        placement: "bottom",
         modifiers: [
             {
-            name: 'offset',
-            options: {
-                offset: [0, 8],
-            },
+              name: 'offset',
+              options: {
+                  offset: [0, 8],
+              },
             },
         ],
     }); 
@@ -90,7 +96,6 @@ function numberToLetters(number) {
 }
 
 function setClass(inputClass) {
-  console.log('input class', inputClass, 'node', props.node)
   if (inputClass == 'test-class') {
     return 'hex-mention test-class'
   } else {

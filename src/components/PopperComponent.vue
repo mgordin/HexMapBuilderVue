@@ -45,7 +45,6 @@ onMounted(() => {
 })
 
 function show() {
-    console.log(popperInstance)
     // Make the tooltip visible
     tooltip.setAttribute('data-show', '');
 

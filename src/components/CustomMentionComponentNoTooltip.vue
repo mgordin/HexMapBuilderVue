@@ -35,7 +35,6 @@ const props = defineProps({
 
 
 const mentionedHex = computed(() => hexByUUID(props.node.attrs.uuid))
-console.log('mentioned hex no tooltip', mentionedHex)
 
 </script>
 
