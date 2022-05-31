@@ -1,920 +1,2301 @@
 {
-    "terrainToImage": {
-        "Default": { "file": "./terrain_tiles/flat/default-hex.png", "selected": false },
-        "badlands": {"file": "./terrain_tiles/Painted/badlands.png", "selected": false },
-        "bog": {"file": "./terrain_tiles/Painted/bog.png", "selected": false },
-        "grassland": {"file": "./terrain_tiles/Painted/grassland.png", "selected": false },
-        "grassy hills": {"file": "./terrain_tiles/Painted/grassy-hills.png", "selected": false },
-        "deciduous forest": {"file": "./terrain_tiles/Painted/deciduous-forest.png", "selected": false },
-        "deciduous forested hills": {"file": "./terrain_tiles/Painted/deciduous-forested-hills.png", "selected": false },
-        "deciduous forested mountains": {"file": "./terrain_tiles/Painted/deciduous-forested-mountains.png", "selected": false },
-        "mountains": {"file": "./terrain_tiles/Painted/mountains.png", "selected": false },
-        "evergreen forest": {"file": "./terrain_tiles/Painted/evergreen-forest.png", "selected": false },
-        "evergreen forested hills": {"file": "./terrain_tiles/Painted/evergreen-forested-hills.png", "selected": false },
-        "evergreen forested mountains": {"file": "./terrain_tiles/Painted/evergreen-forested-mountains.png", "selected": false },
-        "marsh": {"file": "./terrain_tiles/Painted/marsh.png", "selected": false },
-        "mixed forest": {"file": "./terrain_tiles/Painted/mixed-forest.png", "selected": false },
-        "sandy desert": {"file": "./terrain_tiles/Painted/sandy-desert.png", "selected": false },
-        "swamp": {"file": "./terrain_tiles/Painted/swamp.png", "selected": false },
-        "water": {"file": "./terrain_tiles/Painted/water.png", "selected": false }
-    },
-    "multiple_hexes": { "file": "./terrain_tiles/flat/multiple-hexes.png"},
-    "icons": {
-        "altar": { "file": "./icons/altar-glow.png", "selected": false },
-        "altar-2": { "file": "./icons/altar_2-glow.png", "selected": false },
-        "archery": { "file": "./icons/archery-glow.png", "selected": false },
-        "archery-2": { "file": "./icons/archery_2-glow.png", "selected": false },
-        "arrow": { "file": "./icons/arrow-glow.png", "selected": false },
-        "beast": { "file": "./icons/beast-glow.png", "selected": false },
-        "bridge": { "file": "./icons/bridge-glow.png", "selected": false },
-        "bridge-2": { "file": "./icons/bridge_2-glow.png", "selected": false },
-        "bridge_3": { "file": "./icons/bridge_3-glow.png", "selected": false },
-        "building": { "file": "./icons/building-glow.png", "selected": false },
-        "camp": { "file": "./icons/camp-glow.png", "selected": false },
-        "camp-2": { "file": "./icons/camp_2-glow.png", "selected": false },
-        "campsite": { "file": "./icons/campsite-glow.png", "selected": false },
-        "capital": { "file": "./icons/capital-glow.png", "selected": false },
-        "capital-2": { "file": "./icons/capital_2-glow.png", "selected": false },
-        "capital-3": { "file": "./icons/capital_3-glow.png", "selected": false },
-        "castle": { "file": "./icons/castle-glow.png", "selected": false },
-        "castle-2": { "file": "./icons/castle_2-glow.png", "selected": false },
-        "castle-3": { "file": "./icons/castle_3-glow.png", "selected": false },
-        "cathedral": { "file": "./icons/cathedral-glow.png", "selected": false },
-        "cattle": { "file": "./icons/cattle-glow.png", "selected": false },
-        "cattle-2": { "file": "./icons/cattle_2-glow.png", "selected": false },
-        "cave": { "file": "./icons/cave-glow.png", "tags": ["wilderness", "cave"], "selected": false },
-        "cavern": { "file": "./icons/cavern_2-glow.png", "selected": false },
-        "cemetary": { "file": "./icons/cemetary-glow.png", "selected": false },
-        "cemetary-2": { "file": "./icons/cemetary_2-glow.png", "selected": false },
-        "cemetary-3": { "file": "./icons/cemetary_3-glow.png", "selected": false },
-        "church": { "file": "./icons/church-glow.png", "selected": false },
-        "city": { "file": "./icons/city-glow.png", "selected": false },
-        "crater": { "file": "./icons/crater-glow.png", "selected": false },
-        "cross": { "file": "./icons/cross-glow.png", "selected": false },
-        "crypt": { "file": "./icons/crypt-glow.png", "selected": false },
-        "danger": { "file": "./icons/danger-glow.png", "selected": false },
-        "danger-2": { "file": "./icons/danger_2-glow.png", "selected": false },
-        "danger-3": { "file": "./icons/danger_3-glow.png", "selected": false },
-        "dock": { "file": "./icons/dock-glow.png", "selected": false },
-        "dock-2": { "file": "./icons/dock_2-glow.png", "selected": false },
-        "dungeon": { "file": "./icons/dungeon-glow.png", "selected": false },
-        "dungeon-2": { "file": "./icons/dungeon_2-glow.png", "selected": false },
-        "enemy": { "file": "./icons/enemy-glow.png", "selected": false },
-        "enemy-2": { "file": "./icons/enemy_2-glow.png", "selected": false },
-        "enemy-3": { "file": "./icons/enemy_3-glow.png", "selected": false },
-        "evil": { "file": "./icons/evil-glow.png", "selected": false },
-        "evil-2": { "file": "./icons/evil_2-glow.png", "selected": false },
-        "evil-tower": { "file": "./icons/evil_tower-glow.png", "selected": false },
-        "evil-tower-2": { "file": "./icons/evil_tower_2-glow.png", "selected": false },
-        "fish": { "file": "./icons/fish-glow.png", "selected": false },
-        "fishing-town": { "file": "./icons/fishing_town-glow.png", "selected": false },
-        "flag": { "file": "./icons/flag-glow.png", "selected": false },
-        "food": { "file": "./icons/food-glow.png", "selected": false },
-        "food-2": { "file": "./icons/food_2-glow.png", "selected": false },
-        "fort": { "file": "./icons/fort-glow.png", "tags": ["settlement", "fort"], "selected": false },
-        "fort-2": { "file": "./icons/fort_2-glow.png", "selected": false },
-        "fort-3": { "file": "./icons/fort_3-glow.png", "selected": false },
-        "fort-4": { "file": "./icons/fort_4-glow.png", "selected": false },
-        "horses": { "file": "./icons/horses-glow.png", "selected": false },
-        "horses-2": { "file": "./icons/horses_2-glow.png", "selected": false },
-        "horses-3": { "file": "./icons/horses_3-glow.png", "selected": false },
-        "house": {"file": "./icons/house-glow.png", "selected": false},
-        "house-2": {"file": "./icons/house_2-glow.png", "selected": false},
-        "hut": {"file": "./icons/hut-glow.png", "selected": false},
-        "hut-2": {"file": "./icons/hut_2-glow.png", "selected": false},
-        "hut-3": {"file": "./icons/hut_3-glow.png", "selected": false},
-        "hut-4": {"file": "./icons/hut_4-glow.png", "selected": false},
-        "labyrinth": {"file": "./icons/labyrinth-glow.png", "selected": false},
-        "labyrinth-2": {"file": "./icons/labyrinth_2-glow.png", "selected": false},
-        "landmark": {"file": "./icons/landmark-glow.png", "selected": false},
-        "landmark-2": {"file": "./icons/landmark_2-glow.png", "selected": false},
-        "landmark-3": {"file": "./icons/landmark_3-glow.png", "selected": false},
-        "large-camp": {"file": "./icons/large_camp-glow.png", "selected": false},
-        "large-fort": {"file": "./icons/large_fort-glow.png", "selected": false},
-        "lighthouse": {"file": "./icons/lighthouse-glow.png", "selected": false},
-        "market": {"file": "./icons/market-glow.png", "selected": false},
-        "market-2": {"file": "./icons/market_2-glow.png", "selected": false},
-        "market-3": {"file": "./icons/market_3-glow.png", "selected": false},
-        "mill": {"file": "./icons/mill-glow.png", "selected": false},
-        "mine": {"file": "./icons/mine-glow.png", "selected": false},
-        "monolith": { "file": "./icons/monolith-glow.png", "tags": ["landmark", "monolith"], "selected": false },
-        "monolith-2": {"file": "./icons/monolith_2-glow.png", "selected": false},
-        "monsters": {"file": "./icons/monsters-glow.png", "selected": false},
-        "monsters-2": {"file": "./icons/monsters_2-glow.png", "selected": false},
-        "monsters-3": {"file": "./icons/monsters_3-glow.png", "selected": false},
-        "oasis": {"file": "./icons/oasis-glow.png", "selected": false},
-        "obelisk": {"file": "./icons/obelisk-glow.png", "selected": false},
-        "obelisk-2": { "file": "./icons/obelisk_2-glow.png", "tags": ["landmark", "obelisk"], "selected": false },
-        "palace": {"file": "./icons/palace-glow.png", "selected": false},
-        "palace-2": {"file": "./icons/palace_2-glow.png", "selected": false},
-        "palace-3": {"file": "./icons/palace_3-glow.png", "selected": false},
-        "palace-4": {"file": "./icons/palace_4-glow.png", "selected": false},
-        "portal": {"file": "./icons/portal-glow.png", "selected": false},
-        "pyramid": {"file": "./icons/pyramid-glow.png", "selected": false},
-        "pyramid-2": {"file": "./icons/pyramid_2-glow.png", "selected": false},
-        "pyramid-3": {"file": "./icons/pyramid_3-glow.png", "selected": false},
-        "pyramid-4": {"file": "./icons/pyramid_4-glow.png", "selected": false},
-        "pyramid-5": {"file": "./icons/pyramid_5-glow.png", "selected": false},
-        "ruins": {"file": "./icons/ruins-glow.png", "selected": false},
-        "ruins-2": {"file": "./icons/ruins_2-glow.png", "selected": false},
-        "ruins-3": {"file": "./icons/ruins_3-glow.png", "selected": false},
-        "ruins-4": { "file": "./icons/ruins_4-glow.png", "selected": false },
-        "shield": {"file": "./icons/shield-glow.png", "selected": false},
-        "ship": {"file": "./icons/ship-glow.png", "selected": false},
-        "ship-fleet": {"file": "./icons/ship_fleet-glow.png", "selected": false},
-        "shipwreck": {"file": "./icons/shipwreck-glow.png", "selected": false},
-        "shrine": {"file": "./icons/shrine-glow.png", "selected": false},
-        "shrine-2": {"file": "./icons/shrine_2-glow.png", "selected": false},
-        "shrine-3": {"file": "./icons/shrine_3-glow.png", "selected": false},
-        "shrine-4": {"file": "./icons/shrine_4-glow.png", "selected": false},
-        "smithy": {"file": "./icons/smithy-glow.png", "selected": false},
-        "sphinx": {"file": "./icons/sphinx-glow.png", "selected": false},
-        "stable": {"file": "./icons/stable-glow.png", "selected": false},
-        "statue": {"file": "./icons/statue-glow.png", "selected": false},
-        "statue-2": {"file": "./icons/statue_2-glow.png", "selected": false},
-        "storm": {"file": "./icons/storm-glow.png", "selected": false},
-        "stronghold": {"file": "./icons/stronghold-glow.png", "selected": false},
-        "stronghold-2": {"file": "./icons/stronghold_2-glow.png", "selected": false},
-        "stronghold-3": {"file": "./icons/stronghold_3-glow.png", "selected": false},
-        "tavern": {"file": "./icons/tavern-glow.png", "selected": false},
-        "tavern-2": {"file": "./icons/tavern_2-glow.png", "selected": false},
-        "temple": {"file": "./icons/temple-glow.png", "selected": false},
-        "temple-2": {"file": "./icons/temple_2-glow.png", "selected": false},
-        "temple-3": {"file": "./icons/temple_3-glow.png", "selected": false},
-        "temple-4": {"file": "./icons/temple_4-glow.png", "selected": false},
-        "temple-5": {"file": "./icons/temple_5-glow.png", "selected": false},
-        "temple-6": {"file": "./icons/temple_6-glow.png", "selected": false},
-        "temple-7": {"file": "./icons/temple_7-glow.png", "selected": false},
-        "temple-8": {"file": "./icons/temple_8-glow.png", "selected": false},
-        "temple-9": {"file": "./icons/temple_9-glow.png", "selected": false},
-        "thorns": {"file": "./icons/thorns-glow.png", "selected": false},
-        "totem": {"file": "./icons/totem-glow.png", "selected": false},
-        "totem-2": {"file": "./icons/totem_2-glow.png", "selected": false},
-        "tower": {"file": "./icons/tower-glow.png", "selected": false},
-        "tower-2": {"file": "./icons/tower_2-glow.png", "selected": false},
-        "tower-3": {"file": "./icons/tower_3-glow.png", "selected": false},
-        "tower-4": {"file": "./icons/tower_4-glow.png", "selected": false},
-        "town": { "file": "./icons/town-glow.png", "tags": ["settlement", "town"], "selected": false },
-        "town-2": {"file": "./icons/town_2-glow.png", "selected": false},
-        "town-3": {"file": "./icons/town_3-glow.png", "selected": false},
-        "town-4": {"file": "./icons/town_4-glow.png", "selected": false},
-        "trap": {"file": "./icons/trap-glow.png", "selected": false},
-        "treasure": {"file": "./icons/treasure-glow.png", "selected": false},
-        "watchtower": {"file": "./icons/watchtower-glow.png", "selected": false},
-        "waterfall": {"file": "./icons/waterfall-glow.png", "selected": false},
-        "waterfall-2": {"file": "./icons/waterfall_2-glow.png", "selected": false},
-        "weapons": {"file": "./icons/weapons-glow.png", "selected": false},
-        "weapons-2": {"file": "./icons/weapons_2-glow.png", "selected": false},
-        "weapons-3": {"file": "./icons/weapons_3-glow.png", "selected": false},
-        "windmill": {"file": "./icons/windmill-glow.png", "selected": false},
-        "windmill-2": {"file": "./icons/windmill_2-glow.png", "selected": false},
-        "ziggurat": {"file": "./icons/ziggurat-glow.png", "selected": false}
-    },
-    "terrainProperties": {
-        "temperate forest": {
-            "odds": {
-                "deciduous forest": 1,
-                "evergreen forest": 1,
-                "mixed forest": 1,
-                "grassy hills": 0.5,
-                "deciduous forested hills": 1,
-                "evergreen forested hills": 1,
-                "grassland": 0.5,
-                "mountains": 0.5,
-                "deciduous forested mountains": 0.5,
-                "evergreen forested mountains": 0.5,
-                "swamp": 0.25,
-                "marsh": 0.25,
-                "bog": 0.25,
-                "water": 0.1
-            },
-            "seeds": {
-                "deciduous forest": 1,
-                "grassland": 1
-            }
-        },
-        "hot" : {
-            "odds": {
-                "sandy desert": 1,
-                "badlands": 1,
-                "mountains": 0.25
-            },
-            "seeds": {}
-        }
-    },
-    "terrainInfluencedBy": {
-        "deciduous forest": {
-            "primary": ["deciduous forest"],
-            "secondary": ["deciduous forested mountains", "deciduous forested hills", "mixed forest"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "evergreen forest": {
-            "primary": ["evergreen forest"],
-            "secondary": ["evergreen forested mountains", "evergreen forested hills", "mixed forest"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "mixed forest": {
-            "primary": ["mixed forest", "evergreen forest", "deciduous forest"],
-            "secondary": ["deciduous forested hills", "evergreen forested hills", "deciduous forested mountains", "evergreen forested mountains"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "grassy hills": {
-            "primary": ["grassy hills"],
-            "secondary": ["grassland", "mountains", "forested hills"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "deciduous forested hills": {
-            "primary": ["deciduous forested hills"],
-            "secondary": ["grassy hills", "deciduous forested mountains", "deciduous forest", "mixed forest"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "evergreen forested hills": {
-            "primary": ["evergreen forested hills"],
-            "secondary": ["grassy hills", "evergreen forested mountains", "evergreen forest", "mixed forest"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "grassland": {
-            "primary": ["grassland"],
-            "secondary": ["grassy hills", "savannah"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "savannah": {
-            "primary": ["savannah"],
-            "secondary": ["grassland", "grassy hills"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "mountains": {
-            "primary": ["mountains"],
-            "secondary": ["grassy hills", "deciduous forested hills", "evergreen forested hills", "deciduous forested mountains", "evergreen forested mountains"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "deciduous forested mountains": {
-            "primary": ["deciduous forested mountains"],
-            "secondary": ["deciduous forest", "deciduous forested hills", "mountains"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "evergreen forested mountains": {
-            "primary": ["evergreen forested mountains"],
-            "secondary": ["evergreen forest", "evergreen forested hills", "mountains"],
-            "tertiary": [],
-            "decrease": []
-        },
-        "swamp": {
-            "primary": ["swamp"],
-            "secondary": ["marsh", "bog", "water"],
-            "tertiary": [],
-            "decrease": ["sandy desert", "badlands"]
-        },
-        "marsh": {
-            "primary": ["marsh"],
-            "secondary": ["swamp", "bog", "water"],
-            "tertiary": [],
-            "decrease": ["sandy desert", "badlands"]
-        },
-        "bog": {
-            "primary": ["bog"],
-            "secondary": ["marsh", "swamp", "water"],
-            "tertiary": [],
-            "decrease": ["sandy desert", "badlands"]
-        },
-        "water": {
-            "primary": ["water"],
-            "secondary": ["marsh", "bog", "swamp"],
-            "tertiary": [],
-            "decrease": ["sandy desert", "badlands"]
-        },
-        "sandy desert": {
-            "primary": ["sandy desert"],
-            "secondary": ["badlands", "rocky desert"],
-            "tertiary": [],
-            "decrease": ["water", "bog", "swamp", "marsh"]
-        },
-        "badlands": {
-            "primary": ["badlands"],
-            "secondary": ["sandy desert", "rocky desert", "mountains"],
-            "tertiary": [],
-            "decrease": ["water", "bog", "swamp", "marsh"]
-        }
-    },
-    "globalFillLists": {
-        "size": ["small", "medium-sized", "large"],
-        "gender": ["man", "woman"],
-        "stone": [
-            "granite",
-            "sandstone",
-            "black stone",
-            "obsidian",
-            "a strange, irridescent white stone",
-            "oily-lookin green stone",
-            "ash-gray stone veined with glowing orange light"
-        ],
-        "deityType": [
-            "God",
-            "Goddess"
-        ],
-        "goodDeity": [
-            "!deityType of Light",
-            "!deityType of Bees",
-            "!deityType of Trade",
-            "!deityType of Love"
-        ],
-        "evilDeity": [
-            "!deityType of Murder",
-            "!deityType of Storms"
-        ],
-        "neutralDeity": [
-            "!deityType of Death",
-            "!deityType of Fortune"
-        ],
-        "deity": [
-            "!goodDeity",
-            "!neutralDeity",
-            "!evilDeity"
-        ]
-    },
-    "contentTags": {
-        "settlement": {
-            "bandit-camp": {
-                "odds": 1,
-                "names": ["bandit camp"],
-                "icon": "large-camp",
-                "description": [
-                    {"text": "A small, hidden nest of bandits and their camp followers.", "odds": 1},
-                    {"text": "A large and well-guarded camp with numerous bandits.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The bandits are planning a raid on @village||town:dist=lt3s.", "odds": 1},
-                    {"text": "The bandits steal from the rich and give to the poor - but now one of the nobles they stole from has put a bounty on their head. The party can learn about it in @settlement.", "odds": 1},
-                    {"text": "The bandits are actually a front for a sinister cult. They are trying to steal a particular artifact coming to a noble in @town||city||manor to conduct a dark ritual of summoning.", "odds": 1}
-                ]
-            },
-            "castle": {
-                "odds": 1,
-                "names": ["castle", "fortress", "keep"],
-                "icon": "castle",
-                "ruler": ["lord", "commander"],
-                "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "sage", "merchant"],
-                "description": [
-                    {"text": "A mighty and imposing &name atop a hill.", "odds": 1},
-                    {"text": "The walls of this &name show signs of magical attack.", "odds": 1},
-                    {"text": "The &name is made of black stone. Impaled bodies line the road leading up to the castle.", "odds": 1},
-                    {"text": "A lonely &name surrounded by &terrain.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The #majorResident of this &name is secretly a werewolf.  It is said that the waters of @magic-spring:dist=gt3h can cure such an affliction.", "odds": 1},
-                    {"text": "Humanoids living in the ruins in @ruin:dist=lt3s have been attacking the &name at night.", "odds": 1}
-                ]
-            },
-            "city": {
-                "odds": 1,
-                "names": ["city"],
-                "icon": "city",
-                "ruler": ["mayor", "duke", "city council"],
-                "majorResident": [],
-                "killerName": [
-                    "Wolf",
-                    "Stinky Goblin",
-                    "White Wind",
-                    "Abyssal Fang",
-                    "Blood Baron"
-                ],
-                "description": [
-                    {"text": "A huge and prosperious city.  Merchants flock here from distant lands to sell their goods.", "odds": 1},
-                    {"text": "This city is ruled by the clergy of the !goodDeity. Temple bells can be heard frequently, and it is often decorated to celebrate holy days.", "odds": 1},
-                    {"text": "The city was recently at war with a neighbor, and still shows the scars of that", "odds": 1 }
-                ],
-                "hook": [
-                    {"text": "The #ruler has been murdered, and one of their functionaries is looking for outside help getting to the bottom of it while matters of succession are being handled.  The murderer is actually an extraplanar assassin conjured by wizards from @town||city.", "odds": 1},
-                    {"text": "The merchants' guild of @town||city is sabotaging trade here, and the local merchants want someone to deal with it.", "odds": 1},
-                    {"text": "People are being mysteriously and gruesomely murdered by someone the locals have taken to calling the #killerName.", "odds": 1}
-                ]
-            },
-            "extraplanar-outpost": {
-                "odds": 0.1,
-                "names": ["extraplanar outpost"],
-                "icon": "building",
-                "description": [
-                    {"text": "A sphere of coppery metal over a hundred feet across.", "odds": 1},
-                    {"text": "Obsidian cubes rise from burnt ground, with fissures between them spitting out orange light.", "odds": 1},
-                    {"text": "Elaborate crystal spires rise up into the sky, glinting with rainbows in the light.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The outpost is trapped on this plane, and the inhabitants can't be away from it long. They need someone to get them a component from @ruin:dist=gt2s so they can return home.", "odds": 1},
-                    {"text": "This outpost is the front of an invasion, but the gateway they've come through is unstable and could be disrupted. The wizard in @wizard-tower knows how.", "odds": 1}
-                ]
-            },
-            "homestead": {
-                "odds": 1,
-                "names": ["homestead"],
-                "icon": "cattle",
-                "description": [
-                    {"text": "A small, lonely homestead.", "odds": 1},
-                    {"text": "A large farm house surrounded by bountiful fields and livestock.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The family living here is being terrorized by a strange shadow creature. It is after them because the son secretly stole an ancient relic from @ruin.", "odds": 1},
-                    {"text": "Bandits are threatening the family here with violence if they don't give up most of their harvest. The family will turn to any likely candidates for help.", "odds": 1}
-                ]
-            },
-            "logging-camp": {
-                "odds": 1,
-                "names": ["logging camp", "loggers' camp"],
-                "icon": "weapons",
-                "description": [
-                    {"text": "A few grubby huts in the wilderness.", "odds": 1},
-                    {"text": "A well laid out camp bustling with activity.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The loggers have angered a forest spirit, which is picking them off one by one. They've pooled money as a reward for anyone who deals with it. However, they actually angered it by murdering a favored resident of @settlement:dist=lt3s who had come here to find their brother.", "odds": 1},
-                    {"text": "Lycanthropy is secretly spreading among the loggers.", "odds": 1},
-                    {"text": "The loggers have found an entrance to an ancient ruin nearby. One group went inside and has not returned.", "odds": 1}
-                ]
-            },
-            "manor": {
-                "odds": 1,
-                "names": ["manor", "noble's manor", "country manor"],
-                "icon": "town-2",
-                "description": [
-                    {"text": "A large and beautiful manor house surrounded by well-kept grounds.", "odds": 1},
-                    {"text": "This manor has seen better days.  The outside the weathered and peeling, and the grounds look wild and ill-kept.", "odds": 1},
-                    {"text": "This manor is made of meat.", "odds": 0.1}
-                ],
-                "hook": [
-                    {"text": "Twenty years ago the lord here made a deal with a devil - now he desperately needs someone to help disuade the devil from collecting, as the deal comes due soon.", "odds": 1},
-                    {"text": "The noble here is plotting against another noble in @town||city||manor, and needs deniable agents to help frame that noble for a crime.", "odds": 1},
-                    {"text": "The noble here would pay a high bounty for the beast lairing in @beast-lair||monster-lair, as that creature killed his cousin.", "odds": 1}
-                ]
-            },
-            "military-outpost": {
-                "odds": 1,
-                "names": ["military outpost"],
-                "icon": "fort-2",
-                "description": [
-                    {"text": "A large and well-fortified outpost.", "odds": 1},
-                    {"text": "A small outpost surrounded by a wall of wooden stakes.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The outpost commander needs someone to find a missing squad that went to investigate rumors of an attack on @settlement.", "odds": 1},
-                    {"text": "The outpost commander is loved by their soldiers, but is also cursed to turn into a raven on nights of the new moon.", "odds": 1},
-                    {"text": "The ruler of @settlement:dist=eq1s is agitating their people against the soldiers here. Things will turn bloody unless someone else steps in.", "odds": 1}
-                ]
-            },
-            "mine": {
-                "odds": 1,
-                "names": ["mine"],
-                "icon": "mine",
-                "description": [
-                    {"text": "A network of shallow tunnels filled with the sounds of hammers and pickaxes.", "odds": 1},
-                    {"text": "A deep pit in the earth, with an elevator that lets people descend.", "odds": 1},
-                    {"text": "A fortified structure about an elaborate mining operations, pulling previous materials from the ground.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "Miners have been disappearing - consumed off by a terrible beast their digging has released.", "odds": 1},
-                    {"text": "The mine is run by two fueding clans. The fued has become heated enough that one clan is risking bringing down the mine to get back at the other.", "odds": 1}
-                ]
-            },
-            "monastery": {
-                "odds": 1,
-                "names": ["monastery", "abbey"],
-                "icon": "cathedral",
-                "description": [
-                    {"text": "A simple monastery, with plainly-clad monks outside tending the vegetable gardens.", "odds": 1},
-                    {"text": "A large and ornate monasteries, with fine carvings and inlays of precious metals.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "Someone has murdered the abbot, and the monks need help discovering the truth behind it.", "odds": 1},
-                    {"text": "One of the monks has disappeared, and the abbot wants someone to find them. The monk was kidnapped by bandits in @bandit-camp, to whom his family owes money.", "odds": 1}
-                ]
-            },
-            "town": {
-                "odds": 2,
-                "names": ["town"],
-                "icon": "town",
-                "ruler": ["mayor", "ealdorman", "town council"],
-                "majorResident": ["blacksmith", "priest", "innkeeper", "miller", "merchant"],
-                "status": [
-                    "It seems less prosperous than it once was - some buildings stand empty, while others are in poor repair.  However, the homes around those of the town ruler are freshly painted.",
-                    "There's a lot of new construction here.",
-                    "Half of the town seems to have been abandoned.",
-                    "It seems to be doing fine, and its people are open to outsiders and trade."
-                ],
-                "recentEvent": [
-                    "It was recently attacked by an invading force, and still shows the scars of that battle.",
-                    "It is decorated for an upcoming festival."
-                ],
-                "description": [
-                    {"text": "This is a !size town. #status #recentEvent", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The #ruler of this town is organizing a festival, but people from @settlement:dist=lt3s are trying to sabotage it.", "odds": 1},
-                    {"text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.", "odds": 1},
-                    {"text": "The #majorResident is secretly a vampire.", "odds": 1}
-                ]
-            },
-            "trading-post": {
-                "odds": 1,
-                "names": ["trading post"],
-                "icon": "hut-2",
-                "description": [
-                    {"text": "A small trading post surrounded by a wall of sharpened logs.", "odds": 1},
-                    {"text": "A few wooden buildings with a ragged stone wall surrounding them.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The owner of the trading post is actually a spy. They'll pay for incriminating information on the ruler of @settlement.", "odds": 1},
-                    {"text": "A group of bandits is attacking traders on the road to here, and the owner will reward anyone who brings evidence of their demise.  The bandits' lair is in @bandit-camp.", "odds": 1}
-                ]
-            },
-            "village": {
-                "odds": 10,
-                "names": ["village", "hamlet", "thorp"],
-                "icon": "hut-3",
-                "ruler": ["headman", "council of elders"],
-                "majorResident": ["blacksmith", "priest", "wise woman", "elder", "innkeeper"],
-                "wealth": [
-                    "This village is quite prosperous. The buildings are in good repair and the people are dressed in clean, well-repaired clothes.",
-                    "This village is doing fine - about as well as you'd expect from an average village in this region.",
-                    "This village is just hanging on. There are several abandoned houses, and the people look thin and hungry."
-                ],
-                "attitude": [
-                    "Its people seem cheerful and open to outsiders.",
-                    "Its people are standoffish, but willing to trade and hear news from the wider world.",
-                    "Its people seem nervous, and conversations stop whenever #ruler is nearby."
-                ],
-                "hook": [
-                    {"text": "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement:dist=lt3s.", "odds": 1},
-                    {"text": "The houses in this village are all painted with flowers.\nA #majorResident from this village is looking for their missing son, who was last seen heading toward the ruins at @ruin:dist=lt3s.", "odds": 1},
-                    {"text": "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #majorResident.", "odds": 1},
-                    {"text": "There has been a rash of livestock thefts recently, and the #ruler is willing to pay someone who can make them stop. They were stolen by the #majorResident of @village||town.", "odds": 1},
-                    {"text": "Recently several villagers have been killed by a beast lairing in @beast-lair:dist=lt4s, and they've started pooling money to hire a monster hunter to deal with it.", "odds": 1},
-                    {"text": "The villagers have just found a bounty of a rare resource. The #majorResident of @village has learned about this and is trying to steal it.", "odds": 1}
-                ],
-                "description": [
-                    {"text": "#wealth #attitude", "odds": 10},
-                    {"text": "This village was clearly founded by people foreign to these lands - the local architecture still looks distinct from any surrounding settlements.", "odds": 1}
-                ]
-            },
-            "wizard-tower": {
-                "odds": 1,
-                "names": ["wizard tower"],
-                "icon": "tower-4",
-                "description": [
-                    {"text": "A lonely tower occupied by a cantankerous wizard.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The wizard living here is looking for a rare reagent that can be found in @wilderness.", "odds": 1},
-                    {"text": "Humanoids lairing in @ruin:dist=lt3s are bothering the wizard, who would like them to be dealt with.", "odds": 1},
-                    {"text": "The wizard has created life!  Life!  But it's gotten out of hand, and needs assistance.", "odds": 1},
-                    {"text": "A creation of the wizard has escaped and is harassing the settlement in @settlement.", "odds": 1}
-                ]
-            }
-        },
-        "ruin": {
-            "abandoned-town": {
-                "odds": 1,
-                "names": ["abandoned town", "ruined town"],
-                "icon": "ruins-2",
-                "description": [
-                    {"text": "A terrible fire raged here once, destroying most of the town.", "odds": 1},
-                    {"text": "This &name is perfectly preserved, as though its people only left minutes ago. An eerie silence hangs over it.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "A terrible beast now lairs here. The ruler of @city||town would pay well for its head.", "odds": 1},
-                    {"text": "The former townsfolk are cursed to never return, but many of them living in @settlement would pay for someone to retrieve treasured belongings. Of course, that someone would have to brave the strange creature said to lurk there now...", "odds": 1},
-                    {"text": "A cult now lives among the ruins. They are working to infiltrate the ruling class of @city||town.", "odds": 1}
-                ]
-            },
-            "abandoned-village": {
-                "odds": 1,
-                "names": ["abandoned village"],
-                "icon": "ruins",
-                "description": [
-                    {"text": "This village looks in eerily excellent repair, despite its lack of occupants.", "odds": 1},
-                    {"text": "The surrounding wilderness has been busily reclaiming this village.", "odds": 1},
-                    {"text": "The grounds of this village show signs of a past battle, and you see rusted weapons sticking out of the weeds that have taken over", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "This ruin is !size.\nMany people living in @settlement used to live here, before disaster struck.", "odds": 1},
-                    {"text": "This ruin is !size.\nIt is said that a great treasure is buried somewhere under this village, but the village is now the lair of a powerful monster.", "odds": 1}
-                ]
-            },
-            "ancient-bridge": {
-                "odds": 1,
-                "names": ["ancient bridge"],
-                "icon": "bridge-2",
-                "description": [
-                    {"text": "A stone bridge with troubling cracks running through it.", "odds": 1},
-                    {"text": "A bridge decorated with ancient inscriptions.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "A troll lives under this bridge and demands that all who pass play a board game with it.", "odds": 1},
-                    {"text": "On solstice nights, this bridge leads to another plane.  A noble from @manor||town||city is planning an expedition there to search for their daughter, who disappeared here at the last solstice.", "odds": 1}
-                ]
-            },
-            "battlefield": {
-                "odds": 1,
-                "names": ["battlefield"],
-                "icon": "enemy-3",
-                "description": [
-                    {"text": "An ancient &name. Scrub and weeds cover everything, and here and there a rusted weapon can be seen mostly-buried in the dirt.", "odds": 1},
-                    {"text": "A recent &name. Crows still gather, cawing and picking at bits of rotting flesh.", "odds": 1},
-                    {"text": "Nothing grows here.  The land was rendered fallow by terrible magics unleashed in some past battle.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "Any who walk this &name for an hour will see the ghost of one of the leaders of the battle that was fought here, and be tasked with a quest by them which will take them to @ruin:dist=gt4s.", "odds": 1},
-                    {"text": "The blood and death that occurred here sometimes animate the weapons into spinning spirits of death.", "odds": 1},
-                    {"text": "One can pray to the !deityType of Death here and be heard. Priests from @town||city come here once a year to worship - and not all of them return to their temple.", "odds": 1}
-                ]
-            },
-            "crashed-airship": {
-                "odds": 1,
-                "names": ["crashed airship"],
-                "icon": "shipwreck",
-                "description": [
-                    {"text": "Parts of the airship are scattered across a hundred meter area.", "odds": 1},
-                    {"text": "The air ship is mostly intact, but shows sign of attack.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The airship was carrying a powerful arcane artifact, and its true owner has come from a distant land to find it.", "odds": 1},
-                    {"text": "The airship is actually an enormous and unusually talkative mimic.  It's run out of reading material and will share local secrets with anyone who brings it more.", "odds": 1}
-                ]
-            },
-            "crypt": {
-                "odds": 1,
-                "names": ["crypt"],
-                "icon": "crypt",
-                "description": [
-                    {"text": "An ancient, musty &name.  None visit here, and surrounding settlements tell stories of those foolish enough to come here.", "odds": 1},
-                    {"text": "Tidy, with flowers growing on the grounds above it, maintained by the people of @settlement:dist=lt3s.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "Undead have recently been rising from here and terrorizing the surrounding countryside, raised by a necromancer hidden in @ruin.", "odds": 1},
-                    {"text": "A small group of bandits is hiding from the law here.", "odds": 1},
-                    {"text": "An ancient vampire long sleeping here has begun to stir.", "odds": 1},
-                    {"text": "Thieves from @town||city are hiding their loot here.", "odds": 1},
-                    {"text": "A hidden door here reveals a portal @ruin:dist=gt4s.", "odds": 1},
-                    {"text": "Strange noises rise from this &name after dark.", "odds": 1}
-                ]
-            },
-            "graveyard": {
-                "odds": 1,
-                "names": ["graveyard"],
-                "icon": "cemetary",
-                "description": [
-                    {"text": "An ancient &name. The headstones here have been worn down by wind and rain and are unreadable.", "odds": 1},
-                    {"text": "A &name full of cracked gravestones, as though struck by some terrible catastrophe.", "odds": 1},
-                    {"text": "A well-kept &name, with flowers left on some of the graves.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "A vampire hunter has come to @settlement:dist=lt3s claiming there is a vampire in this &name, but the locals there refuse to let them exhume any bodies.", "odds": 1},
-                    {"text": "It is said that ghosts walk openly here on holy days of the !neutralDeity, and can give advice from beyond the grave to those who are brave or foolish enough.", "odds": 1},
-                    {"text": "One gravestone here has been defaced. Any who come close to it hear strange whispers, which get louder the closer one gets to it.", "odds": 1}
-                ]
-            },
-            "mysterious-tower": {
-                "odds": 1,
-                "names": ["ancient tower", "ruined tower", "mysterious tower"],
-                "icon": "tower-2",
-                "description": [
-                    {"text": "An ancient tower of gleaming black stone.", "odds": 1},
-                    {"text": "A tower made of seamless white metal, showing no signs of wear.", "odds": 1},
-                    {"text": "A tower of living wood.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "This tower is larger on the inside than the outside, an each floor holds many doors to a different plane. To pass through any door, one must first complete a test the tower gives.", "odds": 1},
-                    {"text": "This tower was the site of a recent murder.  A well-known detective needs bodyguards to help him investigate it.", "odds": 1}
-                ]
-            },
-            "ruined-castle": {
-                "odds": 1,
-                "names": ["ruined castle", "ruined fortress", "ruined keep"],
-                "icon": "ruins-4",
-                "description": [
-                    {"text": "The walls of this ruined castle have crumbled.", "odds": 1},
-                    {"text": "The castle looks to still be in good condition, despite its abandonment.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "It is said that the magically-infused bones of a powerful, ancient wizard can be found here.", "odds": 1},
-                    {"text": "Humanoids living here are friendly to outsiders, but persecuted by the people of @settlement.", "odds": 1}
-                ]
-            },
-            "ruined-city": {
-                "odds": 1,
-                "names": ["ruined city"],
-                "icon": "ruins-3",
-                "description": [
-                    {"text": "An enormous city, blackened by ancient flames.", "odds": 1},
-                    {"text": "A city which some terrible calamity befell.  The stones are broken and twisted.", "odds": 1},
-                    {"text": "A city unmarked by any obvious horrors, yet abandoned.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "A dread shapeshifter now lairs amidst the ruins.  It toys with those who enter, luring them into traps and taunting them.  It keeps a treasure horde in the heart of the ruins.", "odds": 1},
-                    {"text": "The whole city was built to channel magical energy for a tremendous ritual that was never carried out.  It could be repurposed.  The wizard of @wizard-tower knows about this.", "odds": 1}
-                ]
-            },
-            "statue": {
-                "odds": 1,
-                "names": ["statue"],
-                "icon": "statue-2",
-                "description": [
-                    {"text": "An enormous statue of a !gender bearing arms.", "odds": 1},
-                    {"text": "A robed !gender, some twenty feet tall and carved of !stone.", "odds": 1},
-                    {"text": "Three diminutive people, each bearing a book.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The people of @settlement claim this &name walks the land on nights of the full moon, and that any who challenge it to a wrestling contest and win will be granted a boon.", "odds": 1},
-                    {"text": "This &name hides the secret entrance to a long-dead wizard's lair.", "odds": 1},
-                    {"text": "The &name is actually a powerful ancient weapon. The wizard of @wizard-tower is trying to find a way to activate it.", "odds": 1}
-                ]
-            },
-            "tomb": {
-                "odds": 1,
-                "names": ["tomb"],
-                "icon": "shrine-2",
-                "description": [
-                    {"text": "A !size tomb made of dark stone, gargoyles watching from the roof.", "odds": 1},
-                    {"text": "A !size tomb carved with motifs of the !deity.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "A vampire has arisen here after sleeping for millenia.  It seeks its reincarnated lover, who dwells in @settlement.", "odds": 1},
-                    {"text": "A demon-summoning ritual went wrong here several hundred years ago.  One can still come here and speak the demon's name to parley with it across the planes.", "odds": 1}
-                ]
-            }
-        },
-        "wilderness": {
-            "awakened-animals": {
-                "odds": 1,
-                "names": ["awakened animals"],
-                "icon": "cattle-2",
-                "description": [
-                    {"text": "", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "A group of awakened squirrels has built a miniature town in a large oak tree.\nRecently a faerie has stolen their lucky acorn, and the squirrels want it back. They know a secret about treasure in @ruin:dist=lt3s which they can trade for it.", "odds": 1},
-                    {"text": "A pack of awakened wolves living in a large cave.\nThey watch over a group of abandoned children they have gradually picked up, of varying ages. The wolves worry about how they will be able to send the older children to school soon.", "odds": 1}
-                ]
-            },
-            "beast-lair": {
-                "odds": 1,
-                "names": ["beast lair"],
-                "icon": "beast",
-                "description": [
-                    {"text": "A musky-smelling cave, littered with bones.", "odds": 1},
-                    {"text": "A blood-soaked clearing.", "odds": 1},
-                    {"text": "A forest glade dotted with large tunnels.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The beast has recently eaten a noble from @town, and the noble's signet ring is now in the beast's stomach.", "odds": 1},
-                    {"text": "The beast is calling others of its kind to the area.", "odds": 1}
-                ]
-            },
-            "cave": {
-                "odds": 1,
-                "names": ["cave", "cavern"],
-                "icon": "cave",
-                "description": [
-                    {"text": "A deep cave in a hillside.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The people of @village:dist=lt3s claim there is a bird nesting near this cave that lays golden eggs - but that a terrible beast lairs inside the cave itself.", "odds": 1},
-                    {"text": "Strange albino creatures lurk in the cave and grant prophecies.", "odds": 1},
-                    {"text": "A bandit of old hid their treasure inside the cave - and guarded it with a curse.", "odds": 1}
-                ]
-            },
-            "druid-grove": {
-                "odds": 1,
-                "names": ["druid grove"],
-                "icon": "landmark-2",
-                "description": [
-                    {"text": "A ring of trees surrounding an ancient and enormous oak.", "odds": 1},
-                    {"text": "A circle of red flowers ringed by birch trees, their branches hung with bone ornaments.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The druids here are engaged in a deadly conflict with the people of @settlement:dist=lt3s.", "odds": 1},
-                    {"text": "A gathering here is approaching to choose the next High Druid.  A necromancer lairing in @ruin is trying to set a trap for the druids.", "odds": 1}
-                ]
-            },
-            "dryad-grove": {
-                "odds": 1,
-                "names": ["dryad grove"],
-                "icon": "totem-2",
-                "description": [
-                    {"text": "A grove of beautiful birch trees.", "odds": 1},
-                    {"text": "A grove of majestic oaks.", "odds": 1},
-                    {"text": "A grove of tall cedars.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The dryad is incredibly bored.  She'll try and get passersby to stay for a time, or failing that, to bring new reading material.  She has a substantial library in her hidden home in the trees.", "odds": 1},
-                    {"text": "The dryad is trying to start a band to compete in the yearly band contest in @city.  Winners are granted a wish by the city's resident genie.", "odds": 1}
-                ]
-            },
-            "fey": {
-                "odds": 1,
-                "names": ["fey"],
-                "icon": "thorns",
-                "description": [
-                    {"text": "A fey palace, shimmering with rainbow colors.", "odds": 1},
-                    {"text": "The magical hunting camp of a fey lord.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The ruler of this place has fallen in love with a human, but that human has disappeared - kidnapped by a cult operating in @settlement to try and get leverage against the fey noble in the future. The noble will pay handsomely in fey magics for the human's safe return.", "odds": 1},
-                    {"text": "A trickster fey living here is tormenting the people of @settlement, and those people are willing to pay to have someone force the fey to stop.", "odds": 1}
-                ]
-            },
-            "hermitage": {
-                "odds": 1,
-                "names": ["hermitage", "hermit's hut"],
-                "icon": "hut",
-                "description": [
-                    {"text": "A small, crude hut.", "odds": 1},
-                    {"text": "A small but well-built hut. Chickens peck at the dirt in a fenced yard outside.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The hermit speaks prophecies to those who treat them kindly.", "odds": 1},
-                    {"text": "The hermit is actually the former ruler of @town||city, driven out by a conspiracy. They'll try to get the party to help them return to their former post.", "odds": 1}
-                ]
-            },
-            "hot-springs": {
-                "odds": 1,
-                "names": ["hot springs"],
-                "icon": "waterfall-2",
-                "description": [
-                    {"text": "Steaming hot springs.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The monkeys who frequent these hot springs can talk, and have the gift of far-sight. They enjoy offerings of precious spices.", "odds": 1},
-                    {"text": "The hot springs have real rejuvenative properties for those who soak in them.", "odds": 1}
-                ]
-            },
-            "magic-spring": {
-                "odds": 1,
-                "names": ["magic spring"],
-                "icon": "waterfall",
-                "description": [
-                    {"text": "A spring bubbling from the earth, surrounded by bountiful vegetation", "odds": 1},
-                    {"text": "A pool of faintly glowing water.", "odds": 1}
-
-                ],
-                "hook": [
-                    {"text": "The elite of @town believe the spring's waters prevent aging, but the reality is something sinister.", "odds": 1},
-                    {"text": "The spring turns local animals into dire beasts.", "odds": 1},
-                    {"text": "There is a hive of talking bees.", "odds": 1}
-                ]
-            },
-            "monster-lair": {
-                "odds": 1,
-                "names": ["monster lair"],
-                "icon": "monsters-3",
-                "description": ["ref", "wilderness:beast-lair"],
-                "hook": ["ref", "wilderness:beast-lair"]
-            },
-            "shrine": {
-                "odds": 1,
-                "names": ["shrine"],
-                "icon": "shrine-3",
-                "offering": [
-                    "food",
-                    "a few copper coins",
-                    "bread and milk",
-                    "an animal's heart",
-                    "a skin of wine"
-                ],
-                "description": [
-                    {"text": "A small shrine with a crudely-carved wooden statue of the !goodDeity. Someone has recently left an offering of #offering here.", "odds": 1},
-                    {"text": "A six-pillared stone building housing a statue of the !goodDeity and a small altar.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "The deity worshipped here is said to manifest to worshippers on holy days.", "odds": 1},
-                    {"text": "A terrible murder was recently committed here - perpetrated by the druids of @druid-grove in a plot to deconsecrate this shrine.", "odds": 1}
-                ]
-            },
-            "standing-stones": {
-                "odds": 1,
-                "names": ["standing stones"],
-                "icon": "monolith",
-                "shape": [
-                    "circle",
-                    "crescent",
-                    "pentagon"
-                ],
-                "description": [
-                    {"text": "Great stone monoliths arranged in a #shape.", "odds": 1}
-                ],
-                "hook": [
-                    {"text": "A group of militant druids resides here and is plotting against @settlement.", "odds": 1},
-                    {"text": "Long ago, wizards from @ruin sealed a terrible evil below these stones.", "odds": 1},
-                    {"text": "On nights with a full moon, the stones speak prophecies.", "odds": 1}
-                ]
-            }
-        }
-    }
+     "terrainToImage": {
+          "Default": {
+               "file": "./terrain_tiles/flat/default-hex.png",
+               "selected": false
+          },
+          "badlands": {
+               "file": "./terrain_tiles/Painted/badlands.png",
+               "selected": false
+          },
+          "bog": {
+               "file": "./terrain_tiles/Painted/bog.png",
+               "selected": false
+          },
+          "grassland": {
+               "file": "./terrain_tiles/Painted/grassland.png",
+               "selected": false
+          },
+          "grassy hills": {
+               "file": "./terrain_tiles/Painted/grassy-hills.png",
+               "selected": false
+          },
+          "deciduous forest": {
+               "file": "./terrain_tiles/Painted/deciduous-forest.png",
+               "selected": false
+          },
+          "deciduous forested hills": {
+               "file": "./terrain_tiles/Painted/deciduous-forested-hills.png",
+               "selected": false
+          },
+          "deciduous forested mountains": {
+               "file": "./terrain_tiles/Painted/deciduous-forested-mountains.png",
+               "selected": false
+          },
+          "mountains": {
+               "file": "./terrain_tiles/Painted/mountains.png",
+               "selected": false
+          },
+          "evergreen forest": {
+               "file": "./terrain_tiles/Painted/evergreen-forest.png",
+               "selected": false
+          },
+          "evergreen forested hills": {
+               "file": "./terrain_tiles/Painted/evergreen-forested-hills.png",
+               "selected": false
+          },
+          "evergreen forested mountains": {
+               "file": "./terrain_tiles/Painted/evergreen-forested-mountains.png",
+               "selected": false
+          },
+          "marsh": {
+               "file": "./terrain_tiles/Painted/marsh.png",
+               "selected": false
+          },
+          "mixed forest": {
+               "file": "./terrain_tiles/Painted/mixed-forest.png",
+               "selected": false
+          },
+          "sandy desert": {
+               "file": "./terrain_tiles/Painted/sandy-desert.png",
+               "selected": false
+          },
+          "swamp": {
+               "file": "./terrain_tiles/Painted/swamp.png",
+               "selected": false
+          },
+          "water": {
+               "file": "./terrain_tiles/Painted/water.png",
+               "selected": false
+          }
+     },
+     "multiple_hexes": {
+          "file": "./terrain_tiles/flat/multiple-hexes.png"
+     },
+     "icons": {
+          "altar": {
+               "file": "./icons/altar-glow.png",
+               "selected": false
+          },
+          "altar-2": {
+               "file": "./icons/altar_2-glow.png",
+               "selected": false
+          },
+          "archery": {
+               "file": "./icons/archery-glow.png",
+               "selected": false
+          },
+          "archery-2": {
+               "file": "./icons/archery_2-glow.png",
+               "selected": false
+          },
+          "arrow": {
+               "file": "./icons/arrow-glow.png",
+               "selected": false
+          },
+          "beast": {
+               "file": "./icons/beast-glow.png",
+               "selected": false
+          },
+          "bridge": {
+               "file": "./icons/bridge-glow.png",
+               "selected": false
+          },
+          "bridge-2": {
+               "file": "./icons/bridge_2-glow.png",
+               "selected": false
+          },
+          "bridge_3": {
+               "file": "./icons/bridge_3-glow.png",
+               "selected": false
+          },
+          "building": {
+               "file": "./icons/building-glow.png",
+               "selected": false
+          },
+          "camp": {
+               "file": "./icons/camp-glow.png",
+               "selected": false
+          },
+          "camp-2": {
+               "file": "./icons/camp_2-glow.png",
+               "selected": false
+          },
+          "campsite": {
+               "file": "./icons/campsite-glow.png",
+               "selected": false
+          },
+          "capital": {
+               "file": "./icons/capital-glow.png",
+               "selected": false
+          },
+          "capital-2": {
+               "file": "./icons/capital_2-glow.png",
+               "selected": false
+          },
+          "capital-3": {
+               "file": "./icons/capital_3-glow.png",
+               "selected": false
+          },
+          "castle": {
+               "file": "./icons/castle-glow.png",
+               "selected": false
+          },
+          "castle-2": {
+               "file": "./icons/castle_2-glow.png",
+               "selected": false
+          },
+          "castle-3": {
+               "file": "./icons/castle_3-glow.png",
+               "selected": false
+          },
+          "cathedral": {
+               "file": "./icons/cathedral-glow.png",
+               "selected": false
+          },
+          "cattle": {
+               "file": "./icons/cattle-glow.png",
+               "selected": false
+          },
+          "cattle-2": {
+               "file": "./icons/cattle_2-glow.png",
+               "selected": false
+          },
+          "cave": {
+               "file": "./icons/cave-glow.png",
+               "tags": [
+                    "wilderness",
+                    "cave"
+               ],
+               "selected": false
+          },
+          "cavern": {
+               "file": "./icons/cavern_2-glow.png",
+               "selected": false
+          },
+          "cemetary": {
+               "file": "./icons/cemetary-glow.png",
+               "selected": false
+          },
+          "cemetary-2": {
+               "file": "./icons/cemetary_2-glow.png",
+               "selected": false
+          },
+          "cemetary-3": {
+               "file": "./icons/cemetary_3-glow.png",
+               "selected": false
+          },
+          "church": {
+               "file": "./icons/church-glow.png",
+               "selected": false
+          },
+          "city": {
+               "file": "./icons/city-glow.png",
+               "selected": false
+          },
+          "crater": {
+               "file": "./icons/crater-glow.png",
+               "selected": false
+          },
+          "cross": {
+               "file": "./icons/cross-glow.png",
+               "selected": false
+          },
+          "crypt": {
+               "file": "./icons/crypt-glow.png",
+               "selected": false
+          },
+          "danger": {
+               "file": "./icons/danger-glow.png",
+               "selected": false
+          },
+          "danger-2": {
+               "file": "./icons/danger_2-glow.png",
+               "selected": false
+          },
+          "danger-3": {
+               "file": "./icons/danger_3-glow.png",
+               "selected": false
+          },
+          "dock": {
+               "file": "./icons/dock-glow.png",
+               "selected": false
+          },
+          "dock-2": {
+               "file": "./icons/dock_2-glow.png",
+               "selected": false
+          },
+          "dungeon": {
+               "file": "./icons/dungeon-glow.png",
+               "selected": false
+          },
+          "dungeon-2": {
+               "file": "./icons/dungeon_2-glow.png",
+               "selected": false
+          },
+          "enemy": {
+               "file": "./icons/enemy-glow.png",
+               "selected": false
+          },
+          "enemy-2": {
+               "file": "./icons/enemy_2-glow.png",
+               "selected": false
+          },
+          "enemy-3": {
+               "file": "./icons/enemy_3-glow.png",
+               "selected": false
+          },
+          "evil": {
+               "file": "./icons/evil-glow.png",
+               "selected": false
+          },
+          "evil-2": {
+               "file": "./icons/evil_2-glow.png",
+               "selected": false
+          },
+          "evil-tower": {
+               "file": "./icons/evil_tower-glow.png",
+               "selected": false
+          },
+          "evil-tower-2": {
+               "file": "./icons/evil_tower_2-glow.png",
+               "selected": false
+          },
+          "fish": {
+               "file": "./icons/fish-glow.png",
+               "selected": false
+          },
+          "fishing-town": {
+               "file": "./icons/fishing_town-glow.png",
+               "selected": false
+          },
+          "flag": {
+               "file": "./icons/flag-glow.png",
+               "selected": false
+          },
+          "food": {
+               "file": "./icons/food-glow.png",
+               "selected": false
+          },
+          "food-2": {
+               "file": "./icons/food_2-glow.png",
+               "selected": false
+          },
+          "fort": {
+               "file": "./icons/fort-glow.png",
+               "tags": [
+                    "settlement",
+                    "fort"
+               ],
+               "selected": false
+          },
+          "fort-2": {
+               "file": "./icons/fort_2-glow.png",
+               "selected": false
+          },
+          "fort-3": {
+               "file": "./icons/fort_3-glow.png",
+               "selected": false
+          },
+          "fort-4": {
+               "file": "./icons/fort_4-glow.png",
+               "selected": false
+          },
+          "horses": {
+               "file": "./icons/horses-glow.png",
+               "selected": false
+          },
+          "horses-2": {
+               "file": "./icons/horses_2-glow.png",
+               "selected": false
+          },
+          "horses-3": {
+               "file": "./icons/horses_3-glow.png",
+               "selected": false
+          },
+          "house": {
+               "file": "./icons/house-glow.png",
+               "selected": false
+          },
+          "house-2": {
+               "file": "./icons/house_2-glow.png",
+               "selected": false
+          },
+          "hut": {
+               "file": "./icons/hut-glow.png",
+               "selected": false
+          },
+          "hut-2": {
+               "file": "./icons/hut_2-glow.png",
+               "selected": false
+          },
+          "hut-3": {
+               "file": "./icons/hut_3-glow.png",
+               "selected": false
+          },
+          "hut-4": {
+               "file": "./icons/hut_4-glow.png",
+               "selected": false
+          },
+          "labyrinth": {
+               "file": "./icons/labyrinth-glow.png",
+               "selected": false
+          },
+          "labyrinth-2": {
+               "file": "./icons/labyrinth_2-glow.png",
+               "selected": false
+          },
+          "landmark": {
+               "file": "./icons/landmark-glow.png",
+               "selected": false
+          },
+          "landmark-2": {
+               "file": "./icons/landmark_2-glow.png",
+               "selected": false
+          },
+          "landmark-3": {
+               "file": "./icons/landmark_3-glow.png",
+               "selected": false
+          },
+          "large-camp": {
+               "file": "./icons/large_camp-glow.png",
+               "selected": false
+          },
+          "large-fort": {
+               "file": "./icons/large_fort-glow.png",
+               "selected": false
+          },
+          "lighthouse": {
+               "file": "./icons/lighthouse-glow.png",
+               "selected": false
+          },
+          "market": {
+               "file": "./icons/market-glow.png",
+               "selected": false
+          },
+          "market-2": {
+               "file": "./icons/market_2-glow.png",
+               "selected": false
+          },
+          "market-3": {
+               "file": "./icons/market_3-glow.png",
+               "selected": false
+          },
+          "mill": {
+               "file": "./icons/mill-glow.png",
+               "selected": false
+          },
+          "mine": {
+               "file": "./icons/mine-glow.png",
+               "selected": false
+          },
+          "monolith": {
+               "file": "./icons/monolith-glow.png",
+               "tags": [
+                    "landmark",
+                    "monolith"
+               ],
+               "selected": false
+          },
+          "monolith-2": {
+               "file": "./icons/monolith_2-glow.png",
+               "selected": false
+          },
+          "monsters": {
+               "file": "./icons/monsters-glow.png",
+               "selected": false
+          },
+          "monsters-2": {
+               "file": "./icons/monsters_2-glow.png",
+               "selected": false
+          },
+          "monsters-3": {
+               "file": "./icons/monsters_3-glow.png",
+               "selected": false
+          },
+          "oasis": {
+               "file": "./icons/oasis-glow.png",
+               "selected": false
+          },
+          "obelisk": {
+               "file": "./icons/obelisk-glow.png",
+               "selected": false
+          },
+          "obelisk-2": {
+               "file": "./icons/obelisk_2-glow.png",
+               "tags": [
+                    "landmark",
+                    "obelisk"
+               ],
+               "selected": false
+          },
+          "palace": {
+               "file": "./icons/palace-glow.png",
+               "selected": false
+          },
+          "palace-2": {
+               "file": "./icons/palace_2-glow.png",
+               "selected": false
+          },
+          "palace-3": {
+               "file": "./icons/palace_3-glow.png",
+               "selected": false
+          },
+          "palace-4": {
+               "file": "./icons/palace_4-glow.png",
+               "selected": false
+          },
+          "portal": {
+               "file": "./icons/portal-glow.png",
+               "selected": false
+          },
+          "pyramid": {
+               "file": "./icons/pyramid-glow.png",
+               "selected": false
+          },
+          "pyramid-2": {
+               "file": "./icons/pyramid_2-glow.png",
+               "selected": false
+          },
+          "pyramid-3": {
+               "file": "./icons/pyramid_3-glow.png",
+               "selected": false
+          },
+          "pyramid-4": {
+               "file": "./icons/pyramid_4-glow.png",
+               "selected": false
+          },
+          "pyramid-5": {
+               "file": "./icons/pyramid_5-glow.png",
+               "selected": false
+          },
+          "ruins": {
+               "file": "./icons/ruins-glow.png",
+               "selected": false
+          },
+          "ruins-2": {
+               "file": "./icons/ruins_2-glow.png",
+               "selected": false
+          },
+          "ruins-3": {
+               "file": "./icons/ruins_3-glow.png",
+               "selected": false
+          },
+          "ruins-4": {
+               "file": "./icons/ruins_4-glow.png",
+               "selected": false
+          },
+          "shield": {
+               "file": "./icons/shield-glow.png",
+               "selected": false
+          },
+          "ship": {
+               "file": "./icons/ship-glow.png",
+               "selected": false
+          },
+          "ship-fleet": {
+               "file": "./icons/ship_fleet-glow.png",
+               "selected": false
+          },
+          "shipwreck": {
+               "file": "./icons/shipwreck-glow.png",
+               "selected": false
+          },
+          "shrine": {
+               "file": "./icons/shrine-glow.png",
+               "selected": false
+          },
+          "shrine-2": {
+               "file": "./icons/shrine_2-glow.png",
+               "selected": false
+          },
+          "shrine-3": {
+               "file": "./icons/shrine_3-glow.png",
+               "selected": false
+          },
+          "shrine-4": {
+               "file": "./icons/shrine_4-glow.png",
+               "selected": false
+          },
+          "smithy": {
+               "file": "./icons/smithy-glow.png",
+               "selected": false
+          },
+          "sphinx": {
+               "file": "./icons/sphinx-glow.png",
+               "selected": false
+          },
+          "stable": {
+               "file": "./icons/stable-glow.png",
+               "selected": false
+          },
+          "statue": {
+               "file": "./icons/statue-glow.png",
+               "selected": false
+          },
+          "statue-2": {
+               "file": "./icons/statue_2-glow.png",
+               "selected": false
+          },
+          "storm": {
+               "file": "./icons/storm-glow.png",
+               "selected": false
+          },
+          "stronghold": {
+               "file": "./icons/stronghold-glow.png",
+               "selected": false
+          },
+          "stronghold-2": {
+               "file": "./icons/stronghold_2-glow.png",
+               "selected": false
+          },
+          "stronghold-3": {
+               "file": "./icons/stronghold_3-glow.png",
+               "selected": false
+          },
+          "tavern": {
+               "file": "./icons/tavern-glow.png",
+               "selected": false
+          },
+          "tavern-2": {
+               "file": "./icons/tavern_2-glow.png",
+               "selected": false
+          },
+          "temple": {
+               "file": "./icons/temple-glow.png",
+               "selected": false
+          },
+          "temple-2": {
+               "file": "./icons/temple_2-glow.png",
+               "selected": false
+          },
+          "temple-3": {
+               "file": "./icons/temple_3-glow.png",
+               "selected": false
+          },
+          "temple-4": {
+               "file": "./icons/temple_4-glow.png",
+               "selected": false
+          },
+          "temple-5": {
+               "file": "./icons/temple_5-glow.png",
+               "selected": false
+          },
+          "temple-6": {
+               "file": "./icons/temple_6-glow.png",
+               "selected": false
+          },
+          "temple-7": {
+               "file": "./icons/temple_7-glow.png",
+               "selected": false
+          },
+          "temple-8": {
+               "file": "./icons/temple_8-glow.png",
+               "selected": false
+          },
+          "temple-9": {
+               "file": "./icons/temple_9-glow.png",
+               "selected": false
+          },
+          "thorns": {
+               "file": "./icons/thorns-glow.png",
+               "selected": false
+          },
+          "totem": {
+               "file": "./icons/totem-glow.png",
+               "selected": false
+          },
+          "totem-2": {
+               "file": "./icons/totem_2-glow.png",
+               "selected": false
+          },
+          "tower": {
+               "file": "./icons/tower-glow.png",
+               "selected": false
+          },
+          "tower-2": {
+               "file": "./icons/tower_2-glow.png",
+               "selected": false
+          },
+          "tower-3": {
+               "file": "./icons/tower_3-glow.png",
+               "selected": false
+          },
+          "tower-4": {
+               "file": "./icons/tower_4-glow.png",
+               "selected": false
+          },
+          "town": {
+               "file": "./icons/town-glow.png",
+               "tags": [
+                    "settlement",
+                    "town"
+               ],
+               "selected": false
+          },
+          "town-2": {
+               "file": "./icons/town_2-glow.png",
+               "selected": false
+          },
+          "town-3": {
+               "file": "./icons/town_3-glow.png",
+               "selected": false
+          },
+          "town-4": {
+               "file": "./icons/town_4-glow.png",
+               "selected": false
+          },
+          "trap": {
+               "file": "./icons/trap-glow.png",
+               "selected": false
+          },
+          "treasure": {
+               "file": "./icons/treasure-glow.png",
+               "selected": false
+          },
+          "watchtower": {
+               "file": "./icons/watchtower-glow.png",
+               "selected": false
+          },
+          "waterfall": {
+               "file": "./icons/waterfall-glow.png",
+               "selected": false
+          },
+          "waterfall-2": {
+               "file": "./icons/waterfall_2-glow.png",
+               "selected": false
+          },
+          "weapons": {
+               "file": "./icons/weapons-glow.png",
+               "selected": false
+          },
+          "weapons-2": {
+               "file": "./icons/weapons_2-glow.png",
+               "selected": false
+          },
+          "weapons-3": {
+               "file": "./icons/weapons_3-glow.png",
+               "selected": false
+          },
+          "windmill": {
+               "file": "./icons/windmill-glow.png",
+               "selected": false
+          },
+          "windmill-2": {
+               "file": "./icons/windmill_2-glow.png",
+               "selected": false
+          },
+          "ziggurat": {
+               "file": "./icons/ziggurat-glow.png",
+               "selected": false
+          }
+     },
+     "terrainProperties": {
+          "temperate forest": {
+               "odds": {
+                    "deciduous forest": 1,
+                    "evergreen forest": 1,
+                    "mixed forest": 1,
+                    "grassy hills": 0.5,
+                    "deciduous forested hills": 1,
+                    "evergreen forested hills": 1,
+                    "grassland": 0.5,
+                    "mountains": 0.5,
+                    "deciduous forested mountains": 0.5,
+                    "evergreen forested mountains": 0.5,
+                    "swamp": 0.25,
+                    "marsh": 0.25,
+                    "bog": 0.25,
+                    "water": 0.1
+               },
+               "seeds": {
+                    "deciduous forest": 1,
+                    "grassland": 1
+               }
+          },
+          "hot": {
+               "odds": {
+                    "sandy desert": 1,
+                    "badlands": 1,
+                    "mountains": 0.25
+               },
+               "seeds": {}
+          }
+     },
+     "terrainInfluencedBy": {
+          "deciduous forest": {
+               "primary": [
+                    "deciduous forest"
+               ],
+               "secondary": [
+                    "deciduous forested mountains",
+                    "deciduous forested hills",
+                    "mixed forest"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "evergreen forest": {
+               "primary": [
+                    "evergreen forest"
+               ],
+               "secondary": [
+                    "evergreen forested mountains",
+                    "evergreen forested hills",
+                    "mixed forest"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "mixed forest": {
+               "primary": [
+                    "mixed forest",
+                    "evergreen forest",
+                    "deciduous forest"
+               ],
+               "secondary": [
+                    "deciduous forested hills",
+                    "evergreen forested hills",
+                    "deciduous forested mountains",
+                    "evergreen forested mountains"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "grassy hills": {
+               "primary": [
+                    "grassy hills"
+               ],
+               "secondary": [
+                    "grassland",
+                    "mountains",
+                    "forested hills"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "deciduous forested hills": {
+               "primary": [
+                    "deciduous forested hills"
+               ],
+               "secondary": [
+                    "grassy hills",
+                    "deciduous forested mountains",
+                    "deciduous forest",
+                    "mixed forest"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "evergreen forested hills": {
+               "primary": [
+                    "evergreen forested hills"
+               ],
+               "secondary": [
+                    "grassy hills",
+                    "evergreen forested mountains",
+                    "evergreen forest",
+                    "mixed forest"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "grassland": {
+               "primary": [
+                    "grassland"
+               ],
+               "secondary": [
+                    "grassy hills",
+                    "savannah"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "savannah": {
+               "primary": [
+                    "savannah"
+               ],
+               "secondary": [
+                    "grassland",
+                    "grassy hills"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "mountains": {
+               "primary": [
+                    "mountains"
+               ],
+               "secondary": [
+                    "grassy hills",
+                    "deciduous forested hills",
+                    "evergreen forested hills",
+                    "deciduous forested mountains",
+                    "evergreen forested mountains"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "deciduous forested mountains": {
+               "primary": [
+                    "deciduous forested mountains"
+               ],
+               "secondary": [
+                    "deciduous forest",
+                    "deciduous forested hills",
+                    "mountains"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "evergreen forested mountains": {
+               "primary": [
+                    "evergreen forested mountains"
+               ],
+               "secondary": [
+                    "evergreen forest",
+                    "evergreen forested hills",
+                    "mountains"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "swamp": {
+               "primary": [
+                    "swamp"
+               ],
+               "secondary": [
+                    "marsh",
+                    "bog",
+                    "water"
+               ],
+               "tertiary": [],
+               "decrease": [
+                    "sandy desert",
+                    "badlands"
+               ]
+          },
+          "marsh": {
+               "primary": [
+                    "marsh"
+               ],
+               "secondary": [
+                    "swamp",
+                    "bog",
+                    "water"
+               ],
+               "tertiary": [],
+               "decrease": [
+                    "sandy desert",
+                    "badlands"
+               ]
+          },
+          "bog": {
+               "primary": [
+                    "bog"
+               ],
+               "secondary": [
+                    "marsh",
+                    "swamp",
+                    "water"
+               ],
+               "tertiary": [],
+               "decrease": [
+                    "sandy desert",
+                    "badlands"
+               ]
+          },
+          "water": {
+               "primary": [
+                    "water"
+               ],
+               "secondary": [
+                    "marsh",
+                    "bog",
+                    "swamp"
+               ],
+               "tertiary": [],
+               "decrease": [
+                    "sandy desert",
+                    "badlands"
+               ]
+          },
+          "sandy desert": {
+               "primary": [
+                    "sandy desert"
+               ],
+               "secondary": [
+                    "badlands",
+                    "rocky desert"
+               ],
+               "tertiary": [],
+               "decrease": [
+                    "water",
+                    "bog",
+                    "swamp",
+                    "marsh"
+               ]
+          },
+          "badlands": {
+               "primary": [
+                    "badlands"
+               ],
+               "secondary": [
+                    "sandy desert",
+                    "rocky desert",
+                    "mountains"
+               ],
+               "tertiary": [],
+               "decrease": [
+                    "water",
+                    "bog",
+                    "swamp",
+                    "marsh"
+               ]
+          }
+     },
+     "globalFillLists": {
+          "deity": [
+               "!goodDeity",
+               "!neutralDeity",
+               "!evilDeity"
+          ],
+          "neutralDeity": [
+               "!deityType of Death",
+               "!deityType of Fortune"
+          ],
+          "evilDeity": [
+               "!deityType of Murder",
+               "!deityType of Storms"
+          ],
+          "goodDeity": [
+               "!deityType of Light",
+               "!deityType of Bees",
+               "!deityType of Trade",
+               "!deityType of Love"
+          ],
+          "deityType": [
+               "God",
+               "Goddess"
+          ],
+          "stone": [
+               "granite",
+               "sandstone",
+               "black stone",
+               "obsidian",
+               "a strange, irridescent white stone",
+               "oily-lookin green stone",
+               "ash-gray stone veined with glowing orange light"
+          ],
+          "gender": [
+               "man",
+               "woman"
+          ],
+          "size": [
+               "small",
+               "medium-sized",
+               "large"
+          ]
+     },
+     "contentTags": {
+          "ruin": {
+               "tomb": {
+                    "names": [
+                         "tomb"
+                    ],
+                    "icon": "shrine-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A !size tomb carved with motifs of the !deity.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A !size tomb made of dark stone, gargoyles watching from the roof.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A demon-summoning ritual went wrong here several hundred years ago.  One can still come here and speak the demon's name to parley with it across the planes.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A vampire has arisen here after sleeping for millenia.  It seeks its reincarnated lover, who dwells in @settlement.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "statue": {
+                    "names": [
+                         "statue"
+                    ],
+                    "icon": "statue-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "Three diminutive people, each bearing a book.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A robed !gender, some twenty feet tall and carved of !stone.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "An enormous statue of a !gender bearing arms.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The &name is actually a powerful ancient weapon. The wizard of @wizard-tower is trying to find a way to activate it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This &name hides the secret entrance to a long-dead wizard's lair.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The people of @settlement claim this &name walks the land on nights of the full moon, and that any who challenge it to a wrestling contest and win will be granted a boon.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "ruined-city": {
+                    "names": [
+                         "ruined city"
+                    ],
+                    "icon": "ruins-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A city unmarked by any obvious horrors, yet abandoned.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A city which some terrible calamity befell.  The stones are broken and twisted.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "An enormous city, blackened by ancient flames.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The whole city was built to channel magical energy for a tremendous ritual that was never carried out.  It could be repurposed.  The wizard of @wizard-tower knows about this.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A dread shapeshifter now lairs amidst the ruins.  It toys with those who enter, luring them into traps and taunting them.  It keeps a treasure horde in the heart of the ruins.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "ruined-castle": {
+                    "names": [
+                         "ruined castle",
+                         "ruined fortress",
+                         "ruined keep"
+                    ],
+                    "icon": "ruins-4",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "The castle looks to still be in good condition, despite its abandonment.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The walls of this ruined castle have crumbled.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "Humanoids living here are friendly to outsiders, but persecuted by the people of @settlement.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "It is said that the magically-infused bones of a powerful, ancient wizard can be found here.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "mysterious-tower": {
+                    "names": [
+                         "ancient tower",
+                         "ruined tower",
+                         "mysterious tower"
+                    ],
+                    "icon": "tower-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A tower of living wood.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A tower made of seamless white metal, showing no signs of wear.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "An ancient tower of gleaming black stone.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "This tower was the site of a recent murder.  A well-known detective needs bodyguards to help him investigate it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This tower is larger on the inside than the outside, an each floor holds many doors to a different plane. To pass through any door, one must first complete a test the tower gives.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "graveyard": {
+                    "names": [
+                         "graveyard"
+                    ],
+                    "icon": "cemetary",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A well-kept &name, with flowers left on some of the graves.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A &name full of cracked gravestones, as though struck by some terrible catastrophe.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "An ancient &name. The headstones here have been worn down by wind and rain and are unreadable.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "One gravestone here has been defaced. Any who come close to it hear strange whispers, which get louder the closer one gets to it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "It is said that ghosts walk openly here on holy days of the !neutralDeity, and can give advice from beyond the grave to those who are brave or foolish enough.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A vampire hunter has come to @settlement:dist=lt3s claiming there is a vampire in this &name, but the locals there refuse to let them exhume any bodies.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "crypt": {
+                    "names": [
+                         "crypt"
+                    ],
+                    "icon": "crypt",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "Tidy, with flowers growing on the grounds above it, maintained by the people of @settlement:dist=lt3s.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "An ancient, musty &name.  None visit here, and surrounding settlements tell stories of those foolish enough to come here.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "Strange noises rise from this &name after dark.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A hidden door here reveals a portal @ruin:dist=gt4s.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Thieves from @town||city are hiding their loot here.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "An ancient vampire long sleeping here has begun to stir.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small group of bandits is hiding from the law here.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Undead have recently been rising from here and terrorizing the surrounding countryside, raised by a necromancer hidden in @ruin.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "crashed-airship": {
+                    "names": [
+                         "crashed airship"
+                    ],
+                    "icon": "shipwreck",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "The air ship is mostly intact, but shows sign of attack.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Parts of the airship are scattered across a hundred meter area.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The airship is actually an enormous and unusually talkative mimic.  It's run out of reading material and will share local secrets with anyone who brings it more.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The airship was carrying a powerful arcane artifact, and its true owner has come from a distant land to find it.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "battlefield": {
+                    "names": [
+                         "battlefield"
+                    ],
+                    "icon": "enemy-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "Nothing grows here.  The land was rendered fallow by terrible magics unleashed in some past battle.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A recent &name. Crows still gather, cawing and picking at bits of rotting flesh.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "An ancient &name. Scrub and weeds cover everything, and here and there a rusted weapon can be seen mostly-buried in the dirt.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "One can pray to the !deityType of Death here and be heard. Priests from @town||city come here once a year to worship - and not all of them return to their temple.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The blood and death that occurred here sometimes animate the weapons into spinning spirits of death.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Any who walk this &name for an hour will see the ghost of one of the leaders of the battle that was fought here, and be tasked with a quest by them which will take them to @ruin:dist=gt4s.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "ancient-bridge": {
+                    "names": [
+                         "ancient bridge"
+                    ],
+                    "icon": "bridge-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A bridge decorated with ancient inscriptions.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A stone bridge with troubling cracks running through it.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "On solstice nights, this bridge leads to another plane.  A noble from @manor||town||city is planning an expedition there to search for their daughter, who disappeared here at the last solstice.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A troll lives under this bridge and demands that all who pass play a board game with it.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "abandoned-village": {
+                    "names": [
+                         "abandoned village"
+                    ],
+                    "icon": "ruins",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "The grounds of this village show signs of a past battle, and you see rusted weapons sticking out of the weeds that have taken over",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The surrounding wilderness has been busily reclaiming this village.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This village looks in eerily excellent repair, despite its lack of occupants.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "This ruin is !size.\nIt is said that a great treasure is buried somewhere under this village, but the village is now the lair of a powerful monster.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This ruin is !size.\nMany people living in @settlement used to live here, before disaster struck.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "abandoned-town": {
+                    "names": [
+                         "abandoned town",
+                         "ruined town"
+                    ],
+                    "icon": "ruins-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "This &name is perfectly preserved, as though its people only left minutes ago. An eerie silence hangs over it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A terrible fire raged here once, destroying most of the town.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A cult now lives among the ruins. They are working to infiltrate the ruling class of @city||town.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The former townsfolk are cursed to never return, but many of them living in @settlement would pay for someone to retrieve treasured belongings. Of course, that someone would have to brave the strange creature said to lurk there now...",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A terrible beast now lairs here. The ruler of @city||town would pay well for its head.",
+                              "odds": 1
+                         }
+                    ]
+               }
+          },
+          "settlement": {
+               "quarry": {
+                    "names": [
+                         "quarry"
+                    ],
+                    "icon": "mine",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A large quarry, heavy equipment anchored above it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small quarry bustling with activity.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The quarry workers have been getting sick, and no one knows why. The foreman is offering a reward for anyone who can find a cure.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A magical creature has been seen lurking around the quarry at night, and a wizard living in @settlement:dist=lt3s is offering a reward for its capture.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of bandits is holed up in the quarry, and the ruler of @settlement:dist=lt3s wants them dealt with.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "wizard-tower": {
+                    "names": [
+                         "wizard tower"
+                    ],
+                    "icon": "tower-4",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A lonely tower occupied by a cantankerous wizard.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A creation of the wizard has escaped and is harassing the settlement in @settlement.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The wizard has created life!  Life!  But it's gotten out of hand, and needs assistance.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Humanoids lairing in @ruin:dist=lt3s are bothering the wizard, who would like them to be dealt with.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The wizard living here is looking for a rare reagent that can be found in @wilderness.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "village": {
+                    "names": [
+                         "village",
+                         "hamlet",
+                         "thorp"
+                    ],
+                    "icon": "hut-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "This village was clearly founded by people foreign to these lands - the local architecture still looks distinct from any surrounding settlements.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "#wealth #attitude",
+                              "odds": 10
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The villagers have just found a bounty of a rare resource. The #majorResident of @village has learned about this and is trying to steal it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Recently several villagers have been killed by a beast lairing in @beast-lair:dist=lt4s, and they've started pooling money to hire a monster hunter to deal with it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "There has been a rash of livestock thefts recently, and the #ruler is willing to pay someone who can make them stop. They were stolen by the #majorResident of @village||town.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The villagers here all wear hats at all times.\nThe #ruler of this village is having a secret affair with the #majorResident.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The houses in this village are all painted with flowers.\nA #majorResident from this village is looking for their missing son, who was last seen heading toward the ruins at @ruin:dist=lt3s.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The #ruler of this village is looking for adventurers to steal something from the ruler of @settlement:dist=lt3s.",
+                              "odds": 1
+                         }
+                    ],
+                    "attitude": [
+                         "Its people seem cheerful and open to outsiders.",
+                         "Its people are standoffish, but willing to trade and hear news from the wider world.",
+                         "Its people seem nervous, and conversations stop whenever #ruler is nearby."
+                    ],
+                    "wealth": [
+                         "This village is quite prosperous. The buildings are in good repair and the people are dressed in clean, well-repaired clothes.",
+                         "This village is doing fine - about as well as you'd expect from an average village in this region.",
+                         "This village is just hanging on. There are several abandoned houses, and the people look thin and hungry."
+                    ],
+                    "majorResident": [
+                         "blacksmith",
+                         "priest",
+                         "wise woman",
+                         "elder",
+                         "innkeeper"
+                    ],
+                    "ruler": [
+                         "headman",
+                         "council of elders"
+                    ]
+               },
+               "trading-post": {
+                    "names": [
+                         "trading post"
+                    ],
+                    "icon": "hut-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A few wooden buildings with a ragged stone wall surrounding them.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small trading post surrounded by a wall of sharpened logs.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A group of bandits is attacking traders on the road to here, and the owner will reward anyone who brings evidence of their demise.  The bandits' lair is in @bandit-camp.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The owner of the trading post is actually a spy. They'll pay for incriminating information on the ruler of @settlement.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "town": {
+                    "names": [
+                         "town"
+                    ],
+                    "icon": "town",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "This is a !size town. #status #recentEvent",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The #majorResident is secretly a vampire.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The #majorResident of this town pays well for paintings of ducks.  There is an artist in @settlement:dist=lt3s who paints ducks.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The #ruler of this town is organizing a festival, but people from @settlement:dist=lt3s are trying to sabotage it.",
+                              "odds": 1
+                         }
+                    ],
+                    "recentEvent": [
+                         "It was recently attacked by an invading force, and still shows the scars of that battle.",
+                         "It is decorated for an upcoming festival."
+                    ],
+                    "status": [
+                         "It seems less prosperous than it once was - some buildings stand empty, while others are in poor repair.  However, the homes around those of the town ruler are freshly painted.",
+                         "There's a lot of new construction here.",
+                         "Half of the town seems to have been abandoned.",
+                         "It seems to be doing fine, and its people are open to outsiders and trade."
+                    ],
+                    "majorResident": [
+                         "blacksmith",
+                         "priest",
+                         "innkeeper",
+                         "miller",
+                         "merchant",
+                         "brewer",
+                         "doctor",
+                         "wizard"
+                    ],
+                    "ruler": [
+                         "mayor",
+                         "ealdorman",
+                         "town council"
+                    ]
+               },
+               "monastery": {
+                    "names": [
+                         "monastery",
+                         "abbey"
+                    ],
+                    "icon": "cathedral",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A large and ornate monasteries, with fine carvings and inlays of precious metals.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A simple monastery, with plainly-clad monks outside tending the vegetable gardens.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "One of the monks has disappeared, and the abbot wants someone to find them. The monk was kidnapped by bandits in @bandit-camp, to whom his family owes money.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Someone has murdered the abbot, and the monks need help discovering the truth behind it.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "mine": {
+                    "names": [
+                         "mine"
+                    ],
+                    "icon": "mine",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A fortified structure about an elaborate mining operations, pulling previous materials from the ground.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A deep pit in the earth, with an elevator that lets people descend.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A network of shallow tunnels filled with the sounds of hammers and pickaxes.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The mine is run by two fueding clans. The fued has become heated enough that one clan is risking bringing down the mine to get back at the other.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Miners have been disappearing - consumed off by a terrible beast their digging has released.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "military-outpost": {
+                    "names": [
+                         "military outpost"
+                    ],
+                    "icon": "fort-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A small outpost surrounded by a wall of wooden stakes.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A large and well-fortified outpost.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The ruler of @settlement:dist=eq1s is agitating their people against the soldiers here. Things will turn bloody unless someone else steps in.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The outpost commander is loved by their soldiers, but is also cursed to turn into a raven on nights of the new moon.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The outpost commander needs someone to find a missing squad that went to investigate rumors of an attack on @settlement.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "manor": {
+                    "names": [
+                         "manor",
+                         "noble's manor",
+                         "country manor"
+                    ],
+                    "icon": "town-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "This manor is made of meat.",
+                              "odds": 0.1
+                         },
+                         {
+                              "text": "This manor has seen better days.  The outside the weathered and peeling, and the grounds look wild and ill-kept.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A large and beautiful manor house surrounded by well-kept grounds.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The noble here would pay a high bounty for the beast lairing in @beast-lair||monster-lair, as that creature killed his cousin.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The noble here is plotting against another noble in @town||city||manor, and needs deniable agents to help frame that noble for a crime.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Twenty years ago the lord here made a deal with a devil - now he desperately needs someone to help disuade the devil from collecting, as the deal comes due soon.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "logging-camp": {
+                    "names": [
+                         "logging camp",
+                         "loggers' camp"
+                    ],
+                    "icon": "weapons",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A well laid out camp bustling with activity.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A few grubby huts in the wilderness.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The loggers have found an entrance to an ancient ruin nearby. One group went inside and has not returned.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Lycanthropy is secretly spreading among the loggers.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The loggers have angered a forest spirit, which is picking them off one by one. They've pooled money as a reward for anyone who deals with it. However, they actually angered it by murdering a favored resident of @settlement:dist=lt3s who had come here to find their brother.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "homestead": {
+                    "names": [
+                         "homestead"
+                    ],
+                    "icon": "cattle",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A large farm house surrounded by bountiful fields and livestock.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small, lonely homestead.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "Bandits are threatening the family here with violence if they don't give up most of their harvest. The family will turn to any likely candidates for help.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The family living here is being terrorized by a strange shadow creature. It is after them because the son secretly stole an ancient relic from @ruin.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "extraplanar-outpost": {
+                    "names": [
+                         "extraplanar outpost"
+                    ],
+                    "icon": "building",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "Elaborate crystal spires rise up into the sky, glinting with rainbows in the light.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Obsidian cubes rise from burnt ground, with fissures between them spitting out orange light.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A sphere of coppery metal over a hundred feet across.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "This outpost is the front of an invasion, but the gateway they've come through is unstable and could be disrupted. The wizard in @wizard-tower knows how.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The outpost is trapped on this plane, and the inhabitants can't be away from it long. They need someone to get them a component from @ruin:dist=gt2s so they can return home.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "city": {
+                    "names": [
+                         "city"
+                    ],
+                    "icon": "city",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "The city was recently at war with a neighbor, and still shows the scars of that",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This city is ruled by the clergy of the !goodDeity. Temple bells can be heard frequently, and it is often decorated to celebrate holy days.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A huge and prosperious city.  Merchants flock here from distant lands to sell their goods.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "People are being mysteriously and gruesomely murdered by someone the locals have taken to calling the #killerName.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The merchants' guild of @town||city is sabotaging trade here, and the local merchants want someone to deal with it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The #ruler has been murdered, and one of their functionaries is looking for outside help getting to the bottom of it while matters of succession are being handled.  The murderer is actually an extraplanar assassin conjured by wizards from @town||city.",
+                              "odds": 1
+                         }
+                    ],
+                    "killerName": [
+                         "Wolf",
+                         "Stinky Goblin",
+                         "White Wind",
+                         "Abyssal Fang",
+                         "Blood Baron"
+                    ],
+                    "majorResident": [
+                         "banker",
+                         "merchant",
+                         "artist",
+                         "musician",
+                         "tailor",
+                         "blacksmith",
+                         "goldsmith",
+                         "silversmith",
+                         "jeweler",
+                         "textile merchant",
+                         "wine merchant",
+                         "courtier",
+                         "doctor"
+                    ],
+                    "ruler": [
+                         "mayor",
+                         "duke",
+                         "city council"
+                    ]
+               },
+               "castle": {
+                    "names": [
+                         "castle",
+                         "fortress",
+                         "keep"
+                    ],
+                    "icon": "castle",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A lonely &name surrounded by &terrain.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The &name is made of black stone. Impaled bodies line the road leading up to the castle.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The walls of this &name show signs of magical attack.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A mighty and imposing &name atop a hill.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "Humanoids living in the ruins in @ruin:dist=lt3s have been attacking the &name at night.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The #majorResident of this &name is secretly a werewolf.  It is said that the waters of @magic-spring:dist=gt3h can cure such an affliction.",
+                              "odds": 1
+                         }
+                    ],
+                    "majorResident": [
+                         "blacksmith",
+                         "priest",
+                         "innkeeper",
+                         "miller",
+                         "sage",
+                         "merchant"
+                    ],
+                    "ruler": [
+                         "lord",
+                         "commander"
+                    ]
+               },
+               "bandit-camp": {
+                    "names": [
+                         "bandit camp"
+                    ],
+                    "icon": "large-camp",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A large and well-guarded camp with numerous bandits.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small, hidden nest of bandits and their camp followers.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The bandits are actually a front for a sinister cult. They are trying to steal a particular artifact coming to a noble in @town||city||manor to conduct a dark ritual of summoning.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The bandits steal from the rich and give to the poor - but now one of the nobles they stole from has put a bounty on their head. The party can learn about it in @settlement.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The bandits are planning a raid on @village||town:dist=lt3s.",
+                              "odds": 1
+                         }
+                    ]
+               }
+          },
+          "wilderness": {
+               "standing-stones": {
+                    "names": [
+                         "standing stones"
+                    ],
+                    "icon": "monolith",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "Great stone monoliths arranged in a #shape.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "On nights with a full moon, the stones speak prophecies.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of militant druids resides here and is plotting against @settlement.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Long ago, wizards from @ruin sealed a terrible evil below these stones.",
+                              "odds": 1
+                         }
+                    ],
+                    "shape": [
+                         "circle",
+                         "crescent",
+                         "pentagon"
+                    ]
+               },
+               "shrine": {
+                    "names": [
+                         "shrine"
+                    ],
+                    "icon": "shrine-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A six-pillared stone building housing a statue of the !goodDeity and a small altar.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small shrine with a crudely-carved wooden statue of the !goodDeity. Someone has recently left an offering of #offering here.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The deity worshipped here is said to manifest to worshippers on holy days.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A terrible murder was recently committed here - perpetrated by the druids of @druid-grove in a plot to deconsecrate this shrine.",
+                              "odds": 1
+                         }
+                    ],
+                    "offering": [
+                         "food",
+                         "a few copper coins",
+                         "bread and milk",
+                         "an animal's heart",
+                         "a skin of wine"
+                    ]
+               },
+               "monster-lair": {
+                    "names": [
+                         "monster lair"
+                    ],
+                    "icon": "monsters-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A place filled with a terrible, fetid stench.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A terrible, barren place strewn with skulls.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A young woman from @settlement:dist=lt3s has been kidnapped by the monsters and is being held captive in their lair. Her family is willing to pay a ransom for her safe return.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The monsters here have been bothering the people of @settlment:dist=lt3s, and the mayor is offering a reward for their heads.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "magic-spring": {
+                    "names": [
+                         "magic spring"
+                    ],
+                    "icon": "waterfall",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A pool of faintly glowing water.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A spring bubbling from the earth, surrounded by bountiful vegetation",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "There is a hive of talking bees.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The spring turns local animals into dire beasts.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The elite of @town believe the spring's waters prevent aging, but the reality is something sinister.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "hot-springs": {
+                    "names": [
+                         "hot springs"
+                    ],
+                    "icon": "waterfall-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "Steaming hot springs.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The hot springs have real rejuvenative properties for those who soak in them.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The monkeys who frequent these hot springs can talk, and have the gift of far-sight. They enjoy offerings of precious spices.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "hermitage": {
+                    "names": [
+                         "hermitage",
+                         "hermit's hut"
+                    ],
+                    "icon": "hut",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A small but well-built hut. Chickens peck at the dirt in a fenced yard outside.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small, crude hut.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The hermit is actually the former ruler of @town||city, driven out by a conspiracy. They'll try to get the party to help them return to their former post.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The hermit speaks prophecies to those who treat them kindly.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "fey": {
+                    "names": [
+                         "fey"
+                    ],
+                    "icon": "thorns",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "The magical hunting camp of a fey lord.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A fey palace, shimmering with rainbow colors.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A trickster fey living here is tormenting the people of @settlement, and those people are willing to pay to have someone force the fey to stop.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The ruler of this place has fallen in love with a human, but that human has disappeared - kidnapped by a cult operating in @settlement to try and get leverage against the fey noble in the future. The noble will pay handsomely in fey magics for the human's safe return.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "dryad-grove": {
+                    "names": [
+                         "dryad grove"
+                    ],
+                    "icon": "totem-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A grove of tall cedars.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A grove of majestic oaks.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A grove of beautiful birch trees.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The dryad is trying to start a band to compete in the yearly band contest in @city.  Winners are granted a wish by the city's resident genie.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The dryad is incredibly bored.  She'll try and get passersby to stay for a time, or failing that, to bring new reading material.  She has a substantial library in her hidden home in the trees.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "druid-grove": {
+                    "names": [
+                         "druid grove"
+                    ],
+                    "icon": "landmark-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A circle of red flowers ringed by birch trees, their branches hung with bone ornaments.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A ring of trees surrounding an ancient and enormous oak.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A gathering here is approaching to choose the next High Druid.  A necromancer lairing in @ruin is trying to set a trap for the druids.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The druids here are engaged in a deadly conflict with the people of @settlement:dist=lt3s.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "cave": {
+                    "names": [
+                         "cave",
+                         "cavern"
+                    ],
+                    "icon": "cave",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A deep cave in a hillside.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A bandit of old hid their treasure inside the cave - and guarded it with a curse.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Strange albino creatures lurk in the cave and grant prophecies.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The people of @village:dist=lt3s claim there is a bird nesting near this cave that lays golden eggs - but that a terrible beast lairs inside the cave itself.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "beast-lair": {
+                    "names": [
+                         "beast lair"
+                    ],
+                    "icon": "beast",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A forest glade dotted with large tunnels.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A blood-soaked clearing.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A musky-smelling cave, littered with bones.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The beast is calling others of its kind to the area.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The beast has recently eaten a noble from @town, and the noble's signet ring is now in the beast's stomach.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "awakened-animals": {
+                    "names": [
+                         "awakened animals"
+                    ],
+                    "icon": "cattle-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A pack of awakened wolves living in a large cave.\nThey watch over a group of abandoned children they have gradually picked up, of varying ages. The wolves worry about how they will be able to send the older children to school soon.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of awakened squirrels has built a miniature town in a large oak tree.\nRecently a faerie has stolen their lucky acorn, and the squirrels want it back. They know a secret about treasure in @ruin:dist=lt3s which they can trade for it.",
+                              "odds": 1
+                         }
+                    ]
+               }
+          }
+     }
 }

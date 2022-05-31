@@ -4,7 +4,7 @@ import json
 from time import sleep
 
 # Params
-config_file = "C:\\Users\\mweas\\OneDrive\\Documents\\hexConfig.json"
+config_file = "C:\\Users\\mweas\\OneDrive\\Documents\\code_repos\\HexMapBuilderVue\\src\\assets\\hexConfig.json"
 
 # Functions
 
@@ -57,9 +57,11 @@ for type in type_result:
     type_names = type['properties']['Names']['rich_text'][0]['plain_text'].split(
         ',')
     type_icon = type['properties']['Icon']['rich_text'][0]['plain_text']
+    type_odds = type['properties']['Odds']['number']
     full_content[type_category][type_name] = {
         "names": type_names,
         "icon": type_icon,
+        "odds": type_odds,
         "description": [],
         "hook": []
     }
