@@ -152,26 +152,29 @@ export const useHexesStore = defineStore({
     },
     hexByPosition: (state) => {
         return (row, column) => {
+            console.log('hexByPosition', row, column)
             var line = null;
             var lineIndex = null;
-            if (column % 2 == 0) {
-                line = row * 2 - 1
-            } else {
-                line = row * 2 - 2
-            }
             if (state.leftmostColumn == 'odd') {
                 if (column % 2 == 0) {
-                    lineIndex = column/2 - 1
+                    line = row * 2 - 1
                 } else {
-                    lineIndex = Math.floor(column/2)
+                    line = row * 2 - 2
                 }
             } else {
                 if (column % 2 == 0) {
-                    lineIndex = column/2 - 1
+                    line = row * 2 - 2
                 } else {
-                    lineIndex = Math.floor(column/2)
+                    line = row * 2 - 1
                 }
             }
+            if (column % 2 == 0) {
+                lineIndex = column/2 - 1
+            } else {
+                lineIndex = Math.floor(column/2)
+            }
+            
+            console.log('line', line, 'lineIndex', lineIndex, 'hex', state.hexes[line][lineIndex])
             return state.hexes[line][lineIndex]
         }
     },
@@ -586,7 +589,9 @@ export const useHexesStore = defineStore({
         oneAwayHexes.forEach((element) => {
             if ((thisHex.row + element.row) >= 1 && (thisHex.column + element.column) >= 1 && 
                 (thisHex.row + element.row) <= this.hexes.length/2 && (thisHex.column + element.column) <= this.countColumns) {
-                    const hexTerrain = hexByPosition(thisHex.row + element.row, thisHex.column + element.column).tags
+                    console.log('trying to get one away hex')
+                    console.log(thisHex.row, element.row, thisHex.column, element.column, hexByPosition(thisHex.row + element.row, thisHex.column + element.column))
+                    const hexTerrain = hexByPosition(thisHex.row + element.row, thisHex.column + element.column).terrain
                     if (Object.keys(terrains).includes(hexTerrain)) {
                         terrains[hexTerrain]['one-away']++
                     } else {
@@ -711,7 +716,7 @@ export const useHexesStore = defineStore({
             })
         }
     },
-    // Refine any existing starter tags if needed (e.g., settlment -> town) and generate
+    // Refine any existing starter tags if needed (e.g., settlement -> town) and generate
     // additional tags as needed
     // pointOfInterestChance as a decimal
     generateHexTags(thisHex, pointOfInterestChance, overwrite) {
@@ -1171,32 +1176,32 @@ export const useHexesStore = defineStore({
         var t0 = performance.now()
 
         h.forEach((hex) => {
-            if (hex.tags.length == 0 && hex.uuid != thisHex.uuid) {
-                const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
-                if (c == 'preferred') {
-                    emptyHexes.preferred.push(hex.uuid);
-                } else if (c == 'accepted') {
-                    emptyHexes.accepted.push(hex.uuid);
-                }
-            } else if (hex.tags.includes(tag) && hex.uuid != thisHex.uuid) {
-                const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
-                if (c == 'preferred') {
-                    taggedHexes.preferred.push(hex.uuid);
-                } else if (c == 'accepted') {
-                    taggedHexes.accepted.push(hex.uuid);
-                }
-            } else {
-                const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
-                if (c == 'preferred') {
-                    otherHexes.preferred.push(hex.uuid);
-                } else if (c == 'accepted') {
-                    otherHexes.accepted.push(hex.uuid);
+            if (hex.terrain != "Default") {
+                if (hex.tags.length == 0 && hex.uuid != thisHex.uuid) {
+                    const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
+                    if (c == 'preferred') {
+                        emptyHexes.preferred.push(hex.uuid);
+                    } else if (c == 'accepted') {
+                        emptyHexes.accepted.push(hex.uuid);
+                    }
+                } else if (hex.tags.includes(tag) && hex.uuid != thisHex.uuid) {
+                    const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
+                    if (c == 'preferred') {
+                        taggedHexes.preferred.push(hex.uuid);
+                    } else if (c == 'accepted') {
+                        taggedHexes.accepted.push(hex.uuid);
+                    }
+                } else {
+                    const c = this.resolveMatchingHexConstraints(matchParams.constraints, thisHex, hex)
+                    if (c == 'preferred') {
+                        otherHexes.preferred.push(hex.uuid);
+                    } else if (c == 'accepted') {
+                        otherHexes.accepted.push(hex.uuid);
+                    }
                 }
             }
-        })
-        var tf = performance.now()
-
-      
+            
+        })   
 
 
         var matchType = null;
@@ -1304,9 +1309,16 @@ export const useHexesStore = defineStore({
         thisHex.content = this.formatDescriptionForTiptap(thisHex, startingDescription, descriptionElements, resolveNewTags)
 
          // Set icon to match contents
+
          var icon = null;
          thisHex.tags.forEach((tag) => {
              if (!Object.keys(this.contentTags).includes(tag)) {
+                console.log('icon time')
+                console.log(tag)
+                console.log(this.contentTags)
+                console.log(this.parentTypeTag(tag))
+                console.log(this.contentTags[this.parentTypeTag(tag)])
+                console.log('get icon ', this.contentTags[this.parentTypeTag(tag)][tag])
                  icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
              }
          })
@@ -1783,6 +1795,9 @@ export const useHexesStore = defineStore({
                 }
             ]
         })
+    },
+    logLeftmostColumn() {
+        console.log(this.leftmostColumn)
     }
   }
   
