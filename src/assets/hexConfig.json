@@ -955,6 +955,21 @@
           }
      },
      "globalFillLists": {
+          "sacrificialVictim": [
+               "virgin",
+               "baby",
+               "child",
+               "noble",
+               "two-headed calf",
+               "unicorn"
+          ],
+          "tournamentType": [
+               "poetry",
+               "sword fighting",
+               "archery",
+               "riddle-solving",
+               "painting"
+          ],
           "deity": [
                "!goodDeity",
                "!neutralDeity",
@@ -999,6 +1014,171 @@
      },
      "contentTags": {
           "ruin": {
+               "toppled-tower": {
+                    "names": [
+                         "toppled tower",
+                         " collapsed tower"
+                    ],
+                    "icon": "ruins-4",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "The stones of this tower have crumbled, leaving it in pieces.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Shattered remnants of a tower protrude from the earth here, and sections of it lay on their side nearby.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A magical artifact is said to be hidden within the ruins of the tower. Many have died trying to find it, but it is said to be worth the risk.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The tower is haunted by the ghosts of those who died when it collapsed. They are seeking revenge on the wizard from @wizard-tower who caused the tower to fall.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of bandits have been using the tower as a base of operations. They have been plundering @settlement:dist=lt3s and killing anyone who tries to stop them.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "ancient-library": {
+                    "names": [
+                         "ancient library"
+                    ],
+                    "icon": "temple-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "Abandoned but seemingly in pristine condition, this great library has not so much as dust on the books.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A great stone building, slowly crumbling, its interior filled with a maze of bookshelf-lined corridors.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The library is a maze of rooms and corridors, filled with books of all kinds. But some of the books are alive, and they're not happy to be here.  Some will try to bargain passers-by, while others will attack them or try to take control of their bodies through strange and secret arts.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The library is haunted by the ghosts of those who died trying to read its forbidden books. They will try to possess any living creature that steps foot inside, to try and spread their dread knowledge to the outside world.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A magical book in the library has begun to write itself. The quill that writes the words is sentient, and demands sacrifices in return for knowledge.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The library is haunted by the ghosts of the librarians who were executed for heresy. They will only allow someone to leave if they can answer three riddles.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The library was built on the site of a powerful magical creature's death. Its spirit still lurks here, and can be summoned by using its True Name, which can be found in a book within the most dangerous section of the ruins.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The library contains the knowledge of an extinct civilization. A group of scholars that has come here from @city||town hopes to find an adventurer to help them catalogue the tomes, because some of the tomes can be dangerous.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "ruined-temple": {
+                    "names": [
+                         "ruined temple"
+                    ],
+                    "icon": "ruins-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A terrible fire swept through here in the past, blackening the stone walls.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This temple looks like it was struck by an enormous bolt of lighting - the walls are blasted apart.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "This temple is said to be haunted by the ghosts of those who died in a great battle that took place here. Some say they can still hear the screams of the dying in the night.  A local wizard is trying to discover the location of a magical artifact that he believes the ghosts know about, but so far, the ghosts have only gotten angrier.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A powerful witch lives in the ruins of this temple, using the power of the ley lines it sits upon for her dark spells.  She is using them against @settlement.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This temple was once dedicated to a forgotten god. It is now a refuge for a group of bandits.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "haunted-mansion": {
+                    "names": [
+                         "haunted mansion"
+                    ],
+                    "icon": "house-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "An imposing mansion draped in decaying luxury.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A family moved into the house not knowing it was haunted. They've been having strange experiences and the mother is pregnant. The family is too scared to leave, but they need help.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This house is haunted by the ghost of a man who was wrongfully executed. He's seeking revenge on the family of his accuser, and will haunt anyone who tries to help them.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The house is actually possessed by a demon. It is using the inhabitants to commit terrible acts, and they are slowly being consumed by the demon.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A woman's ghost haunts this house. She's looking for her lost child, and will give a powerful magic item to anyone who can help her find her.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "mysterious-archway": {
+                    "names": [
+                         "mysterious archway",
+                         "ruined archway"
+                    ],
+                    "icon": "bridge-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "An enormous stone archway carved with mystic sigils.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A crumbling stone archway.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "People who step through the archway are turned into stone.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The archway is a portal to another world, and the creatures that come through are wreaking havoc for the nearby settlements.",
+                              "odds": 1
+                         }
+                    ]
+               },
                "tomb": {
                     "names": [
                          "tomb"
@@ -1018,6 +1198,10 @@
                     "hook": [
                          {
                               "text": "A demon-summoning ritual went wrong here several hundred years ago.  One can still come here and speak the demon's name to parley with it across the planes.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A treasure is hidden within the sarcophagus in this tomb, but is sealed with a puzzle lock. The ancient dragon lairing nearby knows the secret to opening it, and may trade it for a favor.",
                               "odds": 1
                          },
                          {
@@ -1112,6 +1296,18 @@
                     ],
                     "hook": [
                          {
+                              "text": "A group of bandits has been using the ruined castle as a base of operations, and the local lord at @manor||town:dist=lt4s is offering a reward for their capture.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The ruined castle is actually the home of a powerful wizard who has been using it as a laboratory for creating strange and dangerous magical creatures.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A curse lies upon the ruined castle, and anyone who spends the night there is doomed to become a part of the walls.",
+                              "odds": 1
+                         },
+                         {
                               "text": "Humanoids living here are friendly to outsiders, but persecuted by the people of @settlement.",
                               "odds": 1
                          },
@@ -1144,6 +1340,14 @@
                          }
                     ],
                     "hook": [
+                         {
+                              "text": "The tower has somehow become a portal to another world, and the person who built it is looking for adventurers to explore it.  They have a camp near the tower and can sometimes also be found in @settlement:dist=lt3s.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A necromancer secretly lives in the catacombs under this tower. They have conjured ghosts throughout the tower to guard their lair, and are experimenting with creating ever more terrible undead.",
+                              "odds": 1
+                         },
                          {
                               "text": "This tower was the site of a recent murder.  A well-known detective needs bodyguards to help him investigate it.",
                               "odds": 1
@@ -1312,6 +1516,14 @@
                     ],
                     "hook": [
                          {
+                              "text": "A #monster have been attacking anyone who tries to cross the bridge, and the local lord at @manor:dist=lt3s is offering a hefty reward to anyone who can deal with them.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The bridge is actually a portal to another world, and someone needs to close it before things start coming through.",
+                              "odds": 1
+                         },
+                         {
                               "text": "On solstice nights, this bridge leads to another plane.  A noble from @manor||town||city is planning an expedition there to search for their daughter, who disappeared here at the last solstice.",
                               "odds": 1
                          },
@@ -1319,6 +1531,12 @@
                               "text": "A troll lives under this bridge and demands that all who pass play a board game with it.",
                               "odds": 1
                          }
+                    ],
+                    "monster": [
+                         "group of kobolds",
+                         "troll",
+                         "band of goblins",
+                         "pair of wyverns"
                     ]
                },
                "abandoned-village": {
@@ -1386,6 +1604,68 @@
                }
           },
           "settlement": {
+               "temple": {
+                    "names": [
+                         "temple"
+                    ],
+                    "icon": "temple-7",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A huge temple of gleaming white stone.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small and unostentatious temple.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The temple is actually a front for a cult of evil gods, and the priest is looking for adventurers to help them sacrifice a !sacrificialVictim to their dark masters.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of bandits has been raiding pilgrims on their way to the temple, and the temple's priest is looking for adventurers to put a stop to it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of acolytes is looking for adventurers to help them cleanse this temple, which has been overrun by fiends.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "flying-castle": {
+                    "names": [
+                         "flying castle"
+                    ],
+                    "icon": "fort-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A castle of black stone riding a storm cloud, lighting crackling among its towers.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A majestic castle floating among the clouds, its towers gleaming golden.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The lord of the castle is holding a !tournamentType tournament. The prize is a wish from a powerful genie.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The lord of the castle is looking for a magical artifact that is rumored to be in @ruin.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The lord of the castle is a powerful sorcerer who is collecting souls for a dread ritual.",
+                              "odds": 1
+                         }
+                    ]
+               },
                "quarry": {
                     "names": [
                          "quarry"
@@ -1430,6 +1710,10 @@
                          }
                     ],
                     "hook": [
+                         {
+                              "text": "The tower is the home of a powerful sorcerer, who is looking for apprentices.",
+                              "odds": 1
+                         },
                          {
                               "text": "A creation of the wizard has escaped and is harassing the settlement in @settlement.",
                               "odds": 1
@@ -1826,7 +2110,7 @@
                               "odds": 1
                          },
                          {
-                              "text": "A huge and prosperious city.  Merchants flock here from distant lands to sell their goods.",
+                              "text": "A huge and prosperous city.  Merchants flock here from distant lands to sell their goods.",
                               "odds": 1
                          }
                     ],
@@ -1939,7 +2223,7 @@
                     ],
                     "hook": [
                          {
-                              "text": "The bandits are actually a front for a sinister cult. They are trying to steal a particular artifact coming to a noble in @town||city||manor to conduct a dark ritual of summoning.",
+                              "text": "The bandits are actually a front for a sinister cult. They are trying to steal a particular artifact being transported to a noble in @town||city||manor to conduct a dark ritual of summoning.",
                               "odds": 1
                          },
                          {
@@ -1954,6 +2238,103 @@
                }
           },
           "wilderness": {
+               "stargazing-platform": {
+                    "names": [
+                         "stargazing platform"
+                    ],
+                    "icon": "pyramid",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A platform of weathered but ornately carved stone, with a staircase leading to the stop.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A raised platform of weathered wood.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A young woman from @settlement:dist=lt3s comes to the platform every night to cry and talk to the stars. She is looking for her lost love, who she believes is now among them.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "An astronomer built this platform to study the stars, but went mad when he discovered something out there. He now spends his days muttering to himself up on the platform.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of bandits have been using this platform to spot prey on the roads below. The local lord in @manor||town is offering a bounty for their capture.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Every night, a different constellation can be seen from this platform. A group of astronomers from @town||city believe that the constellations are actually a map, and are looking for adventurers to help them follow it.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "witches-coven": {
+                    "names": [
+                         "witches\u2019 coven"
+                    ],
+                    "icon": "danger",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A circle of dead grass, its perimeter hung with bones and animal carcasses.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A blood-stained clearing.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The witches have stolen a baby from @settlement and plan to sacrifice it to the !evilDeity on the next moonless night.  The baby\u2019s brother is out looking for it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A young woman has been kidnapped and taken here against her will, and the witches intend to transform her into a servitor creature.  Her parents in @settlement will pay anything to have her rescued.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The witches have been cursed, and are slowly turning into animals.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "hunting-lodge": {
+                    "names": [
+                         "hunting lodge"
+                    ],
+                    "icon": "archery",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A comfortable cabin with animal heads mounted on the walls.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A large and well-appointed lodge with a permanent live-in staff.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A witch has cursed the lodge, and the owner - the noble of @manor - will pay handsomely for anyone who can break the curse.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The lodge is actually a front for a group of werewolf hunters. They're always looking for new recruits.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The lodge is being haunted by the ghost of a hunter who died in these woods. He's looking for revenge.",
+                              "odds": 1
+                         }
+                    ]
+               },
                "standing-stones": {
                     "names": [
                          "standing stones"
@@ -2233,7 +2614,7 @@
                               "odds": 1
                          },
                          {
-                              "text": "Strange albino creatures lurk in the cave and grant prophecies.",
+                              "text": "Strange albino creatures lurk in the cave and speak prophecies.",
                               "odds": 1
                          },
                          {

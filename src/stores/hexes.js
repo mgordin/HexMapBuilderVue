@@ -669,6 +669,7 @@ export const useHexesStore = defineStore({
             terrainWeights.push(tempOdds)
         })
 
+        console.log('generateTerrain', thisHex, terrains, terrainWeights)
         const thisTerrain = this.weightedRandom(terrains, terrainWeights)
 
         this.setHexTerrain(thisHex, thisTerrain, maintainEmptyEdge)
@@ -755,6 +756,7 @@ export const useHexesStore = defineStore({
     },
     // Generate a new tag (or an empty hex) based on input probabilities and the current terrain
     generateHexTag(terrain) {
+        console.log('generateHexTag')
         const typeTag = this.weightedRandom(this.pointOfInterest.type, this.pointOfInterest.odds)
         console.log('Selected type tag:', typeTag)
         
@@ -768,6 +770,7 @@ export const useHexesStore = defineStore({
                 optionWeights.push(this.contentTags[typeTag][option].odds)
             })
             console.log('Selecting tag from', options, 'with weights', optionWeights)
+            console.log('refineTag', typeTag, tags, this.contentTags[typeTag])
             tags.push(this.weightedRandom(options, optionWeights))
 
             return tags;
@@ -807,6 +810,7 @@ export const useHexesStore = defineStore({
                         }
                     })
 
+                    console.log('generateHexDescription description', thisHex)
                     descriptionsAndHooks = descriptionsAndHooks + this.weightedRandom(options, weights)
 
                     // Hooks
@@ -822,6 +826,7 @@ export const useHexesStore = defineStore({
                         }
                     })
 
+                    console.log('generateHexDescription hook', thisHex)
                     descriptionsAndHooks = descriptionsAndHooks + "\n" + this.weightedRandom(options, weights)
 
                     descriptionElements.push(
