@@ -1014,6 +1014,33 @@
      },
      "contentTags": {
           "ruin": {
+               "collapsed-bridge": {
+                    "names": [
+                         "collapsed bridge"
+                    ],
+                    "icon": "ruins",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "Parts of this bridge have collapsed, leaving it dangerous to cross.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A long section of this bridge has collapsed into the chasm it crosses.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A young woman is said to have been seen walking on the river beneath the bridge. She is said to grant wishes, but at what cost?",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of bandits have been using the collapsed bridge as a base to ambush travelers, and the guard of @town:dist=lt3s is stretched too thin to deal with them.",
+                              "odds": 1
+                         }
+                    ]
+               },
                "toppled-tower": {
                     "names": [
                          "toppled tower",
@@ -1604,6 +1631,29 @@
                }
           },
           "settlement": {
+               "observatory": {
+                    "names": [
+                         "observatory"
+                    ],
+                    "icon": "ziggurat",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A great stone dome with a huge telescope pointed up at the sky.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The observatory is actually a portal to another world, and the astronomer who went through needs help finding a way back.  He can send messages to people nearby from across the planar boundary, and offers the secret of a great magic in return for help.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A strange creature has been seen in the night sky, and the astronomer wants to get a closer look.",
+                              "odds": 1
+                         }
+                    ]
+               },
                "temple": {
                     "names": [
                          "temple"

@@ -40,6 +40,44 @@ const hexByUUID = hs.hexByUUID;
       <!-- Sidebar section start here -->
       <div class="card-content">
 
+        <!-- Regenerate buttons -->
+        <div class="block" v-if="es.selectedHexCount==1">
+          <div class="card">
+            <div class="card-content">
+              <button class="button is-primary rerandomize-button" title="Rerandomize description" 
+                @click="hs.rerandomizeHexes('description')"
+                @mouseenter="es.setRandomizeIndicator(['description'])"
+                @focus="es.setRandomizeIndicator(['description'])"
+                @mouseleave="es.removeRandomizeIndicator(['description'])"
+                @blur="es.removeRandomizeIndicator(['description'])">
+                <i class="ri-refresh-line"></i>
+                <i class="ri-file-text-fill"></i>
+              </button>
+
+              <button class="button is-primary rerandomize-button" title="Rerandomize tags and description" 
+                @click="hs.rerandomizeHexes('tags+description')"
+                @mouseenter="es.setRandomizeIndicator(['description', 'tags'])"
+                @focus="es.setRandomizeIndicator(['description', 'tags'])"
+                @mouseleave="es.removeRandomizeIndicator(['description', 'tags'])"
+                @blur="es.removeRandomizeIndicator(['description', 'tags'])">
+                <i class="ri-refresh-line"></i>
+                <i class="ri-file-text-fill"></i>
+                <i class="ri-map-pin-2-fill"></i>
+              </button>
+
+              <button class="button is-primary rerandomize-button" title="Rerandomize terrain" 
+                @click="hs.rerandomizeHexes('terrain')"
+                @mouseenter="es.setRandomizeIndicator(['terrain'])"
+                @focus="es.setRandomizeIndicator(['terrain'])"
+                @mouseleave="es.removeRandomizeIndicator(['terrain'])"
+                @blur="es.removeRandomizeIndicator(['terrain'])">
+                <i class="ri-refresh-line"></i>
+                <i class="ri-compass-discover-fill"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
         <!-- Mentioned by section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
@@ -299,6 +337,10 @@ const hexByUUID = hs.hexByUUID;
 .rerandomize-indicator {
   top: 16px;
   left: 10px;
+}
+
+.rerandomize-button {
+  margin-right: 15px;
 }
 
 </style>
