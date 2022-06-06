@@ -41,52 +41,50 @@ const hexByUUID = hs.hexByUUID;
       <div class="card-content">
 
         <!-- Regenerate buttons -->
-        <div class="block" v-if="es.selectedHexCount==1">
-          <div class="card">
-            <div class="card-content">
-              <button class="button is-primary rerandomize-button" title="Rerandomize description" 
-                @click="hs.rerandomizeHexes('description')"
-                @mouseenter="es.setRandomizeIndicator(['description'])"
-                @focus="es.setRandomizeIndicator(['description'])"
-                @mouseleave="es.removeRandomizeIndicator(['description'])"
-                @blur="es.removeRandomizeIndicator(['description'])">
-                <i class="ri-refresh-line"></i>
-                <i class="ri-file-text-fill"></i>
-              </button>
+            <button class="button is-primary rerandomize-button" title="Generate description with current content types - generates content types if none present" 
+              @click="hs.rerandomizeHexes('description')"
+              @mouseenter="es.setRandomizeIndicator(['description'])"
+              @focus="es.setRandomizeIndicator(['description'])"
+              @mouseleave="es.removeRandomizeIndicator(['description'])"
+              @blur="es.removeRandomizeIndicator(['description'])">
+              <i class="ri-refresh-line ri-lg"></i>
+              <i class="ri-file-text-fill ri-lg"></i>
+            </button>
 
-              <button class="button is-primary rerandomize-button" title="Rerandomize tags and description" 
-                @click="hs.rerandomizeHexes('tags+description')"
-                @mouseenter="es.setRandomizeIndicator(['description', 'tags'])"
-                @focus="es.setRandomizeIndicator(['description', 'tags'])"
-                @mouseleave="es.removeRandomizeIndicator(['description', 'tags'])"
-                @blur="es.removeRandomizeIndicator(['description', 'tags'])">
-                <i class="ri-refresh-line"></i>
-                <i class="ri-file-text-fill"></i>
-                <i class="ri-map-pin-2-fill"></i>
-              </button>
+            <button class="button is-primary rerandomize-button" title="Generate content types and description" 
+              @click="hs.rerandomizeHexes('tags+description')"
+              @mouseenter="es.setRandomizeIndicator(['description', 'tags'])"
+              @focus="es.setRandomizeIndicator(['description', 'tags'])"
+              @mouseleave="es.removeRandomizeIndicator(['description', 'tags'])"
+              @blur="es.removeRandomizeIndicator(['description', 'tags'])">
+              <i class="ri-refresh-line ri-lg"></i>
+              <i class="ri-file-text-fill ri-lg"></i>
+              <i class="ri-map-pin-2-fill ri-lg"></i>
+            </button>
 
-              <button class="button is-primary rerandomize-button" title="Rerandomize terrain" 
-                @click="hs.rerandomizeHexes('terrain')"
-                @mouseenter="es.setRandomizeIndicator(['terrain'])"
-                @focus="es.setRandomizeIndicator(['terrain'])"
-                @mouseleave="es.removeRandomizeIndicator(['terrain'])"
-                @blur="es.removeRandomizeIndicator(['terrain'])">
-                <i class="ri-refresh-line"></i>
-                <i class="ri-compass-discover-fill"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+            <button class="button is-primary rerandomize-button" title="Generate terrain" 
+              @click="hs.rerandomizeHexes('terrain')"
+              @mouseenter="es.setRandomizeIndicator(['terrain'])"
+              @focus="es.setRandomizeIndicator(['terrain'])"
+              @mouseleave="es.removeRandomizeIndicator(['terrain'])"
+              @blur="es.removeRandomizeIndicator(['terrain'])">
+              <i class="ri-refresh-line ri-lg"></i>
+              <i class="ri-compass-discover-fill ri-lg"></i>
+            </button>
 
         <!-- Mentioned by section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
             <header class="card-header has-background-primary" @click="es.toggleSection('mentioned-by')">
+              <div class="level header-div">
+                <i class="ri-map-fill section-icon"></i>
                 <p class="card-header-title">Mentioned By</p>
                 <span class="icon details">
                   <i class="ri-arrow-left-s-line ri-xl" v-if="!es.tagsSectionVisible"></i>
                   <i class="ri-arrow-down-s-line ri-xl" v-if="es.tagsSectionVisible"></i>
                 </span>
+              </div>
+                
             </header>
             <div class="card-content" v-if="es.mentionedBySectionVisible">
               <div class="tags">
@@ -99,24 +97,18 @@ const hexByUUID = hs.hexByUUID;
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
             <header class="card-header has-background-primary">
-              <span class="rerandomize-indicator animate-flicker" v-if="es.descriptionToBeRandomized"> 
+              <div class="level header-div">
+                <span class="rerandomize-indicator animate-flicker" v-if="es.descriptionToBeRandomized"> 
                 <i class="ri-magic-line ri-xl"></i>
                 <i class="ri-arrow-right-s-line ri-xl"></i>
               </span>
-              <p class="card-header-title">Hex Details</p>
-              <span class="icon randomize" title="Randomize description again with current tags" 
-                @click="hs.rerandomizeHexes('description')"
-                @mouseenter="es.setRandomizeIndicator(['description'])"
-                @focus="es.setRandomizeIndicator(['description'])"
-                @mouseleave="es.removeRandomizeIndicator(['description'])"
-                @blur="es.removeRandomizeIndicator(['description'])"
-              >
-                  <i class="ri-magic-fill ri-xl"></i>
-                </span>
+              <i class="ri-file-text-fill section-icon"></i>
+              <p class="card-header-title">Description</p>
               <span class="icon details" title="Collapse section" @click="es.toggleSection('text')">
                   <i class="ri-arrow-left-s-line ri-xl" v-if="!es.textSectionVisible"></i>
                   <i class="ri-arrow-down-s-line ri-xl" v-if="es.textSectionVisible"></i>
               </span>
+              </div>
             </header>
             <div class="card-content" v-if="es.textSectionVisible">
               <TextEditor
@@ -130,24 +122,19 @@ const hexByUUID = hs.hexByUUID;
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
             <header class="card-header has-background-primary">
+              <div class="level header-div">
                 <span class="rerandomize-indicator animate-flicker" v-if="es.tagsToBeRandomized"> 
                   <i class="ri-magic-line ri-xl"></i>
                   <i class="ri-arrow-right-s-line ri-xl"></i>
                 </span>
-                <p class="card-header-title">Hex Tags</p>
-                <span class="icon randomize" title="Randomize tags and description again" 
-                  @click="hs.rerandomizeHexes('tags+description')"
-                  @mouseenter="es.setRandomizeIndicator(['description', 'tags'])"
-                  @focus="es.setRandomizeIndicator(['description', 'tags'])"
-                  @mouseleave="es.removeRandomizeIndicator(['description', 'tags'])"
-                  @blur="es.removeRandomizeIndicator(['description', 'tags'])"
-                >
-                  <i class="ri-magic-fill ri-xl"></i>
-                </span>
+                <i class="ri-map-pin-2-fill section-icon"></i>
+                <p class="card-header-title">Content Types</p>
+                
                 <span class="icon details" @click="es.toggleSection('tags')">
                   <i class="ri-arrow-left-s-line ri-xl" v-if="!es.tagsSectionVisible"></i>
                   <i class="ri-arrow-down-s-line ri-xl" v-if="es.tagsSectionVisible"></i>
                 </span>
+              </div>
             </header>
             <div class="card-content" v-if="es.tagsSectionVisible">
                 <Multiselect
@@ -166,24 +153,20 @@ const hexByUUID = hs.hexByUUID;
         <div class="block">
           <div class="card">
             <header class="card-header has-background-primary">
-              <span class="rerandomize-indicator animate-flicker" v-if="es.terrainToBeRandomized"> 
-                <i class="ri-magic-line ri-xl"></i>
-                <i class="ri-arrow-right-s-line ri-xl"></i>
-              </span>
-              <p class="card-header-title">Terrain</p>
-              <span class="icon randomize" title="Randomize terrain again" 
-                @click="hs.rerandomizeHexes('terrain')"
-                @mouseenter="es.setRandomizeIndicator(['terrain'])"
-                @focus="es.setRandomizeIndicator(['terrain'])"
-                @mouseleave="es.removeRandomizeIndicator(['terrain'])"
-                @blur="es.removeRandomizeIndicator(['terrain'])"
-              >
-                  <i class="ri-magic-fill ri-xl"></i>
+              <div class="level header-div">
+                <span class="rerandomize-indicator animate-flicker" v-if="es.terrainToBeRandomized"> 
+                  <i class="ri-magic-line ri-xl"></i>
+                  <i class="ri-arrow-right-s-line ri-xl"></i>
                 </span>
-              <span class="icon details" @click="es.toggleSection('terrain')">
-                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.terrainSectionVisible"></i>
-                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.terrainSectionVisible"></i>
-              </span>
+                <i class="ri-compass-discover-fill section-icon"></i>
+                <p class="card-header-title">Terrain</p>
+                
+                <span class="icon details" @click="es.toggleSection('terrain')">
+                    <i class="ri-arrow-left-s-line ri-xl" v-if="!es.terrainSectionVisible"></i>
+                    <i class="ri-arrow-down-s-line ri-xl" v-if="es.terrainSectionVisible"></i>
+                </span>
+              </div>
+              
             </header>
 
             <div class="card-content" v-if="es.terrainSectionVisible && es.showTerrainsAsPanel">
@@ -205,16 +188,19 @@ const hexByUUID = hs.hexByUUID;
         <!-- Icon section as panel -->
         <div class="block">
           <div class="card">
-            <header
-              class="card-header has-background-primary"
-              @click="es.toggleSection('icons')"
-            >
-              <p class="card-header-title">Point of Interest</p>
-              <span class="icon details">
-                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.iconsSectionVisible"></i>
-                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.iconsSectionVisible"></i>
-              </span>
+
+            <header class="card-header has-background-primary">
+              <div class="level header-div">
+                <i class="ri-home-2-fill section-icon"></i>
+                <p class="card-header-title">Icon</p>
+                <span class="icon details" @click="es.toggleSection('icons')">
+                    <i class="ri-arrow-left-s-line ri-xl" v-if="!es.iconsSectionVisible"></i>
+                    <i class="ri-arrow-down-s-line ri-xl" v-if="es.iconsSectionVisible"></i>
+                </span>
+              </div>
+              
             </header>
+            
             <div class="card-content" v-if="es.iconsSectionVisible">
               <div class="columns is-multiline">
                 <div
@@ -252,10 +238,7 @@ const hexByUUID = hs.hexByUUID;
   display: none;
 }
 
-.details {
-  left: -10px;
-  top: 12px;
-}
+
 
 .sidebar-header {
   display: flex;
@@ -341,6 +324,24 @@ const hexByUUID = hs.hexByUUID;
 
 .rerandomize-button {
   margin-right: 15px;
+  margin-bottom: 20px;
+}
+
+.rerandomize-button-header {
+  margin-right: 15px;
+}
+
+.section-icon {
+  margin-left: 10px;
+}
+
+.details {
+  margin-right: 5px;
+}
+
+.header-div {
+  display: flex;
+  flex-grow: 1;
 }
 
 </style>
