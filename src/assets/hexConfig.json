@@ -1631,6 +1631,33 @@
                }
           },
           "settlement": {
+               "inn": {
+                    "names": [
+                         "inn"
+                    ],
+                    "icon": "town-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A large and prosperous inn, with a group of musicians performing in the common room.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small roadside inn, a little run down.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A dangerous creature has been stalking people around the inn, and the owner will pay for its demise.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of adventurers staying at the inn are planning to rob the nearby tomb at @tomb:dist=lt4s, and the innkeeper is in on it.  The ghosts of the tomb will object strenuously if that happens.",
+                              "odds": 1
+                         }
+                    ]
+               },
                "observatory": {
                     "names": [
                          "observatory"
