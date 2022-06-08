@@ -955,6 +955,14 @@
           }
      },
      "globalFillLists": {
+          "sinisterPerson": [
+               "dark druid",
+               "necromancer",
+               "evil wizard",
+               "vampire",
+               "disguised dragon",
+               "shipping magnate"
+          ],
           "sacrificialVictim": [
                "virgin",
                "baby",
@@ -1014,6 +1022,65 @@
      },
      "contentTags": {
           "ruin": {
+               "ruined-arena": {
+                    "names": [
+                         "ruined arena"
+                    ],
+                    "icon": "ruins",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "An enormous arena built of white stone, slowly crumbling.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small arena, little more than a broken, circular stone wall.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "A group of bandits have taken up residence here, and use the arena to test the mettle of anyone foolish enough to enter. Their leader is pretending to be human, but isn\u2019t.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This arena was once the site of bloody gladiatorial games.  It is now said to be cursed, and no one has been able to cleanse it. The priests of @temple would reward anyone who can do it, as they wish to hold a ritual here.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "destroyed-machine": {
+                    "names": [
+                         "destroyed machine",
+                         "ruined machine"
+                    ],
+                    "icon": "ruins",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "An enormous machine, broken and smoking in places.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A strange and obviously ruined contraption of metal parts spread across a many-chambered stone hall.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "This machine was used to open a portal to another world. It is now broken, but if it could be repaired, it might provide a way back home for the adventurers who came through and are now stranded in this world. They can be found at @settlement.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A powerful sorcerer built this machine to try and create a phylactery. It failed, and instead created a powerful undead creature that now stalks the ruins.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "This machine was once used to create powerful golems, but was destroyed in a war. The golems still lurk in the ruins, following the last orders they were given.",
+                              "odds": 1
+                         }
+                    ]
+               },
                "collapsed-bridge": {
                     "names": [
                          "collapsed bridge"
@@ -2315,6 +2382,169 @@
                }
           },
           "wilderness": {
+               "hidden-pond": {
+                    "names": [
+                         "hidden pond"
+                    ],
+                    "icon": "waterfall-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A small pond in a hidden valley.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A small pond hidden in a small grove.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The hidden pond is home to a great water spirit, and a !sinisterPerson is trying to capture it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The hidden pond is a place of great power, and a !sinisterPerson is trying to harness that power for evil.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The pond is home to a creature that drags people to the bottom to drown them. The creature is especially active during full moons.  Teenagers from @settlement:dist=lt3s dare each other to visit it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The pond is the entrance to a hidden underground city, and somebody has been leaving offerings at the entrance.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "gallows": {
+                    "names": [
+                         "gallows"
+                    ],
+                    "icon": "danger-3",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A large platform with two posts and a crossbeam, with nooses hanging from the beam.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A single post and crossbeam with a noose hanging from it.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The gallows are haunted by the ghost of a witch who was wrongfully executed, and she's looking for somebody to clear her name.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The gallows are cursed, and anybody who steps foot on them will be hanged.  The local government of @settlement:dist=lt5s is looking for someone to lift the curse so they can use the gallows again.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The gallows is said to be haunted by a witch who was hanged here. She offers a potion that will let the drinker see the future, but her price is obscure.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The ghosts of those hanged here still linger, and they're looking for revenge.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "sulfurous-pools": {
+                    "names": [
+                         "sulfurous pools"
+                    ],
+                    "icon": "waterfall-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "Bubbling pools of sulfurous liquid, smelling like rotten eggs.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The pools are home to a water nymph who is looking for a way to escape.  The druids of @druid-grove could help.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The pools are magical and have the power to grant wishes - but they are also deadly.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "There is a dragon living in the pools who is looking for a mate.  It\u2019ll pay adventurers handsomely if they can set it up with another dragon. ",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The pools are the site of a recent murder, and the killer is still at large.  The guard of @town||city want someone to investigate it.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The pools are home to a creature that emerges at night to feast on anything that it can catch.  It is said that any who catch it are granted a boon.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The pools are said to have magical properties, and the local wizard from @settlement is looking for somebody to test them out.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "planar-portal": {
+                    "names": [
+                         "planar portal"
+                    ],
+                    "icon": "portal",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A glowing doorway of light.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A great metal ring with a shimmering disc of light within it.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The portal is growing larger, and things are starting to come through that shouldn't be able to.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of adventurers came through the portal and haven't been seen since. The settlement at @settlement is looking for somebody to go find them.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "Curious creatures have begun to come through the portal from the other side, and they're not all friendly.  One group has kidnapped a child from @settlement:dist=lt3s for study, while another has gotten stuck in a nearby well.",
+                              "odds": 1
+                         }
+                    ]
+               },
+               "hunting-preserve": {
+                    "names": [
+                         "hunting preserve"
+                    ],
+                    "icon": "archery",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "A stretch of land stocked with animals for the local nobility to hunt.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The preserve is the site of a murder, and the spirit of the victim is haunting it.  The spirit wants revenge on the killer, who lives in @settlement.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The preserve is the home of a rare and valuable creature, and a nearby !sinisterPerson wants it dead.",
+                              "odds": 1
+                         }
+                    ]
+               },
                "stargazing-platform": {
                     "names": [
                          "stargazing platform"
