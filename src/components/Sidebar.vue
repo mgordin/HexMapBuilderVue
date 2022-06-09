@@ -96,13 +96,9 @@ const hexByUUID = hs.hexByUUID;
         <!-- Text section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header has-background-primary">
+            <header class="card-header" :class="[{'has-background-primary': !es.descriptionToBeRandomized}, {'has-background-success': es.descriptionToBeRandomized}]">
               <div class="level header-div">
-                <span class="rerandomize-indicator animate-flicker" v-if="es.descriptionToBeRandomized"> 
-                <i class="ri-magic-line ri-xl"></i>
-                <i class="ri-arrow-right-s-line ri-xl"></i>
-              </span>
-              <i class="ri-file-text-fill section-icon"></i>
+              <i class="ri-file-text-fill section-icon" :class="{highlighted: es.descriptionToBeRandomized}"></i>
               <p class="card-header-title">Description</p>
               <span class="icon details" title="Collapse section" @click="es.toggleSection('text')">
                   <i class="ri-arrow-left-s-line ri-xl" v-if="!es.textSectionVisible"></i>
@@ -121,13 +117,10 @@ const hexByUUID = hs.hexByUUID;
         <!-- Tags section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header has-background-primary">
+            <header class="card-header"  :class="[{'has-background-primary': !es.tagsToBeRandomized}, {'has-background-success': es.tagsToBeRandomized}]">
               <div class="level header-div">
-                <span class="rerandomize-indicator animate-flicker" v-if="es.tagsToBeRandomized"> 
-                  <i class="ri-magic-line ri-xl"></i>
-                  <i class="ri-arrow-right-s-line ri-xl"></i>
-                </span>
-                <i class="ri-map-pin-2-fill section-icon"></i>
+                
+                <i class="ri-map-pin-2-fill section-icon" :class="{highlighted: es.tagsToBeRandomized}"></i>
                 <p class="card-header-title">Content Types</p>
                 
                 <span class="icon details" @click="es.toggleSection('tags')">
@@ -152,13 +145,10 @@ const hexByUUID = hs.hexByUUID;
         <!-- Terrain section as panel -->
         <div class="block">
           <div class="card">
-            <header class="card-header has-background-primary">
+            <header class="card-header" :class="[{'has-background-primary': !es.terrainToBeRandomized}, {'has-background-success': es.terrainToBeRandomized}]">
               <div class="level header-div">
-                <span class="rerandomize-indicator animate-flicker" v-if="es.terrainToBeRandomized"> 
-                  <i class="ri-magic-line ri-xl"></i>
-                  <i class="ri-arrow-right-s-line ri-xl"></i>
-                </span>
-                <i class="ri-compass-discover-fill section-icon"></i>
+                
+                <i class="ri-compass-discover-fill section-icon" :class="{highlighted: es.terrainToBeRandomized}"></i>
                 <p class="card-header-title">Terrain</p>
                 
                 <span class="icon details" @click="es.toggleSection('terrain')">
@@ -342,6 +332,14 @@ const hexByUUID = hs.hexByUUID;
 .header-div {
   display: flex;
   flex-grow: 1;
+}
+
+.multiselect-tag {
+  background: hsl(0, 0%, 29%)
+}
+
+.highlighted {
+  color: white;
 }
 
 </style>

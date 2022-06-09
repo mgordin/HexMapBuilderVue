@@ -1698,6 +1698,45 @@
                }
           },
           "settlement": {
+               "cult-sanctum": {
+                    "names": [
+                         "cult sanctum"
+                    ],
+                    "icon": "evil-2",
+                    "odds": 1,
+                    "description": [
+                         {
+                              "text": "The sanctum is hidden in subterranean chambers beneath the ruins of another building.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A large stone building carved with sinister bas reliefs.",
+                              "odds": 1
+                         }
+                    ],
+                    "hook": [
+                         {
+                              "text": "The cult is made up of doppelgangers, and is planning to replace key figures in the government of @city||town with their own.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The cultists have been using a magical portal to bring in demons to do their bidding.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A group of adventurers who were hired to investigate the cult have gone missing, and the cultists are acting very strangely.  Their families in @settlement:dist=lt3s want someone to find the adventurers.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "A crazed hermit who lives in the woods nearby has been ranting about the 'end times' and saying that the cultists are to blame. He's been attacking them when he can.",
+                              "odds": 1
+                         },
+                         {
+                              "text": "The cultists who live in this sanctum have been kidnapping people from @settlement:dist=lt3s for unknown reasons.",
+                              "odds": 1
+                         }
+                    ]
+               },
                "inn": {
                     "names": [
                          "inn"
