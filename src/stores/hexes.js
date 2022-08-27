@@ -181,6 +181,9 @@ export const useHexesStore = defineStore({
     getShiftPixels: (state) => {
         return state.nthChildShift.toString().concat('px');
     },
+    getShiftValue: (state) => {
+        return state.nthChildShift
+    },
     tagList: (state) => {
         var tags = Object.keys(state.contentTags)
         Object.keys(state.contentTags).forEach((tag) => {

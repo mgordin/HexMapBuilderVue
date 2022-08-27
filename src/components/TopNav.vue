@@ -7,6 +7,15 @@ import 'remixicon/fonts/remixicon.css'
 const es = useEditorStore();
 const hs = useHexesStore();
 
+function logHTML() {
+    var d = document.getElementById('hex-container-view');
+    console.log(d)
+    d = document.getElementById('hexDetailReader');
+    console.log(d)
+    d = document.getElementsByTagName('img')
+    console.log(d)
+}
+
 </script>
 
 
@@ -48,6 +57,7 @@ const hs = useHexesStore();
                     <span class="tag" :class="{'is-primary': es.mode=='view'}">View</span>    
                 </div>
             </div>
+            <a class="navbar-item" @click="logHTML">Log HTML</a>
         </div>
         <div class="navbar-end">
             <div class="navbar-item save-indicator" v-if="es.savingIndicator">

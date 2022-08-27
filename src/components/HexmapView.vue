@@ -5,15 +5,31 @@ import { useHexesStore } from "@/stores/hexes";
 const es = useEditorStore();
 const hs = useHexesStore();
 
+function scale(val) {
+  return (val * es.hexScale)
+}
+
 function shift() {
-  return hs.getShiftPixels;
+  return hs.getShiftValue;
+}
+
+function scaledShift() {
+  return hs.getShiftValue * es.hexScale;
+}
+
+function scaledPaddingShift() {
+  return paddingShift() * es.hexScale;
+}
+
+function px(val) {
+  return val + 'px'
 }
 
 function paddingShift() {
-  if (shift() == "83.5px") {
-    return 0 + "px";
+  if (shift() == 83.5) {
+    return 0;
   } else {
-    return 60 + "px";
+    return 60;
   }
 }
 
@@ -71,11 +87,11 @@ function jumpToHex(hexUUID) {
 /* Consolidated pointy-top and flat-top image hex stuff */
 .image-row {
   display: flex; /* block;*/
-  top: 60px;
+  top: v-bind(px(scale(60)));
 }
 
 .flat-row {
-  margin-top: -5.25px;
+  margin-top: v-bind(px(scale(-5.25)));
 }
 
 .pointy-row {
@@ -102,13 +118,13 @@ function jumpToHex(hexUUID) {
 }
 
 .flat-hex {
-  height: 96px;
-  width: 110px;
+  height: v-bind(px(scale(96)));
+  width: v-bind(px(scale(110)));
   clip-path: polygon(0 50%, 25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%);
   overflow: hidden;
   display: inline-block;
-  margin-left: 57.5px;
-  margin-top: -42px;
+  margin-left: v-bind(px(scale(57.5)));
+  margin-top: v-bind(px(scale(-42)));
   user-select: none;
 }
 
@@ -143,7 +159,7 @@ function jumpToHex(hexUUID) {
 }
 
 .flat-row:nth-child(even) {
-  margin-left: v-bind(shift());
+  margin-left: v-bind(px(scaledShift()));
 }
 
 .hex-label {
@@ -153,13 +169,13 @@ function jumpToHex(hexUUID) {
 }
 
 .hex-container {
-  padding-left: v-bind(paddingShift());
+  padding-left: v-bind(px(scaledPaddingShift()));
 }
 
 .hex-icon {
   position: absolute;
-  max-width: 60px;
-  max-height: 60px;
+  max-width: v-bind(px(scale(60)));
+  max-height: v-bind(px(scale(60)));
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);

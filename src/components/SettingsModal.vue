@@ -31,6 +31,11 @@ const es = useEditorStore();
                     <input type="checkbox" v-model="es.showTerrainsAsPanel">
                     Use panels instead of dropdowns for terrain and icon
                 </label>
+                <br/>
+                <label>
+                    Hex scale:  
+                    <input type="number" v-model="es.hexScale">
+                </label>
             </div>
 
             <hr>

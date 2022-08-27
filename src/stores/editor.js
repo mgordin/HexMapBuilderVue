@@ -46,7 +46,8 @@ export const useEditorStore = defineStore({
         mode: 'edit',
         mentionUUID: 1,
         viewModeProgress: 0,
-        showViewModeLoaderModal: false
+        showViewModeLoaderModal: false,
+        hexScale: 1
     }),
     getters: {
         activeHexImage(state) {

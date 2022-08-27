@@ -30,7 +30,7 @@ function sortHexesComparison(a,b) {
 
 
 <template>
-<div class="hexDetailReader">
+<div id="hexDetailReader" class="hexDetailReader">
     <TextViewer
         v-model="hs.unifyContents"
         :editable="false"
