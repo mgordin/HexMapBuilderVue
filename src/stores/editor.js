@@ -47,7 +47,8 @@ export const useEditorStore = defineStore({
         mentionUUID: 1,
         viewModeProgress: 0,
         showViewModeLoaderModal: false,
-        hexScale: 1
+        hexScale: 1,
+        showHexLabels: true
     }),
     getters: {
         activeHexImage(state) {

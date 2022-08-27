@@ -33,6 +33,14 @@ function paddingShift() {
   }
 }
 
+function labelVisiblity() {
+  if (es.showHexLabels) {
+    return "visible"
+  } else {
+    return "hidden"
+  }
+}
+
 function logShift() {
   console.log(shift());
 }
@@ -165,6 +173,7 @@ const hexByUUID = hs.hexByUUID
   text-align: center;
   font-weight: bold;
   color: white;
+  visibility: v-bind(labelVisiblity());
 }
 
 .hex-container {

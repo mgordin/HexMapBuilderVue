@@ -36,6 +36,11 @@ const es = useEditorStore();
                     Hex scale:  
                     <input type="number" v-model="es.hexScale">
                 </label>
+                <br/>
+                <label class="checkbox">
+                    <input type="checkbox" v-model="es.showHexLabels">
+                    Show hex numbers
+                </label>
             </div>
 
             <hr>
