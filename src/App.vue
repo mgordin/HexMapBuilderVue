@@ -12,6 +12,7 @@ import TopNav from '@/components/TopNav.vue'
 import MapEditor from './components/MapEditor.vue'
 import MapViewer from './components/MapViewer.vue'
 
+
 import { useMagicKeys, whenever } from '@vueuse/core'
 
 const es = useEditorStore();
@@ -33,7 +34,7 @@ whenever(ctrl_s, () => es.saveMapLocally())
 </script>
 
 <template>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <InitializeMapModal />
   <SettingsModal />
   <LoadMapModal />

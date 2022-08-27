@@ -19,8 +19,6 @@ const hexByUUID = hs.hexByUUID;
 <template>
   <div class="sidebar-main">
 
-  
-
     <!-- Real sidebar content -->
     <div class="card">
       <!-- Sidebar header -->
@@ -96,7 +94,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Text section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header" :class="[{'has-background-primary': !es.descriptionToBeRandomized}, {'has-background-success': es.descriptionToBeRandomized}]">
+            <header class="card-header" :class="[{'has-background-primary': !es.descriptionToBeRandomized}, {'has-background-info': es.descriptionToBeRandomized}]">
               <div class="level header-div">
               <i class="ri-file-text-fill section-icon" :class="{highlighted: es.descriptionToBeRandomized}"></i>
               <p class="card-header-title">Description</p>
@@ -117,7 +115,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Tags section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header"  :class="[{'has-background-primary': !es.tagsToBeRandomized}, {'has-background-success': es.tagsToBeRandomized}]">
+            <header class="card-header"  :class="[{'has-background-primary': !es.tagsToBeRandomized}, {'has-background-info': es.tagsToBeRandomized}]">
               <div class="level header-div">
                 
                 <i class="ri-map-pin-2-fill section-icon" :class="{highlighted: es.tagsToBeRandomized}"></i>
@@ -145,7 +143,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Terrain section as panel -->
         <div class="block">
           <div class="card">
-            <header class="card-header" :class="[{'has-background-primary': !es.terrainToBeRandomized}, {'has-background-success': es.terrainToBeRandomized}]">
+            <header class="card-header" :class="[{'has-background-primary': !es.terrainToBeRandomized}, {'has-background-info': es.terrainToBeRandomized}]">
               <div class="level header-div">
                 
                 <i class="ri-compass-discover-fill section-icon" :class="{highlighted: es.terrainToBeRandomized}"></i>

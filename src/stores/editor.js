@@ -48,7 +48,9 @@ export const useEditorStore = defineStore({
         viewModeProgress: 0,
         showViewModeLoaderModal: false,
         hexScale: 1,
-        showHexLabels: true
+        showHexLabels: true,
+        currentTool: 'hex-editor',
+        paintTerrain: 'Default'
     }),
     getters: {
         activeHexImage(state) {
@@ -316,11 +318,19 @@ export const useEditorStore = defineStore({
             window.scrollBy(0, -80)
         },
         hexClicked(hex, keys) {
-            if (this.mode == 'edit') {
+            console.log('keys: ', keys)
+            const hs = useHexesStore()
+
+            if (this.mode == 'edit' && this.currentTool == 'hex-editor') {
                 this.selectHex(hex, keys)
+            } else if (this.mode == 'edit' && this.currentTool == 'terrain-painter') {
+                hs.setHexTerrain(hex, this.paintTerrain, true)
             } else if (this.mode == 'view') {
                 this.jumpToHex(hex.uuid)
             }
+        },
+        selectPaintTerrain(terrain) {
+            this.paintTerrain = terrain;
         }
     }
 })

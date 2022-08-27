@@ -58,6 +58,13 @@ function logHTML() {
                 </div>
             </div>
             <a class="navbar-item" @click="logHTML">Log HTML</a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">Tool Selector</a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" @click="es.currentTool='hex-editor'">Hex editor</a>
+                    <a class="navbar-item" @click="es.currentTool='terrain-painter'">Terrain painter</a>
+                </div>
+            </div>
         </div>
         <div class="navbar-end">
             <div class="navbar-item save-indicator" v-if="es.savingIndicator">

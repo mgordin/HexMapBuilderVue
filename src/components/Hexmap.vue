@@ -1,9 +1,13 @@
 <script setup>
 import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
+import { useMousePressed } from '@vueuse/core'
 
 const es = useEditorStore();
 const hs = useHexesStore();
+
+const { pressed } = useMousePressed()
+
 
 function scale(val) {
   return (val * es.hexScale)
@@ -57,8 +61,8 @@ const hexByUUID = hs.hexByUUID
 </script>
 
 <template>
-  <div id="hex-container" class="hex-container">
-    <div class="image-row flat-row" v-for="row in hs.hexes">
+  <div id="hex-container" class="hex-container" :style="{cursor: (es.currentTool == 'hex-editor') ? 'auto' : 'url(./misc-images/paint-brush-line.png), auto'}">
+    <div class="image-row flat-row" v-for="row in hs.hexes" draggable="false">
       <div
         class="image-hex flat-hex"
         v-for="hex in row"
@@ -66,18 +70,23 @@ const hexByUUID = hs.hexByUUID
         v-bind:class="{ 'hex-selected': es.activeHexes.includes(hex.uuid), 'hex-mentioned': es.mentioningHexes.includes(hex.uuid) }"
         v-bind:uuid="hex.uuid"
         @click="es.hexClicked(hex, $event)"
+        @mousedown="(es.currentTool == 'terrain-painter') ? es.hexClicked(hex, $event) : null"
+        @mouseenter="(pressed) ? es.hexClicked(hex, $event) : null"
+        draggable="false"
       >
-        <img class="hex-terrain" v-bind="{ src: es.terrainToImage[hex.terrain].file }" />
+        <img class="hex-terrain" v-bind="{ src: es.terrainToImage[hex.terrain].file }" draggable="false"/>
         <img
           class="hex-icon"
           v-if="hex.icon != null"
           v-bind="{ src: es.iconProperties[hex.icon].file }"
+          draggable="false"
         />
         <img class="hex-overlay-mentioning" 
           :class="{ 'mentioning-overlay-active': es.mentioningHexes.find(h => h.uuid == hex.uuid) != null }" 
           src="blue.png"
+          draggable="false"
         />
-        <div class="hex-label">{{ hex.id }}</div>
+        <div class="hex-label" draggable="false">{{ hex.id }}</div>
       </div>
     </div>
   </div>
@@ -187,6 +196,7 @@ const hexByUUID = hs.hexByUUID
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  
 }
 
 .hex-overlay-mentioning {
