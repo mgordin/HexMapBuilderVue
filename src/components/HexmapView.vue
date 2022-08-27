@@ -79,7 +79,7 @@ function jumpToHex(hexUUID) {
           v-if="hex.icon != null"
           v-bind="{ src: es.iconProperties[hex.icon].file }"
         />
-        <div class="hex-label">{{ hex.id }}</div>
+        <div class="hex-label" :style="{visibility: (hex.terrain == 'Default' || !es.showHexLabels) ? 'hidden' : 'visible'}">{{ hex.id }}</div>
       </div>
     </div>
   </div>
@@ -175,7 +175,6 @@ function jumpToHex(hexUUID) {
   text-align: center;
   font-weight: bold;
   color: white;
-  visibility: v-bind(labelVisiblity());
 }
 
 .hex-container {
