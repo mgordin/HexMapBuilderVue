@@ -12,8 +12,8 @@ import TopNav from '@/components/TopNav.vue'
 import MapEditor from './components/MapEditor.vue'
 import MapViewer from './components/MapViewer.vue'
 
-
 import { useMagicKeys, whenever } from '@vueuse/core'
+import { useEventListener } from '@vueuse/core'
 
 const es = useEditorStore();
 const hs = useHexesStore();
@@ -30,6 +30,13 @@ const { ctrl_s } = useMagicKeys({
 })
 
 whenever(ctrl_s, () => es.saveMapLocally())
+
+useEventListener(document, 'mouseup', (evt) => { 
+  if (es.mode == 'edit' && es.currentTool == 'terrain-painter') {
+    hs.terrainPainterMapUpdate()
+  }
+ })
+
 
 </script>
 

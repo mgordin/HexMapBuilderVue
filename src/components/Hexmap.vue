@@ -65,7 +65,6 @@ const hexByUUID = hs.hexByUUID
   <div id="hex-container" 
     class="hex-container" 
     :style="{cursor: (es.currentTool == 'hex-editor') ? 'auto' : 'url(./misc-images/paint-brush-line.png), auto'}"
-    @mouseup="(es.currentTool == 'terrain-painter') ? hs.terrainPainterMapUpdate() : null"
     >
     <div class="image-row flat-row" v-for="row in hs.hexes" draggable="false">
       <div
@@ -77,7 +76,6 @@ const hexByUUID = hs.hexByUUID
         @click="es.hexClicked(hex, $event)"
         @mousedown="(es.currentTool == 'terrain-painter') ? es.hexClicked(hex, $event) : null"
         @mouseenter="(pressed) ? es.hexClicked(hex, $event) : null"
-        @mouseup="(es.currentTool == 'terrain-painter') ? hs.terrainPainterMapUpdate() : null"
         draggable="false"
       >
         <img class="hex-terrain" v-bind="{ src: es.terrainToImage[hex.terrain].file }" draggable="false"/>
