@@ -39,7 +39,7 @@ const hexByUUID = hs.hexByUUID;
       <div class="card-content">
 
         <!-- Regenerate buttons -->
-            <button class="button is-primary rerandomize-button" title="Generate description with current content types - generates content types if none present" 
+            <button class="button rerandomize-button" :class="(es.descriptionToBeRandomized && !es.tagsToBeRandomized) ? 'is-info' : 'is-primary'" title="Generate description with current content types - generates content types if none present" 
               @click="hs.rerandomizeHexes('description')"
               @mouseenter="es.setRandomizeIndicator(['description'])"
               @focus="es.setRandomizeIndicator(['description'])"
@@ -49,7 +49,7 @@ const hexByUUID = hs.hexByUUID;
               <i class="ri-file-text-fill ri-lg"></i>
             </button>
 
-            <button class="button is-primary rerandomize-button" title="Generate content types and description" 
+            <button class="button rerandomize-button" :class="(es.descriptionToBeRandomized && es.tagsToBeRandomized) ? 'is-info' : 'is-primary'" title="Generate content types and description" 
               @click="hs.rerandomizeHexes('tags+description')"
               @mouseenter="es.setRandomizeIndicator(['description', 'tags'])"
               @focus="es.setRandomizeIndicator(['description', 'tags'])"
@@ -60,7 +60,7 @@ const hexByUUID = hs.hexByUUID;
               <i class="ri-map-pin-2-fill ri-lg"></i>
             </button>
 
-            <button class="button is-primary rerandomize-button" title="Generate terrain" 
+            <button class="button rerandomize-button" :class="(es.terrainToBeRandomized) ? 'is-info' : 'is-primary'" title="Generate terrain" 
               @click="hs.rerandomizeHexes('terrain')"
               @mouseenter="es.setRandomizeIndicator(['terrain'])"
               @focus="es.setRandomizeIndicator(['terrain'])"
@@ -73,7 +73,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Mentioned by section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header has-background-primary" @click="es.toggleSection('mentioned-by')">
+            <header class="card-header has-background-grey-light" @click="es.toggleSection('mentioned-by')">
               <div class="level header-div">
                 <i class="ri-map-fill section-icon"></i>
                 <p class="card-header-title">Mentioned By</p>
@@ -94,7 +94,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Text section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header" :class="[{'has-background-primary': !es.descriptionToBeRandomized}, {'has-background-info': es.descriptionToBeRandomized}]">
+            <header class="card-header" :class="[{'has-background-grey-light': !es.descriptionToBeRandomized}, {'has-background-info': es.descriptionToBeRandomized}]">
               <div class="level header-div">
               <i class="ri-file-text-fill section-icon" :class="{highlighted: es.descriptionToBeRandomized}"></i>
               <p class="card-header-title">Description</p>
@@ -115,7 +115,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Tags section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header"  :class="[{'has-background-primary': !es.tagsToBeRandomized}, {'has-background-info': es.tagsToBeRandomized}]">
+            <header class="card-header"  :class="[{'has-background-grey-light': !es.tagsToBeRandomized}, {'has-background-info': es.tagsToBeRandomized}]">
               <div class="level header-div">
                 
                 <i class="ri-map-pin-2-fill section-icon" :class="{highlighted: es.tagsToBeRandomized}"></i>
@@ -143,7 +143,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Terrain section as panel -->
         <div class="block">
           <div class="card">
-            <header class="card-header" :class="[{'has-background-primary': !es.terrainToBeRandomized}, {'has-background-info': es.terrainToBeRandomized}]">
+            <header class="card-header" :class="[{'has-background-grey-light': !es.terrainToBeRandomized}, {'has-background-info': es.terrainToBeRandomized}]">
               <div class="level header-div">
                 
                 <i class="ri-compass-discover-fill section-icon" :class="{highlighted: es.terrainToBeRandomized}"></i>
@@ -177,7 +177,7 @@ const hexByUUID = hs.hexByUUID;
         <div class="block">
           <div class="card">
 
-            <header class="card-header has-background-primary">
+            <header class="card-header has-background-grey-light">
               <div class="level header-div">
                 <i class="ri-home-2-fill section-icon"></i>
                 <p class="card-header-title">Icon</p>

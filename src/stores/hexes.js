@@ -510,6 +510,7 @@ export const useHexesStore = defineStore({
         const es = useEditorStore()
         if (row == 1) {
             this.addRow('top', this.countColumns, this.defaultHexProperties);
+            document.getElementById('hex-container').scroll(0, 96);
             es.scrollDown(100)
         } else if (row == this.countLines / 2) {
             this.addRow('bottom', this.countColumns, this.defaultHexProperties);

@@ -17,6 +17,11 @@ function logHTML() {
     console.log(d)
 }
 
+function scrollWin() {
+  document.getElementById('hex-container').scroll(0, 300);
+  console.log('scroll?')
+}
+
 </script>
 
 <template>
@@ -76,6 +81,7 @@ function logHTML() {
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
             <a class="navbar-item" @click="es.toggleInfoModal">Info</a>
             <a class="navbar-item" @click="logHTML">Log HTML</a>
+            <a class="navbar-item" @click="scrollWin()">Scroll down</a>
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Useful Buttons</a>
                 <div class="navbar-dropdown">
