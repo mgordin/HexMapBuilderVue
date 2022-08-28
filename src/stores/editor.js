@@ -52,6 +52,7 @@ export const useEditorStore = defineStore({
         currentTool: 'hex-editor',
         paintTerrain: 'Default',
         paintTerrainProperties: json.terrainToImage,
+        paintedHexes: []
     }),
     getters: {
         activeHexImage(state) {
@@ -328,7 +329,7 @@ export const useEditorStore = defineStore({
             if (this.mode == 'edit' && this.currentTool == 'hex-editor') {
                 this.selectHex(hex, keys)
             } else if (this.mode == 'edit' && this.currentTool == 'terrain-painter') {
-                hs.setHexTerrain(hex, this.paintTerrain, true)
+                hs.paintHexTerrain(hex, this.paintTerrain)
             } else if (this.mode == 'view') {
                 this.jumpToHex(hex.uuid)
             }

@@ -483,6 +483,43 @@ export const useHexesStore = defineStore({
             this.maintainEmptyMapEdge(thisHex.row, thisHex.column)
         }
     },
+    paintHexTerrain(thisHex, terrain) {
+        const es = useEditorStore()
+        thisHex.terrain = terrain;
+        es.paintedHexes.push(thisHex) 
+    },
+    terrainPainterMapUpdate() {
+        const es = useEditorStore()
+        var topRow = false;
+        var bottomRow = false;
+        var leftColumn = false;
+        var rightColumn = false;
+        es.paintedHexes.forEach((hex) => {
+            if (hex.row == 1) {
+                topRow = true;
+            } else if (hex.row == this.countLines / 2) {
+                bottomRow = true;
+            }
+            if (hex.column == 1) {
+                leftColumn = true;
+            } else if (hex.column == this.countColumns) {
+                rightColumn = true;
+            }
+        })
+        if (topRow) {
+            this.maintainEmptyMapEdge(1, 999)
+        }
+        if (bottomRow) {
+            this.maintainEmptyMapEdge(this.countLines / 2, 999)
+        }
+        if (leftColumn) {
+            this.maintainEmptyMapEdge(999, 1)
+        }
+        if (rightColumn) {
+            this.maintainEmptyMapEdge(999, this.countColumns)
+        }
+        es.paintedHexes = []
+    },
     setHexIcon(thisHex, icon) {
         thisHex.icon = icon;
     },
@@ -505,6 +542,9 @@ export const useHexesStore = defineStore({
     },
     logHexes() {
         console.log(this.hexes)
+    },
+    checkEmptyEdge() {
+
     },
     maintainEmptyMapEdge(row, column) {
         const es = useEditorStore()

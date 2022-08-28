@@ -22,7 +22,7 @@ const hexByUUID = hs.hexByUUID;
     <!-- Real sidebar content -->
     <div class="card">
       <!-- Sidebar header -->
-      <header class="card-header has-background-light">
+      <header class="card-header has-background-grey-lighter">
         <div class="sidebar-header">
           <div class="media-left">
             <figure class="image sidebar-hex-image">
@@ -73,7 +73,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Mentioned by section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header has-background-grey-light" @click="es.toggleSection('mentioned-by')">
+            <header class="card-header has-background-grey-lighter" @click="es.toggleSection('mentioned-by')">
               <div class="level header-div">
                 <i class="ri-map-fill section-icon"></i>
                 <p class="card-header-title">Mentioned By</p>
@@ -94,7 +94,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Text section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header" :class="[{'has-background-grey-light': !es.descriptionToBeRandomized}, {'has-background-info': es.descriptionToBeRandomized}]">
+            <header class="card-header" :class="[{'has-background-grey-lighter': !es.descriptionToBeRandomized}, {'has-background-info': es.descriptionToBeRandomized}]">
               <div class="level header-div">
               <i class="ri-file-text-fill section-icon" :class="{highlighted: es.descriptionToBeRandomized}"></i>
               <p class="card-header-title">Description</p>
@@ -115,7 +115,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Tags section -->
         <div class="block" v-if="es.selectedHexCount==1">
           <div class="card">
-            <header class="card-header"  :class="[{'has-background-grey-light': !es.tagsToBeRandomized}, {'has-background-info': es.tagsToBeRandomized}]">
+            <header class="card-header"  :class="[{'has-background-grey-lighter': !es.tagsToBeRandomized}, {'has-background-info': es.tagsToBeRandomized}]">
               <div class="level header-div">
                 
                 <i class="ri-map-pin-2-fill section-icon" :class="{highlighted: es.tagsToBeRandomized}"></i>
@@ -143,7 +143,7 @@ const hexByUUID = hs.hexByUUID;
         <!-- Terrain section as panel -->
         <div class="block">
           <div class="card">
-            <header class="card-header" :class="[{'has-background-grey-light': !es.terrainToBeRandomized}, {'has-background-info': es.terrainToBeRandomized}]">
+            <header class="card-header" :class="[{'has-background-grey-lighter': !es.terrainToBeRandomized}, {'has-background-info': es.terrainToBeRandomized}]">
               <div class="level header-div">
                 
                 <i class="ri-compass-discover-fill section-icon" :class="{highlighted: es.terrainToBeRandomized}"></i>
@@ -162,7 +162,7 @@ const hexByUUID = hs.hexByUUID;
                 <div
                   class="box"
                   v-for="(terrainProperties, terrainName) in es.terrainToImage"
-                  v-bind:class="{ 'has-background-light': terrainProperties.selected }"
+                  v-bind:class="{ 'has-background-grey-lighter': terrainProperties.selected }"
                   @click="es.selectTerrain(terrainName)"
                   :title="terrainName"
                 >
@@ -177,7 +177,7 @@ const hexByUUID = hs.hexByUUID;
         <div class="block">
           <div class="card">
 
-            <header class="card-header has-background-grey-light">
+            <header class="card-header has-background-grey-lighter">
               <div class="level header-div">
                 <i class="ri-home-2-fill section-icon"></i>
                 <p class="card-header-title">Icon</p>
@@ -194,7 +194,7 @@ const hexByUUID = hs.hexByUUID;
                 <div
                   class="box icon-picker-container"
                   v-for="(iconProperties, iconName) in es.iconProperties"
-                  v-bind:class="{ 'has-background-light': iconProperties.selected }"
+                  v-bind:class="{ 'has-background-grey-lighter': iconProperties.selected }"
                   @click="es.selectIcon(iconName)"
                   :title="iconName"
                 >
