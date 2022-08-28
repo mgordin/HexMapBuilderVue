@@ -50,7 +50,8 @@ export const useEditorStore = defineStore({
         hexScale: 1,
         showHexLabels: true,
         currentTool: 'hex-editor',
-        paintTerrain: 'Default'
+        paintTerrain: 'Default',
+        paintTerrainProperties: json.terrainToImage,
     }),
     getters: {
         activeHexImage(state) {
@@ -310,15 +311,18 @@ export const useEditorStore = defineStore({
                 this.mode = 'edit'
             }
         },
+        scrollDown(dist) {
+            window.scrollBy(0, dist);
+            console.log('scroll down ', dist)
+        },
         jumpToHex(hexUUID) {
             const a = document.createElement('a');        
             a.href= "#" + hexUUID;
             a.click();
             URL.revokeObjectURL(a.href);
-            window.scrollBy(0, -80)
+            window.scrollBy(0, -80);
         },
         hexClicked(hex, keys) {
-            console.log('keys: ', keys)
             const hs = useHexesStore()
 
             if (this.mode == 'edit' && this.currentTool == 'hex-editor') {
@@ -331,6 +335,10 @@ export const useEditorStore = defineStore({
         },
         selectPaintTerrain(terrain) {
             this.paintTerrain = terrain;
+            Object.values(this.terrainToImage).forEach((element) => {
+                element.selected = false;
+            })
+            this.paintTerrainProperties[terrain].selected = true;
         }
     }
 })

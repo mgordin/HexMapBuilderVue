@@ -35,8 +35,8 @@ const hexByUUID = hs.hexByUUID;
               <div class="columns is-multiline">
                 <div
                   class="box"
-                  v-for="(terrainProperties, terrainName) in es.terrainToImage"
-                  v-bind:class="{ 'has-background-light': terrainProperties.selected }"
+                  v-for="(terrainProperties, terrainName) in es.paintTerrainProperties"
+                  v-bind:class="{ 'has-background-primary': terrainProperties.selected }"
                   @click="es.selectPaintTerrain(terrainName)"
                   :title="terrainName"
                 >

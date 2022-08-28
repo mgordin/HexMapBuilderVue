@@ -1,7 +1,8 @@
 <script setup>
 import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
-import 'remixicon/fonts/remixicon.css'
+import 'remixicon/fonts/remixicon.css';
+import Multiselect from '@vueform/multiselect';
 
 
 const es = useEditorStore();
@@ -18,8 +19,6 @@ function logHTML() {
 
 </script>
 
-
-
 <template>
     <nav class="navbar is-dark has-shadow is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -28,12 +27,37 @@ function logHTML() {
             </a>
         </div>
         <div class="navbar-start">
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">Useful Buttons</a>
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" @click="hs.logHexes">Log hexes</a>
-                    <a class="navbar-item" @click="es.logActive">Log active hexes</a>
-                    <a class="navbar-item" @click="hs.logLeftmostColumn">Log leftmost</a>
+            <div class="navbar-item has-text-grey-darker" v-if="es.mode=='edit'">
+                <Multiselect
+                    v-model="es.currentTool"
+                    class="multiselect-css"
+                    :mode="single"
+                    :canClear="false"
+                    :canDeselect="false"
+                    :close-on-select="true"
+                    :searchable="true"
+                    :create-option="false"
+                    placeholder="Select tool..."
+                    :options="[
+                        {'value': 'hex-editor', 'label': 'Hex editor', 'icon': './misc-images/hexagon.png'},
+                        {'value': 'terrain-painter', 'label': 'Terrain painter', 'icon': './misc-images/paint-brush-line.png'}
+                    ]"
+                >
+                    <template v-slot:singlelabel="{ value }">
+                        <div class="multiselect-single-label">
+                        <img class="label-icon" :src="value.icon"> {{ value.label }}
+                        </div>
+                    </template>
+
+                    <template v-slot:option="{ option }">
+                        <img class="option-icon" :src="option.icon"> {{ option.label }}
+                    </template>
+                </Multiselect>
+            </div>
+            <div class="navbar-item">
+                <div class="tags has-addons modeSelector" @click="es.toggleViewMode">
+                    <span class="tag" :class="{'is-primary': es.mode=='edit'}">Edit</span>
+                    <span class="tag" :class="{'is-primary': es.mode=='view'}">View</span>    
                 </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">
@@ -51,18 +75,13 @@ function logHTML() {
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
             <a class="navbar-item" @click="es.toggleInfoModal">Info</a>
-            <div class="navbar-item">
-                <div class="tags has-addons modeSelector" @click="es.toggleViewMode">
-                    <span class="tag" :class="{'is-primary': es.mode=='edit'}">Edit</span>
-                    <span class="tag" :class="{'is-primary': es.mode=='view'}">View</span>    
-                </div>
-            </div>
             <a class="navbar-item" @click="logHTML">Log HTML</a>
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">Tool Selector</a>
+                <a class="navbar-link">Useful Buttons</a>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item" @click="es.currentTool='hex-editor'">Hex editor</a>
-                    <a class="navbar-item" @click="es.currentTool='terrain-painter'">Terrain painter</a>
+                    <a class="navbar-item" @click="hs.logHexes">Log hexes</a>
+                    <a class="navbar-item" @click="es.logActive">Log active hexes</a>
+                    <a class="navbar-item" @click="hs.logLeftmostColumn">Log leftmost</a>
                 </div>
             </div>
         </div>
@@ -78,9 +97,22 @@ function logHTML() {
     </nav>
 </template>
 
+<style src="@vueform/multiselect/themes/default.css"></style>
 
 
-<style>
+<style scoped>
+
+.label-icon {
+    padding-right: 10px;
+}
+
+.option-icon {
+    padding-right: 10px;
+}
+
+.multiselect-css {
+    min-width: 250px;
+}
 
 .github-icon {
     color: white;
