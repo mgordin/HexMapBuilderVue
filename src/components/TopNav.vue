@@ -32,6 +32,12 @@ function scrollWin() {
             </a>
         </div>
         <div class="navbar-start">
+            <div class="navbar-item">
+                <div class="tags has-addons modeSelector" @click="es.toggleViewMode">
+                    <span class="tag" :class="{'is-primary': es.mode=='edit'}">Edit</span>
+                    <span class="tag" :class="{'is-primary': es.mode=='view'}">View</span>    
+                </div>
+            </div>
             <div class="navbar-item has-text-grey-darker" v-if="es.mode=='edit'">
                 <Multiselect
                     v-model="es.currentTool"
@@ -58,12 +64,6 @@ function scrollWin() {
                         <img class="option-icon" :src="option.icon"> {{ option.label }}
                     </template>
                 </Multiselect>
-            </div>
-            <div class="navbar-item">
-                <div class="tags has-addons modeSelector" @click="es.toggleViewMode">
-                    <span class="tag" :class="{'is-primary': es.mode=='edit'}">Edit</span>
-                    <span class="tag" :class="{'is-primary': es.mode=='view'}">View</span>    
-                </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Save / Load</a>

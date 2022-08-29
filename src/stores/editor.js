@@ -353,6 +353,7 @@ export const useEditorStore = defineStore({
         expandMap() {
             const hs = useHexesStore();
 
+            // Add rows or columns
             for (let i = 0; i < this.topRowsToAdd; i++) {
                 hs.addRow('top', hs.countColumns, hs.defaultHexProperties);
             }
@@ -368,6 +369,85 @@ export const useEditorStore = defineStore({
             }
             hs.shiftHexNumbers();
             
+            // Generate contents for the expanded sections if that's set
+            const hexByPosition = hs.hexByPosition
+            
+            if (this.generateContentOnMapExpand) {
+                if (this.topRowsToAdd > 0) {
+                    for (let i = this.topRowsToAdd + 1; i > 1; i--) {
+                        for (let j = 2; j < hs.countColumns; j++) {
+                            hs.generateTerrain(hexByPosition(i,j), hs.terrainProperties[this.terrainType].odds, false)
+                        }
+                    }
+                }
+                if (this.bottomRowsToAdd > 0) {
+                    for (let i = hs.countLines / 2 - 2; i < hs.countLines / 2 + this.bottomRowsToAdd - 2; i++) {
+                        for (let j = 2; j < hs.countColumns; j++) {
+                            const hexByPosition = hs.hexByPosition
+                            hs.generateTerrain(hexByPosition(i,j), hs.terrainProperties[this.terrainType].odds, false)
+                        }
+                    }
+                }
+                if (this.leftColumnsToAdd > 0) {
+                    for (let j = this.leftColumnsToAdd + 1; j > 1; j--) {
+                        for (let i = 2; i < hs.countLines / 2; i++) {
+                            console.log('trying to set ',i,j)
+                            hs.generateTerrain(hexByPosition(i,j), hs.terrainProperties[this.terrainType].odds, false)
+                        }
+                    }
+                }
+                if (this.rightColumnsToAdd > 0) {
+                    for (let j = hs.countColumns - 2; j < hs.countColumns + this.rightColumnsToAdd - 2; j++) {
+                        for (let i = 2; i < hs.countLines / 2; i++) {
+                            const hexByPosition = hs.hexByPosition
+                            hs.generateTerrain(hexByPosition(i,j), hs.terrainProperties[this.terrainType].odds, false)
+                        }
+                    }
+                }
+
+                hs.hexes.forEach((line) => {
+                    line.forEach((hex) => {
+                        
+                        if (hex.terrain != 'Default') {
+                            if (hex.row <= this.topRowsToAdd ||
+                                hex.row < (hs.countLines / 2 - this.bottomRowsToAdd) ||
+                                hex.column < this.leftColumnsToAdd ||
+                                hex.column > (hs.countColumns - this.rightColumnsToAdd)) 
+                            {
+                                hs.generateHexContents(hex, 'none');
+                            }
+                        }
+                    })
+                })
+
+
+
+                //////////////////////////
+                // Hex terrain
+                // this.hexes.forEach((row) => {
+                //     row.forEach((hex) => {
+
+                //         if ((this.topRowsToAdd > 0 && hex.row != 1 && hex.row < this.topRowsToAdd + 1) ||
+                //             (this.bottomRowsToAdd > 0 && hex.row != hs.countLines / 2 && hex.row > (this.countLines / 2 + this.topRowsToAdd - this.bottomRowsToAdd - 1)) ||
+                //             (this.leftColumnsToAdd > 0 && hex.column != 1 && hex.column < this.leftColumnsToAdd + 1) ||
+                //             (this.rightColumnsToAdd > 0 && hex.column != hs.countColumns && hex.column > (this.countColumns + this.leftColumnsToAdd - this.rightColumnsToAdd - 1))  
+                //         ) {
+                //             // this.generateTerrain(hex, terrainSetup.odds, false);
+
+                //             hs.setHexTerrain(hex, 'bog', false)
+                //         }
+                //     })
+                // })
+                
+                // Hex contents
+                // this.hexes.forEach((row) => {
+                //     row.forEach((hex) => {
+                //         this.generateHexContents(hex, 'none');
+                //     })
+                // })
+            }
+
+            // Reset so that the modal fields aren't weird
             this.topRowsToAdd = 0;
             this.bottomRowsToAdd = 0;
             this.leftColumnsToAdd = 0;
