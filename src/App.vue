@@ -7,6 +7,7 @@ import SettingsModal from './components/SettingsModal.vue';
 import LoadMapModal from './components/LoadMapModal.vue';
 import SaveNameModal from './components/SaveNameModal.vue';
 import InfoModal from './components/InfoModal.vue';
+import ExpandMapModal from './components/ExpandMapModal.vue';
 import ViewModeLoader from './components/ViewModeLoader.vue';
 import TopNav from '@/components/TopNav.vue'
 import MapEditor from './components/MapEditor.vue'
@@ -47,6 +48,7 @@ useEventListener(document, 'mouseup', (evt) => {
   <LoadMapModal />
   <SaveNameModal />
   <InfoModal />
+  <ExpandMapModal />
   <ViewModeLoader />
   <TopNav />
   <MapEditor v-if="es.mode=='edit'"/>

@@ -79,6 +79,7 @@ function scrollWin() {
                 </div>
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
+            <a class="navbar-item" @click="es.toggleExpandMapModal">Expand Map</a>
             <a class="navbar-item" @click="es.toggleInfoModal">Info</a>
             <a class="navbar-item" @click="logHTML">Log HTML</a>
             <a class="navbar-item" @click="scrollWin()">Scroll down</a>

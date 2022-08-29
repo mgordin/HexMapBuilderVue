@@ -52,7 +52,13 @@ export const useEditorStore = defineStore({
         currentTool: 'hex-editor',
         paintTerrain: 'Default',
         paintTerrainProperties: json.terrainToImage,
-        paintedHexes: []
+        paintedHexes: [],
+        expandMapOpen: false,
+        generateContentOnMapExpand: false,
+        topRowsToAdd: 0,
+        bottomRowsToAdd: 0,
+        leftColumnsToAdd: 0,
+        rightColumnsToAdd: 0
     }),
     getters: {
         activeHexImage(state) {
@@ -215,6 +221,9 @@ export const useEditorStore = defineStore({
         toggleSettingsModal() {
             this.settingsOpen = !this.settingsOpen;
         },
+        toggleExpandMapModal() {
+            this.expandMapOpen = !this.expandMapOpen;
+        },
         saveMapLocally() {      
             if (this.saveName == null || this.saveName == "") {
                 this.toggleSaveNameModal()
@@ -340,6 +349,31 @@ export const useEditorStore = defineStore({
                 element.selected = false;
             })
             this.paintTerrainProperties[terrain].selected = true;
+        },
+        expandMap() {
+            const hs = useHexesStore();
+
+            for (let i = 0; i < this.topRowsToAdd; i++) {
+                hs.addRow('top', hs.countColumns, hs.defaultHexProperties);
+            }
+            for (let i = 0; i < this.bottomRowsToAdd; i++) {
+                hs.addRow('bottom', hs.countColumns, hs.defaultHexProperties);
+            }
+            for (let i = 0; i < this.leftColumnsToAdd; i++) {
+                hs.addColumn('left', hs.defaultHexProperties);
+                hs.toggleLeftmostColumn();
+            }
+            for (let i = 0; i < this.rightColumnsToAdd; i++) {
+                hs.addColumn('right', hs.defaultHexProperties);
+            }
+            hs.shiftHexNumbers();
+            
+            this.topRowsToAdd = 0;
+            this.bottomRowsToAdd = 0;
+            this.leftColumnsToAdd = 0;
+            this.rightColumnsToAdd = 0;
+
+            this.toggleExpandMapModal()
         }
     }
 })
