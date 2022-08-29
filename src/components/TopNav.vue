@@ -80,15 +80,14 @@ function scrollWin() {
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
             <a class="navbar-item" @click="es.toggleExpandMapModal">Expand Map</a>
-            <a class="navbar-item" @click="es.toggleInfoModal">Info</a>
-            <a class="navbar-item" @click="logHTML">Log HTML</a>
-            <a class="navbar-item" @click="scrollWin()">Scroll down</a>
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">Useful Buttons</a>
+                <a class="navbar-link">Debug Buttons</a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" @click="hs.logHexes">Log hexes</a>
                     <a class="navbar-item" @click="es.logActive">Log active hexes</a>
                     <a class="navbar-item" @click="hs.logLeftmostColumn">Log leftmost</a>
+                    <a class="navbar-item" @click="es.toggleInfoModal">Info</a>
+                    <a class="navbar-item" @click="logHTML">Log HTML</a>
                 </div>
             </div>
         </div>
