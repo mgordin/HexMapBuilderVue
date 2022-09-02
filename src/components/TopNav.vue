@@ -17,11 +17,6 @@ function logHTML() {
     console.log(d)
 }
 
-function scrollWin() {
-  document.getElementById('hex-container').scroll(0, 300);
-  console.log('scroll?')
-}
-
 </script>
 
 <template>

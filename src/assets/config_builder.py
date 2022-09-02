@@ -60,7 +60,7 @@ for type in type_result:
     type_odds = type['properties']['Odds']['number']
     full_content[type_category][type_name] = {
         "names": type_names,
-        "icon": type_icon,
+        "icon": type_name,
         "odds": type_odds,
         "description": [],
         "hook": []

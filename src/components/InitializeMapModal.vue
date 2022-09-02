@@ -35,6 +35,9 @@ const es = useEditorStore();
                             <a href="#" class="dropdown-item" @click="es.setTerrainType('hot')">
                                 hot
                             </a>
+                            <a href="#" class="dropdown-item" @click="es.setTerrainType('background test')">
+                                background test
+                            </a>
                         </div>
                     </div>
                 </div>

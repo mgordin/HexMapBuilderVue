@@ -67,626 +67,278 @@
           "water": {
                "file": "./terrain_tiles/Painted/water.png",
                "selected": false
+          },
+          "b deciduous forest": {
+               "file": "./terrain_tiles/illustrated/deciduous-forest.png",
+               "selected": false
+          },
+          "b evergreen forest": {
+               "file": "./terrain_tiles/illustrated/evergreen-forest.png",
+               "selected": false
+          },
+          "b deciduous forested hills": {
+               "file": "./terrain_tiles/illustrated/deciduous-forested-hills.png",
+               "selected": false
+          },
+          "b evergreen forested hills": {
+               "file": "./terrain_tiles/illustrated/evergreen-forested-hills.png",
+               "selected": false
+          },
+          "b mountains": {
+               "file": "./terrain_tiles/illustrated/mountains.png",
+               "selected": false
+          },
+          "b deciduous forested mountains": {
+               "file": "./terrain_tiles/illustrated/deciduous-forested-mountains.png",
+               "selected": false
+          },
+          "b evergreen forested mountains": {
+               "file": "./terrain_tiles/illustrated/evergreen-forested-mountains.png",
+               "selected": false
           }
      },
      "multiple_hexes": {
           "file": "./terrain_tiles/flat/multiple-hexes.png"
      },
      "icons": {
-          "altar": {
-               "file": "./icons/altar-glow.png",
+          "abandoned-town": {
+               "file": "./flaticon-icons/abandoned-town.png",
                "selected": false
           },
-          "altar-2": {
-               "file": "./icons/altar_2-glow.png",
+          "abandoned-village": {
+               "file": "./flaticon-icons/abandoned-village.png",
                "selected": false
           },
-          "archery": {
-               "file": "./icons/archery-glow.png",
+          "ancient-bridge": {
+               "file": "./flaticon-icons/ancient-bridge.png",
                "selected": false
           },
-          "archery-2": {
-               "file": "./icons/archery_2-glow.png",
+          "ancient-library": {
+               "file": "./flaticon-icons/ancient-library.png",
                "selected": false
           },
-          "arrow": {
-               "file": "./icons/arrow-glow.png",
+          "awakened-animals": {
+               "file": "./flaticon-icons/awakened-animals.png",
                "selected": false
           },
-          "beast": {
-               "file": "./icons/beast-glow.png",
+          "bandit-camp": {
+               "file": "./flaticon-icons/bandit-camp.png",
                "selected": false
           },
-          "bridge": {
-               "file": "./icons/bridge-glow.png",
+          "battlefield": {
+               "file": "./flaticon-icons/battlefield.png",
                "selected": false
           },
-          "bridge-2": {
-               "file": "./icons/bridge_2-glow.png",
-               "selected": false
-          },
-          "bridge-3": {
-               "file": "./icons/bridge_3-glow.png",
-               "selected": false
-          },
-          "building": {
-               "file": "./icons/building-glow.png",
-               "selected": false
-          },
-          "camp": {
-               "file": "./icons/camp-glow.png",
-               "selected": false
-          },
-          "camp-2": {
-               "file": "./icons/camp_2-glow.png",
-               "selected": false
-          },
-          "campsite": {
-               "file": "./icons/campsite-glow.png",
-               "selected": false
-          },
-          "capital": {
-               "file": "./icons/capital-glow.png",
-               "selected": false
-          },
-          "capital-2": {
-               "file": "./icons/capital_2-glow.png",
-               "selected": false
-          },
-          "capital-3": {
-               "file": "./icons/capital_3-glow.png",
+          "beast-lair": {
+               "file": "./flaticon-icons/beast-lair.png",
                "selected": false
           },
           "castle": {
-               "file": "./icons/castle-glow.png",
-               "selected": false
-          },
-          "castle-2": {
-               "file": "./icons/castle_2-glow.png",
-               "selected": false
-          },
-          "castle-3": {
-               "file": "./icons/castle_3-glow.png",
-               "selected": false
-          },
-          "cathedral": {
-               "file": "./icons/cathedral-glow.png",
-               "selected": false
-          },
-          "cattle": {
-               "file": "./icons/cattle-glow.png",
-               "selected": false
-          },
-          "cattle-2": {
-               "file": "./icons/cattle_2-glow.png",
+               "file": "./flaticon-icons/castle.png",
                "selected": false
           },
           "cave": {
-               "file": "./icons/cave-glow.png",
-               "tags": [
-                    "wilderness",
-                    "cave"
-               ],
-               "selected": false
-          },
-          "cavern": {
-               "file": "./icons/cavern_2-glow.png",
-               "selected": false
-          },
-          "cemetary": {
-               "file": "./icons/cemetary-glow.png",
-               "selected": false
-          },
-          "cemetary-2": {
-               "file": "./icons/cemetary_2-glow.png",
-               "selected": false
-          },
-          "cemetary-3": {
-               "file": "./icons/cemetary_3-glow.png",
-               "selected": false
-          },
-          "church": {
-               "file": "./icons/church-glow.png",
+               "file": "./flaticon-icons/cave.png",
                "selected": false
           },
           "city": {
-               "file": "./icons/city-glow.png",
+               "file": "./flaticon-icons/city.png",
                "selected": false
           },
-          "crater": {
-               "file": "./icons/crater-glow.png",
+          "collapsed-bridge": {
+               "file": "./flaticon-icons/collapsed-bridge.png",
                "selected": false
           },
-          "cross": {
-               "file": "./icons/cross-glow.png",
+          "crashed-airship": {
+               "file": "./flaticon-icons/crashed-airship.png",
                "selected": false
           },
           "crypt": {
-               "file": "./icons/crypt-glow.png",
+               "file": "./flaticon-icons/crypt.png",
                "selected": false
           },
-          "danger": {
-               "file": "./icons/danger-glow.png",
+          "cult-sanctum": {
+               "file": "./flaticon-icons/cult-sanctum.png",
                "selected": false
           },
-          "danger-2": {
-               "file": "./icons/danger_2-glow.png",
+          "destroyed-machine": {
+               "file": "./flaticon-icons/destroyed-machine.png",
                "selected": false
           },
-          "danger-3": {
-               "file": "./icons/danger_3-glow.png",
+          "druid-grove": {
+               "file": "./flaticon-icons/druid-grove.png",
                "selected": false
           },
-          "dock": {
-               "file": "./icons/dock-glow.png",
+          "dryad-grove": {
+               "file": "./flaticon-icons/dryad-grove.png",
                "selected": false
           },
-          "dock-2": {
-               "file": "./icons/dock_2-glow.png",
+          "extraplanar-outpost": {
+               "file": "./flaticon-icons/extraplanar-outpost.png",
                "selected": false
           },
-          "dungeon": {
-               "file": "./icons/dungeon-glow.png",
+          "fey": {
+               "file": "./flaticon-icons/fey.png",
                "selected": false
           },
-          "dungeon-2": {
-               "file": "./icons/dungeon_2-glow.png",
+          "flying-castle": {
+               "file": "./flaticon-icons/flying-castle.png",
                "selected": false
           },
-          "enemy": {
-               "file": "./icons/enemy-glow.png",
+          "gallows": {
+               "file": "./flaticon-icons/gallows.png",
                "selected": false
           },
-          "enemy-2": {
-               "file": "./icons/enemy_2-glow.png",
+          "graveyard": {
+               "file": "./flaticon-icons/graveyard.png",
                "selected": false
           },
-          "enemy-3": {
-               "file": "./icons/enemy_3-glow.png",
+          "haunted-mansion": {
+               "file": "./flaticon-icons/haunted-mansion.png",
                "selected": false
           },
-          "evil": {
-               "file": "./icons/evil-glow.png",
+          "hermitage": {
+               "file": "./flaticon-icons/hermitage.png",
                "selected": false
           },
-          "evil-2": {
-               "file": "./icons/evil_2-glow.png",
+          "hidden-pond": {
+               "file": "./flaticon-icons/hidden-pond.png",
                "selected": false
           },
-          "evil-tower": {
-               "file": "./icons/evil_tower-glow.png",
+          "homestead": {
+               "file": "./flaticon-icons/homestead.png",
                "selected": false
           },
-          "evil-tower-2": {
-               "file": "./icons/evil_tower_2-glow.png",
+          "hot-springs": {
+               "file": "./flaticon-icons/hot-springs.png",
                "selected": false
           },
-          "fish": {
-               "file": "./icons/fish-glow.png",
+          "hunting-lodge": {
+               "file": "./flaticon-icons/hunting-lodge.png",
                "selected": false
           },
-          "fishing-town": {
-               "file": "./icons/fishing_town-glow.png",
+          "hunting-preserve": {
+               "file": "./flaticon-icons/hunting-preserve.png",
                "selected": false
           },
-          "flag": {
-               "file": "./icons/flag-glow.png",
+          "inn": {
+               "file": "./flaticon-icons/inn.png",
                "selected": false
           },
-          "food": {
-               "file": "./icons/food-glow.png",
+          "logging-camp": {
+               "file": "./flaticon-icons/logging-camp.png",
                "selected": false
           },
-          "food-2": {
-               "file": "./icons/food_2-glow.png",
+          "magic-spring": {
+               "file": "./flaticon-icons/magic-spring.png",
                "selected": false
           },
-          "fort": {
-               "file": "./icons/fort-glow.png",
-               "tags": [
-                    "settlement",
-                    "fort"
-               ],
+          "manor": {
+               "file": "./flaticon-icons/manor.png",
                "selected": false
           },
-          "fort-2": {
-               "file": "./icons/fort_2-glow.png",
-               "selected": false
-          },
-          "fort-3": {
-               "file": "./icons/fort_3-glow.png",
-               "selected": false
-          },
-          "fort-4": {
-               "file": "./icons/fort_4-glow.png",
-               "selected": false
-          },
-          "horses": {
-               "file": "./icons/horses-glow.png",
-               "selected": false
-          },
-          "horses-2": {
-               "file": "./icons/horses_2-glow.png",
-               "selected": false
-          },
-          "horses-3": {
-               "file": "./icons/horses_3-glow.png",
-               "selected": false
-          },
-          "house": {
-               "file": "./icons/house-glow.png",
-               "selected": false
-          },
-          "house-2": {
-               "file": "./icons/house_2-glow.png",
-               "selected": false
-          },
-          "hut": {
-               "file": "./icons/hut-glow.png",
-               "selected": false
-          },
-          "hut-2": {
-               "file": "./icons/hut_2-glow.png",
-               "selected": false
-          },
-          "hut-3": {
-               "file": "./icons/hut_3-glow.png",
-               "selected": false
-          },
-          "hut-4": {
-               "file": "./icons/hut_4-glow.png",
-               "selected": false
-          },
-          "labyrinth": {
-               "file": "./icons/labyrinth-glow.png",
-               "selected": false
-          },
-          "labyrinth-2": {
-               "file": "./icons/labyrinth_2-glow.png",
-               "selected": false
-          },
-          "landmark": {
-               "file": "./icons/landmark-glow.png",
-               "selected": false
-          },
-          "landmark-2": {
-               "file": "./icons/landmark_2-glow.png",
-               "selected": false
-          },
-          "landmark-3": {
-               "file": "./icons/landmark_3-glow.png",
-               "selected": false
-          },
-          "large-camp": {
-               "file": "./icons/large_camp-glow.png",
-               "selected": false
-          },
-          "large-fort": {
-               "file": "./icons/large_fort-glow.png",
-               "selected": false
-          },
-          "lighthouse": {
-               "file": "./icons/lighthouse-glow.png",
-               "selected": false
-          },
-          "market": {
-               "file": "./icons/market-glow.png",
-               "selected": false
-          },
-          "market-2": {
-               "file": "./icons/market_2-glow.png",
-               "selected": false
-          },
-          "market-3": {
-               "file": "./icons/market_3-glow.png",
-               "selected": false
-          },
-          "mill": {
-               "file": "./icons/mill-glow.png",
+          "military-outpost": {
+               "file": "./flaticon-icons/military-outpost.png",
                "selected": false
           },
           "mine": {
-               "file": "./icons/mine-glow.png",
+               "file": "./flaticon-icons/mine.png",
                "selected": false
           },
-          "monolith": {
-               "file": "./icons/monolith-glow.png",
-               "tags": [
-                    "landmark",
-                    "monolith"
-               ],
+          "monastery": {
+               "file": "./flaticon-icons/monastery.png",
                "selected": false
           },
-          "monolith-2": {
-               "file": "./icons/monolith_2-glow.png",
+          "monster-lair": {
+               "file": "./flaticon-icons/monster-lair.png",
                "selected": false
           },
-          "monsters": {
-               "file": "./icons/monsters-glow.png",
+          "mysterious-archway": {
+               "file": "./flaticon-icons/mysterious-archway.png",
                "selected": false
           },
-          "monsters-2": {
-               "file": "./icons/monsters_2-glow.png",
+          "mysterious-tower": {
+               "file": "./flaticon-icons/mysterious-tower.png",
                "selected": false
           },
-          "monsters-3": {
-               "file": "./icons/monsters_3-glow.png",
+          "observatory": {
+               "file": "./flaticon-icons/observatory.png",
                "selected": false
           },
-          "oasis": {
-               "file": "./icons/oasis-glow.png",
+          "planar-portal": {
+               "file": "./flaticon-icons/planar-portal.png",
                "selected": false
           },
-          "obelisk": {
-               "file": "./icons/obelisk-glow.png",
+          "quarry": {
+               "file": "./flaticon-icons/quarry.png",
                "selected": false
           },
-          "obelisk-2": {
-               "file": "./icons/obelisk_2-glow.png",
-               "tags": [
-                    "landmark",
-                    "obelisk"
-               ],
+          "ruined-arena": {
+               "file": "./flaticon-icons/ruined-arena.png",
                "selected": false
           },
-          "palace": {
-               "file": "./icons/palace-glow.png",
+          "ruined-castle": {
+               "file": "./flaticon-icons/ruined-castle.png",
                "selected": false
           },
-          "palace-2": {
-               "file": "./icons/palace_2-glow.png",
+          "ruined-city": {
+               "file": "./flaticon-icons/ruined-city.png",
                "selected": false
           },
-          "palace-3": {
-               "file": "./icons/palace_3-glow.png",
-               "selected": false
-          },
-          "palace-4": {
-               "file": "./icons/palace_4-glow.png",
-               "selected": false
-          },
-          "portal": {
-               "file": "./icons/portal-glow.png",
-               "selected": false
-          },
-          "pyramid": {
-               "file": "./icons/pyramid-glow.png",
-               "selected": false
-          },
-          "pyramid-2": {
-               "file": "./icons/pyramid_2-glow.png",
-               "selected": false
-          },
-          "pyramid-3": {
-               "file": "./icons/pyramid_3-glow.png",
-               "selected": false
-          },
-          "pyramid-4": {
-               "file": "./icons/pyramid_4-glow.png",
-               "selected": false
-          },
-          "pyramid-5": {
-               "file": "./icons/pyramid_5-glow.png",
-               "selected": false
-          },
-          "ruins": {
-               "file": "./icons/ruins-glow.png",
-               "selected": false
-          },
-          "ruins-2": {
-               "file": "./icons/ruins_2-glow.png",
-               "selected": false
-          },
-          "ruins-3": {
-               "file": "./icons/ruins_3-glow.png",
-               "selected": false
-          },
-          "ruins-4": {
-               "file": "./icons/ruins_4-glow.png",
-               "selected": false
-          },
-          "shield": {
-               "file": "./icons/shield-glow.png",
-               "selected": false
-          },
-          "ship": {
-               "file": "./icons/ship-glow.png",
-               "selected": false
-          },
-          "ship-fleet": {
-               "file": "./icons/ship_fleet-glow.png",
-               "selected": false
-          },
-          "shipwreck": {
-               "file": "./icons/shipwreck-glow.png",
+          "ruined-temple": {
+               "file": "./flaticon-icons/ruined-temple.png",
                "selected": false
           },
           "shrine": {
-               "file": "./icons/shrine-glow.png",
+               "file": "./flaticon-icons/shrine.png",
                "selected": false
           },
-          "shrine-2": {
-               "file": "./icons/shrine_2-glow.png",
+          "standing-stones": {
+               "file": "./flaticon-icons/standing-stones.png",
                "selected": false
           },
-          "shrine-3": {
-               "file": "./icons/shrine_3-glow.png",
-               "selected": false
-          },
-          "shrine-4": {
-               "file": "./icons/shrine_4-glow.png",
-               "selected": false
-          },
-          "smithy": {
-               "file": "./icons/smithy-glow.png",
-               "selected": false
-          },
-          "sphinx": {
-               "file": "./icons/sphinx-glow.png",
-               "selected": false
-          },
-          "stable": {
-               "file": "./icons/stable-glow.png",
+          "stargazing-platform": {
+               "file": "./flaticon-icons/stargazing-platform.png",
                "selected": false
           },
           "statue": {
-               "file": "./icons/statue-glow.png",
+               "file": "./flaticon-icons/statue.png",
                "selected": false
           },
-          "statue-2": {
-               "file": "./icons/statue_2-glow.png",
-               "selected": false
-          },
-          "storm": {
-               "file": "./icons/storm-glow.png",
-               "selected": false
-          },
-          "stronghold": {
-               "file": "./icons/stronghold-glow.png",
-               "selected": false
-          },
-          "stronghold-2": {
-               "file": "./icons/stronghold_2-glow.png",
-               "selected": false
-          },
-          "stronghold-3": {
-               "file": "./icons/stronghold_3-glow.png",
-               "selected": false
-          },
-          "tavern": {
-               "file": "./icons/tavern-glow.png",
-               "selected": false
-          },
-          "tavern-2": {
-               "file": "./icons/tavern_2-glow.png",
+          "sulfurous-pools": {
+               "file": "./flaticon-icons/sulfurous-pools.png",
                "selected": false
           },
           "temple": {
-               "file": "./icons/temple-glow.png",
+               "file": "./flaticon-icons/temple.png",
                "selected": false
           },
-          "temple-2": {
-               "file": "./icons/temple_2-glow.png",
+          "tomb": {
+               "file": "./flaticon-icons/tomb.png",
                "selected": false
           },
-          "temple-3": {
-               "file": "./icons/temple_3-glow.png",
-               "selected": false
-          },
-          "temple-4": {
-               "file": "./icons/temple_4-glow.png",
-               "selected": false
-          },
-          "temple-5": {
-               "file": "./icons/temple_5-glow.png",
-               "selected": false
-          },
-          "temple-6": {
-               "file": "./icons/temple_6-glow.png",
-               "selected": false
-          },
-          "temple-7": {
-               "file": "./icons/temple_7-glow.png",
-               "selected": false
-          },
-          "temple-8": {
-               "file": "./icons/temple_8-glow.png",
-               "selected": false
-          },
-          "temple-9": {
-               "file": "./icons/temple_9-glow.png",
-               "selected": false
-          },
-          "thorns": {
-               "file": "./icons/thorns-glow.png",
-               "selected": false
-          },
-          "totem": {
-               "file": "./icons/totem-glow.png",
-               "selected": false
-          },
-          "totem-2": {
-               "file": "./icons/totem_2-glow.png",
-               "selected": false
-          },
-          "tower": {
-               "file": "./icons/tower-glow.png",
-               "selected": false
-          },
-          "tower-2": {
-               "file": "./icons/tower_2-glow.png",
-               "selected": false
-          },
-          "tower-3": {
-               "file": "./icons/tower_3-glow.png",
-               "selected": false
-          },
-          "tower-4": {
-               "file": "./icons/tower_4-glow.png",
+          "toppled-tower": {
+               "file": "./flaticon-icons/toppled-tower.png",
                "selected": false
           },
           "town": {
-               "file": "./icons/town-glow.png",
-               "tags": [
-                    "settlement",
-                    "town"
-               ],
+               "file": "./flaticon-icons/town.png",
                "selected": false
           },
-          "town-2": {
-               "file": "./icons/town_2-glow.png",
+          "trading-post": {
+               "file": "./flaticon-icons/trading-post.png",
                "selected": false
           },
-          "town-3": {
-               "file": "./icons/town_3-glow.png",
+          "village": {
+               "file": "./flaticon-icons/village.png",
                "selected": false
           },
-          "town-4": {
-               "file": "./icons/town_4-glow.png",
+          "witches-coven": {
+               "file": "./flaticon-icons/witches-coven.png",
                "selected": false
           },
-          "trap": {
-               "file": "./icons/trap-glow.png",
-               "selected": false
-          },
-          "treasure": {
-               "file": "./icons/treasure-glow.png",
-               "selected": false
-          },
-          "watchtower": {
-               "file": "./icons/watchtower-glow.png",
-               "selected": false
-          },
-          "waterfall": {
-               "file": "./icons/waterfall-glow.png",
-               "selected": false
-          },
-          "waterfall-2": {
-               "file": "./icons/waterfall_2-glow.png",
-               "selected": false
-          },
-          "weapons": {
-               "file": "./icons/weapons-glow.png",
-               "selected": false
-          },
-          "weapons-2": {
-               "file": "./icons/weapons_2-glow.png",
-               "selected": false
-          },
-          "weapons-3": {
-               "file": "./icons/weapons_3-glow.png",
-               "selected": false
-          },
-          "windmill": {
-               "file": "./icons/windmill-glow.png",
-               "selected": false
-          },
-          "windmill-2": {
-               "file": "./icons/windmill_2-glow.png",
-               "selected": false
-          },
-          "ziggurat": {
-               "file": "./icons/ziggurat-glow.png",
+          "wizard-tower": {
+               "file": "./flaticon-icons/wizard-tower.png",
                "selected": false
           }
      },
@@ -720,9 +372,36 @@
                     "mountains": 0.25
                },
                "seeds": {}
+          },
+          "background test": {
+               "odds": {
+                    "b deciduous forest": 1,
+                    "b evergreen forest": 1,
+                    "b deciduous forested hills": 1,
+                    "b evergreen forested hills": 1,
+                    "b mountains": 0.5,
+                    "b deciduous forested mountains": 0.5,
+                    "b evergreen forested mountains": 0.5
+               },
+               "seeds": {
+                    "b deciduous forest": 1,
+                    "b grassland": 1
+               }
           }
      },
      "terrainInfluencedBy": {
+          "b deciduous forest": {
+               "primary": [
+                    "b deciduous forest"
+               ],
+               "secondary": [
+                    "b deciduous forested mountains",
+                    "b deciduous forested hills",
+                    "mixed forest"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
           "deciduous forest": {
                "primary": [
                     "deciduous forest"
@@ -730,6 +409,18 @@
                "secondary": [
                     "deciduous forested mountains",
                     "deciduous forested hills",
+                    "mixed forest"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "b evergreen forest": {
+               "primary": [
+                    "b evergreen forest"
+               ],
+               "secondary": [
+                    "b evergreen forested mountains",
+                    "b evergreen forested hills",
                     "mixed forest"
                ],
                "tertiary": [],
@@ -774,6 +465,19 @@
                "tertiary": [],
                "decrease": []
           },
+          "b deciduous forested hills": {
+               "primary": [
+                    "b deciduous forested hills"
+               ],
+               "secondary": [
+                    "grassy hills",
+                    "b deciduous forested mountains",
+                    "b deciduous forest",
+                    "mixed forest"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
           "deciduous forested hills": {
                "primary": [
                     "deciduous forested hills"
@@ -782,6 +486,19 @@
                     "grassy hills",
                     "deciduous forested mountains",
                     "deciduous forest",
+                    "mixed forest"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "b evergreen forested hills": {
+               "primary": [
+                    "b evergreen forested hills"
+               ],
+               "secondary": [
+                    "grassy hills",
+                    "b evergreen forested mountains",
+                    "b evergreen forest",
                     "mixed forest"
                ],
                "tertiary": [],
@@ -822,6 +539,20 @@
                "tertiary": [],
                "decrease": []
           },
+          "b mountains": {
+               "primary": [
+                    "b mountains"
+               ],
+               "secondary": [
+                    "grassy hills",
+                    "b deciduous forested hills",
+                    "b evergreen forested hills",
+                    "b deciduous forested mountains",
+                    "b evergreen forested mountains"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
           "mountains": {
                "primary": [
                     "mountains"
@@ -836,6 +567,18 @@
                "tertiary": [],
                "decrease": []
           },
+          "b deciduous forested mountains": {
+               "primary": [
+                    "b deciduous forested mountains"
+               ],
+               "secondary": [
+                    "b deciduous forest",
+                    "b deciduous forested hills",
+                    "b mountains"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
           "deciduous forested mountains": {
                "primary": [
                     "deciduous forested mountains"
@@ -844,6 +587,18 @@
                     "deciduous forest",
                     "deciduous forested hills",
                     "mountains"
+               ],
+               "tertiary": [],
+               "decrease": []
+          },
+          "b evergreen forested mountains": {
+               "primary": [
+                    "b evergreen forested mountains"
+               ],
+               "secondary": [
+                    "b evergreen forest",
+                    "b evergreen forested hills",
+                    "b mountains"
                ],
                "tertiary": [],
                "decrease": []
@@ -1026,7 +781,7 @@
                     "names": [
                          "ruined arena"
                     ],
-                    "icon": "ruins",
+                    "icon": "ruined-arena",
                     "odds": 1,
                     "description": [
                          {
@@ -1054,7 +809,7 @@
                          "destroyed machine",
                          "ruined machine"
                     ],
-                    "icon": "ruins",
+                    "icon": "destroyed-machine",
                     "odds": 1,
                     "description": [
                          {
@@ -1085,7 +840,7 @@
                     "names": [
                          "collapsed bridge"
                     ],
-                    "icon": "ruins",
+                    "icon": "collapsed-bridge",
                     "odds": 1,
                     "description": [
                          {
@@ -1111,9 +866,9 @@
                "toppled-tower": {
                     "names": [
                          "toppled tower",
-                         " collapsed tower"
+                         "collapsed tower"
                     ],
-                    "icon": "ruins-4",
+                    "icon": "toppled-tower",
                     "odds": 1,
                     "description": [
                          {
@@ -1144,7 +899,7 @@
                     "names": [
                          "ancient library"
                     ],
-                    "icon": "temple-3",
+                    "icon": "ancient-library",
                     "odds": 1,
                     "description": [
                          {
@@ -1187,7 +942,7 @@
                     "names": [
                          "ruined temple"
                     ],
-                    "icon": "ruins-2",
+                    "icon": "ruined-temple",
                     "odds": 1,
                     "description": [
                          {
@@ -1218,7 +973,7 @@
                     "names": [
                          "haunted mansion"
                     ],
-                    "icon": "house-2",
+                    "icon": "haunted-mansion",
                     "odds": 1,
                     "description": [
                          {
@@ -1250,7 +1005,7 @@
                          "mysterious archway",
                          "ruined archway"
                     ],
-                    "icon": "bridge-3",
+                    "icon": "mysterious-archway",
                     "odds": 1,
                     "description": [
                          {
@@ -1277,7 +1032,7 @@
                     "names": [
                          "tomb"
                     ],
-                    "icon": "shrine-2",
+                    "icon": "tomb",
                     "odds": 1,
                     "description": [
                          {
@@ -1308,7 +1063,7 @@
                     "names": [
                          "statue"
                     ],
-                    "icon": "statue-2",
+                    "icon": "statue",
                     "odds": 1,
                     "description": [
                          {
@@ -1343,7 +1098,7 @@
                     "names": [
                          "ruined city"
                     ],
-                    "icon": "ruins-3",
+                    "icon": "ruined-city",
                     "odds": 1,
                     "description": [
                          {
@@ -1376,7 +1131,7 @@
                          "ruined fortress",
                          "ruined keep"
                     ],
-                    "icon": "ruins-4",
+                    "icon": "ruined-castle",
                     "odds": 1,
                     "description": [
                          {
@@ -1417,7 +1172,7 @@
                          "ruined tower",
                          "mysterious tower"
                     ],
-                    "icon": "tower-2",
+                    "icon": "mysterious-tower",
                     "odds": 1,
                     "description": [
                          {
@@ -1456,7 +1211,7 @@
                     "names": [
                          "graveyard"
                     ],
-                    "icon": "cemetary",
+                    "icon": "graveyard",
                     "odds": 1,
                     "description": [
                          {
@@ -1534,7 +1289,7 @@
                     "names": [
                          "crashed airship"
                     ],
-                    "icon": "shipwreck",
+                    "icon": "crashed-airship",
                     "odds": 1,
                     "description": [
                          {
@@ -1561,7 +1316,7 @@
                     "names": [
                          "battlefield"
                     ],
-                    "icon": "enemy-3",
+                    "icon": "battlefield",
                     "odds": 1,
                     "description": [
                          {
@@ -1596,7 +1351,7 @@
                     "names": [
                          "ancient bridge"
                     ],
-                    "icon": "bridge-2",
+                    "icon": "ancient-bridge",
                     "odds": 1,
                     "description": [
                          {
@@ -1637,7 +1392,7 @@
                     "names": [
                          "abandoned village"
                     ],
-                    "icon": "ruins",
+                    "icon": "abandoned-village",
                     "odds": 1,
                     "description": [
                          {
@@ -1669,7 +1424,7 @@
                          "abandoned town",
                          "ruined town"
                     ],
-                    "icon": "ruins-2",
+                    "icon": "abandoned-town",
                     "odds": 1,
                     "description": [
                          {
@@ -1702,7 +1457,7 @@
                     "names": [
                          "cult sanctum"
                     ],
-                    "icon": "evil-2",
+                    "icon": "cult-sanctum",
                     "odds": 1,
                     "description": [
                          {
@@ -1741,7 +1496,7 @@
                     "names": [
                          "inn"
                     ],
-                    "icon": "town-3",
+                    "icon": "inn",
                     "odds": 1,
                     "description": [
                          {
@@ -1768,7 +1523,7 @@
                     "names": [
                          "observatory"
                     ],
-                    "icon": "ziggurat",
+                    "icon": "observatory",
                     "odds": 1,
                     "description": [
                          {
@@ -1791,7 +1546,7 @@
                     "names": [
                          "temple"
                     ],
-                    "icon": "temple-7",
+                    "icon": "temple",
                     "odds": 1,
                     "description": [
                          {
@@ -1822,7 +1577,7 @@
                     "names": [
                          "flying castle"
                     ],
-                    "icon": "fort-3",
+                    "icon": "flying-castle",
                     "odds": 1,
                     "description": [
                          {
@@ -1853,7 +1608,7 @@
                     "names": [
                          "quarry"
                     ],
-                    "icon": "mine",
+                    "icon": "quarry",
                     "odds": 1,
                     "description": [
                          {
@@ -1884,7 +1639,7 @@
                     "names": [
                          "wizard tower"
                     ],
-                    "icon": "tower-4",
+                    "icon": "wizard-tower",
                     "odds": 1,
                     "description": [
                          {
@@ -1921,7 +1676,7 @@
                          "hamlet",
                          "thorp"
                     ],
-                    "icon": "hut-3",
+                    "icon": "village",
                     "odds": 1,
                     "description": [
                          {
@@ -1985,7 +1740,7 @@
                     "names": [
                          "trading post"
                     ],
-                    "icon": "hut-2",
+                    "icon": "trading-post",
                     "odds": 1,
                     "description": [
                          {
@@ -2065,7 +1820,7 @@
                          "monastery",
                          "abbey"
                     ],
-                    "icon": "cathedral",
+                    "icon": "monastery",
                     "odds": 1,
                     "description": [
                          {
@@ -2123,7 +1878,7 @@
                     "names": [
                          "military outpost"
                     ],
-                    "icon": "fort-2",
+                    "icon": "military-outpost",
                     "odds": 1,
                     "description": [
                          {
@@ -2156,7 +1911,7 @@
                          "noble's manor",
                          "country manor"
                     ],
-                    "icon": "town-2",
+                    "icon": "manor",
                     "odds": 1,
                     "description": [
                          {
@@ -2192,7 +1947,7 @@
                          "logging camp",
                          "loggers' camp"
                     ],
-                    "icon": "weapons",
+                    "icon": "logging-camp",
                     "odds": 1,
                     "description": [
                          {
@@ -2223,7 +1978,7 @@
                     "names": [
                          "homestead"
                     ],
-                    "icon": "cattle",
+                    "icon": "homestead",
                     "odds": 1,
                     "description": [
                          {
@@ -2250,7 +2005,7 @@
                     "names": [
                          "extraplanar outpost"
                     ],
-                    "icon": "building",
+                    "icon": "extraplanar-outpost",
                     "odds": 1,
                     "description": [
                          {
@@ -2392,7 +2147,7 @@
                     "names": [
                          "bandit camp"
                     ],
-                    "icon": "large-camp",
+                    "icon": "bandit-camp",
                     "odds": 1,
                     "description": [
                          {
@@ -2425,7 +2180,7 @@
                     "names": [
                          "hidden pond"
                     ],
-                    "icon": "waterfall-2",
+                    "icon": "hidden-pond",
                     "odds": 1,
                     "description": [
                          {
@@ -2460,7 +2215,7 @@
                     "names": [
                          "gallows"
                     ],
-                    "icon": "danger-3",
+                    "icon": "gallows",
                     "odds": 1,
                     "description": [
                          {
@@ -2495,7 +2250,7 @@
                     "names": [
                          "sulfurous pools"
                     ],
-                    "icon": "waterfall-2",
+                    "icon": "sulfurous-pools",
                     "odds": 1,
                     "description": [
                          {
@@ -2534,7 +2289,7 @@
                     "names": [
                          "planar portal"
                     ],
-                    "icon": "portal",
+                    "icon": "planar-portal",
                     "odds": 1,
                     "description": [
                          {
@@ -2565,7 +2320,7 @@
                     "names": [
                          "hunting preserve"
                     ],
-                    "icon": "archery",
+                    "icon": "hunting-preserve",
                     "odds": 1,
                     "description": [
                          {
@@ -2588,7 +2343,7 @@
                     "names": [
                          "stargazing platform"
                     ],
-                    "icon": "pyramid",
+                    "icon": "stargazing-platform",
                     "odds": 1,
                     "description": [
                          {
@@ -2623,7 +2378,7 @@
                     "names": [
                          "witches\u2019 coven"
                     ],
-                    "icon": "danger",
+                    "icon": "witches-coven",
                     "odds": 1,
                     "description": [
                          {
@@ -2654,7 +2409,7 @@
                     "names": [
                          "hunting lodge"
                     ],
-                    "icon": "archery",
+                    "icon": "hunting-lodge",
                     "odds": 1,
                     "description": [
                          {
@@ -2685,7 +2440,7 @@
                     "names": [
                          "standing stones"
                     ],
-                    "icon": "monolith",
+                    "icon": "standing-stones",
                     "odds": 1,
                     "description": [
                          {
@@ -2717,7 +2472,7 @@
                     "names": [
                          "shrine"
                     ],
-                    "icon": "shrine-3",
+                    "icon": "shrine",
                     "odds": 1,
                     "description": [
                          {
@@ -2751,7 +2506,7 @@
                     "names": [
                          "monster lair"
                     ],
-                    "icon": "monsters-3",
+                    "icon": "monster-lair",
                     "odds": 1,
                     "description": [
                          {
@@ -2778,7 +2533,7 @@
                     "names": [
                          "magic spring"
                     ],
-                    "icon": "waterfall",
+                    "icon": "magic-spring",
                     "odds": 1,
                     "description": [
                          {
@@ -2809,7 +2564,7 @@
                     "names": [
                          "hot springs"
                     ],
-                    "icon": "waterfall-2",
+                    "icon": "hot-springs",
                     "odds": 1,
                     "description": [
                          {
@@ -2833,7 +2588,7 @@
                          "hermitage",
                          "hermit's hut"
                     ],
-                    "icon": "hut",
+                    "icon": "hermitage",
                     "odds": 1,
                     "description": [
                          {
@@ -2860,7 +2615,7 @@
                     "names": [
                          "fey"
                     ],
-                    "icon": "thorns",
+                    "icon": "fey",
                     "odds": 1,
                     "description": [
                          {
@@ -2887,7 +2642,7 @@
                     "names": [
                          "dryad grove"
                     ],
-                    "icon": "totem-2",
+                    "icon": "dryad-grove",
                     "odds": 1,
                     "description": [
                          {
@@ -2918,7 +2673,7 @@
                     "names": [
                          "druid grove"
                     ],
-                    "icon": "landmark-2",
+                    "icon": "druid-grove",
                     "odds": 1,
                     "description": [
                          {
@@ -2973,7 +2728,7 @@
                     "names": [
                          "beast lair"
                     ],
-                    "icon": "beast",
+                    "icon": "beast-lair",
                     "odds": 1,
                     "description": [
                          {
@@ -3004,7 +2759,7 @@
                     "names": [
                          "awakened animals"
                     ],
-                    "icon": "cattle-2",
+                    "icon": "awakened-animals",
                     "odds": 1,
                     "description": [
                          {
