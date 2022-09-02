@@ -38,7 +38,16 @@ useEventListener(document, 'mouseup', (evt) => {
   }
  })
 
+function ConfirmLeavingPage() {
+  return window.confirm('Do you really want to leave the page?  Any unsaved changes will be lost.')
+}
 
+useEventListener(window, 'beforeunload', (evt) => { 
+  if (!ConfirmLeavingPage()) {
+    evt.preventDefault();
+  }
+  evt.returnValue = '';
+ })
 </script>
 
 <template>
