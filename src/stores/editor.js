@@ -59,7 +59,7 @@ export const useEditorStore = defineStore({
         bottomRowsToAdd: 0,
         leftColumnsToAdd: 0,
         rightColumnsToAdd: 0,
-        toggleAttributionModal: false
+        showAttributionModal: false
     }),
     getters: {
         activeHexImage(state) {
@@ -311,6 +311,9 @@ export const useEditorStore = defineStore({
             if (indicators.includes('terrain')) {
                 this.terrainToBeRandomized = false;
             }
+        },
+        toggleAttributionModal() {
+            this.showAttributionModal = !this.showAttributionModal
         },
         toggleViewMode() {
             const es = useEditorStore()

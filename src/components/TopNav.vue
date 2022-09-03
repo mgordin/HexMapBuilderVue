@@ -75,6 +75,7 @@ function logHTML() {
             </div>
             <a class="navbar-item" @click="es.toggleSettingsModal">Settings</a>
             <a class="navbar-item" @click="es.toggleExpandMapModal">Expand Map</a>
+            <a class="navbar-item" @click="es.toggleAttributionModal">Attributions</a>
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">Debug Buttons</a>
                 <div class="navbar-dropdown">
