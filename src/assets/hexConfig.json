@@ -5,95 +5,63 @@
                "selected": false
           },
           "badlands": {
-               "file": "./terrain_tiles/Painted/badlands.png",
+               "file": "./terrain_tiles/illustrated/badlands.png",
                "selected": false
           },
           "bog": {
-               "file": "./terrain_tiles/Painted/bog.png",
+               "file": "./terrain_tiles/illustrated/bog.png",
                "selected": false
           },
           "grassland": {
-               "file": "./terrain_tiles/Painted/grassland.png",
+               "file": "./terrain_tiles/illustrated/grassland.png",
                "selected": false
           },
           "grassy hills": {
-               "file": "./terrain_tiles/Painted/grassy-hills.png",
+               "file": "./terrain_tiles/illustrated/grassy-hills.png",
                "selected": false
           },
           "deciduous forest": {
-               "file": "./terrain_tiles/Painted/deciduous-forest.png",
-               "selected": false
-          },
-          "deciduous forested hills": {
-               "file": "./terrain_tiles/Painted/deciduous-forested-hills.png",
-               "selected": false
-          },
-          "deciduous forested mountains": {
-               "file": "./terrain_tiles/Painted/deciduous-forested-mountains.png",
-               "selected": false
-          },
-          "mountains": {
-               "file": "./terrain_tiles/Painted/mountains.png",
-               "selected": false
-          },
-          "evergreen forest": {
-               "file": "./terrain_tiles/Painted/evergreen-forest.png",
-               "selected": false
-          },
-          "evergreen forested hills": {
-               "file": "./terrain_tiles/Painted/evergreen-forested-hills.png",
-               "selected": false
-          },
-          "evergreen forested mountains": {
-               "file": "./terrain_tiles/Painted/evergreen-forested-mountains.png",
-               "selected": false
-          },
-          "marsh": {
-               "file": "./terrain_tiles/Painted/marsh.png",
-               "selected": false
-          },
-          "mixed forest": {
-               "file": "./terrain_tiles/Painted/mixed-forest.png",
-               "selected": false
-          },
-          "sandy desert": {
-               "file": "./terrain_tiles/Painted/sandy-desert.png",
-               "selected": false
-          },
-          "swamp": {
-               "file": "./terrain_tiles/Painted/swamp.png",
-               "selected": false
-          },
-          "water": {
-               "file": "./terrain_tiles/Painted/water.png",
-               "selected": false
-          },
-          "b deciduous forest": {
                "file": "./terrain_tiles/illustrated/deciduous-forest.png",
                "selected": false
           },
-          "b evergreen forest": {
-               "file": "./terrain_tiles/illustrated/evergreen-forest.png",
-               "selected": false
-          },
-          "b deciduous forested hills": {
+          "deciduous forested hills": {
                "file": "./terrain_tiles/illustrated/deciduous-forested-hills.png",
                "selected": false
           },
-          "b evergreen forested hills": {
-               "file": "./terrain_tiles/illustrated/evergreen-forested-hills.png",
-               "selected": false
-          },
-          "b mountains": {
-               "file": "./terrain_tiles/illustrated/mountains.png",
-               "selected": false
-          },
-          "b deciduous forested mountains": {
+          "deciduous forested mountains": {
                "file": "./terrain_tiles/illustrated/deciduous-forested-mountains.png",
                "selected": false
           },
-          "b evergreen forested mountains": {
+          "mountains": {
+               "file": "./terrain_tiles/illustrated/mountains.png",
+               "selected": false
+          },
+          "evergreen forest": {
+               "file": "./terrain_tiles/illustrated/evergreen-forest.png",
+               "selected": false
+          },
+          "evergreen forested hills": {
+               "file": "./terrain_tiles/illustrated/evergreen-forested-hills.png",
+               "selected": false
+          },
+          "evergreen forested mountains": {
                "file": "./terrain_tiles/illustrated/evergreen-forested-mountains.png",
+               "selected": false
+          },
+          "marsh": {
+               "file": "./terrain_tiles/illustrated/marsh.png",
+               "selected": false
+          },
+          "sandy desert": {
+               "file": "./terrain_tiles/illustrated/sandy-desert.png",
+               "selected": false
+          },
+          "swamp": {
+               "file": "./terrain_tiles/illustrated/swamp.png",
+               "selected": false
+          },
+          "water": {
+               "file": "./terrain_tiles/illustrated/water.png",
                "selected": false
           }
      },
@@ -347,7 +315,6 @@
                "odds": {
                     "deciduous forest": 1,
                     "evergreen forest": 1,
-                    "mixed forest": 1,
                     "grassy hills": 0.5,
                     "deciduous forested hills": 1,
                     "evergreen forested hills": 1,
@@ -372,56 +339,16 @@
                     "mountains": 0.25
                },
                "seeds": {}
-          },
-          "background test": {
-               "odds": {
-                    "b deciduous forest": 1,
-                    "b evergreen forest": 1,
-                    "b deciduous forested hills": 1,
-                    "b evergreen forested hills": 1,
-                    "b mountains": 0.5,
-                    "b deciduous forested mountains": 0.5,
-                    "b evergreen forested mountains": 0.5
-               },
-               "seeds": {
-                    "b deciduous forest": 1,
-                    "b grassland": 1
-               }
           }
      },
      "terrainInfluencedBy": {
-          "b deciduous forest": {
-               "primary": [
-                    "b deciduous forest"
-               ],
-               "secondary": [
-                    "b deciduous forested mountains",
-                    "b deciduous forested hills",
-                    "mixed forest"
-               ],
-               "tertiary": [],
-               "decrease": []
-          },
           "deciduous forest": {
                "primary": [
                     "deciduous forest"
                ],
                "secondary": [
                     "deciduous forested mountains",
-                    "deciduous forested hills",
-                    "mixed forest"
-               ],
-               "tertiary": [],
-               "decrease": []
-          },
-          "b evergreen forest": {
-               "primary": [
-                    "b evergreen forest"
-               ],
-               "secondary": [
-                    "b evergreen forested mountains",
-                    "b evergreen forested hills",
-                    "mixed forest"
+                    "deciduous forested hills"
                ],
                "tertiary": [],
                "decrease": []
@@ -432,23 +359,7 @@
                ],
                "secondary": [
                     "evergreen forested mountains",
-                    "evergreen forested hills",
-                    "mixed forest"
-               ],
-               "tertiary": [],
-               "decrease": []
-          },
-          "mixed forest": {
-               "primary": [
-                    "mixed forest",
-                    "evergreen forest",
-                    "deciduous forest"
-               ],
-               "secondary": [
-                    "deciduous forested hills",
-                    "evergreen forested hills",
-                    "deciduous forested mountains",
-                    "evergreen forested mountains"
+                    "evergreen forested hills"
                ],
                "tertiary": [],
                "decrease": []
@@ -465,19 +376,6 @@
                "tertiary": [],
                "decrease": []
           },
-          "b deciduous forested hills": {
-               "primary": [
-                    "b deciduous forested hills"
-               ],
-               "secondary": [
-                    "grassy hills",
-                    "b deciduous forested mountains",
-                    "b deciduous forest",
-                    "mixed forest"
-               ],
-               "tertiary": [],
-               "decrease": []
-          },
           "deciduous forested hills": {
                "primary": [
                     "deciduous forested hills"
@@ -485,21 +383,7 @@
                "secondary": [
                     "grassy hills",
                     "deciduous forested mountains",
-                    "deciduous forest",
-                    "mixed forest"
-               ],
-               "tertiary": [],
-               "decrease": []
-          },
-          "b evergreen forested hills": {
-               "primary": [
-                    "b evergreen forested hills"
-               ],
-               "secondary": [
-                    "grassy hills",
-                    "b evergreen forested mountains",
-                    "b evergreen forest",
-                    "mixed forest"
+                    "deciduous forest"
                ],
                "tertiary": [],
                "decrease": []
@@ -511,8 +395,7 @@
                "secondary": [
                     "grassy hills",
                     "evergreen forested mountains",
-                    "evergreen forest",
-                    "mixed forest"
+                    "evergreen forest"
                ],
                "tertiary": [],
                "decrease": []
@@ -539,20 +422,6 @@
                "tertiary": [],
                "decrease": []
           },
-          "b mountains": {
-               "primary": [
-                    "b mountains"
-               ],
-               "secondary": [
-                    "grassy hills",
-                    "b deciduous forested hills",
-                    "b evergreen forested hills",
-                    "b deciduous forested mountains",
-                    "b evergreen forested mountains"
-               ],
-               "tertiary": [],
-               "decrease": []
-          },
           "mountains": {
                "primary": [
                     "mountains"
@@ -567,18 +436,6 @@
                "tertiary": [],
                "decrease": []
           },
-          "b deciduous forested mountains": {
-               "primary": [
-                    "b deciduous forested mountains"
-               ],
-               "secondary": [
-                    "b deciduous forest",
-                    "b deciduous forested hills",
-                    "b mountains"
-               ],
-               "tertiary": [],
-               "decrease": []
-          },
           "deciduous forested mountains": {
                "primary": [
                     "deciduous forested mountains"
@@ -587,18 +444,6 @@
                     "deciduous forest",
                     "deciduous forested hills",
                     "mountains"
-               ],
-               "tertiary": [],
-               "decrease": []
-          },
-          "b evergreen forested mountains": {
-               "primary": [
-                    "b evergreen forested mountains"
-               ],
-               "secondary": [
-                    "b evergreen forest",
-                    "b evergreen forested hills",
-                    "b mountains"
                ],
                "tertiary": [],
                "decrease": []

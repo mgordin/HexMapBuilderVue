@@ -58,7 +58,8 @@ export const useEditorStore = defineStore({
         topRowsToAdd: 0,
         bottomRowsToAdd: 0,
         leftColumnsToAdd: 0,
-        rightColumnsToAdd: 0
+        rightColumnsToAdd: 0,
+        toggleAttributionModal: false
     }),
     getters: {
         activeHexImage(state) {

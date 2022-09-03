@@ -9,6 +9,7 @@ import SaveNameModal from './components/SaveNameModal.vue';
 import InfoModal from './components/InfoModal.vue';
 import ExpandMapModal from './components/ExpandMapModal.vue';
 import ViewModeLoader from './components/ViewModeLoader.vue';
+import Attribution from './components/AttributionModal.vue';
 import TopNav from '@/components/TopNav.vue'
 import MapEditor from './components/MapEditor.vue'
 import MapViewer from './components/MapViewer.vue'
@@ -58,6 +59,7 @@ useEventListener(window, 'beforeunload', (evt) => {
   <SaveNameModal />
   <InfoModal />
   <ExpandMapModal />
+  <Attribution />
   <ViewModeLoader />
   <TopNav />
   <MapEditor v-if="es.mode=='edit'"/>
