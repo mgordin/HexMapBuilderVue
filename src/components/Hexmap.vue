@@ -87,7 +87,7 @@ const hexByUUID = hs.hexByUUID
         />
         <img class="hex-overlay-mentioning" 
           :class="{ 'mentioning-overlay-active': es.mentioningHexes.find(h => h.uuid == hex.uuid) != null }" 
-          src="blue.png"
+          src="../../public/blue.png"
           draggable="false"
         />
         <div class="hex-label" draggable="false">{{ hex.id }}</div>
