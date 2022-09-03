@@ -4,7 +4,6 @@ import { useHexesStore } from "@/stores/hexes";
 import 'remixicon/fonts/remixicon.css';
 import Multiselect from '@vueform/multiselect';
 
-
 const es = useEditorStore();
 const hs = useHexesStore();
 
