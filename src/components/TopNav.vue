@@ -93,7 +93,7 @@ function logHTML() {
                 <p class="save-text"> Map Saved</p>
             </div>
             <div class="navbar-item">
-                <a href="https://github.com/mgordin/HexMapBuilderVue" class="ri-github-fill ri-xl github-icon"></a>
+                <a href="https://github.com/mgordin/HexMapBuilderVue" target="_blank" class="ri-github-fill ri-xl github-icon"></a>
             </div>
         </div>
     </nav>

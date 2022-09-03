@@ -59,7 +59,8 @@ export const useEditorStore = defineStore({
         bottomRowsToAdd: 0,
         leftColumnsToAdd: 0,
         rightColumnsToAdd: 0,
-        showAttributionModal: false
+        showAttributionModal: false,
+        savedMaps: []
     }),
     getters: {
         activeHexImage(state) {
@@ -100,6 +101,7 @@ export const useEditorStore = defineStore({
                     maps.push(key.replace(r, ""))
                 }
             })
+            this.savedMaps = maps;
             return maps;
             
         },
@@ -109,6 +111,17 @@ export const useEditorStore = defineStore({
         }
     },
     actions: {
+        getSavedMaps() {
+            const r = new RegExp("hexmapmaker-map-")
+            var maps = []
+            Object.keys(localStorage).forEach((key) => {
+                if (r.test(key)) {
+                    maps.push(key.replace(r, ""))
+                }
+            })
+            console.log('maps are ', maps)
+            this.savedMaps = maps;
+        },
         selectHex(hex, event) {
             // Set used hex to clicked hex and set its properties
             if (event.shiftKey) {
@@ -264,7 +277,10 @@ export const useEditorStore = defineStore({
             var loaded = JSON.parse(localStorage.getItem(name));
             return loaded
         },
-        
+        deleteLocalMap() {
+            localStorage.removeItem("hexmapmaker-map-" + this.loadName)
+            es.getSavedMaps()
+        },
         toggleLoadModal() {
             this.showLoadModal = !this.showLoadModal
         },

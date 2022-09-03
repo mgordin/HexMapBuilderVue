@@ -55,7 +55,7 @@ useEventListener(window, 'beforeunload', (evt) => {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <InitializeMapModal />
   <SettingsModal />
-  <LoadMapModal />
+  <LoadMapModal v-if="es.showLoadModal"/>
   <SaveNameModal />
   <InfoModal />
   <ExpandMapModal />

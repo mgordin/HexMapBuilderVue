@@ -5,15 +5,27 @@ import { useEditorStore } from '@/stores/editor'
 
 import Multiselect from '@vueform/multiselect'
 
+import { onMounted } from 'vue';
+import { ref } from 'vue';
+
 
 const hs = useHexesStore();
 const es = useEditorStore();
+
+function reloadList() {
+    es.getSavedMaps()
+    es.loadName = null
+}
+
+onMounted(() => {
+    reloadList()
+})
 
 </script>
 
 <template>
 
-<div class="modal" v-bind:class="{'is-active': es.showLoadModal}">
+<div class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
@@ -27,11 +39,12 @@ const es = useEditorStore();
                 :searchable="true"
                 :create-option="false"
                 placeholder="Select map to load..."
-                :options="es.listSavedMaps"
+                :options="es.savedMaps"
             />
         </section>
         <footer class="modal-card-foot">
             <button class="button is-primary" @click="es.loadLocalMap">Load Selected Map</button>
+            <button class="button is-danger" @click="es.deleteLocalMap">Delete Selected Map</button>
             <button class="button" @click="es.toggleLoadModal">Cancel</button>
         </footer>
     </div>
