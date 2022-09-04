@@ -19,8 +19,9 @@ const es = useEditorStore();
             <button class="delete" aria-label="close" @click="es.toggleAttributionModal"></button>
         </header>
         <section class="modal-card-body">
-            <p>Interface icons are from <a href="https://remixicon.com/" target="_blank">Remix Icon</a>.</p>
-            <p>Hex icons are sourced from flaticon, as attributed below.</p>
+            <p>Hex icons and interface icons are sourced from flaticon, as attributed below.</p>
+            Uicons by <a href="https://www.flaticon.com/uicons">Flaticon</a>
+            <br/>
             <a target="_blank" href="https://www.flaticon.com/free-icons/architecture" title="architecture icons">Architecture icons created by Freepik - Flaticon</a>
             <br/>
             <a target="_blank" href="https://www.flaticon.com/free-icons/architecture-and-city" title="architecture and city icons">Architecture and city icons created by tulpahn - Flaticon</a>

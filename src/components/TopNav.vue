@@ -1,7 +1,6 @@
 <script setup>
 import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
-import 'remixicon/fonts/remixicon.css';
 import Multiselect from '@vueform/multiselect';
 
 const es = useEditorStore();
@@ -88,11 +87,14 @@ function logHTML() {
         </div>
         <div class="navbar-end">
             <div class="navbar-item save-indicator" v-if="es.savingIndicator">
-                <i class="ri-save-fill ri-xl save-icon"></i>
+                <i class="fi fi-bs-disk save-icon"></i>
                 <p class="save-text"> Map Saved</p>
             </div>
             <div class="navbar-item">
-                <a href="https://github.com/mgordin/HexMapBuilderVue" target="_blank" class="ri-github-fill ri-xl github-icon"></a>
+                
+                <a href="https://github.com/mgordin/HexMapBuilderVue" target="_blank">
+                    <span class="fi fi-brands-github github-icon"></span>
+                </a>
             </div>
         </div>
     </nav>
@@ -116,7 +118,8 @@ function logHTML() {
 }
 
 .github-icon {
-    color: white;
+    color:white;
+    font-size: 24px;
 }
 
 .github-icon:hover {

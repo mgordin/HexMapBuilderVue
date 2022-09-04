@@ -1,7 +1,6 @@
 <script setup>
 import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
-import 'remixicon/fonts/remixicon.css'
 
 
 const es = useEditorStore();
@@ -24,7 +23,7 @@ const hexByUUID = hs.hexByUUID;
             <header class="card-header has-background-primary">
               <div class="level header-div">
                 
-                <i class="ri-compass-discover-fill section-icon"></i>
+                <i class="fi fi-bs-navigation section-icon"></i>
                 <p class="card-header-title">Terrain Painter</p>
             
               </div>
