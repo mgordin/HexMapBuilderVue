@@ -278,8 +278,10 @@ export const useEditorStore = defineStore({
             return loaded
         },
         deleteLocalMap() {
-            localStorage.removeItem("hexmapmaker-map-" + this.loadName)
-            es.getSavedMaps()
+            if (window.confirm('Are you sure you want to delete this map? This cannot be undone.')) {
+                localStorage.removeItem("hexmapmaker-map-" + this.loadName)
+                es.getSavedMaps()
+            } 
         },
         toggleLoadModal() {
             this.showLoadModal = !this.showLoadModal
@@ -373,21 +375,28 @@ export const useEditorStore = defineStore({
         expandMap() {
             const hs = useHexesStore();
 
+            console.log('top, bottom, left, right to add', this.topRowsToAdd, this.bottomRowsToAdd, this.leftColumnsToAdd, this.rightColumnsToAdd)
+
             // Add rows or columns
             for (let i = 0; i < this.topRowsToAdd; i++) {
                 hs.addRow('top', hs.countColumns, hs.defaultHexProperties);
+                console.log('added top')
             }
             for (let i = 0; i < this.bottomRowsToAdd; i++) {
                 hs.addRow('bottom', hs.countColumns, hs.defaultHexProperties);
+                console.log('added bottom')
             }
             for (let i = 0; i < this.leftColumnsToAdd; i++) {
                 hs.addColumn('left', hs.defaultHexProperties);
                 hs.toggleLeftmostColumn();
+                console.log('added left')
             }
             for (let i = 0; i < this.rightColumnsToAdd; i++) {
                 hs.addColumn('right', hs.defaultHexProperties);
+                console.log('added right')
             }
             hs.shiftHexNumbers();
+            console.log('shifted numbers')
             
             // Generate contents for the expanded sections if that's set
             const hexByPosition = hs.hexByPosition
@@ -399,14 +408,17 @@ export const useEditorStore = defineStore({
                             hs.generateTerrain(hexByPosition(i,j), hs.terrainProperties[this.terrainType].odds, false)
                         }
                     }
+                    console.log('generated terrain top')
                 }
                 if (this.bottomRowsToAdd > 0) {
-                    for (let i = hs.countLines / 2 - 2; i < hs.countLines / 2 + this.bottomRowsToAdd - 2; i++) {
+                    console.log('lines', hs.countLines)
+                    for (let i = hs.countLines / 2 - this.bottomRowsToAdd; i < hs.countLines / 2; i++) {
                         for (let j = 2; j < hs.countColumns; j++) {
                             const hexByPosition = hs.hexByPosition
                             hs.generateTerrain(hexByPosition(i,j), hs.terrainProperties[this.terrainType].odds, false)
                         }
                     }
+                    console.log('generated terrain bottom')
                 }
                 if (this.leftColumnsToAdd > 0) {
                     for (let j = this.leftColumnsToAdd + 1; j > 1; j--) {
@@ -415,14 +427,16 @@ export const useEditorStore = defineStore({
                             hs.generateTerrain(hexByPosition(i,j), hs.terrainProperties[this.terrainType].odds, false)
                         }
                     }
+                    console.log('generated terrain left')
                 }
                 if (this.rightColumnsToAdd > 0) {
-                    for (let j = hs.countColumns - 2; j < hs.countColumns + this.rightColumnsToAdd - 2; j++) {
+                    for (let j = hs.countColumns - this.rightColumnsToAdd; j < hs.countColumns; j++) {
                         for (let i = 2; i < hs.countLines / 2; i++) {
                             const hexByPosition = hs.hexByPosition
                             hs.generateTerrain(hexByPosition(i,j), hs.terrainProperties[this.terrainType].odds, false)
                         }
                     }
+                    console.log('generated terrain right')
                 }
 
                 hs.hexes.forEach((line) => {
@@ -430,15 +444,16 @@ export const useEditorStore = defineStore({
                         
                         if (hex.terrain != 'Default') {
                             if (hex.row <= this.topRowsToAdd ||
-                                hex.row < (hs.countLines / 2 - this.bottomRowsToAdd) ||
+                                hex.row >= (hs.countLines / 2 - this.bottomRowsToAdd) ||
                                 hex.column < this.leftColumnsToAdd ||
-                                hex.column > (hs.countColumns - this.rightColumnsToAdd)) 
+                                hex.column >= (hs.countColumns - this.rightColumnsToAdd)) 
                             {
                                 hs.generateHexContents(hex, 'none');
                             }
                         }
                     })
                 })
+                console.log('generated contents')
 
 
 

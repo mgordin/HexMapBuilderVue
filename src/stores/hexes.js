@@ -152,7 +152,6 @@ export const useHexesStore = defineStore({
     },
     hexByPosition: (state) => {
         return (row, column) => {
-            console.log('hexByPosition', row, column)
             var line = null;
             var lineIndex = null;
             if (state.leftmostColumn == 'odd') {
@@ -174,7 +173,6 @@ export const useHexesStore = defineStore({
                 lineIndex = Math.floor(column/2)
             }
             
-            console.log('line', line, 'lineIndex', lineIndex, 'hex', state.hexes[line][lineIndex])
             return state.hexes[line][lineIndex]
         }
     },
@@ -298,9 +296,7 @@ export const useHexesStore = defineStore({
             es.viewModeProgress = hexCount/totalHexes
             
         })
-        console.log('unified', unifiedContents)
         const tf = performance.now()
-        console.log('unifyContents took', tf-t1)
         return unifiedContents
     }
   },
@@ -636,8 +632,6 @@ export const useHexesStore = defineStore({
         oneAwayHexes.forEach((element) => {
             if ((thisHex.row + element.row) >= 1 && (thisHex.column + element.column) >= 1 && 
                 (thisHex.row + element.row) <= this.hexes.length/2 && (thisHex.column + element.column) <= this.countColumns) {
-                    console.log('trying to get one away hex')
-                    console.log(thisHex.row, element.row, thisHex.column, element.column, hexByPosition(thisHex.row + element.row, thisHex.column + element.column))
                     const hexTerrain = hexByPosition(thisHex.row + element.row, thisHex.column + element.column).terrain
                     if (Object.keys(terrains).includes(hexTerrain)) {
                         terrains[hexTerrain]['one-away']++
@@ -716,7 +710,6 @@ export const useHexesStore = defineStore({
             terrainWeights.push(tempOdds)
         })
 
-        console.log('generateTerrain', thisHex, terrains, terrainWeights)
         const thisTerrain = this.weightedRandom(terrains, terrainWeights)
 
         this.setHexTerrain(thisHex, thisTerrain, maintainEmptyEdge)
@@ -751,7 +744,6 @@ export const useHexesStore = defineStore({
             var icon = null;
             thisHex.tags.forEach((tag) => {
                 if (!Object.keys(this.contentTags).includes(tag)) {
-                    console.log('Trying to get icon for ', thisHex, 'with tags', thisHex.tags)
                     icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
                 }
             })
@@ -781,7 +773,6 @@ export const useHexesStore = defineStore({
                 return thisHex.tags;
             } else {
                 const newTags = this.generateHexTag(thisHex.terrain);
-                console.log('Trying to generate tags for hex', thisHex, 'got', newTags)
                 return newTags;
             }
         // If there are already things in startingTags, refine those as needed
@@ -794,18 +785,14 @@ export const useHexesStore = defineStore({
             tag => Object.keys(this.contentTags).includes(tag) && 
             (tags.filter(t => Object.keys(this.contentTags[tag]).includes(t))).length == 0
         )
-        console.log('Tags to refine: ', tagsToRefine)
         tagsToRefine.forEach((tag) => {
             tags = this.refineTag(tag, tags)
         })
-        console.log('Generated tags:', tags)
         return tags
     },
     // Generate a new tag (or an empty hex) based on input probabilities and the current terrain
     generateHexTag(terrain) {
-        console.log('generateHexTag')
         const typeTag = this.weightedRandom(this.pointOfInterest.type, this.pointOfInterest.odds)
-        console.log('Selected type tag:', typeTag)
         
         return this.refineTag(typeTag, [typeTag])
     },
@@ -816,8 +803,6 @@ export const useHexesStore = defineStore({
             options.forEach((option) => {
                 optionWeights.push(this.contentTags[typeTag][option].odds)
             })
-            console.log('Selecting tag from', options, 'with weights', optionWeights)
-            console.log('refineTag', typeTag, tags, this.contentTags[typeTag])
             tags.push(this.weightedRandom(options, optionWeights))
 
             return tags;
@@ -857,7 +842,6 @@ export const useHexesStore = defineStore({
                         }
                     })
 
-                    console.log('generateHexDescription description', thisHex)
                     descriptionsAndHooks = descriptionsAndHooks + this.weightedRandom(options, weights)
 
                     // Hooks
@@ -873,7 +857,6 @@ export const useHexesStore = defineStore({
                         }
                     })
 
-                    console.log('generateHexDescription hook', thisHex)
                     descriptionsAndHooks = descriptionsAndHooks + "\n" + this.weightedRandom(options, weights)
 
                     descriptionElements.push(
@@ -1365,12 +1348,7 @@ export const useHexesStore = defineStore({
          var icon = null;
          thisHex.tags.forEach((tag) => {
              if (!Object.keys(this.contentTags).includes(tag)) {
-                console.log('icon time')
-                console.log(tag)
-                console.log(this.contentTags)
-                console.log(this.parentTypeTag(tag))
-                console.log(this.contentTags[this.parentTypeTag(tag)])
-                console.log('get icon ', this.contentTags[this.parentTypeTag(tag)][tag])
+
                  icon = this.contentTags[this.parentTypeTag(tag)][tag].icon
              }
          })

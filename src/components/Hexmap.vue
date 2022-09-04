@@ -64,7 +64,7 @@ const hexByUUID = hs.hexByUUID
 <template>
   <div id="hex-container" 
     class="hex-container" 
-    :style="{cursor: (es.currentTool == 'hex-editor') ? 'auto' : 'url(./misc-images/paint-brush-line.png), auto'}"
+    :style="{cursor: (es.currentTool == 'hex-editor') ? 'auto' : 'url(./misc-images/paint-roller-24.png), auto'}"
     >
     <div class="image-row flat-row" v-for="row in hs.hexes" draggable="false">
       <div

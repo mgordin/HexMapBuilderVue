@@ -74,7 +74,7 @@ const hexByUUID = hs.hexByUUID;
           <div class="card">
             <header class="card-header has-background-grey-lighter" @click="es.toggleSection('mentioned-by')">
               <div class="level header-div">
-                <i class="fi fi-ss-map section-icon"></i>
+                <i class="fi fi-bs-comment section-icon"></i>
                 <p class="card-header-title">Mentioned By</p>
               </div>
                 

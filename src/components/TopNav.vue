@@ -44,7 +44,7 @@ function logHTML() {
                     placeholder="Select tool..."
                     :options="[
                         {'value': 'hex-editor', 'label': 'Hex editor', 'icon': './misc-images/hexagon.png'},
-                        {'value': 'terrain-painter', 'label': 'Terrain painter', 'icon': './misc-images/paint-brush-line.png'}
+                        {'value': 'terrain-painter', 'label': 'Terrain painter', 'icon': './misc-images/paint-roller.png'}
                     ]"
                 >
                     <template v-slot:singlelabel="{ value }">
@@ -66,7 +66,6 @@ function logHTML() {
                     <hr class="dropdown-divider">
                     <a class="navbar-item" @click="es.saveMapLocally">Save map to local storage</a>
                     <a class="navbar-item" @click="es.toggleLoadModal">Load map from local storage</a>
-                    <a class="navbar-item" @click="es.listAllStored">List stored to console</a>
                     <hr class="dropdown-divider">
                     <a class="navbar-item" @click="hs.exportMapImage(96, 110, 1)">Export to PNG</a>
                 </div>
@@ -82,6 +81,7 @@ function logHTML() {
                     <a class="navbar-item" @click="hs.logLeftmostColumn">Log leftmost</a>
                     <a class="navbar-item" @click="es.toggleInfoModal">Info</a>
                     <a class="navbar-item" @click="logHTML">Log HTML</a>
+                    <a class="navbar-item" @click="es.listAllStored">List stored to console</a>
                 </div>
             </div>
         </div>
