@@ -3,7 +3,6 @@ import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
 import TextEditor from "@/components/TextEditor.vue";
 import Multiselect from '@vueform/multiselect'
-import 'remixicon/fonts/remixicon.css'
 import MentionedByTagPopper from "@/components/MentionedByTagPopper.vue"
 
 
@@ -45,8 +44,8 @@ const hexByUUID = hs.hexByUUID;
               @focus="es.setRandomizeIndicator(['description'])"
               @mouseleave="es.removeRandomizeIndicator(['description'])"
               @blur="es.removeRandomizeIndicator(['description'])">
-              <i class="ri-refresh-line ri-lg"></i>
-              <i class="ri-file-text-fill ri-lg"></i>
+              <i class="fi fi-bs-refresh icon-button"></i>
+              <i class="fi fi-bs-document icon-button"></i>
             </button>
 
             <button class="button rerandomize-button" :class="(es.descriptionToBeRandomized && es.tagsToBeRandomized) ? 'is-info' : 'is-primary'" title="Generate content types and description" 
@@ -55,9 +54,9 @@ const hexByUUID = hs.hexByUUID;
               @focus="es.setRandomizeIndicator(['description', 'tags'])"
               @mouseleave="es.removeRandomizeIndicator(['description', 'tags'])"
               @blur="es.removeRandomizeIndicator(['description', 'tags'])">
-              <i class="ri-refresh-line ri-lg"></i>
-              <i class="ri-file-text-fill ri-lg"></i>
-              <i class="ri-map-pin-2-fill ri-lg"></i>
+              <i class="fi fi-bs-refresh icon-button"></i>
+              <i class="fi fi-bs-document icon-button"></i>
+              <i class="fi fi-bs-marker icon-button"></i>
             </button>
 
             <button class="button rerandomize-button" :class="(es.terrainToBeRandomized) ? 'is-info' : 'is-primary'" title="Generate terrain" 
@@ -66,8 +65,8 @@ const hexByUUID = hs.hexByUUID;
               @focus="es.setRandomizeIndicator(['terrain'])"
               @mouseleave="es.removeRandomizeIndicator(['terrain'])"
               @blur="es.removeRandomizeIndicator(['terrain'])">
-              <i class="ri-refresh-line ri-lg"></i>
-              <i class="ri-compass-discover-fill ri-lg"></i>
+              <i class="fi fi-bs-refresh icon-button"></i>
+              <i class="fi fi-bs-navigation icon-button"></i>
             </button>
 
         <!-- Mentioned by section -->
@@ -75,12 +74,8 @@ const hexByUUID = hs.hexByUUID;
           <div class="card">
             <header class="card-header has-background-grey-lighter" @click="es.toggleSection('mentioned-by')">
               <div class="level header-div">
-                <i class="ri-map-fill section-icon"></i>
+                <i class="fi fi-ss-map section-icon"></i>
                 <p class="card-header-title">Mentioned By</p>
-                <span class="icon details">
-                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.tagsSectionVisible"></i>
-                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.tagsSectionVisible"></i>
-                </span>
               </div>
                 
             </header>
@@ -96,11 +91,11 @@ const hexByUUID = hs.hexByUUID;
           <div class="card">
             <header class="card-header" :class="[{'has-background-grey-lighter': !es.descriptionToBeRandomized}, {'has-background-info': es.descriptionToBeRandomized}]">
               <div class="level header-div">
-              <i class="ri-file-text-fill section-icon" :class="{highlighted: es.descriptionToBeRandomized}"></i>
+              <i class="fi fi-bs-document section-icon" :class="{highlighted: es.descriptionToBeRandomized}"></i>
               <p class="card-header-title">Description</p>
               <span class="icon details" title="Collapse section" @click="es.toggleSection('text')">
-                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.textSectionVisible"></i>
-                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.textSectionVisible"></i>
+                  <i class="fi fi-bs-angle-left" v-if="!es.textSectionVisible"></i>
+                  <i class="fi fi-bs-angle-down" v-if="es.textSectionVisible"></i>
               </span>
               </div>
             </header>
@@ -118,12 +113,12 @@ const hexByUUID = hs.hexByUUID;
             <header class="card-header"  :class="[{'has-background-grey-lighter': !es.tagsToBeRandomized}, {'has-background-info': es.tagsToBeRandomized}]">
               <div class="level header-div">
                 
-                <i class="ri-map-pin-2-fill section-icon" :class="{highlighted: es.tagsToBeRandomized}"></i>
+                <i class="fi fi-bs-marker section-icon" :class="{highlighted: es.tagsToBeRandomized}"></i>
                 <p class="card-header-title">Content Types</p>
                 
                 <span class="icon details" @click="es.toggleSection('tags')">
-                  <i class="ri-arrow-left-s-line ri-xl" v-if="!es.tagsSectionVisible"></i>
-                  <i class="ri-arrow-down-s-line ri-xl" v-if="es.tagsSectionVisible"></i>
+                  <i class="fi fi-bs-angle-left" v-if="!es.tagsSectionVisible"></i>
+                  <i class="fi fi-bs-angle-down" v-if="es.tagsSectionVisible"></i>
                 </span>
               </div>
             </header>
@@ -145,13 +140,13 @@ const hexByUUID = hs.hexByUUID;
           <div class="card">
             <header class="card-header" :class="[{'has-background-grey-lighter': !es.terrainToBeRandomized}, {'has-background-info': es.terrainToBeRandomized}]">
               <div class="level header-div">
-                
-                <i class="ri-compass-discover-fill section-icon" :class="{highlighted: es.terrainToBeRandomized}"></i>
+
+                <i class="fi fi-bs-navigation section-icon" :class="{highlighted: es.terrainToBeRandomized}"></i>
                 <p class="card-header-title">Terrain</p>
                 
                 <span class="icon details" @click="es.toggleSection('terrain')">
-                    <i class="ri-arrow-left-s-line ri-xl" v-if="!es.terrainSectionVisible"></i>
-                    <i class="ri-arrow-down-s-line ri-xl" v-if="es.terrainSectionVisible"></i>
+                    <i class="fi fi-bs-angle-left" v-if="!es.terrainSectionVisible"></i>
+                    <i class="fi fi-bs-angle-down" v-if="es.terrainSectionVisible"></i>
                 </span>
               </div>
               
@@ -179,11 +174,11 @@ const hexByUUID = hs.hexByUUID;
 
             <header class="card-header has-background-grey-lighter">
               <div class="level header-div">
-                <i class="ri-home-2-fill section-icon"></i>
+                <i class="fi fi-bs-home section-icon"></i>
                 <p class="card-header-title">Icon</p>
                 <span class="icon details" @click="es.toggleSection('icons')">
-                    <i class="ri-arrow-left-s-line ri-xl" v-if="!es.iconsSectionVisible"></i>
-                    <i class="ri-arrow-down-s-line ri-xl" v-if="es.iconsSectionVisible"></i>
+                    <i class="fi fi-bs-angle-left" v-if="!es.iconsSectionVisible"></i>
+                    <i class="fi fi-bs-angle-down" v-if="es.iconsSectionVisible"></i>
                 </span>
               </div>
               
@@ -324,7 +319,9 @@ const hexByUUID = hs.hexByUUID;
 }
 
 .details {
+  font-size: 16px;
   margin-right: 5px;
+  padding-top: 5px;
 }
 
 .header-div {
@@ -338,6 +335,13 @@ const hexByUUID = hs.hexByUUID;
 
 .highlighted {
   color: white;
+}
+
+.icon-button {
+  font-size: 20px;
+  padding-left: 2.5px;
+  padding-right: 2.5px;
+  padding-top: 5px;
 }
 
 </style>

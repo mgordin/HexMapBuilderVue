@@ -3,7 +3,6 @@ import { useEditorStore } from "@/stores/editor";
 import { useHexesStore } from "@/stores/hexes";
 import TextViewer from "@/components/TextViewer.vue";
 import Multiselect from '@vueform/multiselect'
-import 'remixicon/fonts/remixicon.css'
 import MentionedByTagPopper from "@/components/MentionedByTagPopper.vue"
 
 
